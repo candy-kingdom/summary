@@ -1,0 +1,198 @@
+# EditorConfig is awesome: https://EditorConfig.org
+root = true
+
+[*]
+indent_style = space
+trim_trailing_whitespace = true
+# (Please don't specify an indent_size here; that has too many unintended consequences).
+
+[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
+indent_size = 4
+
+[*.json]
+indent_size = 4
+
+[*.ps1]
+indent_size = 4
+
+[*.sh]
+indent_size = 4
+end_of_line = lf
+
+[*.{cs,csx}]
+indent_size = 4
+max_line_length = 130
+
+# Blank lines (https://www.jetbrains.com/help/rider/EditorConfig_CSHARP_BlankLinesPageScheme.html).
+blank_lines_after_start_comment = 0
+
+# Braces Layout (https://www.jetbrains.com/help/rider/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html).
+empty_block_style = together_same_line
+
+# Syntax Style (https://www.jetbrains.com/help/rider/EditorConfig_CSHARP_CSharpCodeStylePageImplSchema.html).
+method_or_operator_body = expression_body
+local_function_body = expression_body
+constructor_or_destructor_body = expression_body
+accessor_owner_body = expression_body
+
+trailing_comma_in_multiline_lists = true
+trailing_comma_in_singleline_lists = false
+
+object_creation_when_type_evident = target_typed
+object_creation_when_type_not_evident = explicitly_typed
+
+default_value_when_type_evident = default_literal
+default_value_when_type_not_evident = default_expression
+
+# Line Breaks (https://www.jetbrains.com/help/rider/EditorConfig_CSHARP_LineBreaksPageSchema.html).
+keep_existing_linebreaks = true
+keep_user_linebreaks = true
+keep_existing_arrangement = true
+
+wrap_before_comma = false
+wrap_before_eq = false
+special_else_if_treatment = true
+
+## Methods.
+wrap_parameters_style = chop_if_long
+wrap_before_declaration_lpar = false
+wrap_after_declaration_lpar = true
+wrap_before_declaration_rpar = false
+place_constructor_initializer_on_same_line = false
+place_expr_method_on_single_line = never
+place_expr_property_on_single_line = never
+place_expr_accessor_on_single_line = if_owner_is_single_line
+
+## Generics.
+wrap_before_arrow_with_expressions = false
+place_type_constraints_on_same_line = true
+wrap_before_first_type_parameter_constraint = true
+wrap_multiple_type_parameter_constraints_style = chop_if_long
+wrap_before_type_parameter_langle = false
+wrap_before_extends_colon = false
+wrap_extends_list_style = chop_if_long
+
+## Declarations.
+place_simple_declaration_blocks_on_single_line = true
+place_simple_method_on_single_line = false
+
+## Enums.
+max_enum_members_on_line = 1
+wrap_enum_declaration = chop_if_long
+
+## Statements.
+new_line_before_else = true
+new_line_before_while = true
+new_line_before_catch = true
+new_line_before_finally = true
+
+wrap_multiple_declaration_style = chop_if_long
+place_simple_embedded_statement_on_same_line = never
+
+place_simple_case_statement_on_same_line = if_owner_is_single_line
+
+## Switch expression.
+place_simple_switch_expression_on_single_line = true
+wrap_switch_expression = chop_always
+
+## Patterns.
+place_simple_property_pattern_on_single_line = true
+wrap_property_pattern = chop_if_long
+
+## Initializers.
+place_simple_initializer_on_single_line = true
+wrap_object_and_collection_initializer_style = chop_always
+wrap_array_initializer_style = chop_always
+
+# Spaces (https://www.jetbrains.com/help/resharper/EditorConfig_CSHARP_SpacesPageSchema.html).
+extra_spaces = leave_multiple # This allows aligning code with multiple spaces.
+
+## Control flow.
+space_after_keywords_in_control_flow_statements = true
+space_between_keyword_and_expression = true
+space_between_parentheses_of_control_flow_statements = false
+space_within_parentheses = false
+
+## Methods.
+space_between_method_call_name_and_opening_parenthesis = false
+space_between_method_declaration_parameter_list_parentheses = false
+space_between_method_declaration_empty_parameter_list_parentheses = false
+space_between_method_call_parameter_list_parentheses = false
+space_between_method_call_empty_parameter_list_parentheses = false
+
+## Keywords.
+space_between_typecast_parentheses = false
+space_before_typeof_parentheses = false
+space_before_default_parentheses = false
+space_before_checked_parentheses = false
+space_before_sizeof_parentheses = false
+space_before_nameof_parentheses = false
+space_before_new_parentheses = false
+
+space_within_typeof_parentheses = false
+space_within_default_parentheses = false
+space_within_checked_parentheses = false
+space_within_sizeof_parentheses = false
+space_within_nameof_parentheses = false
+space_within_new_parentheses = false
+
+## Square brackets.
+space_before_open_square_brackets = false
+space_between_square_brackets = false
+space_between_empty_square_brackets = false
+
+## Angle brackets.
+space_before_type_parameter_angle = false
+space_before_type_argument_angle = false
+space_within_type_parameter_angles = false
+space_within_type_argument_angles = false
+
+## Curly brackets.
+space_before_singleline_accessorholder = true
+space_in_singleline_accessorholder = true
+space_between_accessors_in_singleline_property = true
+space_within_empty_braces = true
+space_in_singleline_method = true
+space_in_singleline_anonymous_method = true
+space_within_single_line_array_initializer_braces = true
+
+## Operators.
+space_around_binary_operator = true
+space_around_member_access_operator = false
+space_after_unary_operator = false
+space_near_postfix_and_prefix_op = false
+space_around_ternary_operator = true
+
+## Comma.
+space_before_comma = false
+space_after_comma = true
+
+## Semicolon.
+space_before_semicolon_in_for_statement = false
+space_after_semicolon_in_for_statement = true
+space_before_semicolon = false
+
+## Colon.
+space_before_colon = false
+space_after_colon = true
+space_before_colon_in_inheritance_clause = true
+space_after_colon_in_inheritance_clause = true
+space_before_type_parameter_constraint_colon = true
+space_after_type_parameter_constraint_colon = true
+space_before_colon_in_case = false
+space_after_colon_in_case = true
+
+## Attributes.
+space_between_attribute_sections = false
+space_between_square_brackets = false
+space_after_attributes = true
+
+## Other.
+space_after_cast = true
+space_around_member_access_operator = false
+space_around_lambda_arrow = true
+space_before_pointer_asterik_declaration = false
+space_before_nullable_mark = false
+space_around_alias_eq = true
+space_before_trailing_comment = true
+space_after_operator_keyword = true
