@@ -1,22 +1,23 @@
 name: Deploy
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       
     - name: Setup
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 3.1.101
+        dotnet-version: 7.0.x
 
-    - name: Install dependencies
+    - name: Restore dependencies
       run: |
         cd src
         dotnet restore
@@ -32,7 +33,15 @@ jobs:
       run: |
         cd src
         dotnet pack --configuration Release
-    - name: Publish
+    - name: Publish Core
       run: |
-        cd src
+        cd src/Core
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
+    - name: Publish Roslyn Plugin
+      run: |
+        cd src/Plugins/Roslyn
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
+    - name: Publish Markdown Plugin
+      run: |
+        cd src/Plugins/Markdown
         dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
