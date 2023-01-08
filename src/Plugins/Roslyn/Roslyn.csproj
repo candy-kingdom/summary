@@ -9,6 +9,22 @@
         <RootNamespace>Summary.Roslyn</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <FileVersion>0.0.1</FileVersion>
+        <PackageVersion>0.0.1</PackageVersion>
+
+        <Title>Summary.Roslyn</Title>
+        <Description>Plugin for Summary documentation generator that parses documentation using Roslyn API.</Description>
+        <RepositoryUrl>https://github.com/joshua-light/summary</RepositoryUrl>
+
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>docs;doc;documentation;documentation generator;api reference;roslyn</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Copyright>Copyright © 2023 @joshua-light, @konstantin-ogulchansky</Copyright>
+    </PropertyGroup>
+
     <ItemGroup>
       <PackageReference Include="Microsoft.Build" Version="17.4.0" ExcludeAssets="runtime" />
       <PackageReference Include="Microsoft.Build.Framework" Version="17.4.0" ExcludeAssets="runtime" />
@@ -22,6 +38,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\..\res\icon.png" Pack="true" Visible="false" PackagePath="\" />
+        <None Include="..\..\..\README.md" Pack="true" Visible="false" PackagePath="\" />
     </ItemGroup>
 
 </Project>
