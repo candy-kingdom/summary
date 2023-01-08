@@ -23,10 +23,10 @@ await
     // Scan all `*.cs` files in the specified `input` path.
     new DirectoryScannerPipe(input, "*.cs")
 
-    // Parse each files into Roslyn `SyntaxTree`.
+    // Parse each file into Roslyn `SyntaxTree`.
     .ThenForAll(new SyntaxTreeParserPipe())
     
-    // Parse `SyntaxTree` into `Doc`.
+    // Parse each `SyntaxTree` into `Doc`.
     .ThenForAll(new DocumentParserPipe())
     
     // Merge multiple docs into single doc.
