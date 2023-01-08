@@ -23,5 +23,4 @@ public class DocumentParserPipe : IPipe<SyntaxTree, Doc>
 
         return new(members);
     }
-
 }
