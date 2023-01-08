@@ -5,8 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
-        <AssemblyName>Doc.Net.Core.Markdown</AssemblyName>
-        <RootNamespace>Doc.Net.Core.Markdown</RootNamespace>
+        <AssemblyName>Doc.Net.Markdown</AssemblyName>
+        <RootNamespace>Doc.Net.Markdown</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,7 +1,8 @@
 ﻿using System.Text;
+using Doc.Net.Core;
 using Doc.Net.Core.Extensions;
 
-namespace Doc.Net.Core.Markdown.Extensions;
+namespace Doc.Net.Markdown.Extensions;
 
 /// <summary>
 ///     Extension methods for better rendering documentation into Markdown format.

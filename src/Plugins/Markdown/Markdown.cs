@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core.Markdown;
+﻿namespace Doc.Net.Markdown;
 
 /// <summary>
 ///     A markdown document file.
