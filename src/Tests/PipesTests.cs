@@ -28,7 +28,7 @@ public class PipesTests
             .Returns(Task.FromResult(2));
         b
             .Setup(x => x.Run(It.IsAny<int>()))
-            .Returns(Task.FromResult(3l));
+            .Returns(Task.FromResult(3L));
 
         c.Run(1);
 
