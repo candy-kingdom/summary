@@ -6,7 +6,7 @@
 public static class EnumerableExtensions
 {
     /// <summary>
-    ///     Constructs a new string by placing specified separator between each item in specified sequence.
+    ///     Constructs a new string by placing the specified separator between each item in the specified sequence.
     /// </summary>
     /// <example>
     ///     <code>

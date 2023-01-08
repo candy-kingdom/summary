@@ -7,7 +7,7 @@ public static EnumerableExtensions
 
 ## Methods
 ### Separated
-Constructs a new string by placing specified separator between each item in specified sequence.
+Constructs a new string by placing the specified separator between each item in the specified sequence.
 
 ```cs
 public static string Separated<T>(this IEnumerable<T> self, string with)
