@@ -10,11 +10,8 @@ public class Unit
     /// </summary>
     public static readonly Unit Value = new();
 
-    /// <summary>
-    ///     The completed task instance that contains the <see cref="Unit"/> value.
-    /// </summary>
-    public static readonly Task<Unit> CompletedTask = Task.FromResult(Value);
-
     // Disallow creating instances of this class.
-    private Unit() { }
+    private Unit()
+    {
+    }
 }
