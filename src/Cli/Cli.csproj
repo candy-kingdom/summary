@@ -5,12 +5,15 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
         <AssemblyName>Doc.Net.Cli</AssemblyName>
         <RootNamespace>Doc.Net.Cli</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
+      <ProjectReference Include="..\Plugins\Markdown\Markdown.csproj" />
+      <ProjectReference Include="..\Plugins\Roslyn\Roslyn.csproj" />
     </ItemGroup>
 
 </Project>

@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cli", "Cli\Cli.csproj", "{47B44550-43DB-415C-AC99-2D774F7B4466}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{046C0AE8-5634-4E34-ABAB-1FFE0CF49165}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roslyn", "Plugins\Roslyn\Roslyn.csproj", "{8622C096-41F6-46A0-95A7-BE5D33E1CA2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdown", "Plugins\Markdown\Markdown.csproj", "{D643F99A-C2B7-427A-B0D9-006DA2913F22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{47B44550-43DB-415C-AC99-2D774F7B4466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47B44550-43DB-415C-AC99-2D774F7B4466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47B44550-43DB-415C-AC99-2D774F7B4466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8622C096-41F6-46A0-95A7-BE5D33E1CA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8622C096-41F6-46A0-95A7-BE5D33E1CA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8622C096-41F6-46A0-95A7-BE5D33E1CA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8622C096-41F6-46A0-95A7-BE5D33E1CA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D643F99A-C2B7-427A-B0D9-006DA2913F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D643F99A-C2B7-427A-B0D9-006DA2913F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D643F99A-C2B7-427A-B0D9-006DA2913F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D643F99A-C2B7-427A-B0D9-006DA2913F22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8622C096-41F6-46A0-95A7-BE5D33E1CA2A} = {046C0AE8-5634-4E34-ABAB-1FFE0CF49165}
+		{D643F99A-C2B7-427A-B0D9-006DA2913F22} = {046C0AE8-5634-4E34-ABAB-1FFE0CF49165}
 	EndGlobalSection
 EndGlobal

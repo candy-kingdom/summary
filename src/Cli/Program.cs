@@ -1,8 +1,16 @@
-﻿using Doc.Net.Core.Pipes;
+﻿using Doc.Net.Core;
+using Doc.Net.Core.IO;
+using Doc.Net.Core.Pipes;
+using Doc.Net.Roslyn.CSharp;
+using Net.Core.Markdown;
 
-var output = await new FuncPipe<Unit, string>(_ => Console.ReadLine()!)
-    .Tee(x => Console.WriteLine($"Read something from console..."))
-    .Select(int.Parse)
+const string path = "../../../../../";
+const string output = "../../../../../docs";
+
+await new DirectoryScannerPipe(path, "*.cs")
+    .ThenForAll(new SyntaxTreeParserPipe())
+    .ThenForAll(new DocumentParserPipe())
+    .Flatten(Document.Merge)
+    .Then(new MarkdownRenderPipe())
+    .ThenForAll(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
     .Run();
-
-Console.WriteLine($"Parsed an integer: {output}");

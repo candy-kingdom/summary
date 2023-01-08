@@ -46,7 +46,7 @@ public class PipesTests
     {
         var pipe = new FuncPipe<short, int>(x => 2);
 
-        pipe.Select(Map).Run(1).Result.Should().Be(4);
+        pipe.Then(Map).Run(1).Result.Should().Be(4);
 
         int Map(int x) => x * 2;
     }

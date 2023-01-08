@@ -24,14 +24,26 @@ public static class PipeExtensions
         new ThenPipe<I, O1, O2>(a, b);
 
     /// <summary>
-    ///     Constructs a new pipe that will execute the specified `tee` action on the output.
-    /// </summary>
-    public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> tee) =>
-        new TeePipe<I, O>(a, tee);
-
-    /// <summary>
     ///     Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
     /// </summary>
-    public static IPipe<I, O2> Select<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> select) =>
-        a.Then(new FuncPipe<O1, O2>(select));
+    public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> map) =>
+        a.Then(new FuncPipe<O1, O2>(map));
+
+    /// <summary>
+    ///     Constructs a new pipe that will apply the specified map pipe to the each element of the output of the current pipe.
+    /// </summary>
+    public static IPipe<I, O2[]> ThenForAll<I, O1, O2>(this IPipe<I, O1[]> a, IPipe<O1, O2> b) =>
+        new ThenAllPipe<I,O1,O2>(a, b);
+
+    /// <summary>
+    ///     Constructs a new pipe that will execute the specified action on the output.
+    /// </summary>
+    public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> action) =>
+        new TeePipe<I, O>(a, action);
+
+    /// <summary>
+    ///     Constructs a new pipe that will aggregate the output of the current pipe.
+    /// </summary>
+    public static IPipe<I, O> Flatten<I, O>(this IPipe<I, O[]> self, Func<O, O, O> merge) =>
+        new FlattenPipe<I, O>(self, merge);
 }
