@@ -10,14 +10,15 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AssemblyVersion>0.0.1</AssemblyVersion>
-        <FileVersion>0.0.1</FileVersion>
-        <PackageVersion>0.0.1</PackageVersion>
+        <AssemblyVersion>0.0.2</AssemblyVersion>
+        <FileVersion>0.0.2</FileVersion>
+        <PackageVersion>0.0.2</PackageVersion>
 
         <Title>Summary.Markdown</Title>
         <Description>Markdown plugin for Summary documentation generator.</Description>
         <RepositoryUrl>https://github.com/joshua-light/summary</RepositoryUrl>
 
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageTags>docs;doc;documentation;documentation generator;api reference;roslyn;markdown</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

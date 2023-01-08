@@ -25,22 +25,22 @@ await
 
     // Parse each file into Roslyn `SyntaxTree`.
     .ThenForAll(new SyntaxTreeParserPipe())
-    
+
     // Parse each `SyntaxTree` into `Doc`.
     .ThenForAll(new DocumentParserPipe())
-    
+
     // Merge multiple docs into single doc.
-    .Flatten(Doc.Merge)
-    
+    .Then(new FlattenPipe<Doc>(Doc.Merge))
+
     // Remove non-public types and members.
     .Then(new PublicFilterPipe())
-    
+
     // Render the `Doc` into series of Markdown files (one file for each type).
     .Then(new MarkdownRenderPipe())
-    
+
     // Save each Markdown file into separate file.
     .ThenForAll(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
-    
+
     // Execute the pipeline.
     .Run();
 ```
