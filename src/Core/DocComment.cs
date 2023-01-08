@@ -12,7 +12,7 @@ public record DocComment(DocCommentNode[] Nodes)
     public static readonly DocComment Empty = new(Array.Empty<DocCommentNode>());
 
     /// <summary>
-    ///     A nested documentation element that with the specified name (e.g. `summary`, `remarks`, etc.).
+    ///     A nested documentation element that has the specified name (e.g. `summary`, `remarks`, etc.).
     /// </summary>
     /// <param name="name">The name of the element to search inside the comment.</param>
     public DocCommentElement? Element(string name) =>
