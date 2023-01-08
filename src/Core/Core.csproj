@@ -8,18 +8,28 @@
         <RootNamespace>Summary</RootNamespace>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup>
         <AssemblyVersion>0.0.1</AssemblyVersion>
         <FileVersion>0.0.1</FileVersion>
         <PackageVersion>0.0.1</PackageVersion>
+
         <Title>Summary</Title>
         <Description>The flexible and effortless API reference generator for .NET.</Description>
-        <Copyright>Copyright © 2022 @joshua-light, @konstantin-ogulchansky</Copyright>
-        <PackageLicenseUrl>https://github.com/joshua-light/summary/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/joshua-light/summary</RepositoryUrl>
-        <PackageTags>docs doc documentation generator api reference net7 roslyn</PackageTags>
+
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>docs;doc;documentation;documentation generator;api reference;roslyn</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Copyright>Copyright © 2023 @joshua-light, @konstantin-ogulchansky</Copyright>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\res\icon.png" Pack="true" Visible="false" PackagePath="\" />
+        <None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="\" />
+    </ItemGroup>
 
 </Project>
