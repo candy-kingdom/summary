@@ -13,7 +13,7 @@ public class PipesTests
 
         pipe.Run(1);
 
-        func.Verify(x => x.Invoke(1), Times.AtMostOnce);
+        func.Verify(x => x.Invoke(1), Times.Exactly(1));
     }
 
     [Test]
@@ -23,10 +23,17 @@ public class PipesTests
         var b = new Mock<IPipe<int, long>>();
         var c = a.Object.Then(b.Object);
 
+        a
+            .Setup(x => x.Run(It.IsAny<short>()))
+            .Returns(Task.FromResult(2));
+        b
+            .Setup(x => x.Run(It.IsAny<int>()))
+            .Returns(Task.FromResult(3l));
+
         c.Run(1);
 
-        a.Verify(x => x.Run(1), Times.AtMostOnce);
-        b.Verify(x => x.Run(1), Times.AtMostOnce);
+        a.Verify(x => x.Run(1), Times.Exactly(1));
+        b.Verify(x => x.Run(2), Times.Exactly(1));
     }
 
     [Test]
@@ -36,9 +43,13 @@ public class PipesTests
         var a = new Mock<IPipe<short, int>>();
         var b = a.Object.Tee(action.Object);
 
+        a
+            .Setup(x => x.Run(It.IsAny<short>()))
+            .Returns(Task.FromResult(2));
+
         b.Run(1);
 
-        action.Verify(x => x.Invoke(1), Times.AtMostOnce);
+        action.Verify(x => x.Invoke(2), Times.Exactly(1));
     }
 
     [Test]
