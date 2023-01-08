@@ -12,12 +12,6 @@ public static class PipeExtensions
         pipe.Run(Unit.Value);
 
     /// <summary>
-    ///     Asynchronously runs the pipe.
-    /// </summary>
-    public static Task<Unit> Run(this IPipe<Unit, Unit> pipe) =>
-        pipe.Run(Unit.Value);
-
-    /// <summary>
     ///     Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
     /// </summary>
     public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, IPipe<O1, O2> b) =>
