@@ -13,10 +13,3 @@ The only instance of the [`Unit`](./Unit.md).
 public static readonly Unit Value = new()
 ```
 
-### CompletedTask
-The completed task instance that contains the [`Unit`](./Unit.md)value.
-
-```cs
-public static readonly Task<Unit> CompletedTask = Task.FromResult(Value)
-```
-
