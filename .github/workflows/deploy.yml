@@ -36,12 +36,12 @@ jobs:
     - name: Publish Core
       run: |
         cd src/Core
-        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
     - name: Publish Roslyn Plugin
       run: |
         cd src/Plugins/Roslyn
-        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
     - name: Publish Markdown Plugin
       run: |
         cd src/Plugins/Markdown
-        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}}
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
