@@ -76,28 +76,3 @@ Parses the documentation comment of the specified member.
 public static DocComment Comment(this MemberDeclarationSyntax self)
 ```
 
-### Nodes
-```cs
-private static DocCommentNode[] Nodes(this IEnumerable<XmlNodeSyntax> self)
-```
-
-### Nodes
-```cs
-private static DocCommentNode[] Nodes(this XmlNodeSyntax xml)
-```
-
-### Literal
-```cs
-private static DocCommentNode Literal(this SyntaxToken token)
-```
-
-### Cref
-```cs
-private static string Cref(this XmlEmptyElementSyntax self)
-```
-
-### Array
-```cs
-private static DocCommentNode[] Array<T>(this T self)
-```
-

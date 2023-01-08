@@ -11,8 +11,3 @@ public MarkdownRenderPipe : IPipe<Document, Markdown[]>
 public Task<Markdown[]> Run(Document input)
 ```
 
-### Render
-```cs
-private static Markdown Render(DocMember member)
-```
-
