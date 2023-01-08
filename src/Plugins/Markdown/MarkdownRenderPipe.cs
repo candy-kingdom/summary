@@ -1,8 +1,7 @@
-﻿using Doc.Net.Core;
+﻿using Doc.Net.Core.Markdown.Extensions;
 using Doc.Net.Core.Pipes;
-using Net.Core.Markdown.Extensions;
 
-namespace Net.Core.Markdown;
+namespace Doc.Net.Core.Markdown;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that renders generated document into the sequence of Markdown files.
