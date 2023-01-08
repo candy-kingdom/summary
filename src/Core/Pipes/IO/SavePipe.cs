@@ -23,7 +23,7 @@ public class SavePipe<I> : IPipe<I, Unit>
     {
         var (path, content) = _file(input);
 
-        await File.WriteAllTextAsync(Path.Combine(_root, path), content);
+        await File.WriteAllTextAsync(Path.Combine(_root, path), content).ConfigureAwait(false);
 
         return Unit.Value;
     }
