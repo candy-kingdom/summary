@@ -1,15 +1,14 @@
-﻿using Doc.Net.Core;
-using Doc.Net.Core.Pipes;
-using Doc.Net.Markdown.Extensions;
+﻿using Summary.Markdown.Extensions;
+using Summary.Pipes;
 
-namespace Doc.Net.Markdown;
+namespace Summary.Markdown;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that renders generated document into the sequence of Markdown files.
 /// </summary>
-public class MarkdownRenderPipe : IPipe<Document, Markdown[]>
+public class MarkdownRenderPipe : IPipe<Doc, Markdown[]>
 {
-    public Task<Markdown[]> Run(Document input) =>
+    public Task<Markdown[]> Run(Doc input) =>
         Task.FromResult(input.Members.Select(Render).ToArray());
 
     private static Markdown Render(DocMember member) =>

@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core.Pipes;
+﻿namespace Summary.Pipes;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that invokes an action on the output of the pipe each time it's executed.

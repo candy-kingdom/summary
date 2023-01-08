@@ -1,6 +1,6 @@
-﻿using Doc.Net.Core.Pipes;
+﻿using Summary.Pipes;
 
-namespace Doc.Net.Tests;
+namespace Summary.Tests;
 
 [TestFixture]
 public class PipesTests

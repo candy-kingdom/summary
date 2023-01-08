@@ -1,9 +1,9 @@
-﻿namespace Doc.Net.Core.Extensions;
+﻿namespace Summary.Extensions;
 
 /// <summary>
 ///     Extension methods for <see cref="IEnumerable{T}"/>.
 /// </summary>
-public static class EnumerableExtensions
+internal static class EnumerableExtensions
 {
     /// <summary>
     ///     Constructs a new string by placing the specified separator between each item in the specified sequence.

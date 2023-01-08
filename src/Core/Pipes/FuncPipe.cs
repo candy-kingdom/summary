@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core.Pipes;
+﻿namespace Summary.Pipes;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that wraps <see cref="Func{I,O}"/>.

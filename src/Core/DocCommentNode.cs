@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     An XML comment node.

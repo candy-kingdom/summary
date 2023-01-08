@@ -1,8 +1,8 @@
-﻿using Doc.Net.Core.Pipes;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Summary.Pipes;
 
-namespace Doc.Net.Roslyn.CSharp;
+namespace Summary.Roslyn.CSharp;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that parses the specified string into a <see cref="SyntaxTree"/>.

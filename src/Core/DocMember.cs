@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     A member of the generated document (e.g. type, field, property, method, etc.).

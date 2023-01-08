@@ -1,18 +1,17 @@
-﻿using Doc.Net.Core.Extensions;
-using Doc.Net.Core.Pipes;
-using Doc.Net.Roslyn.CSharp.Extensions;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Document = Doc.Net.Core.Document;
+using Summary.Extensions;
+using Summary.Pipes;
+using Summary.Roslyn.CSharp.Extensions;
 
-namespace Doc.Net.Roslyn.CSharp;
+namespace Summary.Roslyn.CSharp;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that transforms the specified syntax tree into parsed document.
 /// </summary>
-public class DocumentParserPipe : IPipe<SyntaxTree, Document>
+public class DocumentParserPipe : IPipe<SyntaxTree, Doc>
 {
-    public async Task<Document> Run(SyntaxTree input)
+    public async Task<Doc> Run(SyntaxTree input)
     {
         var root = await input.GetRootAsync().ConfigureAwait(false);
         var members = root

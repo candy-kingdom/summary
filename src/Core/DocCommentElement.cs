@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     A <see cref="DocCommentNode"/> that represents a compound element (e.g. summary, remarks, and other XML elements).

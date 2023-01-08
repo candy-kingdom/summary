@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     A <see cref="DocCommentNode"/> that represents the link to other member (e.g. `&lt;see cref="SomeMember"/&gt;`).

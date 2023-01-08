@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     An documentation comment parsed from the source code.

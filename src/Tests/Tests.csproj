@@ -7,9 +7,9 @@
 
         <IsPackable>false</IsPackable>
 
-        <AssemblyName>Doc.Net.Tests</AssemblyName>
+        <AssemblyName>Summary.Tests</AssemblyName>
 
-        <RootNamespace>Doc.Net.Tests</RootNamespace>
+        <RootNamespace>Summary.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

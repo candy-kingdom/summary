@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core.Pipes;
+﻿namespace Summary.Pipes;
 
 /// <summary>
 ///     An asynchronous pipe that can transform an input to the output.

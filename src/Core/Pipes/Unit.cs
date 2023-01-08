@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core.Pipes;
+﻿namespace Summary.Pipes;
 
 /// <summary>
 ///     A void type that is similar to `void` keyword.

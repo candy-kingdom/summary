@@ -1,6 +1,6 @@
 ﻿using static System.Environment;
 
-namespace Doc.Net.Core;
+namespace Summary;
 
 /// <summary>
 ///     Extension methods for different documentation model related types.

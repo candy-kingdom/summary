@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     A <see cref="DocCommentNode"/> that represents a literal value (e.g. text, space, newline character, etc.).

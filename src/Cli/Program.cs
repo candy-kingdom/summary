@@ -1,9 +1,9 @@
-﻿using Doc.Net.Core;
-using Doc.Net.Core.Filters;
-using Doc.Net.Core.IO;
-using Doc.Net.Core.Pipes;
-using Doc.Net.Markdown;
-using Doc.Net.Roslyn.CSharp;
+﻿using Summary;
+using Summary.Markdown;
+using Summary.Pipes;
+using Summary.Pipes.Filters;
+using Summary.Pipes.IO;
+using Summary.Roslyn.CSharp;
 
 const string path = "../../../../../";
 const string output = "../../../../../docs";
@@ -11,7 +11,7 @@ const string output = "../../../../../docs";
 await new DirectoryScannerPipe(path, "*.cs")
     .ThenForAll(new SyntaxTreeParserPipe())
     .ThenForAll(new DocumentParserPipe())
-    .Flatten(Document.Merge)
+    .Flatten(Doc.Merge)
     .Then(new PublicFilterPipe())
     .Then(new MarkdownRenderPipe())
     .ThenForAll(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))

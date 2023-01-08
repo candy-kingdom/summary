@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     An access modifier of a <see cref="DocMember"/> (e.g. `private`, `public`, etc.).

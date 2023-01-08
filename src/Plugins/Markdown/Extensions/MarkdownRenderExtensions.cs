@@ -1,13 +1,12 @@
 ﻿using System.Text;
-using Doc.Net.Core;
-using Doc.Net.Core.Extensions;
+using Summary.Extensions;
 
-namespace Doc.Net.Markdown.Extensions;
+namespace Summary.Markdown.Extensions;
 
 /// <summary>
 ///     Extension methods for better rendering documentation into Markdown format.
 /// </summary>
-public static class MarkdownRenderExtensions
+internal static class MarkdownRenderExtensions
 {
     /// <summary>
     ///     Renders the specified documentation member into Markdown.

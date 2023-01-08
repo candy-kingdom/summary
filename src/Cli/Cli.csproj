@@ -6,8 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
-        <AssemblyName>Doc.Net.Cli</AssemblyName>
-        <RootNamespace>Doc.Net.Cli</RootNamespace>
+        <AssemblyName>Summary.Cli</AssemblyName>
+        <RootNamespace>Summary.Cli</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Doc.Net.Core;
+﻿namespace Summary;
 
 /// <summary>
 ///     A <see cref="DocMember"/> that represents a documented type in the parsed source code.

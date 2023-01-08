@@ -5,8 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
-        <AssemblyName>Doc.Net.Roslyn</AssemblyName>
-        <RootNamespace>Doc.Net.Roslyn</RootNamespace>
+        <AssemblyName>Summary.Roslyn</AssemblyName>
+        <RootNamespace>Summary.Roslyn</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

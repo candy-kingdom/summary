@@ -1,8 +1,7 @@
-﻿using Doc.Net.Core;
-using Doc.Net.Core.Extensions;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Summary.Extensions;
 using static System.Environment;
 using DocumentationCommentTriviaSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.DocumentationCommentTriviaSyntax;
 using FieldDeclarationSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax;
@@ -12,12 +11,12 @@ using XmlEmptyElementSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlEmptyEleme
 using XmlNodeSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlNodeSyntax;
 using XmlTextSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlTextSyntax;
 
-namespace Doc.Net.Roslyn.CSharp.Extensions;
+namespace Summary.Roslyn.CSharp.Extensions;
 
 /// <summary>
 ///     Extension methods for different Roslyn syntax nodes that helps constructing document members.
 /// </summary>
-public static class SyntaxExtensions
+internal static class SyntaxExtensions
 {
     /// <summary>
     ///     The attributes formatted as a string of the specified member.

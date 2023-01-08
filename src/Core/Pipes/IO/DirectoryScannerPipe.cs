@@ -1,6 +1,4 @@
-﻿using Doc.Net.Core.Pipes;
-
-namespace Doc.Net.Core.IO;
+﻿namespace Summary.Pipes.IO;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that searches specified directory (recursively) for files that match specified pattern.

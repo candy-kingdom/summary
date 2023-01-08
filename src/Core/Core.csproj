@@ -4,8 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>Doc.Net.Core</AssemblyName>
-        <RootNamespace>Doc.Net.Core</RootNamespace>
+        <AssemblyName>Summary</AssemblyName>
+        <RootNamespace>Summary</RootNamespace>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
@@ -14,11 +14,11 @@
         <AssemblyVersion>0.0.1</AssemblyVersion>
         <FileVersion>0.0.1</FileVersion>
         <PackageVersion>0.0.1</PackageVersion>
-        <Title>Doc.Net</Title>
+        <Title>Summary</Title>
         <Description>The flexible and effortless API reference generator for .NET.</Description>
-        <Copyright>Copyright © 2022 joshua-light, konstantin-ogulchansky</Copyright>
-        <PackageLicenseUrl>https://github.com/joshua-light/doc-net/blob/master/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/joshua-light/doc-net</RepositoryUrl>
+        <Copyright>Copyright © 2022 @joshua-light, @konstantin-ogulchansky</Copyright>
+        <PackageLicenseUrl>https://github.com/joshua-light/summary/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/joshua-light/summary</RepositoryUrl>
         <PackageTags>docs doc documentation generator api reference net7 roslyn</PackageTags>
     </PropertyGroup>
 

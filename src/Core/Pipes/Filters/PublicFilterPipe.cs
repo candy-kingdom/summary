@@ -1,15 +1,14 @@
-﻿using Doc.Net.Core.Pipes;
-using static Doc.Net.Core.AccessModifier;
+﻿using static Summary.AccessModifier;
 
-namespace Doc.Net.Core.Filters;
+namespace Summary.Pipes.Filters;
 
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that filters out non-public types and members from the parsed document.
 /// </summary>
-public class PublicFilterPipe : IPipe<Document, Document>
+public class PublicFilterPipe : IPipe<Doc, Doc>
 {
-    public Task<Document> Run(Document input) =>
-        Task.FromResult(new Document(Filtered(input.Members)));
+    public Task<Doc> Run(Doc input) =>
+        Task.FromResult(new Doc(Filtered(input.Members)));
 
     private static DocMember[] Filtered(DocMember[] members) =>
         members
