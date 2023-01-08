@@ -34,10 +34,4 @@ public static class PipeExtensions
     /// </summary>
     public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> action) =>
         new TeePipe<I, O>(a, action);
-
-    /// <summary>
-    ///     Constructs a new pipe that will aggregate the output of the current pipe.
-    /// </summary>
-    public static IPipe<I, O> Flatten<I, O>(this IPipe<I, O[]> self, Func<O, O, O> merge) =>
-        new FlattenPipe<I, O>(self, merge);
 }
