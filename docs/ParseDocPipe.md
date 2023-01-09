@@ -1,8 +1,8 @@
-# ParseDocumentPipe
+# ParseDocPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that transforms the specified syntax tree into parsed document.
 
 ```cs
-public ParseDocumentPipe : IPipe<SyntaxTree, Doc>
+public ParseDocPipe : IPipe<SyntaxTree, Doc>
 ```
 
 ## Methods

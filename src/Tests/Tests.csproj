@@ -22,6 +22,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
+      <ProjectReference Include="..\Plugins\Markdown\Markdown.csproj" />
+      <ProjectReference Include="..\Plugins\Roslyn\Roslyn.csproj" />
     </ItemGroup>
 
 </Project>

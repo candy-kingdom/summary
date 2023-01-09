@@ -32,7 +32,7 @@ await
     .ThenForEach(new ParseSyntaxTreePipe())
 
     // Parse each `SyntaxTree` into `Doc`.
-    .ThenForEach(new ParseDocumentPipe())
+    .ThenForEach(new ParseDocPipe())
 
     // Merge multiple docs into single doc.
     .Then(new FlattenPipe<Doc>(Doc.Merge))

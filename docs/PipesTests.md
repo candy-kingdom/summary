@@ -1,31 +1,30 @@
 # PipesTests
 ```cs
-[TestFixture]
 public PipesTests 
 ```
 
 ## Methods
 ### Func
 ```cs
-[Test]
+[Fact]
 public void Func()
 ```
 
 ### Then
 ```cs
-[Test]
+[Fact]
 public void Then()
 ```
 
 ### Tee
 ```cs
-[Test]
+[Fact]
 public void Tee()
 ```
 
 ### Select
 ```cs
-[Test]
+[Fact]
 public void Select()
 ```
 

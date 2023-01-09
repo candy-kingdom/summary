@@ -1,6 +1,6 @@
 ﻿using Summary.Pipes;
 
-namespace Summary.Tests;
+namespace Summary.Tests.Core;
 
 public class PipesTests
 {
