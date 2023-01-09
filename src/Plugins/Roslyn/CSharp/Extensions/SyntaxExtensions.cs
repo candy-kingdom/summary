@@ -147,17 +147,17 @@ internal static class SyntaxExtensions
         {
             "see" => new DocCommentLink(empty.Cref()).Array(),
 
-            _ => new DocCommentLiteral(empty.ToString()).Array(),
+            _ => DocCommentLiteral.New(empty.ToString()).Array(),
         },
 
-        _ => new DocCommentLiteral(xml.ToString()).Array(),
+        _ => DocCommentLiteral.New(xml.ToString()).Array(),
     };
 
     private static DocCommentNode Literal(this SyntaxToken token) => token.Kind() switch
     {
         SyntaxKind.XmlTextLiteralNewLineToken => new DocCommentLiteral(NewLine),
 
-        _ => new DocCommentLiteral(token.Text is " " ? token.Text : token.Text.TrimStart()),
+        _ => DocCommentLiteral.New(token.ValueText),
     };
 
     private static string Cref(this XmlEmptyElementSyntax self) =>

@@ -85,10 +85,10 @@ internal static class MarkdownRenderExtensions
     private static string Render(IEnumerable<DocCommentNode> nodes) =>
         nodes
             .Trim()
-            .Select(Render)
+            .SelectWithNext(Render)
             .Separated(with: "");
 
-    private static string Render(DocCommentNode? node) => node switch
+    internal static string Render(this DocCommentNode? node, DocCommentNode? next = default) => node switch
     {
         null => "",
 
@@ -99,12 +99,18 @@ internal static class MarkdownRenderExtensions
 
         DocCommentElement element => element.Nodes
             .Trim()
-            .Select(Render)
+            .SelectWithNext(Render)
             .Separated(with: ""),
 
-        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md)",
+        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){LeadingTrivia(next)}",
 
         _ => node.ToString()!,
+    };
+
+    private static string LeadingTrivia(DocCommentNode? node) => node switch
+    {
+        DocCommentLiteral literal => literal.LeadingTrivia,
+        _ => "",
     };
 
     // TODO: Write an efficient implementation.

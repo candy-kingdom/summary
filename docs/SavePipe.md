@@ -1,5 +1,5 @@
 # SavePipe
-A [`IPipe{I,O}`](./IPipe{I,O}.md)that saves the input to the file.
+A [`IPipe{I,O}`](./IPipe{I,O}.md) that saves the input to the file.
 
 ```cs
 public class SavePipe<I> : IPipe<I, Unit>

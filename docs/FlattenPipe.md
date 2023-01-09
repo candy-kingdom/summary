@@ -1,5 +1,5 @@
 # FlattenPipe
-A [`IPipe{I,O}`](./IPipe{I,O}.md)that aggregates the result of the specified pipe.
+A [`IPipe{I,O}`](./IPipe{I,O}.md) that aggregates the result of the specified pipe.
 
 ```cs
 public class FlattenPipe<O> : IPipe<O[], O>

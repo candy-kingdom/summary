@@ -24,4 +24,11 @@ internal static class EnumerableExtensions
     /// </summary>
     public static IEnumerable<T> NonNulls<T>(this IEnumerable<T?> self) =>
         self.Where(x => x != null)!;
+
+    /// <summary>
+    ///     Applies the specified `map` function on each element in the specified sequence.
+    ///     Additionally, passes the optional next element.
+    /// </summary>
+    public static IEnumerable<V> SelectWithNext<T, V>(this IEnumerable<T> self, Func<T, T?, V> map) =>
+        self.Select((x, i) => map(x, self.ElementAtOrDefault(i + 1)));
 }
