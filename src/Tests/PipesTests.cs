@@ -2,57 +2,50 @@
 
 namespace Summary.Tests;
 
-[TestFixture]
 public class PipesTests
 {
-    [Test]
+    [Fact]
     public void Func()
     {
-        var func = new Mock<Func<int, int>>();
-        var pipe = new FuncPipe<int, int>(func.Object);
+        var func = For<Func<int, int>>();
+        var pipe = new FuncPipe<int, int>(func);
 
         pipe.Run(1);
 
-        func.Verify(x => x.Invoke(1), Times.Exactly(1));
+        func.Received(1).Invoke(1);
     }
 
-    [Test]
+    [Fact]
     public void Then()
     {
-        var a = new Mock<IPipe<short, int>>();
-        var b = new Mock<IPipe<int, long>>();
-        var c = a.Object.Then(b.Object);
+        var a = For<IPipe<short, int>>();
+        var b = For<IPipe<int, long>>();
+        var c = a.Then(b);
 
-        a
-            .Setup(x => x.Run(It.IsAny<short>()))
-            .Returns(Task.FromResult(2));
-        b
-            .Setup(x => x.Run(It.IsAny<int>()))
-            .Returns(Task.FromResult(3L));
+        a.Run(Any<short>()).Returns(Task.FromResult(2));
+        b.Run(Any<int>()).Returns(Task.FromResult(3L));
 
         c.Run(1);
 
-        a.Verify(x => x.Run(1), Times.Exactly(1));
-        b.Verify(x => x.Run(2), Times.Exactly(1));
+        a.Received(1).Run(1);
+        b.Received(1).Run(2);
     }
 
-    [Test]
+    [Fact]
     public void Tee()
     {
-        var action = new Mock<Action<int>>();
-        var a = new Mock<IPipe<short, int>>();
-        var b = a.Object.Tee(action.Object);
+        var action = For<Action<int>>();
+        var a = For<IPipe<short, int>>();
+        var b = a.Tee(action);
 
-        a
-            .Setup(x => x.Run(It.IsAny<short>()))
-            .Returns(Task.FromResult(2));
+        a.Run(1).Returns(Task.FromResult(2));
 
         b.Run(1);
 
-        action.Verify(x => x.Invoke(2), Times.Exactly(1));
+        action.Received(1).Invoke(2);
     }
 
-    [Test]
+    [Fact]
     public void Select()
     {
         var pipe = new FuncPipe<short, int>(x => 2);
