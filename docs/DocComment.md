@@ -2,7 +2,7 @@
 An documentation comment parsed from the source code.
 
 ```cs
-public DocComment 
+public record DocComment(DocCommentNode[] Nodes)
 ```
 
 ## Fields

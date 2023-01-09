@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that aggregates the result of the specified pipe.
 
 ```cs
-public FlattenPipe<O> : IPipe<O[], O>
+public class FlattenPipe<O> : IPipe<O[], O>
 ```
 
 ## Methods

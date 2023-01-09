@@ -1,6 +1,6 @@
 # PipesTests
 ```cs
-public PipesTests 
+public class PipesTests
 ```
 
 ## Methods

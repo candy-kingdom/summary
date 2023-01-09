@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that wraps [`Func{I,O}`](./Func{I,O}.md).
 
 ```cs
-public FuncPipe<I, O> : IPipe<I, O>
+public class FuncPipe<I, O> : IPipe<I, O>
 ```
 
 ## Methods

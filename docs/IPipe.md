@@ -2,6 +2,6 @@
 An asynchronous pipe that can transform an input to the output.
 
 ```cs
-public IPipe<in I, O> 
+public interface IPipe<in I, O>
 ```
 

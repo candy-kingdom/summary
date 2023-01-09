@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that saves the input to the file.
 
 ```cs
-public SavePipe<I> : IPipe<I, Unit>
+public class SavePipe<I> : IPipe<I, Unit>
 ```
 
 ## Methods

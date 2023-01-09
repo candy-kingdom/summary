@@ -4,6 +4,6 @@ A [`DocCommentNode`](./DocCommentNode.md)that represents a literal value (e.g. t
 _Literals are simple tokens that are parsed as text._
 
 ```cs
-public DocCommentLiteral : DocCommentNode
+public record DocCommentLiteral(string Value) : DocCommentNode
 ```
 

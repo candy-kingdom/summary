@@ -14,5 +14,5 @@ await new ScanDirectoryPipe(path, "*.cs")
     .Then(new FlattenPipe<Doc>(Doc.Merge))
     .Then(new FilterPublicMembersPipe())
     .Then(new RenderMarkdownPipe())
-    .ThenForEach(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
+    .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
     .Run();

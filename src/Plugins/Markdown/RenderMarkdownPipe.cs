@@ -6,11 +6,11 @@ namespace Summary.Markdown;
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that renders generated document into the sequence of Markdown files.
 /// </summary>
-public class RenderMarkdownPipe : IPipe<Doc, Markdown[]>
+public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 {
-    public Task<Markdown[]> Run(Doc input) =>
+    public Task<Md[]> Run(Doc input) =>
         Task.FromResult(input.Members.Select(Render).ToArray());
 
-    private static Markdown Render(DocMember member) =>
+    private static Md Render(DocMember member) =>
         member.Render();
 }

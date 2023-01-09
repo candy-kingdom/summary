@@ -2,7 +2,7 @@
 A void type that is similar to `void` keyword.
 
 ```cs
-public Unit 
+public class Unit
 ```
 
 ## Fields

@@ -77,10 +77,21 @@ internal static class SyntaxExtensions
     /// </summary>
     public static DocType Type(this TypeDeclarationSyntax self) => new(
         self.Identifier.Text,
-        $"{self.Attributes()}{self.Modifiers} {self.Identifier}{self.TypeParameterList} {self.BaseList}",
+        self.Declaration(),
         self.Access(),
         self.Comment(),
         self.Members());
+
+    private static string Declaration(this TypeDeclarationSyntax self) => self switch
+    {
+        RecordDeclarationSyntax record =>
+            $"{self.Attributes()}{self.Modifiers} {record.Keyword()} {self.Identifier}{self.TypeParameterList}{record.ParameterList} {self.BaseList}".TrimEnd(),
+        _ =>
+            $"{self.Attributes()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}".TrimEnd(),
+    };
+
+    private static string Keyword(this RecordDeclarationSyntax self) =>
+        self.ClassOrStructKeyword.Text is "" ? $"{self.Keyword}" : $"{self.Keyword} {self.ClassOrStructKeyword}";
 
     /// <summary>
     ///     Parses the specified syntax node to a document field.

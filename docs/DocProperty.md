@@ -2,6 +2,6 @@
 A [`DocMember`](./DocMember.md)that represents a documented property in the parsed source code.
 
 ```cs
-public DocProperty : DocMember(Name, Declaration, Access, Comment)
+public record DocProperty(string Name, string Declaration, AccessModifier Access, DocComment Comment) : DocMember(Name, Declaration, Access, Comment)
 ```
 

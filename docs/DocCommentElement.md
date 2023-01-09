@@ -4,6 +4,6 @@ A [`DocCommentNode`](./DocCommentNode.md)that represents a compound element (e.g
 _Each element can contain simple text as well as other elements._
 
 ```cs
-public DocCommentElement : DocCommentNode
+public record DocCommentElement(string Name, DocCommentNode[] Nodes) : DocCommentNode
 ```
 

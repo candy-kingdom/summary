@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that searches specified directory (recursively) for files that match specified pattern.
 
 ```cs
-public ScanDirectoryPipe : IPipe<Unit, string[]>
+public class ScanDirectoryPipe : IPipe<Unit, string[]>
 ```
 
 ## Methods

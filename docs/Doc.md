@@ -2,7 +2,7 @@
 A document parsed from the source code or an assembly.
 
 ```cs
-public Doc 
+public record Doc(DocMember[] Members)
 ```
 
 ## Methods

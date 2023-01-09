@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that transforms the specified syntax tree into parsed document.
 
 ```cs
-public ParseDocPipe : IPipe<SyntaxTree, Doc>
+public class ParseDocPipe : IPipe<SyntaxTree, Doc>
 ```
 
 ## Methods

@@ -2,7 +2,7 @@
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that filters out non-public types and members from the parsed document.
 
 ```cs
-public FilterPublicMembersPipe : IPipe<Doc, Doc>
+public class FilterPublicMembersPipe : IPipe<Doc, Doc>
 ```
 
 ## Methods

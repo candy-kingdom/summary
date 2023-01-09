@@ -2,7 +2,7 @@
 Extension methods for different documentation model related types.
 
 ```cs
-public static DocExtensions 
+public static class DocExtensions
 ```
 
 ## Methods

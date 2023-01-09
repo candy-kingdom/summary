@@ -11,7 +11,7 @@ internal static class MarkdownRenderExtensions
     /// <summary>
     ///     Renders the specified documentation member into Markdown.
     /// </summary>
-    public static Markdown Render(this DocMember self)
+    public static Md Render(this DocMember self)
     {
         var content = new StringBuilder();
 

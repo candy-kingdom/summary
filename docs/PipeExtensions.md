@@ -2,7 +2,7 @@
 Extension methods for [`IPipe{I,O}`](./IPipe{I,O}.md).
 
 ```cs
-public static PipeExtensions 
+public static class PipeExtensions
 ```
 
 ## Methods
