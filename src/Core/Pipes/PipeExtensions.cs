@@ -26,8 +26,8 @@ public static class PipeExtensions
     /// <summary>
     ///     Constructs a new pipe that will apply the specified map pipe to the each element of the output of the current pipe.
     /// </summary>
-    public static IPipe<I, O2[]> ThenForAll<I, O1, O2>(this IPipe<I, O1[]> a, IPipe<O1, O2> b) =>
-        new ThenAllPipe<I,O1,O2>(a, b);
+    public static IPipe<I, O2[]> ThenForEach<I, O1, O2>(this IPipe<I, O1[]> a, IPipe<O1, O2> b) =>
+        new ThenForEach<I,O1,O2>(a, b);
 
     /// <summary>
     ///     Constructs a new pipe that will execute the specified action on the output.

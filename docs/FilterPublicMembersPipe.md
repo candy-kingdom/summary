@@ -1,8 +1,8 @@
-# PublicFilterPipe
+# FilterPublicMembersPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that filters out non-public types and members from the parsed document.
 
 ```cs
-public PublicFilterPipe : IPipe<Doc, Doc>
+public FilterPublicMembersPipe : IPipe<Doc, Doc>
 ```
 
 ## Methods

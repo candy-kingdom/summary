@@ -3,12 +3,12 @@
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that aggregates the result of the specified pipe.
 /// </summary>
-public class ThenAllPipe<I, O1, O2> : IPipe<I, O2[]>
+public class ThenForEach<I, O1, O2> : IPipe<I, O2[]>
 {
     private readonly IPipe<I, O1[]> _inner;
     private readonly IPipe<O1, O2> _map;
 
-    public ThenAllPipe(IPipe<I, O1[]> inner, IPipe<O1, O2> map)
+    public ThenForEach(IPipe<I, O1[]> inner, IPipe<O1, O2> map)
     {
         _inner = inner;
         _map = map;

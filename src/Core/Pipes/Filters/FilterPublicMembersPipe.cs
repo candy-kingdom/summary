@@ -5,7 +5,7 @@ namespace Summary.Pipes.Filters;
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that filters out non-public types and members from the parsed document.
 /// </summary>
-public class PublicFilterPipe : IPipe<Doc, Doc>
+public class FilterPublicMembersPipe : IPipe<Doc, Doc>
 {
     public Task<Doc> Run(Doc input) =>
         Task.FromResult(new Doc(Filtered(input.Members)));

@@ -21,25 +21,25 @@ const string output = "./docs";
 
 await
     // Scan all `*.cs` files in the specified `input` path.
-    new DirectoryScannerPipe(input, "*.cs")
+    new ScanDirectoryPipe(input, pattern: "*.cs")
 
     // Parse each file into Roslyn `SyntaxTree`.
-    .ThenForAll(new SyntaxTreeParserPipe())
+    .ThenForEach(new ParseSyntaxTreePipe())
 
     // Parse each `SyntaxTree` into `Doc`.
-    .ThenForAll(new DocumentParserPipe())
+    .ThenForEach(new ParseDocumentPipe())
 
     // Merge multiple docs into single doc.
     .Then(new FlattenPipe<Doc>(Doc.Merge))
 
     // Remove non-public types and members.
-    .Then(new PublicFilterPipe())
+    .Then(new FilterPublicMembersPipe())
 
     // Render the `Doc` into series of Markdown files (one file for each type).
-    .Then(new MarkdownRenderPipe())
+    .Then(new RenderMarkdownPipe())
 
     // Save each Markdown file into separate file.
-    .ThenForAll(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
+    .ThenForEach(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
 
     // Execute the pipeline.
     .Run();

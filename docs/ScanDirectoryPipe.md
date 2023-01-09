@@ -1,8 +1,8 @@
-# DirectoryScannerPipe
+# ScanDirectoryPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that searches specified directory (recursively) for files that match specified pattern.
 
 ```cs
-public DirectoryScannerPipe : IPipe<Unit, string[]>
+public ScanDirectoryPipe : IPipe<Unit, string[]>
 ```
 
 ## Methods

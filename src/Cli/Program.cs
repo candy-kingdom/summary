@@ -8,11 +8,11 @@ using Summary.Roslyn.CSharp;
 const string path = "../../../../../";
 const string output = "../../../../../docs";
 
-await new DirectoryScannerPipe(path, "*.cs")
-    .ThenForAll(new SyntaxTreeParserPipe())
-    .ThenForAll(new DocumentParserPipe())
+await new ScanDirectoryPipe(path, "*.cs")
+    .ThenForEach(new ParseSyntaxTreePipe())
+    .ThenForEach(new ParseDocumentPipe())
     .Then(new FlattenPipe<Doc>(Doc.Merge))
-    .Then(new PublicFilterPipe())
-    .Then(new MarkdownRenderPipe())
-    .ThenForAll(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
+    .Then(new FilterPublicMembersPipe())
+    .Then(new RenderMarkdownPipe())
+    .ThenForEach(new SavePipe<Markdown>(output, x => (x.Name, x.Content)))
     .Run();

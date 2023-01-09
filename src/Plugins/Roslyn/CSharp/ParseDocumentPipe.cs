@@ -9,7 +9,7 @@ namespace Summary.Roslyn.CSharp;
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> that transforms the specified syntax tree into parsed document.
 /// </summary>
-public class DocumentParserPipe : IPipe<SyntaxTree, Doc>
+public class ParseDocumentPipe : IPipe<SyntaxTree, Doc>
 {
     public async Task<Doc> Run(SyntaxTree input)
     {

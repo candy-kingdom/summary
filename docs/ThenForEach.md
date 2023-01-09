@@ -1,8 +1,8 @@
-# ThenAllPipe
+# ThenForEach
 A [`IPipe{I,O}`](./IPipe{I,O}.md)that aggregates the result of the specified pipe.
 
 ```cs
-public ThenAllPipe<I, O1, O2> : IPipe<I, O2[]>
+public ThenForEach<I, O1, O2> : IPipe<I, O2[]>
 ```
 
 ## Methods
