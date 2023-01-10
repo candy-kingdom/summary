@@ -17,4 +17,13 @@ public record DocComment(DocCommentNode[] Nodes)
     /// <param name="name">The name of the element to search inside the comment.</param>
     public DocCommentElement? Element(string name) =>
         Nodes.OfType<DocCommentElement>().FirstOrDefault(x => x.Name == name);
+
+    /// <summary>
+    ///     A nested &lt;param&gt; documentation element that has the specified name.
+    /// </summary>
+    /// <param name="name">The name of the parameter to search inside the comment.</param>
+    public DocCommentElement? Param(string name) =>
+        Nodes
+            .OfType<DocCommentElement>()
+            .FirstOrDefault(x => x.Name == "param" && x.Attribute("name")?.Value == name);
 }

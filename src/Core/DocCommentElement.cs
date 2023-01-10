@@ -8,4 +8,13 @@
 /// <remarks>
 ///     Each element can contain simple text as well as other elements.
 /// </remarks>
-public record DocCommentElement(string Name, DocCommentNode[] Nodes) : DocCommentNode;
+public record DocCommentElement(string Name, DocCommentElementAttribute[] Attributes, DocCommentNode[] Nodes) : DocCommentNode
+{
+    internal DocComment Comment() => new(Nodes);
+
+    internal DocComment Summary() => new(new[]
+        { new DocCommentElement("summary", Array.Empty<DocCommentElementAttribute>(), Nodes) });
+
+    internal DocCommentElementAttribute? Attribute(string name) =>
+        Attributes.FirstOrDefault(x => x.Name == name);
+}

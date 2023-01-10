@@ -38,6 +38,18 @@ internal static class MarkdownRenderExtensions
             Members<DocMethod>(type, "Methods");
         }
 
+        if (member is DocMethod { Params.Length: not 0 } method)
+        {
+            if (method.Params.Any(x => x.Comment != DocComment.Empty))
+            {
+                sb.AppendLine($"{new string('#', level + 1)} Parameters");
+
+                foreach (var param in method.Params)
+                    if (param.Comment != DocComment.Empty)
+                        sb.AppendLine($"- `{param.Name}`: {Render(param.Comment.Nodes)}");
+            }
+        }
+
         void Element(string name, Func<string, string>? map = null)
         {
             map ??= x => x;

@@ -7,6 +7,8 @@ public record Doc(DocMember[] Members)
 
 ## Properties
 ### Members
+The sequence of members this doc contains.
+
 ```cs
  DocMember[] Members { get; }
 ```
@@ -19,3 +21,6 @@ Merges two documents together returning the new merged document.
 public static Doc Merge(Doc a, Doc b)
 ```
 
+#### Parameters
+- `Doc`: The first document to merge.
+- `Doc`: The first document to merge.

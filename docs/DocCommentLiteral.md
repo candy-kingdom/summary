@@ -9,11 +9,15 @@ public record DocCommentLiteral(string Value, string LeadingTrivia = "") : DocCo
 
 ## Properties
 ### Value
+The value of the literal.
+
 ```cs
  string Value { get; }
 ```
 
 ### LeadingTrivia
+The leading trivia of the literal that is not included in the <paramref name="Value"/>(i.e. space characters, newlines).
+
 ```cs
  string LeadingTrivia { get; }
 ```
