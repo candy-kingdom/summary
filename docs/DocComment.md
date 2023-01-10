@@ -18,7 +18,7 @@ public static readonly DocComment Empty = new(Array.Empty<DocCommentNode>())
 The sequence of nodes this comment consists of (e.g. `summary`, `remarks`, etc.).
 
 ```cs
- DocCommentNode[] Nodes { get; }
+public DocCommentNode[] Nodes { get; }
 ```
 
 ## Methods

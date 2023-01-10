@@ -12,18 +12,18 @@ public record DocCommentElement(string Name, DocCommentElementAttribute[] Attrib
 The name of the element (e.g. `remarks`, `summary`, `example`).
 
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Attributes
 ```cs
- DocCommentElementAttribute[] Attributes { get; }
+public DocCommentElementAttribute[] Attributes { get; }
 ```
 
 ### Nodes
 The sequence of nodes this element consists of.
 
 ```cs
- DocCommentNode[] Nodes { get; }
+public DocCommentNode[] Nodes { get; }
 ```
 

@@ -10,7 +10,7 @@ public record Doc(DocMember[] Members)
 The sequence of members this doc contains.
 
 ```cs
- DocMember[] Members { get; }
+public DocMember[] Members { get; }
 ```
 
 ## Methods

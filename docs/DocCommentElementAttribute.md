@@ -10,13 +10,13 @@ public record DocCommentElementAttribute(string Name, string Value)
 The name of the attribute (e.g. `name`, `cref`, etc.)
 
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Value
 The value of the attribute (e.g. the actual name in `name` attribute).
 
 ```cs
- string Value { get; }
+public string Value { get; }
 ```
 

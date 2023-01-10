@@ -10,20 +10,20 @@ public record DocParam(string Type, string Name, DocComment Comment)
 The type of the parameter.
 
 ```cs
- string Type { get; }
+public string Type { get; }
 ```
 
 ### Name
 The name of the parameter.
 
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Comment
 The comment of the parameter (i.e. `<param>` tag).
 
 ```cs
- DocComment Comment { get; }
+public DocComment Comment { get; }
 ```
 

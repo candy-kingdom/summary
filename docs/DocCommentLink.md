@@ -10,6 +10,6 @@ public record DocCommentLink(string Value) : DocCommentNode
 The name of the member the link links to.
 
 ```cs
- string Value { get; }
+public string Value { get; }
 ```
 

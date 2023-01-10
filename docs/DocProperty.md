@@ -8,21 +8,21 @@ public record DocProperty(string Name, string Declaration, AccessModifier Access
 ## Properties
 ### Name
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Declaration
 ```cs
- string Declaration { get; }
+public string Declaration { get; }
 ```
 
 ### Access
 ```cs
- AccessModifier Access { get; }
+public AccessModifier Access { get; }
 ```
 
 ### Comment
 ```cs
- DocComment Comment { get; }
+public DocComment Comment { get; }
 ```
 

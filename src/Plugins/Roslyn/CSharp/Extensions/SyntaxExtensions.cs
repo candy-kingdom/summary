@@ -53,7 +53,7 @@ internal static class SyntaxExtensions
 
     private static DocProperty Property(this ParameterSyntax self, RecordDeclarationSyntax record) => new(
         self.Identifier.Text,
-        $"{self.AttributeLists.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {{ get; }}",
+        $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
         AccessModifier.Public,
         record.Comment().Param(self.Identifier.ValueText)?.Summary() ?? DocComment.Empty);
 

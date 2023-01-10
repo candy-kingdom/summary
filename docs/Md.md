@@ -10,13 +10,13 @@ public record Md(string Name, string Content)
 The name of the document file.
 
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Content
 The content of the document document.
 
 ```cs
- string Content { get; }
+public string Content { get; }
 ```
 

@@ -8,26 +8,26 @@ public record DocType(string Name, string Declaration, AccessModifier Access, Do
 ## Properties
 ### Name
 ```cs
- string Name { get; }
+public string Name { get; }
 ```
 
 ### Declaration
 ```cs
- string Declaration { get; }
+public string Declaration { get; }
 ```
 
 ### Access
 ```cs
- AccessModifier Access { get; }
+public AccessModifier Access { get; }
 ```
 
 ### Comment
 ```cs
- DocComment Comment { get; }
+public DocComment Comment { get; }
 ```
 
 ### Members
 ```cs
- DocMember[] Members { get; }
+public DocMember[] Members { get; }
 ```
 
