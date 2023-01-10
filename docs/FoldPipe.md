@@ -1,8 +1,8 @@
-# FlattenPipe
+# FoldPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that aggregates the result of the specified pipe.
 
 ```cs
-public class FlattenPipe<O> : IPipe<O[], O>
+public class FoldPipe<O> : IPipe<O[], O>
 ```
 
 ## Methods
