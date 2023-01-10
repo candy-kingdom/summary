@@ -5,6 +5,12 @@ A document parsed from the source code or an assembly.
 public record Doc(DocMember[] Members)
 ```
 
+## Properties
+### Members
+```cs
+ DocMember[] Members { get; }
+```
+
 ## Methods
 ### Merge
 Merges two documents together returning the new merged document.

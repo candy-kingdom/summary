@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Runtime.InteropServices.JavaScript;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Summary.Extensions;
@@ -19,15 +20,66 @@ namespace Summary.Roslyn.CSharp.Extensions;
 internal static class SyntaxExtensions
 {
     /// <summary>
-    ///     The attributes formatted as a string of the specified member.
+    ///     Parses the specified syntax node to a document type.
     /// </summary>
-    public static string Attributes(this MemberDeclarationSyntax self) =>
-        self
-            .AttributeLists
-            .Select(x => $"{x}")
-            .Separated(with: NewLine) is { } attributes and not ""
-            ? $"{attributes}{NewLine}"
-            : "";
+    public static DocType Type(this TypeDeclarationSyntax self) => new(
+        self.Identifier.Text,
+        self.Declaration(),
+        self.Access(),
+        self.Comment(),
+        self.Members());
+
+    /// <summary>
+    ///     Parses the specified syntax node to a document field.
+    /// </summary>
+    /// TODO: Handle `private int _x, _y` cases.
+    public static DocField Field(this FieldDeclarationSyntax self) => new(
+        self.Declaration.Variables[0].Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
+        self.Access(),
+        self.Comment());
+
+    /// <summary>
+    ///     Parses the specified property syntax node to a document property.
+    /// </summary>
+    public static DocProperty Property(this PropertyDeclarationSyntax self) => new(
+        self.Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+        self.Access(),
+        self.Comment());
+
+    /// <summary>
+    ///     Parses the specified parameter syntax node to a document property (e.g. for records).
+    /// </summary>
+    public static DocProperty Property(this ParameterSyntax self) => new(
+        self.Identifier.Text,
+        $"{self.AttributeLists.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {{ get; }}",
+        AccessModifier.Public,
+        DocComment.Empty);
+
+    /// <summary>
+    ///     Parses the specified syntax node to a document method.
+    /// </summary>
+    public static DocMethod Method(this MethodDeclarationSyntax self) => new(
+        self.Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+        self.Access(),
+        self.Comment());
+
+    /// <summary>
+    ///     Parses the documentation comment of the specified member.
+    /// </summary>
+    public static DocComment Comment(this MemberDeclarationSyntax self)
+    {
+        var nodes = self
+            .GetLeadingTrivia()
+            .Select(x => x.GetStructure())
+            .OfType<DocumentationCommentTriviaSyntax>()
+            .SelectMany(x => x.Content)
+            .Nodes();
+
+        return new(nodes);
+    }
 
     /// <summary>
     ///     The access modifier of the specified member.
@@ -53,13 +105,6 @@ internal static class SyntaxExtensions
         self.AccessorList?.ToString() ?? "{ get; }";
 
     /// <summary>
-    ///     Parses document members from the specified syntax node.
-    /// </summary>
-    /// TODO: Fix nested types.
-    public static DocMember[] Members(this SyntaxNode self) =>
-        self.DescendantNodes().Select(Member).NonNulls().ToArray();
-
-    /// <summary>
     ///     Converts the specified syntax node to a document member.
     /// </summary>
     public static DocMember? Member(this SyntaxNode self) => self switch
@@ -72,15 +117,22 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    /// <summary>
-    ///     Parses the specified syntax node to a document type.
-    /// </summary>
-    public static DocType Type(this TypeDeclarationSyntax self) => new(
-        self.Identifier.Text,
-        self.Declaration(),
-        self.Access(),
-        self.Comment(),
-        self.Members());
+    /// TODO: Fix nested types.
+    private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
+    {
+        RecordDeclarationSyntax record =>
+            record
+                .ParameterList?
+                .Parameters
+                .Select(x => x.Property())
+                .Concat(self
+                    .DescendantNodes()
+                    .Select(Member))
+                .NonNulls()
+                .ToArray() ?? System.Array.Empty<DocMember>(),
+
+        _ => self.DescendantNodes().Select(Member).NonNulls().ToArray(),
+    };
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {
@@ -90,51 +142,19 @@ internal static class SyntaxExtensions
             $"{self.Attributes()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}".TrimEnd(),
     };
 
+    private static string Attributes(this MemberDeclarationSyntax self) =>
+        self.AttributeLists.Attributes();
+
+    private static string Attributes(this SyntaxList<AttributeListSyntax> self) =>
+        self
+            .Select(x => $"{x}")
+            .Separated(with: NewLine) is { } attributes and not ""
+            ? $"{attributes}{NewLine}"
+            : "";
+
+
     private static string Keyword(this RecordDeclarationSyntax self) =>
         self.ClassOrStructKeyword.Text is "" ? $"{self.Keyword}" : $"{self.Keyword} {self.ClassOrStructKeyword}";
-
-    /// <summary>
-    ///     Parses the specified syntax node to a document field.
-    /// </summary>
-    /// TODO: Handle `private int _x, _y` cases.
-    public static DocField Field(this FieldDeclarationSyntax self) => new(
-        self.Declaration.Variables[0].Identifier.Text,
-        $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
-        self.Access(),
-        self.Comment());
-
-    /// <summary>
-    ///     Parses the specified syntax node to a document property.
-    /// </summary>
-    public static DocProperty Property(this PropertyDeclarationSyntax self) => new(
-        self.Identifier.Text,
-        $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
-        self.Access(),
-        self.Comment());
-
-    /// <summary>
-    ///     Parses the specified syntax node to a document method.
-    /// </summary>
-    public static DocMethod Method(this MethodDeclarationSyntax self) => new(
-        self.Identifier.Text,
-        $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
-        self.Access(),
-        self.Comment());
-
-    /// <summary>
-    ///     Parses the documentation comment of the specified member.
-    /// </summary>
-    public static DocComment Comment(this MemberDeclarationSyntax self)
-    {
-        var nodes = self
-            .GetLeadingTrivia()
-            .Select(x => x.GetStructure())
-            .OfType<DocumentationCommentTriviaSyntax>()
-            .SelectMany(x => x.Content)
-            .Nodes();
-
-        return new(nodes);
-    }
 
     private static DocCommentNode[] Nodes(this IEnumerable<XmlNodeSyntax> self) =>
         self.SelectMany(Nodes).ToArray();

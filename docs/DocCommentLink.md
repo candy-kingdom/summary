@@ -5,3 +5,9 @@ A [`DocCommentNode`](./DocCommentNode.md) that represents the link to other memb
 public record DocCommentLink(string Value) : DocCommentNode
 ```
 
+## Properties
+### Value
+```cs
+ string Value { get; }
+```
+

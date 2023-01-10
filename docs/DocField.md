@@ -1,7 +1,28 @@
 # DocField
-A [`DocMember`](./DocMember.md) that represents a documented property in the parsed source code.
+A [`DocMember`](./DocMember.md) that represents a documented field in the parsed source code.
 
 ```cs
 public record DocField(string Name, string Declaration, AccessModifier Access, DocComment Comment) : DocMember(Name, Declaration, Access, Comment)
+```
+
+## Properties
+### Name
+```cs
+ string Name { get; }
+```
+
+### Declaration
+```cs
+ string Declaration { get; }
+```
+
+### Access
+```cs
+ AccessModifier Access { get; }
+```
+
+### Comment
+```cs
+ DocComment Comment { get; }
 ```
 

@@ -13,6 +13,12 @@ An empty documentation comment.
 public static readonly DocComment Empty = new(Array.Empty<DocCommentNode>())
 ```
 
+## Properties
+### Nodes
+```cs
+ DocCommentNode[] Nodes { get; }
+```
+
 ## Methods
 ### Element
 A nested documentation element that has the specified name (e.g. `summary`, `remarks`, etc.).

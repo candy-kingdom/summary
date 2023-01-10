@@ -7,6 +7,17 @@ _Literals are simple tokens that are parsed as text._
 public record DocCommentLiteral(string Value, string LeadingTrivia = "") : DocCommentNode
 ```
 
+## Properties
+### Value
+```cs
+ string Value { get; }
+```
+
+### LeadingTrivia
+```cs
+ string LeadingTrivia { get; }
+```
+
 ## Methods
 ### New
 Constructs a new [`DocCommentLiteral`](./DocCommentLiteral.md) from the given string.
