@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Summary.Extensions;
+using static System.Environment;
 
 namespace Summary.Markdown.Extensions;
 
@@ -57,7 +58,11 @@ internal static class MarkdownRenderExtensions
             var x = member.Comment.Element(name);
             if (x is not null)
             {
-                sb.AppendLine(map(Render(x)));
+                var lines = Render(x).Split(NewLine);
+
+                foreach (var line in lines)
+                    sb.AppendLine(line is not "" ? map(line) : "");
+
                 sb.AppendLine();
             }
         }
@@ -107,7 +112,7 @@ internal static class MarkdownRenderExtensions
         DocCommentLiteral literal => literal.Value,
 
         DocCommentElement { Name: "code" } code =>
-            $"```cs{Environment.NewLine}{Render(code.Nodes)}```",
+            $"```cs{NewLine}{Render(code.Nodes)}```",
 
         DocCommentElement element => element.Nodes
             .Trim()
@@ -115,6 +120,8 @@ internal static class MarkdownRenderExtensions
             .Separated(with: ""),
 
         DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){LeadingTrivia(next)}",
+
+        DocCommentParamRef @ref => $"`{@ref.Value}`{LeadingTrivia(next)}",
 
         _ => node.ToString()!,
     };

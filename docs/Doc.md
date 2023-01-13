@@ -22,5 +22,5 @@ public static Doc Merge(Doc a, Doc b)
 ```
 
 #### Parameters
-- `Doc`: The first document to merge.
-- `Doc`: The first document to merge.
+- `a`: The first document to merge.
+- `b`: The first document to merge.

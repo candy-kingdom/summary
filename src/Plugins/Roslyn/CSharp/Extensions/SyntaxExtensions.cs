@@ -118,8 +118,8 @@ internal static class SyntaxExtensions
         .ToArray();
 
     private static DocParam Param(this ParameterSyntax self, MethodDeclarationSyntax method) => new(
-        self.Identifier.ValueText,
         self.Type?.ToString() ?? "",
+        self.Identifier.ValueText,
         method.Comment().Element("param")?.Comment() ?? DocComment.Empty);
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
@@ -160,6 +160,7 @@ internal static class SyntaxExtensions
         XmlEmptyElementSyntax empty => empty.Name.ToString() switch
         {
             "see" => new DocCommentLink(empty.Cref()).Array(),
+            "paramref" => new DocCommentParamRef(empty.Name()).Array(),
 
             _ => DocCommentLiteral.New(empty.ToString()).Array(),
         },
@@ -178,6 +179,13 @@ internal static class SyntaxExtensions
         self.Attributes
             .OfType<XmlCrefAttributeSyntax>()
             .Select(x => x.Cref.ToString())
+            .FirstOrDefault() ?? "";
+
+    // TODO: Probably need a better name.
+    private static string Name(this XmlEmptyElementSyntax self) =>
+        self.Attributes
+            .OfType<XmlNameAttributeSyntax>()
+            .Select(x => x.Identifier.ToString())
             .FirstOrDefault() ?? "";
 
     private static DocCommentElementAttribute? Attribute(this XmlAttributeSyntax self) => self switch

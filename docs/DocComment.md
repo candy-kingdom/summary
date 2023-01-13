@@ -30,7 +30,7 @@ public DocCommentElement? Element(string name)
 ```
 
 #### Parameters
-- `string`: The name of the element to search inside the comment.
+- `name`: The name of the element to search inside the comment.
 ### Param
 A nested <param>documentation element that has the specified name.
 
@@ -39,4 +39,4 @@ public DocCommentElement? Param(string name)
 ```
 
 #### Parameters
-- `string`: The name of the parameter to search inside the comment.
+- `name`: The name of the parameter to search inside the comment.

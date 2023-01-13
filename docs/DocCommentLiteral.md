@@ -16,7 +16,7 @@ public string Value { get; }
 ```
 
 ### LeadingTrivia
-The leading trivia of the literal that is not included in the <paramref name="Value"/>(i.e. space characters, newlines).
+The leading trivia of the literal that is not included in the `Value`(i.e. space characters, newlines).
 
 ```cs
 public string LeadingTrivia { get; }
