@@ -36,17 +36,8 @@ internal static class MarkdownRenderExtensions
             Members<DocMethod>(type, "Methods");
         }
 
-        if (member is DocMethod { Params.Length: not 0 } method)
-        {
-            if (method.Params.Any(x => x.Comment != DocComment.Empty))
-            {
-                sb.AppendLine($"{new string('#', level + 1)} Parameters");
-
-                foreach (var param in method.Params)
-                    if (param.Comment != DocComment.Empty)
-                        sb.AppendLine($"- `{param.Name}`: {Render(param.Comment.Nodes)}");
-            }
-        }
+        if (member is DocMethod method)
+            Method(method);
 
         void Name()
         {
@@ -101,6 +92,20 @@ internal static class MarkdownRenderExtensions
 
             foreach (var x in members)
                 Render(x, sb, level + 2);
+        }
+
+        void Method(DocMethod m)
+        {
+            if (m.Params.Any(x => x.Comment != DocComment.Empty))
+            {
+                sb.AppendLine($"{new string('#', level + 1)} Parameters");
+
+                foreach (var param in m.Params)
+                    if (param.Comment != DocComment.Empty)
+                        sb.AppendLine($"- `{param.Name}`: {Render(param.Comment.Nodes)}");
+            }
+
+            Section("Returns");
         }
     }
 

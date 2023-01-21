@@ -46,6 +46,9 @@ public TimeSpan Method<M0, M1, M2>(int x, string y)
 #### Parameters
 - `x`: The `x` of the method.
 - `y`: The `x` of the method.
+#### Returns
+The `TimeSpan` instance.
+
 ### Method(short, string)
 The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).md).
 
