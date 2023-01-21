@@ -6,7 +6,7 @@ public class ParseSyntaxTreePipe : IPipe<string, SyntaxTree>
 ```
 
 ## Methods
-### Run
+### Run(string)
 ```cs
 public Task<SyntaxTree> Run(string input)
 ```

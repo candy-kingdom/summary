@@ -6,7 +6,7 @@ public class SavePipe<I> : IPipe<I, Unit>
 ```
 
 ## Methods
-### Run
+### Run(I)
 ```cs
 public async Task<Unit> Run(I input)
 ```

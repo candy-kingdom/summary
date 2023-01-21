@@ -14,7 +14,7 @@ public DocMember[] Members { get; }
 ```
 
 ## Methods
-### Merge
+### Merge(Doc, Doc)
 Merges two documents together returning the new merged document.
 
 ```cs

@@ -6,7 +6,7 @@ public class FoldPipe<O> : IPipe<O[], O>
 ```
 
 ## Methods
-### Run
+### Run(O[])
 ```cs
 public Task<O> Run(O[] input)
 ```

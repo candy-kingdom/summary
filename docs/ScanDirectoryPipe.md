@@ -6,7 +6,7 @@ public class ScanDirectoryPipe : IPipe<Unit, string[]>
 ```
 
 ## Methods
-### Run
+### Run(Unit)
 ```cs
 public async Task<string[]> Run(Unit _)
 ```

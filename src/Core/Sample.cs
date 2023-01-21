@@ -41,4 +41,11 @@ public class Sample<T0, T1>
     /// <returns>The `TimeSpan` instance.</returns>
     public TimeSpan Method<M0, M1, M2>(int x, string y) =>
         TimeSpan.Zero;
+
+    /// <summary>
+    ///     The overloaded <see cref="Method{M0,M1,M2}(int,string)"/>.
+    /// </summary>
+    /// <inheritdoc cref="Method{M0,M1,M2}(int,string)"/>
+    public TimeSpan Method<M0, M1, M2>(short x, string y) =>
+        TimeSpan.Zero;
 }

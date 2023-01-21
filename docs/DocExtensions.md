@@ -6,14 +6,14 @@ public static class DocExtensions
 ```
 
 ## Methods
-### IsSpace
+### IsSpace(DocCommentNode)
 Whether the given documentation comment node represents a space character.
 
 ```cs
 public static bool IsSpace(this DocCommentNode self)
 ```
 
-### IsNewLine
+### IsNewLine(DocCommentNode)
 Whether the given documentation comment node represents a space character.
 
 ```cs

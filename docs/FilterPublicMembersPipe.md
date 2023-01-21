@@ -6,7 +6,7 @@ public class FilterPublicMembersPipe : IPipe<Doc, Doc>
 ```
 
 ## Methods
-### Run
+### Run(Doc)
 ```cs
 public Task<Doc> Run(Doc input)
 ```

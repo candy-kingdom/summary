@@ -4,19 +4,19 @@ public class RoslynParserTests
 ```
 
 ## Methods
-### Class
+### Class()
 ```cs
 [Fact]
 public void Class()
 ```
 
-### Record
+### Record()
 ```cs
 [Fact]
 public void Record()
 ```
 
-### RecordStruct
+### RecordStruct()
 ```cs
 [Fact]
 public void RecordStruct()

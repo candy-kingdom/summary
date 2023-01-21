@@ -4,25 +4,25 @@ public class PipesTests
 ```
 
 ## Methods
-### Func
+### Func()
 ```cs
 [Fact]
 public void Func()
 ```
 
-### Then
+### Then()
 ```cs
 [Fact]
 public void Then()
 ```
 
-### Tee
+### Tee()
 ```cs
 [Fact]
 public void Tee()
 ```
 
-### Select
+### Select()
 ```cs
 [Fact]
 public void Select()

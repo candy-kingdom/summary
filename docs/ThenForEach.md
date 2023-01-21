@@ -6,7 +6,7 @@ public class ThenForEach<I, O1, O2> : IPipe<I, O2[]>
 ```
 
 ## Methods
-### Run
+### Run(I)
 ```cs
 public async Task<O2[]> Run(I input)
 ```

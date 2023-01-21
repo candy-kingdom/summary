@@ -6,7 +6,7 @@ public class TeePipe<I, O> : IPipe<I, O>
 ```
 
 ## Methods
-### Run
+### Run(I)
 ```cs
 public async Task<O> Run(I input)
 ```

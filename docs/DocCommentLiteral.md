@@ -23,7 +23,7 @@ public string LeadingTrivia { get; }
 ```
 
 ## Methods
-### New
+### New(string)
 Constructs a new [`DocCommentLiteral`](./DocCommentLiteral.md) from the given string.
 
 ```cs

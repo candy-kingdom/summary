@@ -32,7 +32,7 @@ public int Property1 { get; set; }
 ```
 
 ## Methods
-### Method
+### Method(int, string)
 A simple method.
 
 It contains two parameters:
@@ -46,3 +46,10 @@ public TimeSpan Method<M0, M1, M2>(int x, string y)
 #### Parameters
 - `x`: The `x` of the method.
 - `y`: The `x` of the method.
+### Method(short, string)
+The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).md).
+
+```cs
+public TimeSpan Method<M0, M1, M2>(short x, string y)
+```
+

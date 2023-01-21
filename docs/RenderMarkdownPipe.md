@@ -6,7 +6,7 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 ```
 
 ## Methods
-### Run
+### Run(Doc)
 ```cs
 public Task<Md[]> Run(Doc input)
 ```

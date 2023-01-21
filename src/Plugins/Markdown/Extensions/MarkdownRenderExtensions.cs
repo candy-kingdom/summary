@@ -23,13 +23,10 @@ internal static class MarkdownRenderExtensions
 
     private static void Render(DocMember member, StringBuilder sb, int level = 1)
     {
-        sb.AppendLine($"{new string('#', level)} {member.Name}");
-
+        Name();
         Element("summary");
         Element("remarks", x => $"_{x}_");
-
         Declaration();
-
         Section("Example");
 
         if (member is DocType type)
@@ -49,6 +46,14 @@ internal static class MarkdownRenderExtensions
                     if (param.Comment != DocComment.Empty)
                         sb.AppendLine($"- `{param.Name}`: {Render(param.Comment.Nodes)}");
             }
+        }
+
+        void Name()
+        {
+            if (member is DocMethod method)
+                sb.AppendLine($"{new string('#', level)} {member.Name}({method.Params.Select(x => x.Type).Separated(with:", ")})");
+            else
+                sb.AppendLine($"{new string('#', level)} {member.Name}");
         }
 
         void Element(string name, Func<string, string>? map = null)

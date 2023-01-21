@@ -4,13 +4,13 @@ public class MarkdownRendererTests
 ```
 
 ## Methods
-### LinkBeforeDot
+### LinkBeforeDot()
 ```cs
 [Fact]
 public void LinkBeforeDot()
 ```
 
-### LinkBeforeSpace
+### LinkBeforeSpace()
 ```cs
 [Fact]
 public void LinkBeforeSpace()

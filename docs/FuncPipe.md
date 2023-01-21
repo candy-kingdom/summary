@@ -6,7 +6,7 @@ public class FuncPipe<I, O> : IPipe<I, O>
 ```
 
 ## Methods
-### Run
+### Run(I)
 ```cs
 public Task<O> Run(I input)
 ```

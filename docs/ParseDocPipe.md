@@ -6,7 +6,7 @@ public class ParseDocPipe : IPipe<SyntaxTree, Doc>
 ```
 
 ## Methods
-### Run
+### Run(SyntaxTree)
 ```cs
 public async Task<Doc> Run(SyntaxTree input)
 ```

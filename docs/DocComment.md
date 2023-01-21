@@ -22,7 +22,7 @@ public DocCommentNode[] Nodes { get; }
 ```
 
 ## Methods
-### Element
+### Element(string)
 A nested documentation element that has the specified name (e.g. `summary`, `remarks`, etc.).
 
 ```cs
@@ -31,7 +31,7 @@ public DocCommentElement? Element(string name)
 
 #### Parameters
 - `name`: The name of the element to search inside the comment.
-### Param
+### Param(string)
 A nested <param>documentation element that has the specified name.
 
 ```cs
