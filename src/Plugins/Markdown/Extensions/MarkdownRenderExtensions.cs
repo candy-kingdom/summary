@@ -123,18 +123,23 @@ internal static class MarkdownRenderExtensions
 
         DocCommentElement { Name: "c" } code =>
             $"`{Render(code.Nodes)}`{LeadingTrivia(next)}",
-
+        DocCommentElement { Name: "i" or "em" } code =>
+            $"_{Render(code.Nodes)}_{LeadingTrivia(next)}",
+        DocCommentElement { Name: "b" or "strong" } code =>
+            $"**{Render(code.Nodes)}**{LeadingTrivia(next)}",
+        DocCommentElement { Name: "strike" } code =>
+            $"~~{Render(code.Nodes)}~~{LeadingTrivia(next)}",
         DocCommentElement { Name: "code" } code =>
             $"```cs{NewLine}{Render(code.Nodes)}```",
+
+        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){LeadingTrivia(next)}",
+
+        DocCommentParamRef @ref => $"`{@ref.Value}`{LeadingTrivia(next)}",
 
         DocCommentElement element => element.Nodes
             .Trim()
             .SelectWithNext(Render)
             .Separated(with: ""),
-
-        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){LeadingTrivia(next)}",
-
-        DocCommentParamRef @ref => $"`{@ref.Value}`{LeadingTrivia(next)}",
 
         _ => node.ToString()!,
     };

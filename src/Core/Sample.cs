@@ -8,7 +8,10 @@
 ///
 ///     This is the third paragraph.
 ///
+///     Here is a <i>italic</i>, <em>italic2</em> fragment.
+///     Here is a <b>bold</b>, <strong>bold2</strong> fragment.
 ///     Here is a <c>code</c> fragment.
+///     Here is a <strike>strikethrough</strike> fragment.
 /// </summary>
 /// <remarks>
 ///     Remarks section.

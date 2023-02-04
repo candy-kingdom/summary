@@ -6,7 +6,10 @@ It is indented.
 
 This is the third paragraph.
 
+Here is a _italic_, _italic2_ fragment.
+Here is a **bold**, **bold2** fragment.
 Here is a `code` fragment.
+Here is a ~~strikethrough~~ fragment.
 
 _Remarks section._
 _Second line._
