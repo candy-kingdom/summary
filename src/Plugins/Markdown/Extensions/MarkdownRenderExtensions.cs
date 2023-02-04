@@ -31,7 +31,7 @@ internal static class MarkdownRenderExtensions
 
         if (member is DocType type)
         {
-            Parameters("TypeParameters", type.TypeParams.Select(x => (x.Name, x.Comment)));
+            Parameters("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment)));
 
             Members<DocField>(type, "Fields");
             Members<DocProperty>(type, "Properties");
