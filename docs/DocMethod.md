@@ -2,7 +2,13 @@
 A [`DocMember`](./DocMember.md) that represents a documented method in the parsed source code.
 
 ```cs
-public record DocMethod(string Name, string Declaration, AccessModifier Access, DocComment Comment, DocParam[] Params) : DocMember(Name, Declaration, Access, Comment)
+public record DocMethod(
+    string Name,
+    string Declaration,
+    AccessModifier Access,
+    DocComment Comment,
+    DocParam[] Params,
+    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment)
 ```
 
 ## Properties
@@ -29,5 +35,10 @@ public DocComment Comment { get; }
 ### Params
 ```cs
 public DocParam[] Params { get; }
+```
+
+### TypeParams
+```cs
+public DocTypeParam[] TypeParams { get; }
 ```
 

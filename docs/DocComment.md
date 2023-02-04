@@ -26,11 +26,23 @@ public DocCommentNode[] Nodes { get; }
 A nested documentation element that has the specified name (e.g. `summary`, `remarks`, etc.).
 
 ```cs
-public DocCommentElement? Element(string name)
+public DocCommentElement? Element(string tag)
 ```
 
 #### Parameters
-- `name`: The name of the element to search inside the comment.
+- `tag`: The name of the element tag to search inside the comment.
+
+### Element(string, string)
+A nested documentation element that has the specified name (e.g. `summary`, `remarks`, etc.).
+
+```cs
+public DocCommentElement? Element(string tag, string name)
+```
+
+#### Parameters
+- `tag`: The name of the element tag to search inside the comment.
+- `name`: The value of `name` attribute of the tag.
+
 ### Param(string)
 A nested <param>documentation element that has the specified name.
 
@@ -40,3 +52,4 @@ public DocCommentElement? Param(string name)
 
 #### Parameters
 - `name`: The name of the parameter to search inside the comment.
+

@@ -15,6 +15,7 @@ public static O RunSync<O>(this IPipe<Unit, O> self)
 
 #### Parameters
 - `self`: The pipe to execute.
+
 ### RunSync(IPipe<I, O>, I)
 ```cs
 public static O RunSync<I, O>(this IPipe<I, O> self, I input)

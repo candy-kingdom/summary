@@ -19,6 +19,8 @@
 ///
 ///     Another paragraph.
 /// </remarks>
+/// <typeparam name="T0">A first type parameter.</typeparam>
+/// <typeparam name="T1">A second type parameter.</typeparam>
 public class Sample<T0, T1>
 {
     /// <summary>

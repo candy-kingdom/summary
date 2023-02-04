@@ -36,7 +36,8 @@ internal static class SyntaxExtensions
         self.Declaration(),
         self.Access(),
         self.Comment(),
-        self.Members());
+        self.Members(),
+        self.TypeParams());
 
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
@@ -62,7 +63,8 @@ internal static class SyntaxExtensions
         $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
         self.Access(),
         self.Comment(),
-        self.Params());
+        self.Params(),
+        self.TypeParams());
 
     private static DocComment Comment(this MemberDeclarationSyntax self)
     {
@@ -93,7 +95,6 @@ internal static class SyntaxExtensions
     private static string Accessors(this PropertyDeclarationSyntax self) =>
         self.AccessorList?.ToString() ?? "{ get; }";
 
-
     /// TODO: Fix nested types.
     private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
     {
@@ -117,10 +118,27 @@ internal static class SyntaxExtensions
         .Select(x => x.Param(self))
         .ToArray();
 
-    private static DocParam Param(this ParameterSyntax self, MethodDeclarationSyntax method) => new(
+    private static DocParam Param(this ParameterSyntax self, MemberDeclarationSyntax member) => new(
         self.Type?.ToString() ?? "",
         self.Identifier.ValueText,
-        method.Comment().Element("param")?.Comment() ?? DocComment.Empty);
+        member.Comment().Element("param", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
+
+    private static DocTypeParam[] TypeParams(this TypeDeclarationSyntax self) => self
+        .TypeParameterList?
+        .TypeParams(self) ?? System.Array.Empty<DocTypeParam>();
+
+    private static DocTypeParam[] TypeParams(this MethodDeclarationSyntax self) => self
+        .TypeParameterList?
+        .TypeParams(self) ?? System.Array.Empty<DocTypeParam>();
+
+    private static DocTypeParam[] TypeParams(this TypeParameterListSyntax self, MemberDeclarationSyntax member) => self
+        .Parameters
+        .Select(x => x.TypeParam(member))
+        .ToArray() ?? System.Array.Empty<DocTypeParam>();
+
+    private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(
+        self.Identifier.ValueText,
+        member.Comment().Element("typeparam", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {

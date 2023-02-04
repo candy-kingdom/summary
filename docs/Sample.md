@@ -20,6 +20,10 @@ _Another paragraph._
 public class Sample<T0, T1>
 ```
 
+## TypeParameters
+- `T0`: A first type parameter.
+- `T1`: A second type parameter.
+
 ## Fields
 ### Field1
 A sample field.
@@ -50,7 +54,13 @@ public TimeSpan Method<M0, M1, M2>(int x, string y)
 
 #### Parameters
 - `x`: The `x` of the method.
-- `y`: The `x` of the method.
+- `y`: The `y` of the method.
+
+#### Type Parameters
+- `M0`: The first type parameter of the method.
+- `M1`: The second type parameter of the method.
+- `M2`: The third type parameter of the method.
+
 #### Returns
 The `TimeSpan` instance.
 
