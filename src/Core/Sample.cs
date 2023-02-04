@@ -39,6 +39,11 @@ public class Sample<T0, T1>
     ///     It contains two parameters:
     ///     - <paramref name="x"/> means `x`
     ///     - <paramref name="y"/> means `y`
+    ///
+    ///     It contains three type parameters:
+    ///     - <typeparamref name="M0"/> is the first one
+    ///     - <typeparamref name="M1"/> is the second one
+    ///     - <typeparamref name="M2"/> is the third one
     /// </summary>
     /// <param name="x">The `x` of the method.</param>
     /// <param name="y">The `y` of the method.</param>

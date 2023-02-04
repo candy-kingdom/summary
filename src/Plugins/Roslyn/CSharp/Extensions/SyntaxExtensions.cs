@@ -179,6 +179,7 @@ internal static class SyntaxExtensions
         {
             "see" => new DocCommentLink(empty.Cref()).Array(),
             "paramref" => new DocCommentParamRef(empty.Name()).Array(),
+            "typeparamref" => new DocCommentParamRef(empty.Name()).Array(),
 
             _ => DocCommentLiteral.New(empty.ToString()).Array(),
         },

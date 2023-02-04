@@ -48,6 +48,11 @@ It contains two parameters:
 - `x` means `x`
 - `y` means `y`
 
+It contains three type parameters:
+- `M0` is the first one
+- `M1` is the second one
+- `M2` is the third one
+
 ```cs
 public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
