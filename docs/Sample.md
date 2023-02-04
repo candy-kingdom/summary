@@ -6,6 +6,8 @@ It is indented.
 
 This is the third paragraph.
 
+Here is a `code` fragment.
+
 _Remarks section._
 _Second line._
 

@@ -7,6 +7,8 @@
 ///     It is indented.
 ///
 ///     This is the third paragraph.
+///
+///     Here is a <c>code</c> fragment.
 /// </summary>
 /// <remarks>
 ///     Remarks section.

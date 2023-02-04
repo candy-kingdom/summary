@@ -121,6 +121,9 @@ internal static class MarkdownRenderExtensions
 
         DocCommentLiteral literal => literal.Value,
 
+        DocCommentElement { Name: "c" } code =>
+            $"`{Render(code.Nodes)}`{LeadingTrivia(next)}",
+
         DocCommentElement { Name: "code" } code =>
             $"```cs{NewLine}{Render(code.Nodes)}```",
 
