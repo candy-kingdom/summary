@@ -20,7 +20,7 @@ _Another paragraph._
 public class Sample<T0, T1>
 ```
 
-## TypeParameters
+## Type Parameters
 - `T0`: A first type parameter.
 - `T1`: A second type parameter.
 

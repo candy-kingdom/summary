@@ -18,7 +18,7 @@ public class FilterPublicMembersPipe : IPipe<Doc, Doc>
 
     private static DocMember Filtered(DocMember member) => member switch
     {
-        DocType type => type with { Members = Filtered(type.Members) },
+        DocTypeDeclaration type => type with { Members = Filtered(type.Members) },
 
         _ => member,
     };

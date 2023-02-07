@@ -1,8 +1,9 @@
-# DocType
-A [`DocMember`](./DocMember.md) that represents a documented type in the parsed source code.
+# DocTypeDeclaration
+A [`DocMember`](./DocMember.md) that represents a documented type declaration (e.g. `struct`, `class`, etc.)
+in the parsed source code.
 
 ```cs
-public record DocType(
+public record DocTypeDeclaration(
     string Name,
     string Declaration,
     AccessModifier Access,

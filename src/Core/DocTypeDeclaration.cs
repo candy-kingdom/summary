@@ -1,10 +1,11 @@
 ﻿namespace Summary;
 
 /// <summary>
-///     A <see cref="DocMember"/> that represents a documented type in the parsed source code.
+///     A <see cref="DocMember"/> that represents a documented type declaration (e.g. `struct`, `class`, etc.)
+///     in the parsed source code.
 /// </summary>
 /// <inheritdoc cref="DocMember"/>
-public record DocType(
+public record DocTypeDeclaration(
     string Name,
     string Declaration,
     AccessModifier Access,

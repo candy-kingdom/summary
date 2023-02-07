@@ -27,7 +27,7 @@ public record Person;")
             .Then(new ParseDocPipe())
             .RunSync(src)
             .Members
-            .OfType<DocType>()
+            .OfType<DocTypeDeclaration>()
             .Single()
             .Comment
             .Element("summary")!

@@ -23,7 +23,7 @@ internal static class SyntaxExtensions
     /// </summary>
     public static DocMember? Member(this SyntaxNode self) => self switch
     {
-        TypeDeclarationSyntax x => x.Type(),
+        TypeDeclarationSyntax x => x.TypeDeclaration(),
         FieldDeclarationSyntax x => x.Field(),
         PropertyDeclarationSyntax x => x.Property(),
         MethodDeclarationSyntax x => x.Method(),
@@ -31,7 +31,7 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static DocType Type(this TypeDeclarationSyntax self) => new(
+    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) => new(
         self.Identifier.Text,
         self.Declaration(),
         self.Access(),

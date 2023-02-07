@@ -29,7 +29,7 @@ internal static class MarkdownRenderExtensions
         Declaration();
         Section("Example");
 
-        if (member is DocType type)
+        if (member is DocTypeDeclaration type)
         {
             Parameters("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment)));
 
@@ -84,7 +84,7 @@ internal static class MarkdownRenderExtensions
             }
         }
 
-        void Members<T>(DocType type, string name) where T : DocMember
+        void Members<T>(DocTypeDeclaration type, string name) where T : DocMember
         {
             var members = type.Members.OfType<T>();
             if (!members.Any())
