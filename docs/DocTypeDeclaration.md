@@ -9,7 +9,8 @@ public record DocTypeDeclaration(
     AccessModifier Access,
     DocComment Comment,
     DocMember[] Members,
-    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment)
+    DocTypeParam[] TypeParams,
+    DocTypeDeclaration? Parent) : DocMember(Name, Declaration, Access, Comment)
 ```
 
 ## Properties
@@ -34,12 +35,23 @@ public DocComment Comment { get; }
 ```
 
 ### Members
+The members of this type (e.g. fields, properties, methods).
+
 ```cs
 public DocMember[] Members { get; }
 ```
 
 ### TypeParams
+The type parameters of this type (if it's generic).
+
 ```cs
 public DocTypeParam[] TypeParams { get; }
+```
+
+### Parent
+The containing type this type is defined in (`null` if none).
+
+```cs
+public DocTypeDeclaration? Parent { get; }
 ```
 

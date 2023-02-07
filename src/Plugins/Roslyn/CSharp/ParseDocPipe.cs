@@ -15,7 +15,12 @@ public class ParseDocPipe : IPipe<SyntaxTree, Doc>
     {
         var root = await input.GetRootAsync().ConfigureAwait(false);
         var members = root
-            .DescendantNodes()
+            .ChildNodes()
+            .OfType<TypeDeclarationSyntax>()
+            .Concat(root
+                .ChildNodes()
+                .OfType<BaseNamespaceDeclarationSyntax>()
+                .SelectMany(x => x.ChildNodes().OfType<TypeDeclarationSyntax>()))
             .OfType<TypeDeclarationSyntax>()
             .Select(x => x.Member())
             .NonNulls()

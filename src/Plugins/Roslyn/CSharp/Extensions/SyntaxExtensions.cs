@@ -21,9 +21,9 @@ internal static class SyntaxExtensions
     /// <summary>
     ///     Converts the specified syntax node to a document member.
     /// </summary>
-    public static DocMember? Member(this SyntaxNode self) => self switch
+    public static DocMember? Member(this SyntaxNode self, DocTypeDeclaration? parent = null) => self switch
     {
-        TypeDeclarationSyntax x => x.TypeDeclaration(),
+        TypeDeclarationSyntax x => x.TypeDeclaration(parent),
         FieldDeclarationSyntax x => x.Field(),
         PropertyDeclarationSyntax x => x.Property(),
         MethodDeclarationSyntax x => x.Method(),
@@ -31,13 +31,19 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) => new(
-        self.Identifier.Text,
-        self.Declaration(),
-        self.Access(),
-        self.Comment(),
-        self.Members(),
-        self.TypeParams());
+    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null)
+    {
+        var type = new DocTypeDeclaration(
+            self.Identifier.Text,
+            self.Declaration(),
+            self.Access(),
+            self.Comment(),
+            null!,
+            self.TypeParams(),
+            parent);
+
+        return type with { Members = self.Members(parent: type) };
+    }
 
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
@@ -95,8 +101,7 @@ internal static class SyntaxExtensions
     private static string Accessors(this PropertyDeclarationSyntax self) =>
         self.AccessorList?.ToString() ?? "{ get; }";
 
-    /// TODO: Fix nested types.
-    private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
+    private static DocMember[] Members(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null) => self switch
     {
         RecordDeclarationSyntax record =>
             record
@@ -105,11 +110,11 @@ internal static class SyntaxExtensions
                 .Select(x => x.Property(record))
                 .Concat(self
                     .DescendantNodes()
-                    .Select(Member))
+                    .Select(x => Member(x, parent)))
                 .NonNulls()
                 .ToArray() ?? System.Array.Empty<DocMember>(),
 
-        _ => self.DescendantNodes().Select(Member).NonNulls().ToArray(),
+        _ => self.DescendantNodes().Select(x => Member(x, parent)).NonNulls().ToArray(),
     };
 
     private static DocParam[] Params(this MethodDeclarationSyntax self) => self
@@ -134,7 +139,7 @@ internal static class SyntaxExtensions
     private static DocTypeParam[] TypeParams(this TypeParameterListSyntax self, MemberDeclarationSyntax member) => self
         .Parameters
         .Select(x => x.TypeParam(member))
-        .ToArray() ?? System.Array.Empty<DocTypeParam>();
+        .ToArray();
 
     private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(
         self.Identifier.ValueText,
