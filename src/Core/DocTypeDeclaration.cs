@@ -7,6 +7,7 @@
 /// <param name="Members">The members of this type (e.g. fields, properties, methods).</param>
 /// <param name="TypeParams">The type parameters of this type (if it's generic).</param>
 /// <param name="Parent">The containing type this type is defined in (`null` if none).</param>
+/// <param name="Base">The list of base types for this one.</param>
 /// <inheritdoc cref="DocMember"/>
 public record DocTypeDeclaration(
     string Name,
@@ -15,4 +16,5 @@ public record DocTypeDeclaration(
     DocComment Comment,
     DocMember[] Members,
     DocTypeParam[] TypeParams,
-    DocTypeDeclaration? Parent) : DocMember(Name, Declaration, Access, Comment);
+    DocTypeDeclaration? Parent,
+    DocType[] Base) : DocMember(Name, Declaration, Access, Comment);

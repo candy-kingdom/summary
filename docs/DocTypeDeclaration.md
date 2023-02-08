@@ -10,7 +10,8 @@ public record DocTypeDeclaration(
     DocComment Comment,
     DocMember[] Members,
     DocTypeParam[] TypeParams,
-    DocTypeDeclaration? Parent) : DocMember(Name, Declaration, Access, Comment)
+    DocTypeDeclaration? Parent,
+    DocType[] Base) : DocMember(Name, Declaration, Access, Comment)
 ```
 
 ## Properties
@@ -53,5 +54,10 @@ The containing type this type is defined in (`null` if none).
 
 ```cs
 public DocTypeDeclaration? Parent { get; }
+```
+
+### Base
+```cs
+public DocType[] Base { get; }
 ```
 

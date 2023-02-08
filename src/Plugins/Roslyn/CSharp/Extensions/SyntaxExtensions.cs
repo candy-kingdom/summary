@@ -40,7 +40,8 @@ internal static class SyntaxExtensions
             self.Comment(),
             null!,
             self.TypeParams(),
-            parent);
+            parent,
+            self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>());
 
         return type with { Members = self.Members(parent: type) };
     }
@@ -158,13 +159,15 @@ internal static class SyntaxExtensions
         QualifiedNameSyntax x =>
             new DocType($"{x.Left}.{x.Right}", System.Array.Empty<DocType>()),
         GenericNameSyntax x =>
-            new DocType($"{x.Identifier}", x.TypeArgumentList.Arguments.Select(y => y.Type()).ToArray()),
+            new DocType(x.Identifier.Text, x.TypeArgumentList.Arguments.Select(y => y.Type()).ToArray()),
+        TupleTypeSyntax x =>
+            new DocType("Tuple", x.Elements.Select(y => y.Type.Type()).ToArray()),
         ArrayTypeSyntax x =>
             new DocType($"{x.ElementType}[]", System.Array.Empty<DocType>()),
         NullableTypeSyntax x =>
             new DocType($"{x.ElementType}?", new[] { x.ElementType.Type() }),
         _ =>
-            throw new NotImplementedException(),
+            throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self}"),
     };
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
