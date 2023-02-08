@@ -47,18 +47,22 @@ internal static class SyntaxExtensions
 
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
+        self.Declaration.Type.Type(),
         self.Declaration.Variables[0].Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
         self.Access(),
         self.Comment());
 
     private static DocProperty Property(this PropertyDeclarationSyntax self) => new(
+        self.Type.Type(),
         self.Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
         self.Access(),
         self.Comment());
 
     private static DocProperty Property(this ParameterSyntax self, RecordDeclarationSyntax record) => new(
+        // Record should always have parameters with types.
+        self.Type!.Type(),
         self.Identifier.Text,
         $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
         AccessModifier.Public,
@@ -124,7 +128,7 @@ internal static class SyntaxExtensions
         .ToArray();
 
     private static DocParam Param(this ParameterSyntax self, MemberDeclarationSyntax member) => new(
-        self.Type?.ToString() ?? "",
+        self.Type?.Type(),
         self.Identifier.ValueText,
         member.Comment().Element("param", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
 
@@ -144,6 +148,24 @@ internal static class SyntaxExtensions
     private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(
         self.Identifier.ValueText,
         member.Comment().Element("typeparam", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
+
+    private static DocType Type(this TypeSyntax self) => self switch
+    {
+        PredefinedTypeSyntax x =>
+            new DocType(x.Keyword.Text, System.Array.Empty<DocType>()),
+        IdentifierNameSyntax x =>
+            new DocType(x.Identifier.Text, System.Array.Empty<DocType>()),
+        QualifiedNameSyntax x =>
+            new DocType($"{x.Left}.{x.Right}", System.Array.Empty<DocType>()),
+        GenericNameSyntax x =>
+            new DocType($"{x.Identifier}", x.TypeArgumentList.Arguments.Select(y => y.Type()).ToArray()),
+        ArrayTypeSyntax x =>
+            new DocType($"{x.ElementType}[]", System.Array.Empty<DocType>()),
+        NullableTypeSyntax x =>
+            new DocType($"{x.ElementType}?", new[] { x.ElementType.Type() }),
+        _ =>
+            throw new NotImplementedException(),
+    };
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {

@@ -44,9 +44,12 @@ internal static class MarkdownRenderExtensions
         void Name()
         {
             if (member is DocMethod method)
-                sb.AppendLine($"{new string('#', level)} {member.Name}({method.Params.Select(x => x.Type).Separated(with:", ")})");
+                sb.AppendLine($"{new string('#', level)} {member.Name}({Params(method)})");
             else
                 sb.AppendLine($"{new string('#', level)} {member.Name}");
+
+            string Params(DocMethod m) =>
+                m.Params.Select(x => x.Type?.FullName ?? "").Separated(with:", ");
         }
 
         void Element(string name, Func<string, string>? map = null)

@@ -2,7 +2,7 @@
 A parameter of a [`DocMethod`](./DocMethod.md).
 
 ```cs
-public record DocParam(string Type, string Name, DocComment Comment)
+public record DocParam(DocType? Type, string Name, DocComment Comment)
 ```
 
 ## Properties
@@ -10,7 +10,7 @@ public record DocParam(string Type, string Name, DocComment Comment)
 The type of the parameter.
 
 ```cs
-public string Type { get; }
+public DocType? Type { get; }
 ```
 
 ### Name
