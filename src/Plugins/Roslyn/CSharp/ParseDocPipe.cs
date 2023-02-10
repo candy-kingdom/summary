@@ -21,7 +21,6 @@ public class ParseDocPipe : IPipe<SyntaxTree, Doc>
                 .ChildNodes()
                 .OfType<BaseNamespaceDeclarationSyntax>()
                 .SelectMany(x => x.ChildNodes().OfType<TypeDeclarationSyntax>()))
-            .OfType<TypeDeclarationSyntax>()
             .Select(x => x.Member())
             .NonNulls()
             .ToArray();
