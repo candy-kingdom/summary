@@ -9,6 +9,14 @@
 public class InheritDocBase
 {
     /// <summary>
+    ///     A field.
+    /// </summary>
+    public int Field1;
+
+    /// <inheritdoc cref="Field1"/>
+    public int Field2;
+
+    /// <summary>
     ///     Calculates the sum.
     /// </summary>
     /// <param name="x">The first parameter.</param>

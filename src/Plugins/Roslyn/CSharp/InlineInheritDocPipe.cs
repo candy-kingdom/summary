@@ -8,7 +8,6 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Base interfaces
     // TODO: [x] Base methods
     // TODO: [x] Base crefs
-    // TODO: [ ] Base fields
     // TODO: [ ] Base properties
     // TODO: [ ] Base indexers
     // TODO: [ ] Base events
@@ -86,10 +85,8 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 {
                     var declaring = Declaration(method.DeclaringType);
                     if (declaring is not null)
-                    {
                         if (Base(declaring) is DocTypeDeclaration @base)
                             return @base.Members.OfType<DocMethod>().FirstOrDefault(x => x.Name == method.Name);
-                    }
                 }
             }
 
@@ -99,15 +96,28 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
         // TODO: Should check cases where method tries to inherit type documentation?
         DocMember? ByCref(DocMember x, string cref)
         {
+            // TODO: [x] Search this type.
+            // TODO: [ ] Search base types.
+
             if (x is DocTypeDeclaration declaration)
                 return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null && x.Cref == cref);
 
             if (x is DocMethod method)
             {
-                // TODO: Search base types.
                 if (method.DeclaringType is not null)
                 {
                     var declaring = Declaration(method.DeclaringType);
+                    if (declaring is not null)
+                        return declaring.Members.FirstOrDefault(x => x.Cref == cref);
+                }
+            }
+
+            if (x is DocField field)
+            {
+                // TODO: Search base types.
+                if (field.DeclaringType is not null)
+                {
+                    var declaring = Declaration(field.DeclaringType);
                     if (declaring is not null)
                         return declaring.Members.FirstOrDefault(x => x.Cref == cref);
                 }

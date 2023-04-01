@@ -7,6 +7,21 @@ _Remarks section._
 public class InheritDocBase
 ```
 
+## Fields
+### Field1
+A field.
+
+```cs
+public int Field1
+```
+
+### Field2
+A field.
+
+```cs
+public int Field2
+```
+
 ## Methods
 ### Sum(int, int)
 Calculates the sum.

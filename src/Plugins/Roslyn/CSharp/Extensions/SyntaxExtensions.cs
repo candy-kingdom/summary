@@ -56,7 +56,8 @@ internal static class SyntaxExtensions
         self.Declaration.Variables[0].Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
         self.Access(),
-        self.Comment());
+        self.Comment(),
+        self.DeclaringType());
 
     private static DocProperty Property(this PropertyDeclarationSyntax self) => new(
         self.Type.Type(),
@@ -81,7 +82,7 @@ internal static class SyntaxExtensions
         self.Comment(),
         self.Params(),
         self.TypeParams(),
-        self.FirstAncestorOrSelf<TypeDeclarationSyntax>()?.Type());
+        self.DeclaringType());
 
     private static DocComment Comment(this MemberDeclarationSyntax self)
     {
@@ -172,6 +173,9 @@ internal static class SyntaxExtensions
         _ =>
             throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self}"),
     };
+
+    private static DocType? DeclaringType(this SyntaxNode self) =>
+        self.FirstAncestorOrSelf<TypeDeclarationSyntax>()?.Type();
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {
