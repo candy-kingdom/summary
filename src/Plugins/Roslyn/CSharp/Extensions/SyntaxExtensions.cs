@@ -64,7 +64,8 @@ internal static class SyntaxExtensions
         self.Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
         self.Access(),
-        self.Comment());
+        self.Comment(),
+        self.DeclaringType());
 
     private static DocProperty Property(this ParameterSyntax self, RecordDeclarationSyntax record) => new(
         // Record should always have parameters with types.
@@ -73,6 +74,7 @@ internal static class SyntaxExtensions
         $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
         AccessModifier.Public,
         DocComment.Empty,
+        self.DeclaringType(),
         Generated: true);
 
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(

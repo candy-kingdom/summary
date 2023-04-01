@@ -22,6 +22,25 @@ A field.
 public int Field2
 ```
 
+## Properties
+### Property1
+A property.
+
+_Property remarks._
+
+```cs
+public virtual int Property1 { get; set; }
+```
+
+### Property2
+A property.
+
+_Property remarks._
+
+```cs
+public int Property2 { get; set; }
+```
+
 ## Methods
 ### Sum(int, int)
 Calculates the sum.

@@ -7,6 +7,16 @@ _Remarks section._
 public class InheritDocSample_Child : InheritDocBase
 ```
 
+## Properties
+### Property1
+A property.
+
+_Property remarks._
+
+```cs
+public override int Property1 { get; set; }
+```
+
 ## Methods
 ### Sum(int, int)
 Calculates the sum.

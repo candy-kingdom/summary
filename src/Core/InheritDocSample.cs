@@ -13,8 +13,19 @@ public class InheritDocBase
     /// </summary>
     public int Field1;
 
-    /// <inheritdoc cref="Field1"/>
+    /// <inheritdoc cref="Field1" />
     public int Field2;
+
+    /// <summary>
+    ///     A property.
+    /// </summary>
+    /// <remarks>
+    ///     Property remarks.
+    /// </remarks>
+    public virtual int Property1 { get; set; }
+
+    /// <inheritdoc cref="Property1" />
+    public int Property2 { get; set; }
 
     /// <summary>
     ///     Calculates the sum.
@@ -28,6 +39,9 @@ public class InheritDocBase
 /// <inheritdoc />
 public class InheritDocSample_Child : InheritDocBase
 {
+    /// <inheritdoc />
+    public override int Property1 { get; set; }
+
     /// <inheritdoc />
     public override int Sum(int x, int y) => x + y;
 }

@@ -8,12 +8,12 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Base interfaces
     // TODO: [x] Base methods
     // TODO: [x] Base crefs
-    // TODO: [ ] Base properties
-    // TODO: [ ] Base indexers
-    // TODO: [ ] Base events
-    // TODO: [ ] Properties in records
+    // TODO: [x] Base properties
+    // TODO: [x] Properties in records
     // TODO: [ ] Crefs: base types (methods)
     // TODO: [ ] Crefs: base types (types)
+    // TODO: [ ] Base indexers
+    // TODO: [ ] Base events
     // TODO: [ ] Complex merging rules
     // TODO: [ ] Base types (n levels)
     // TODO: [ ] Inheriting inherited docs?
@@ -61,7 +61,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                     }
                     else
                     {
-                        var cref = ByCref(member, doc.Cref);
+                        var cref = Cref(member, doc.Cref);
                         if (cref is not null)
                             return Merge(member.Comment.Nodes, cref.Comment.Nodes);
                     }
@@ -74,27 +74,33 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             }
         }
 
-        DocMember? Base(DocMember x)
+        DocMember? Base(DocMember? x)
         {
+            if (x is null)
+                return null;
+
             if (x is DocTypeDeclaration declaration)
                 return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null);
 
             if (x is DocMethod method)
-            {
-                if (method.DeclaringType is not null)
-                {
-                    var declaring = Declaration(method.DeclaringType);
-                    if (declaring is not null)
-                        if (Base(declaring) is DocTypeDeclaration @base)
-                            return @base.Members.OfType<DocMethod>().FirstOrDefault(x => x.Name == method.Name);
-                }
-            }
+                return ByType(method, method.DeclaringType);
+
+            if (x is DocProperty prop)
+                return ByType(prop, prop.DeclaringType);
 
             return null;
+
+            DocMember? ByType<T>(T member, DocType? type) where T : DocMember =>
+                type is not null
+                    ? Base(Declaration(type)) is DocTypeDeclaration @base
+                        ? @base.Members.OfType<T>().FirstOrDefault(x => x.Name == member.Name)
+                        : null
+                    : null;
+
         }
 
         // TODO: Should check cases where method tries to inherit type documentation?
-        DocMember? ByCref(DocMember x, string cref)
+        DocMember? Cref(DocMember x, string cref)
         {
             // TODO: [x] Search this type.
             // TODO: [ ] Search base types.
@@ -108,10 +114,13 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             if (x is DocField field)
                 return Ref(field.DeclaringType);
 
+            if (x is DocProperty prop)
+                return Ref(prop.DeclaringType);
+
             return null;
 
-            DocMember? Ref(DocType? declaring) =>
-                declaring is not null ? Declaration(declaring)?.Members.FirstOrDefault(x => x.Cref == cref) : null;
+            DocMember? Ref(DocType? type) =>
+                type is not null ? Declaration(type)?.Members.FirstOrDefault(x => x.Cref == cref) : null;
         }
 
         DocTypeDeclaration? Declaration(DocType type) =>

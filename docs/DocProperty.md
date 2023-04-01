@@ -2,7 +2,7 @@
 A [`DocMember`](./DocMember.md) that represents a documented property in the parsed source code.
 
 ```cs
-public record DocProperty(DocType Type, string Name, string Declaration, AccessModifier Access, DocComment Comment, bool Generated = false) : DocMember(Name, Declaration, Access, Comment)
+public record DocProperty(DocType Type, string Name, string Declaration, AccessModifier Access, DocComment Comment, DocType? DeclaringType, bool Generated = false) : DocMember(Name, Declaration, Access, Comment)
 ```
 
 ## Properties
@@ -40,6 +40,11 @@ The documentation comment of the member (can be empty).
 
 ```cs
 public DocComment Comment { get; }
+```
+
+### DeclaringType
+```cs
+public DocType? DeclaringType { get; }
 ```
 
 ### Generated
