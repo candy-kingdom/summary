@@ -16,8 +16,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Inheriting inherited docs?
     // TODO: [x] Crefs: base types (types)
     // TODO: [x] Base members (n levels)
-    // TODO: [ ] Crefs: base types (methods)
-    // TODO: [ ] Crefs: namespaces and full paths
+    // TODO: [x] Crefs: namespaces and full paths
     // TODO: [ ] Base indexers
     // TODO: [ ] Base events
     // TODO: [ ] Complex merging rules

@@ -31,6 +31,17 @@ public class InheritDocBase
     public int Property3 { get; set; }
 
     /// <summary>
+    ///     An event.
+    /// </summary>
+    public virtual event Action Event1 = () => { };
+
+    /// <summary>
+    ///     An indexer.
+    /// </summary>
+    /// <param name="i">A parameter to the indexer.</param>
+    public virtual int this[int i] => 0;
+
+    /// <summary>
     ///     Calculates the sum.
     /// </summary>
     /// <param name="x">The first parameter.</param>
@@ -46,10 +57,16 @@ public class InheritDoc_Child : InheritDocBase
     public override int Property1 { get; set; }
 
     /// <inheritdoc />
+    public override event Action Event1 = () => { };
+
+    /// <inheritdoc />
+    public override int this[int i] => 0;
+
+    /// <inheritdoc />
     public override int Sum(int x, int y) => x + y;
 }
 
-/// <inheritdoc cref="InheritDocBase" />
+/// <inheritdoc cref="Summary.InheritDocBase" />
 public class InheritDoc_Child2 : InheritDoc_Child
 {
     /// <inheritdoc />
@@ -63,6 +80,15 @@ public class InheritDoc_Child2 : InheritDoc_Child
 
     /// <inheritdoc cref="Summary.InheritDocBase.Property3" />
     public int Property5 { get; set; }
+
+    /// <inheritdoc cref="InheritDocBase.Event1"/>
+    public new event Action Event1 = () => { };
+
+    /// <inheritdoc cref="Summary.InheritDocBase.Event1"/>
+    public event Action Event2 = () => { };
+
+    /// <inheritdoc cref="Summary.InheritDoc_Child.this" />
+    public override int this[int i] => 0;
 
     /// <inheritdoc />
     /// <remarks>
