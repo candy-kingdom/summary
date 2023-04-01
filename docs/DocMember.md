@@ -35,3 +35,8 @@ The documentation comment of the member (can be empty).
 public DocComment Comment { get; }
 ```
 
+### Cref
+```cs
+public string Cref { get; }
+```
+

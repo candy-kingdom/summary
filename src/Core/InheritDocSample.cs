@@ -25,6 +25,37 @@ public class InheritDocSample_Child : InheritDocBase
 }
 
 /// <summary>
+///     Summary.
+/// </summary>
+/// <remarks>
+///     Remarks.
+/// </remarks>
+public class InheritDocSample_CrefBase
+{
+    /// <summary>
+    ///     Calculates the sum.
+    /// </summary>
+    /// <param name="x">The first parameter.</param>
+    /// <param name="y">The second parameter.</param>
+    /// <returns>Returns the sum of two values.</returns>
+    public int Sum(int x, int y) => x + y;
+
+    /// <inheritdoc cref="Sum(int,int)"/>
+    public long Sum(long x, long y) => x + y;
+
+    /// <inheritdoc cref="Sum(int,int)"/>
+    /// <summary>
+    ///     Calculates the sum (override).
+    /// </summary>
+    public long Sum_OverrideSummary(long x, long y) => x + y;
+}
+
+/// <inheritdoc cref="InheritDocSample_CrefBase" />
+public class InheritDocSample_CrefBase_Child : InheritDocSample_CrefBase
+{
+}
+
+/// <summary>
 ///     Summary (child).
 /// </summary>
 /// <inheritdoc />

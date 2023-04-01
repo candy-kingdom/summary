@@ -5,11 +5,18 @@ namespace Summary.Roslyn.CSharp;
 public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 {
     // TODO: [x] Base types (1 level)
-    // TODO: [ ] Base types (n levels)
     // TODO: [x] Base interfaces
     // TODO: [x] Base methods
-    // TODO: [ ] Crefs
+    // TODO: [x] Base crefs
+    // TODO: [ ] Base fields
+    // TODO: [ ] Base properties
+    // TODO: [ ] Base indexers
+    // TODO: [ ] Base events
+    // TODO: [ ] Crefs: base types (methods)
+    // TODO: [ ] Crefs: base types (types)
     // TODO: [ ] Complex merging rules
+    // TODO: [ ] Base types (n levels)
+    // TODO: [ ] Inheriting inherited docs?
     public Task<Doc> Run(Doc[] input)
     {
         var members = input.SelectMany(x => x.Members).ToArray();
@@ -52,6 +59,12 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                         if (@base is not null)
                             return Merge(member.Comment.Nodes, @base.Comment.Nodes);
                     }
+                    else
+                    {
+                        var cref = ByCref(member, doc.Cref);
+                        if (cref is not null)
+                            return Merge(member.Comment.Nodes, cref.Comment.Nodes);
+                    }
 
                     return Enumerable.Empty<DocCommentNode>();
 
@@ -63,15 +76,8 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
         DocMember? Base(DocMember x)
         {
-            if (x is DocTypeDeclaration type)
-            {
-                foreach (var @base in type.Base)
-                {
-                    var declaration = Declaration(@base);
-                    if (declaration is not null)
-                        return declaration;
-                }
-            }
+            if (x is DocTypeDeclaration declaration)
+                return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null);
 
             if (x is DocMethod method)
             {
@@ -87,9 +93,29 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             }
 
             return null;
-
-            DocTypeDeclaration? Declaration(DocType type) =>
-                members.OfType<DocTypeDeclaration>().FirstOrDefault(x => x.Name == type.Name);
         }
+
+        // TODO: Should check cases where method tries to inherit type documentation?
+        DocMember? ByCref(DocMember x, string cref)
+        {
+            if (x is DocTypeDeclaration declaration)
+                return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null && x.Cref == cref);
+
+            if (x is DocMethod method)
+            {
+                // TODO: Search base types.
+                if (method.DeclaringType is not null)
+                {
+                    var declaring = Declaration(method.DeclaringType);
+                    if (declaring is not null)
+                        return declaring.Members.FirstOrDefault(x => x.Cref == cref);
+                }
+            }
+
+            return null;
+        }
+
+        DocTypeDeclaration? Declaration(DocType type) =>
+            members.OfType<DocTypeDeclaration>().FirstOrDefault(x => x.Name == type.Name);
     }
 }

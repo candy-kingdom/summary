@@ -1,4 +1,6 @@
-﻿namespace Summary;
+﻿using Summary.Extensions;
+
+namespace Summary;
 
 /// <summary>
 ///     A member of the generated document (e.g. type, field, property, method, etc.).
@@ -10,4 +12,12 @@
 /// </param>
 /// <param name="Access">The access modifier of the member.</param>
 /// <param name="Comment">The documentation comment of the member (can be empty).</param>
-public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment);
+public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment)
+{
+    public string Cref => this switch
+    {
+        DocMethod method => $"{method.Name}({method.Params.Select(x => x.Type?.FullName ?? "").Separated(with: ",")})",
+
+        _ => Name,
+    };
+}
