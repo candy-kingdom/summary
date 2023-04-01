@@ -12,6 +12,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [ ] Base properties
     // TODO: [ ] Base indexers
     // TODO: [ ] Base events
+    // TODO: [ ] Properties in records
     // TODO: [ ] Crefs: base types (methods)
     // TODO: [ ] Crefs: base types (types)
     // TODO: [ ] Complex merging rules

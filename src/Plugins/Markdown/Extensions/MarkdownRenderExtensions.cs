@@ -34,7 +34,12 @@ internal static class MarkdownRenderExtensions
             Parameters("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
 
             Members<DocField>(type, "Fields");
-            Members<DocProperty>(type, "Properties");
+
+            if (type.Record)
+                RecordProperties(type);
+            else
+                Members<DocProperty>(type, "Properties");
+
             Members<DocMethod>(type, "Methods");
         }
 
@@ -90,13 +95,53 @@ internal static class MarkdownRenderExtensions
         void Members<T>(DocTypeDeclaration type, string name) where T : DocMember
         {
             var members = type.Members.OfType<T>();
-            if (!members.Any())
-                return;
+            if (members.Any())
+            {
+                sb.AppendLine($"{new string('#', level + 1)} {name}");
 
-            sb.AppendLine($"{new string('#', level + 1)} {name}");
+                foreach (var x in members)
+                    Render(x, sb, level + 2);
+            }
+        }
 
-            foreach (var x in members)
-                Render(x, sb, level + 2);
+        // TODO: Refactor.
+        void RecordProperties(DocTypeDeclaration record)
+        {
+            var props = type.Members.OfType<DocProperty>().ToList();
+            if (props.Any())
+            {
+                sb.AppendLine($"{new string('#', level + 1)} Properties");
+
+                var generated = props.Where(x => x.Generated).ToList();
+                var simple = props.Where(x => !x.Generated).ToList();
+
+                foreach (var x in generated)
+                {
+                    // Name.
+                    sb.AppendLine($"{new string('#', level + 2)} {x.Name}");
+
+                    // Summary.
+                    var summary = record.Comment.Element("param", x.Name);
+                    if (summary is not null)
+                    {
+                        var lines = Render(summary).Split(NewLine);
+
+                        foreach (var line in lines)
+                            sb.AppendLine(line);
+
+                        sb.AppendLine();
+                    }
+
+                    // Declaration.
+                    sb.AppendLine("```cs");
+                    sb.AppendLine(x.Declaration);
+                    sb.AppendLine("```");
+                    sb.AppendLine();
+                }
+
+                foreach (var x in simple)
+                    Render(x, sb, level + 2);
+            }
         }
 
         void Method(DocMethod m)

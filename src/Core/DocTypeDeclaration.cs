@@ -17,4 +17,5 @@ public record DocTypeDeclaration(
     DocMember[] Members,
     DocTypeParam[] TypeParams,
     DocTypeDeclaration? Parent,
-    DocType[] Base) : DocMember(Name, Declaration, Access, Comment);
+    DocType[] Base,
+    bool Record = false) : DocMember(Name, Declaration, Access, Comment);

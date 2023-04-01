@@ -85,3 +85,13 @@ public interface IInheritDocBase
 public class InheritDocSample_InterfaceChild : IInheritDocBase
 {
 }
+
+/// <summary>
+///    Summary (record).
+/// </summary>
+/// <param name="Property">A property.</param>
+public record InheritDocRecordBase(int Property);
+
+/// <inheritdoc />
+/// <param name="OtherProperty">Another property.</param>
+public record InheritDocRecordBase_Child(int Property, int OtherProperty) : InheritDocRecordBase(Property);

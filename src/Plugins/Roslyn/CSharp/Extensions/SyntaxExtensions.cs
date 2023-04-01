@@ -41,7 +41,8 @@ internal static class SyntaxExtensions
             null!,
             self.TypeParams(),
             parent,
-            self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>());
+            self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
+            Record: self is RecordDeclarationSyntax);
 
         return type with { Members = self.Members(parent: type) };
     }
@@ -70,7 +71,8 @@ internal static class SyntaxExtensions
         self.Identifier.Text,
         $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
         AccessModifier.Public,
-        record.Comment().Param(self.Identifier.ValueText)?.Summary() ?? DocComment.Empty);
+        DocComment.Empty,
+        Generated: true);
 
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(
         self.Identifier.Text,
