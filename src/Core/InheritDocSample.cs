@@ -59,7 +59,10 @@ public class InheritDoc_Child2 : InheritDoc_Child
     public override int Property2 { get; set; }
 
     /// <inheritdoc cref="InheritDocBase.Property3" />
-    public new int Property4 { get; set; }
+    public int Property4 { get; set; }
+
+    /// <inheritdoc cref="Summary.InheritDocBase.Property3" />
+    public int Property5 { get; set; }
 
     /// <inheritdoc />
     /// <remarks>

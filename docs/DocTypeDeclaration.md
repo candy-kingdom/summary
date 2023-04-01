@@ -4,6 +4,7 @@ in the parsed source code.
 
 ```cs
 public record DocTypeDeclaration(
+    string FullyQualifiedName,
     string Name,
     string Declaration,
     AccessModifier Access,
@@ -16,6 +17,11 @@ public record DocTypeDeclaration(
 ```
 
 ## Properties
+### FullyQualifiedName
+```cs
+public string FullyQualifiedName { get; }
+```
+
 ### Name
 The name of the member (e.g. `public int Field` has name `Field`).
 

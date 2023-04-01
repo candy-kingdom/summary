@@ -10,6 +10,7 @@
 /// <param name="Base">The list of base types for this one.</param>
 /// <inheritdoc cref="DocMember"/>
 public record DocTypeDeclaration(
+    string FullyQualifiedName,
     string Name,
     string Declaration,
     AccessModifier Access,

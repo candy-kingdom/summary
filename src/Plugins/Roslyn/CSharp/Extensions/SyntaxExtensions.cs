@@ -34,6 +34,7 @@ internal static class SyntaxExtensions
     private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null)
     {
         var type = new DocTypeDeclaration(
+            self.FullyQualifiedName(),
             self.Identifier.Text,
             self.Declaration(),
             self.Access(),

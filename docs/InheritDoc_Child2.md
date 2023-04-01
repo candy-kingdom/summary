@@ -27,8 +27,21 @@ public override int Property2 { get; set; }
 ```
 
 ### Property4
+A property.
+
+_Property remarks._
+
 ```cs
-public new int Property4 { get; set; }
+public int Property4 { get; set; }
+```
+
+### Property5
+A property.
+
+_Property remarks._
+
+```cs
+public int Property5 { get; set; }
 ```
 
 ## Methods
