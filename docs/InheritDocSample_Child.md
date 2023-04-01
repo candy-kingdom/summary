@@ -7,3 +7,14 @@ _Remarks section._
 public class InheritDocSample_Child : InheritDocBase
 ```
 
+## Methods
+### Sum(int, int)
+Calculates the sum.
+
+```cs
+public override int Sum(int x, int y)
+```
+
+#### Returns
+Returns the sum of two values.
+

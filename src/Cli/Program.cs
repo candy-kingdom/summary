@@ -7,7 +7,7 @@ using Summary.Roslyn.CSharp;
 const string path = "../../../../../";
 const string output = "../../../../../docs";
 
-await new ScanDirectoryPipe(path, "*.cs")
+await new ScanDirectoryPipe(path, "InheritDoc*.cs")
     .ThenForEach(new ParseSyntaxTreePipe())
     .ThenForEach(new ParseDocPipe())
     .Then(new InlineInheritDocPipe())

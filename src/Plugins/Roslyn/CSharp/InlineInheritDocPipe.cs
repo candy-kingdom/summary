@@ -7,7 +7,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Base types (1 level)
     // TODO: [ ] Base types (n levels)
     // TODO: [x] Base interfaces
-    // TODO: [ ] Base methods
+    // TODO: [x] Base methods
     // TODO: [ ] Crefs
     // TODO: [ ] Complex merging rules
     public Task<Doc> Run(Doc[] input)
@@ -19,9 +19,20 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
         DocMember Inline(DocMember member)
         {
-            return member with { Comment = new DocComment(member.Comment.Nodes.SelectMany(Inline).ToArray()) };
+            return member switch
+            {
+                DocTypeDeclaration type => type with
+                {
+                    Members = type.Members.Select(Inline).ToArray(),
+                    Comment = InlineComment(member.Comment),
+                },
+                _ => member with { Comment = InlineComment(member.Comment) },
+            };
 
-            IEnumerable<DocCommentNode> Inline(DocCommentNode node)
+            DocComment InlineComment(DocComment comment) =>
+                new(comment.Nodes.SelectMany(InlineNode).ToArray());
+
+            IEnumerable<DocCommentNode> InlineNode(DocCommentNode node)
             {
                 if (node is DocCommentInheritDoc inheritDoc)
                 {
@@ -59,6 +70,19 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                     var declaration = Declaration(@base);
                     if (declaration is not null)
                         return declaration;
+                }
+            }
+
+            if (x is DocMethod method)
+            {
+                if (method.DeclaringType is not null)
+                {
+                    var declaring = Declaration(method.DeclaringType);
+                    if (declaring is not null)
+                    {
+                        if (Base(declaring) is DocTypeDeclaration @base)
+                            return @base.Members.OfType<DocMethod>().FirstOrDefault(x => x.Name == method.Name);
+                    }
                 }
             }
 

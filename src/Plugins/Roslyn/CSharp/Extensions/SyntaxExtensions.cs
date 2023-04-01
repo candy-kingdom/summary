@@ -46,6 +46,9 @@ internal static class SyntaxExtensions
         return type with { Members = self.Members(parent: type) };
     }
 
+    private static DocType Type(this TypeDeclarationSyntax self) =>
+        SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
+
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
         self.Declaration.Type.Type(),
@@ -75,7 +78,8 @@ internal static class SyntaxExtensions
         self.Access(),
         self.Comment(),
         self.Params(),
-        self.TypeParams());
+        self.TypeParams(),
+        self.FirstAncestorOrSelf<TypeDeclarationSyntax>()?.Type());
 
     private static DocComment Comment(this MemberDeclarationSyntax self)
     {

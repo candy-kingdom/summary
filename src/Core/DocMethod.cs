@@ -10,4 +10,5 @@ public record DocMethod(
     AccessModifier Access,
     DocComment Comment,
     DocParam[] Params,
-    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment);
+    DocTypeParam[] TypeParams,
+    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment);
