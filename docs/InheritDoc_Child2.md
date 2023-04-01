@@ -18,6 +18,10 @@ public override int Property1 { get; set; }
 ```
 
 ### Property2
+A property.
+
+_Property remarks._
+
 ```cs
 public override int Property2 { get; set; }
 ```

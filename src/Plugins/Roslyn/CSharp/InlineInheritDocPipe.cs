@@ -85,21 +85,47 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
             return null;
 
-            DocMember? ByType<T>(T member, DocType? type) where T : DocMember =>
-                type is not null
-                    ? Base(Declaration(type)) is DocTypeDeclaration @base
-                        ? @base.Members.OfType<T>().FirstOrDefault(x => x.Name == member.Name)
-                        : null
-                    : null;
+            T? ByType<T>(T member, DocType? type) where T : DocMember
+            {
+                if (type is null)
+                    return null;
 
+                var declaration = Declaration(type);
+                if (declaration is null)
+                    return null;
+
+                var check = new Stack<DocType>();
+
+                PushBase();
+
+                while (check.Count > 0)
+                {
+                    type = check.Pop();
+                    declaration = Declaration(type);
+
+                    if (declaration is null)
+                        continue;
+
+                    var x = declaration.Members.OfType<T>().FirstOrDefault(x => x.Name == member.Name);
+                    if (x is not null)
+                        return x;
+
+                    PushBase();
+                }
+
+                return null;
+
+                void PushBase()
+                {
+                    foreach (var @base in declaration.Base)
+                        check.Push(@base);
+                }
+            }
         }
 
         // TODO: Should check cases where method tries to inherit type documentation?
         DocMember? Cref(DocMember x, string cref)
         {
-            // TODO: [x] Search this type.
-            // TODO: [ ] Search base types.
-
             if (x is DocTypeDeclaration declaration)
                 return declaration.Base.SelectMany(Declarations).FirstOrDefault(x => x is not null && x.Cref == cref);
 
