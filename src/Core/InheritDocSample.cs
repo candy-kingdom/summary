@@ -25,7 +25,10 @@ public class InheritDocBase
     public virtual int Property1 { get; set; }
 
     /// <inheritdoc cref="Property1" />
-    public int Property2 { get; set; }
+    public virtual int Property2 { get; set; }
+
+    /// <inheritdoc cref="Property1" />
+    public int Property3 { get; set; }
 
     /// <summary>
     ///     Calculates the sum.
@@ -37,12 +40,31 @@ public class InheritDocBase
 }
 
 /// <inheritdoc />
-public class InheritDocSample_Child : InheritDocBase
+public class InheritDoc_Child : InheritDocBase
 {
     /// <inheritdoc />
     public override int Property1 { get; set; }
 
     /// <inheritdoc />
+    public override int Sum(int x, int y) => x + y;
+}
+
+/// <inheritdoc cref="InheritDocBase" />
+public class InheritDoc_Child2 : InheritDoc_Child
+{
+    /// <inheritdoc />
+    public override int Property1 { get; set; }
+
+    /// <inheritdoc />
+    public override int Property2 { get; set; }
+
+    /// <inheritdoc cref="InheritDocBase.Property3" />
+    public new int Property4 { get; set; }
+
+    /// <inheritdoc />
+    /// <remarks>
+    ///     Sum remarks.
+    /// </remarks>
     public override int Sum(int x, int y) => x + y;
 }
 
@@ -52,7 +74,7 @@ public class InheritDocSample_Child : InheritDocBase
 /// <remarks>
 ///     Remarks.
 /// </remarks>
-public class InheritDocSample_CrefBase
+public class InheritDoc_CrefBase
 {
     /// <summary>
     ///     Calculates the sum.
@@ -72,8 +94,8 @@ public class InheritDocSample_CrefBase
     public long Sum_OverrideSummary(long x, long y) => x + y;
 }
 
-/// <inheritdoc cref="InheritDocSample_CrefBase" />
-public class InheritDocSample_CrefBase_Child : InheritDocSample_CrefBase
+/// <inheritdoc cref="InheritDoc_CrefBase" />
+public class InheritDoc_CrefBase_Child : InheritDoc_CrefBase
 {
 }
 
@@ -81,7 +103,7 @@ public class InheritDocSample_CrefBase_Child : InheritDocSample_CrefBase
 ///     Summary (child).
 /// </summary>
 /// <inheritdoc />
-public class InheritDocSample_Child_OverrideSummary : InheritDocBase
+public class InheritDoc_Child_OverrideSummary : InheritDocBase
 {
 }
 
@@ -89,7 +111,7 @@ public class InheritDocSample_Child_OverrideSummary : InheritDocBase
 /// <summary>
 ///     Summary (child).
 /// </summary>
-public class InheritDocSample_Child_OverrideSummary2 : InheritDocBase
+public class InheritDoc_Child_OverrideSummary2 : InheritDocBase
 {
 }
 
@@ -104,7 +126,7 @@ public interface IInheritDocBase
 }
 
 /// <inheritdoc />
-public class InheritDocSample_InterfaceChild : IInheritDocBase
+public class InheritDoc_InterfaceChild : IInheritDocBase
 {
 }
 

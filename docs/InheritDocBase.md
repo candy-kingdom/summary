@@ -38,7 +38,16 @@ A property.
 _Property remarks._
 
 ```cs
-public int Property2 { get; set; }
+public virtual int Property2 { get; set; }
+```
+
+### Property3
+A property.
+
+_Property remarks._
+
+```cs
+public int Property3 { get; set; }
 ```
 
 ## Methods

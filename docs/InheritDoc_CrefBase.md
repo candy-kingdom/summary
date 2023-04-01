@@ -1,10 +1,10 @@
-# InheritDocSample_CrefBase
+# InheritDoc_CrefBase
 Summary.
 
 _Remarks._
 
 ```cs
-public class InheritDocSample_CrefBase
+public class InheritDoc_CrefBase
 ```
 
 ## Methods

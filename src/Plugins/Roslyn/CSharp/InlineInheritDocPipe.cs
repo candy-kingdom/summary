@@ -10,13 +10,15 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Base crefs
     // TODO: [x] Base properties
     // TODO: [x] Properties in records
+    // TODO: [x] Base types (n levels)
+    // TODO: [x] Inheriting inherited docs?
+    // TODO: [x] Crefs: base types (types)
+    // TODO: [ ] Base members (n levels)
+    // TODO: [ ] Crefs: complex paths
     // TODO: [ ] Crefs: base types (methods)
-    // TODO: [ ] Crefs: base types (types)
     // TODO: [ ] Base indexers
     // TODO: [ ] Base events
     // TODO: [ ] Complex merging rules
-    // TODO: [ ] Base types (n levels)
-    // TODO: [ ] Inheriting inherited docs?
     public Task<Doc> Run(Doc[] input)
     {
         var members = input.SelectMany(x => x.Members).ToArray();
@@ -53,20 +55,13 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
                 IEnumerable<DocCommentNode> Inlined(DocCommentInheritDoc doc)
                 {
-                    if (doc.Cref is null or "")
-                    {
-                        var @base = Base(member);
-                        if (@base is not null)
-                            return Merge(member.Comment.Nodes, @base.Comment.Nodes);
-                    }
-                    else
-                    {
-                        var cref = Cref(member, doc.Cref);
-                        if (cref is not null)
-                            return Merge(member.Comment.Nodes, cref.Comment.Nodes);
-                    }
+                    var source = doc.Cref is null or "" ? Base(member) : Cref(member, doc.Cref);
 
-                    return Enumerable.Empty<DocCommentNode>();
+                    // We need to inline all comments in `source` to support complex chains
+                    // (e.g., `C` inherits `B` which inherits `A`).
+                    return source is not null
+                        ? Merge(member.Comment.Nodes, Inline(source).Comment.Nodes)
+                        : Enumerable.Empty<DocCommentNode>();
 
                     IEnumerable<DocCommentNode> Merge(IEnumerable<DocCommentNode> source, IEnumerable<DocCommentNode> inherit) =>
                         source.Where(x => x is not DocCommentInheritDoc).Concat(inherit);
@@ -106,7 +101,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             // TODO: [ ] Search base types.
 
             if (x is DocTypeDeclaration declaration)
-                return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null && x.Cref == cref);
+                return declaration.Base.SelectMany(Declarations).FirstOrDefault(x => x is not null && x.Cref == cref);
 
             if (x is DocMethod method)
                 return Ref(method.DeclaringType);
@@ -121,6 +116,19 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
             DocMember? Ref(DocType? type) =>
                 type is not null ? Declaration(type)?.Members.FirstOrDefault(x => x.Cref == cref) : null;
+        }
+
+        IEnumerable<DocTypeDeclaration?> Declarations(DocType type)
+        {
+            var declaration = Declaration(type);
+            if (declaration is null)
+                yield break;
+
+            yield return declaration;
+
+            foreach (var x in declaration.Base)
+            foreach (var y in Declarations(x))
+                yield return y;
         }
 
         DocTypeDeclaration? Declaration(DocType type) =>
