@@ -15,6 +15,10 @@ Calculates the sum.
 public override int Sum(int x, int y)
 ```
 
+#### Parameters
+- `x`: The first parameter.
+- `y`: The second parameter.
+
 #### Returns
 Returns the sum of two values.
 

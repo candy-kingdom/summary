@@ -8,7 +8,8 @@ public record DocMethod(
     AccessModifier Access,
     DocComment Comment,
     DocParam[] Params,
-    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment)
+    DocTypeParam[] TypeParams,
+    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment)
 ```
 
 ## Properties
@@ -40,5 +41,10 @@ public DocParam[] Params { get; }
 ### TypeParams
 ```cs
 public DocTypeParam[] TypeParams { get; }
+```
+
+### DeclaringType
+```cs
+public DocType? DeclaringType { get; }
 ```
 

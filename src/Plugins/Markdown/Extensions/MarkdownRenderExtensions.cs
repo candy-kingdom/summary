@@ -31,7 +31,7 @@ internal static class MarkdownRenderExtensions
 
         if (member is DocTypeDeclaration type)
         {
-            Parameters("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment)));
+            Parameters("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
 
             Members<DocField>(type, "Fields");
             Members<DocProperty>(type, "Properties");
@@ -101,22 +101,21 @@ internal static class MarkdownRenderExtensions
 
         void Method(DocMethod m)
         {
-            Parameters("Parameters", m.Params.Select(x => (x.Name, x.Comment)));
-            Parameters("Type Parameters", m.TypeParams.Select(x => (x.Name, x.Comment)));
+            Parameters("Parameters", m.Params.Select(x => (x.Name, x.Comment(m))));
+            Parameters("Type Parameters", m.TypeParams.Select(x => (x.Name, x.Comment(m))));
 
             Section("Returns");
         }
 
-        void Parameters(string section, IEnumerable<(string Name, DocComment Comment)> parameters)
+        void Parameters(string section, IEnumerable<(string Name, DocCommentElement? Comment)> parameters)
         {
-            if (!parameters.Any(x => x.Comment != DocComment.Empty))
+            if (parameters.All(x => x.Comment is null))
                 return;
 
             sb.AppendLine($"{new string('#', level + 1)} {section}");
 
             foreach (var param in parameters)
-                if (param.Comment != DocComment.Empty)
-                    sb.AppendLine($"- `{param.Name}`: {Render(param.Comment.Nodes)}");
+                sb.AppendLine($"- `{param.Name}`: {Render(param.Comment)}");
 
             sb.AppendLine();
         }

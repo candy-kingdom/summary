@@ -2,7 +2,7 @@
 A parameter of a [`DocMethod`](./DocMethod.md).
 
 ```cs
-public record DocParam(DocType? Type, string Name, DocComment Comment)
+public record DocParam(DocType? Type, string Name)
 ```
 
 ## Properties
@@ -20,10 +20,11 @@ The name of the parameter.
 public string Name { get; }
 ```
 
-### Comment
-The comment of the parameter (i.e. `<param>` tag).
+## Methods
+### Comment(DocMember)
+The comment of the parameter (i.e., `<param>` tag).
 
 ```cs
-public DocComment Comment { get; }
+public DocCommentElement? Comment(DocMember parent)
 ```
 

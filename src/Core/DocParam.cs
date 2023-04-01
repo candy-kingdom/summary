@@ -5,5 +5,11 @@
 /// </summary>
 /// <param name="Type">The type of the parameter.</param>
 /// <param name="Name">The name of the parameter.</param>
-/// <param name="Comment">The comment of the parameter (i.e. `&lt;param&gt;` tag).</param>
-public record DocParam(DocType? Type, string Name, DocComment Comment);
+public record DocParam(DocType? Type, string Name)
+{
+    /// <summary>
+    ///     The comment of the parameter (i.e., `&lt;param&gt;` tag).
+    /// </summary>
+    public DocCommentElement? Comment(DocMember parent) =>
+        parent.Comment.Element("param", Name);
+}

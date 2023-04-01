@@ -134,8 +134,7 @@ internal static class SyntaxExtensions
 
     private static DocParam Param(this ParameterSyntax self, MemberDeclarationSyntax member) => new(
         self.Type?.Type(),
-        self.Identifier.ValueText,
-        member.Comment().Element("param", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
+        self.Identifier.ValueText);
 
     private static DocTypeParam[] TypeParams(this TypeDeclarationSyntax self) => self
         .TypeParameterList?
@@ -150,9 +149,7 @@ internal static class SyntaxExtensions
         .Select(x => x.TypeParam(member))
         .ToArray();
 
-    private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(
-        self.Identifier.ValueText,
-        member.Comment().Element("typeparam", self.Identifier.ValueText)?.Comment() ?? DocComment.Empty);
+    private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(self.Identifier.ValueText);
 
     private static DocType Type(this TypeSyntax self) => self switch
     {
