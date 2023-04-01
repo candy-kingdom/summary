@@ -4,8 +4,9 @@ namespace Summary.Roslyn.CSharp;
 
 public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 {
-    // TODO: [x] Base types
-    // TODO: [ ] Base interfaces
+    // TODO: [x] Base types (1 level)
+    // TODO: [ ] Base types (n levels)
+    // TODO: [x] Base interfaces
     // TODO: [ ] Base methods
     // TODO: [ ] Crefs
     // TODO: [ ] Complex merging rules
