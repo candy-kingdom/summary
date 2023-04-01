@@ -103,27 +103,15 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null && x.Cref == cref);
 
             if (x is DocMethod method)
-            {
-                if (method.DeclaringType is not null)
-                {
-                    var declaring = Declaration(method.DeclaringType);
-                    if (declaring is not null)
-                        return declaring.Members.FirstOrDefault(x => x.Cref == cref);
-                }
-            }
+                return Ref(method.DeclaringType);
 
             if (x is DocField field)
-            {
-                // TODO: Search base types.
-                if (field.DeclaringType is not null)
-                {
-                    var declaring = Declaration(field.DeclaringType);
-                    if (declaring is not null)
-                        return declaring.Members.FirstOrDefault(x => x.Cref == cref);
-                }
-            }
+                return Ref(field.DeclaringType);
 
             return null;
+
+            DocMember? Ref(DocType? declaring) =>
+                declaring is not null ? Declaration(declaring)?.Members.FirstOrDefault(x => x.Cref == cref) : null;
         }
 
         DocTypeDeclaration? Declaration(DocType type) =>
