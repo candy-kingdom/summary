@@ -1,5 +1,4 @@
-﻿using Summary;
-using Summary.Markdown;
+﻿using Summary.Markdown;
 using Summary.Pipes;
 using Summary.Pipes.Filters;
 using Summary.Pipes.IO;
