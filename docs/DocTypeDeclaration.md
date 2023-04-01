@@ -57,6 +57,8 @@ public DocTypeDeclaration? Parent { get; }
 ```
 
 ### Base
+The list of base types for this one.
+
 ```cs
 public DocType[] Base { get; }
 ```

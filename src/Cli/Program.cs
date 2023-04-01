@@ -11,7 +11,7 @@ const string output = "../../../../../docs";
 await new ScanDirectoryPipe(path, "*.cs")
     .ThenForEach(new ParseSyntaxTreePipe())
     .ThenForEach(new ParseDocPipe())
-    .Then(new FoldPipe<Doc>(Doc.Merge))
+    .Then(new InlineInheritDocPipe())
     .Then(new FilterPublicMembersPipe())
     .Then(new RenderMarkdownPipe())
     .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
