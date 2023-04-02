@@ -22,6 +22,17 @@ A field.
 public int Field2
 ```
 
+## Indexers
+### this[int]
+An indexer.
+
+```cs
+public virtual int this[int i] { get; }
+```
+
+#### Parameters
+- `i`: A parameter to the indexer.
+
 ## Properties
 ### Property1
 A property.

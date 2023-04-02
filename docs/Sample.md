@@ -32,6 +32,20 @@ A sample field.
 public int Field1
 ```
 
+## Indexers
+### this[int]
+A sample indexer.
+
+```cs
+public int this[int i] { get; }
+```
+
+#### Parameters
+- `i`: The parameter for indexer.
+
+#### Returns
+What indexer returns.
+
 ## Properties
 ### Property1
 A sample property.

@@ -7,6 +7,12 @@ _Remarks section._
 public class InheritDoc_Child2 : InheritDoc_Child
 ```
 
+## Indexers
+### this[int]
+```cs
+public override int this[int i] { get; }
+```
+
 ## Properties
 ### Property1
 A property.

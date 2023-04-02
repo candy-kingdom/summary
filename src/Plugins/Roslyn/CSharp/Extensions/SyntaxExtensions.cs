@@ -29,6 +29,7 @@ internal static class SyntaxExtensions
         PropertyDeclarationSyntax x => x.Property(),
         EventDeclarationSyntax x => x.Property(),
         EventFieldDeclarationSyntax x => x.Property(),
+        IndexerDeclarationSyntax x => x.Indexer(),
 
         MethodDeclarationSyntax x => x.Method(),
 
@@ -99,6 +100,15 @@ internal static class SyntaxExtensions
         self.Comment(),
         self.DeclaringType());
 
+    private static DocIndexer Indexer(this IndexerDeclarationSyntax self) => new(
+        self.Type.Type(),
+        $"this[{self.ParameterList.Parameters.Select(x => x.Type?.ToString()).NonNulls().Separated(with: ", ")}]",
+        $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
+        self.Access(),
+        self.Comment(),
+        self.Params(),
+        self.DeclaringType());
+
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(
         self.Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
@@ -137,6 +147,9 @@ internal static class SyntaxExtensions
     private static string Accessors(this PropertyDeclarationSyntax self) =>
         self.AccessorList?.Accessors() ?? "{ get; }";
 
+    private static string Accessors(this IndexerDeclarationSyntax self) =>
+        self.AccessorList?.Accessors() ?? "{ get; }";
+
     private static string Accessors(this EventDeclarationSyntax self) =>
         self.AccessorList?.Accessors() ?? "{ add; remove; }";
 
@@ -160,6 +173,12 @@ internal static class SyntaxExtensions
     };
 
     private static DocParam[] Params(this MethodDeclarationSyntax self) => self
+        .ParameterList
+        .Parameters
+        .Select(x => x.Param(self))
+        .ToArray();
+
+    private static DocParam[] Params(this IndexerDeclarationSyntax self) => self
         .ParameterList
         .Parameters
         .Select(x => x.Param(self))

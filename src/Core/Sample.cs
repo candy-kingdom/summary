@@ -75,6 +75,7 @@ public class Sample<T0, T1>
     ///     A sample indexer.
     /// </summary>
     /// <param name="i">The parameter for indexer.</param>
+    /// <returns>What indexer returns.</returns>
     public int this[int i] => 0;
 
     /// <summary>

@@ -38,6 +38,8 @@ public class MdRenderer
             MemberHeader(method).Method(method),
         DocProperty { Generated: true } generated =>
             GeneratedProperty(parent!, generated),
+        DocIndexer indexer =>
+            MemberHeader(indexer).Indexer(indexer),
         _ =>
             MemberHeader(member),
     };
@@ -47,6 +49,7 @@ public class MdRenderer
         TypeParamsSection(type);
 
         MembersSection<DocField>("Fields", type);
+        MembersSection<DocIndexer>("Indexers", type);
         MembersSection<DocProperty>("Properties", type);
         MembersSection<DocMethod>("Methods", type);
 
@@ -57,6 +60,10 @@ public class MdRenderer
         .ParamsSection(method)
         .TypeParamsSection(method)
         .ReturnsSection(method);
+
+    private MdRenderer Indexer(DocIndexer indexer) => this
+        .ParamsSection(indexer)
+        .ReturnsSection(indexer);
 
     private MdRenderer MemberHeader(DocMember member) => this
         .Name(member)
@@ -90,6 +97,9 @@ public class MdRenderer
     private MdRenderer ParamsSection(DocMethod method) =>
         ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
 
+    private MdRenderer ParamsSection(DocIndexer method) =>
+        ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
+
     private MdRenderer TypeParamsSection(DocMethod method) =>
         ParamsSection("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
 
@@ -110,6 +120,9 @@ public class MdRenderer
     }
 
     public MdRenderer ReturnsSection(DocMethod method) =>
+        ElementSection("Returns", method.Comment.Element("returns"));
+
+    public MdRenderer ReturnsSection(DocIndexer method) =>
         ElementSection("Returns", method.Comment.Element("returns"));
 
     private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type) where T : DocMember =>

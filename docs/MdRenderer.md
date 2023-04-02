@@ -29,3 +29,8 @@ public MdRenderer Member(DocTypeDeclaration? parent, DocMember member)
 public MdRenderer ReturnsSection(DocMethod method)
 ```
 
+### ReturnsSection(DocIndexer)
+```cs
+public MdRenderer ReturnsSection(DocIndexer method)
+```
+
