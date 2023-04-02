@@ -18,7 +18,8 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Base members (n levels)
     // TODO: [x] Crefs: namespaces and full paths
     // TODO: [x] Base events
-    // TODO: [ ] Base indexers
+    // TODO: [x] Base indexers
+    // TODO: [ ] Complex crefs with type parameters and overloadings (out, ref, in)
     // TODO: [ ] Complex merging rules
     public Task<Doc> Run(Doc[] input)
     {
