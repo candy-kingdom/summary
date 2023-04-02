@@ -27,9 +27,14 @@ public override int Property1 { get; set; }
 
 ## Indexers
 ### this[int]
+An indexer.
+
 ```cs
 public override int this[int i] { get; }
 ```
+
+#### Parameters
+- `i`: A parameter to the indexer.
 
 ## Methods
 ### Sum(int, int)

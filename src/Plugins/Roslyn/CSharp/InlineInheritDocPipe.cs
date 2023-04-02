@@ -17,8 +17,8 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
     // TODO: [x] Crefs: base types (types)
     // TODO: [x] Base members (n levels)
     // TODO: [x] Crefs: namespaces and full paths
+    // TODO: [x] Base events
     // TODO: [ ] Base indexers
-    // TODO: [ ] Base events
     // TODO: [ ] Complex merging rules
     public Task<Doc> Run(Doc[] input)
     {
@@ -84,6 +84,9 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             if (x is DocProperty prop)
                 return ByType(prop, prop.DeclaringType);
 
+            if (x is DocIndexer indexer)
+                return ByType(indexer, indexer.DeclaringType);
+
             return null;
 
             T? ByType<T>(T member, DocType? type) where T : DocMember
@@ -138,6 +141,9 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
 
             if (x is DocProperty prop)
                 return Ref(prop.DeclaringType);
+
+            if (x is DocIndexer indexer)
+                return Ref(indexer.DeclaringType);
 
             return null;
 
