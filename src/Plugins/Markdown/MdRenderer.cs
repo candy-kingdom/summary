@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Summary.Extensions;
 using Summary.Markdown.Extensions;
 using static System.Environment;
 
@@ -44,22 +43,17 @@ public class MdRenderer
             MemberHeader(member),
     };
 
-    private MdRenderer TypeDeclaration(DocTypeDeclaration type)
-    {
-        TypeParamsSection(type);
-
-        MembersSection<DocProperty>("Events", type, x => x.Event);
-        MembersSection<DocField>("Fields", type);
-        MembersSection<DocProperty>("Properties", type, x => !x.Event);
-        MembersSection<DocIndexer>("Indexers", type);
-        MembersSection<DocMethod>("Methods", type);
-
-        return this;
-    }
+    private MdRenderer TypeDeclaration(DocTypeDeclaration type) => this
+        .TypeParamsSection(type)
+        .MembersSection<DocProperty>("Events", type, x => x.Event)
+        .MembersSection<DocField>("Fields", type)
+        .MembersSection<DocProperty>("Properties", type, x => !x.Event)
+        .MembersSection<DocIndexer>("Indexers", type)
+        .MembersSection<DocMethod>("Methods", type);
 
     private MdRenderer Method(DocMethod method) => this
-        .ParamsSection(method)
         .TypeParamsSection(method)
+        .ParamsSection(method)
         .ReturnsSection(method);
 
     private MdRenderer Indexer(DocIndexer indexer) => this
