@@ -10,5 +10,5 @@ public record DocTypeParam(string Name)
     ///     The comment of the parameter (i.e., `&lt;typeparam&gt;` tag).
     /// </summary>
     public DocCommentElement? Comment(DocMember parent) =>
-        parent.Comment.Element("typeparam", Name);
+        parent.Comment.TypeParam(Name);
 }

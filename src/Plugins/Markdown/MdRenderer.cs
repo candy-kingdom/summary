@@ -67,7 +67,7 @@ public class MdRenderer
 
     private MdRenderer GeneratedProperty(DocTypeDeclaration parent, DocMember prop) => this
         .Name(prop)
-        .Element(parent.Comment.Element("param", prop.Name))
+        .Element(parent.Comment.Param(prop.Name))
         .Declaration(prop);
 
     private MdRenderer Name(DocMember member) => member switch
