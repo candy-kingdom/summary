@@ -91,33 +91,69 @@ Calculates the byte sum.
 public byte Sum<T>(byte x, byte y)
 ```
 
+#### Type Parameters
+- `T`: The type parameter.
+
 #### Parameters
 - `x`: The first byte parameter.
 - `y`: The second byte parameter.
-
-#### Type Parameters
-- `T`: The type parameter.
 
 #### Returns
 Returns the sum of two values.
 
 ### Sum(short, short)
+Calculates the byte sum.
+
 ```cs
 public short Sum(short x, short y)
 ```
 
+#### Parameters
+- `x`: The first byte parameter.
+- `y`: The second byte parameter.
+
+#### Returns
+Returns the sum of two values.
+
 ### Sum2(short, short)
+Calculates the byte sum.
+
 ```cs
 public short Sum2(short x, short y)
 ```
 
+#### Parameters
+- `x`: The first byte parameter.
+- `y`: The second byte parameter.
+
+#### Returns
+Returns the sum of two values.
+
 ### Sum3(short, short)
+Calculates the byte sum.
+
 ```cs
 public short Sum3(short x, short y)
 ```
 
+#### Parameters
+- `x`: The first byte parameter.
+- `y`: The second byte parameter.
+
+#### Returns
+Returns the sum of two values.
+
 ### Sum4(short, short)
+Calculates the byte sum.
+
 ```cs
 public short Sum4(short x, short y)
 ```
+
+#### Parameters
+- `x`: The first byte parameter.
+- `y`: The second byte parameter.
+
+#### Returns
+Returns the sum of two values.
 

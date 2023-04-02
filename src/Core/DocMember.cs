@@ -16,8 +16,14 @@ public record DocMember(string Name, string Declaration, AccessModifier Access, 
 {
     public string Cref => this switch
     {
-        DocMethod method => $"{method.Name}({method.Params.Select(x => x.Type?.FullName ?? "").Separated(with: ",")})",
+        DocMethod method => $"{method.Name}{TypeParams(method)}{Params(method)}",
 
         _ => Name,
     };
+
+    private static string TypeParams(DocMethod x) =>
+        x.TypeParams.Select(x => x.Name).Separated(with: ",").Wrap("{", "}");
+
+    private static string Params(DocMethod x) =>
+        $"({x.Params.Select(x => x.Type?.FullName).Separated(with: ",")})";
 }

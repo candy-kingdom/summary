@@ -131,6 +131,9 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
         // TODO: Should check cases where method tries to inherit type documentation?
         DocMember? Cref(DocMember x, string cref)
         {
+            // Exclude all spaces from the `cref` for even formatting.
+            cref = cref.Replace(" ", "");
+
             if (x is DocTypeDeclaration declaration)
                 return declaration.Base.SelectMany(Declarations).FirstOrDefault(x => x is not null && x.FullyQualifiedName.EndsWith(cref));
 

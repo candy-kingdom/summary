@@ -107,14 +107,14 @@ It contains three type parameters:
 public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
 
-#### Parameters
-- `x`: The `x` of the method.
-- `y`: The `y` of the method.
-
 #### Type Parameters
 - `M0`: The first type parameter of the method.
 - `M1`: The second type parameter of the method.
 - `M2`: The third type parameter of the method.
+
+#### Parameters
+- `x`: The `x` of the method.
+- `y`: The `y` of the method.
 
 #### Returns
 The `TimeSpan` instance.
@@ -125,4 +125,16 @@ The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).m
 ```cs
 public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```
+
+#### Type Parameters
+- `M0`: The first type parameter of the method.
+- `M1`: The second type parameter of the method.
+- `M2`: The third type parameter of the method.
+
+#### Parameters
+- `x`: The `x` of the method.
+- `y`: The `y` of the method.
+
+#### Returns
+The `TimeSpan` instance.
 
