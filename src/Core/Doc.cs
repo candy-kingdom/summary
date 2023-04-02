@@ -6,6 +6,8 @@
 /// <param name="Members">The sequence of members this doc contains.</param>
 public record Doc(DocMember[] Members)
 {
+    public static readonly Doc Empty = new(Array.Empty<DocMember>());
+
     /// <summary>
     ///     Merges two documents together returning the new merged document.
     /// </summary>

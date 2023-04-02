@@ -5,6 +5,12 @@ A document parsed from the source code or an assembly.
 public record Doc(DocMember[] Members)
 ```
 
+## Fields
+### Empty
+```cs
+public static readonly Doc Empty = new(Array.Empty<DocMember>())
+```
+
 ## Properties
 ### Members
 The sequence of members this doc contains.
