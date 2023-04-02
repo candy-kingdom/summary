@@ -8,16 +8,6 @@ namespace Summary.Markdown.Extensions;
 /// </summary>
 internal static class MarkdownRenderExtensions
 {
-    /// <summary>
-    ///     Renders the specified documentation member into Markdown.
-    /// </summary>
-    public static Md Render(this DocMember self)
-    {
-        var text = new MdRenderer().Member(self).Text();
-
-        return new($"{self.Name}.md", text);
-    }
-
     private static string Render(IEnumerable<DocCommentNode> nodes) =>
         nodes
             .Trim()

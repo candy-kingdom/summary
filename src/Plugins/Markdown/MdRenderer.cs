@@ -39,12 +39,15 @@ public class MdRenderer
             GeneratedProperty(parent!, generated),
         DocIndexer indexer =>
             MemberHeader(indexer).Indexer(indexer),
+        DocDelegate @delegate =>
+            MemberHeader(@delegate).Delegate(@delegate),
         _ =>
             MemberHeader(member),
     };
 
     private MdRenderer TypeDeclaration(DocTypeDeclaration type) => this
         .TypeParamsSection(type)
+        .MembersSection<DocDelegate>("Delegates", type)
         .MembersSection<DocProperty>("Events", type, x => x.Event)
         .MembersSection<DocField>("Fields", type)
         .MembersSection<DocProperty>("Properties", type, x => !x.Event)
@@ -54,11 +57,16 @@ public class MdRenderer
     private MdRenderer Method(DocMethod method) => this
         .TypeParamsSection(method)
         .ParamsSection(method)
-        .ReturnsSection(method);
+        .ReturnsSection(method.Comment);
 
     private MdRenderer Indexer(DocIndexer indexer) => this
         .ParamsSection(indexer)
-        .ReturnsSection(indexer);
+        .ReturnsSection(indexer.Comment);
+
+    private MdRenderer Delegate(DocDelegate @delegate) => this
+        .TypeParamsSection(@delegate)
+        .ParamsSection(@delegate)
+        .ReturnsSection(@delegate.Comment);
 
     private MdRenderer MemberHeader(DocMember member) => this
         .Name(member)
@@ -89,17 +97,23 @@ public class MdRenderer
         .Line("```")
         .Line();
 
+    private MdRenderer TypeParamsSection(DocMethod method) =>
+        ParamsSection("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
+
+    private MdRenderer TypeParamsSection(DocDelegate @delegate) =>
+        ParamsSection("Type Parameters", @delegate.TypeParams.Select(x => (x.Name, x.Comment(@delegate))));
+
+    private MdRenderer TypeParamsSection(DocTypeDeclaration type) =>
+        ParamsSection("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
+
     private MdRenderer ParamsSection(DocMethod method) =>
         ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
 
     private MdRenderer ParamsSection(DocIndexer method) =>
         ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
 
-    private MdRenderer TypeParamsSection(DocMethod method) =>
-        ParamsSection("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
-
-    private MdRenderer TypeParamsSection(DocTypeDeclaration type) =>
-        ParamsSection("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
+    private MdRenderer ParamsSection(DocDelegate @delegate) =>
+        ParamsSection("Parameters", @delegate.Params.Select(x => (x.Name, x.Comment(@delegate))));
 
     private MdRenderer ParamsSection(string section, IEnumerable<(string Name, DocCommentElement? Comment)> parameters)
     {
@@ -114,11 +128,8 @@ public class MdRenderer
         return Line();
     }
 
-    public MdRenderer ReturnsSection(DocMethod method) =>
-        ElementSection("Returns", method.Comment.Element("returns"));
-
-    public MdRenderer ReturnsSection(DocIndexer method) =>
-        ElementSection("Returns", method.Comment.Element("returns"));
+    public MdRenderer ReturnsSection(DocComment comment) =>
+        ElementSection("Returns", comment.Element("returns"));
 
     private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type) where T : DocMember =>
         MembersSection<T>(section, type, _ => true);

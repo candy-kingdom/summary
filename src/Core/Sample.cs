@@ -1,6 +1,11 @@
 ﻿namespace Summary;
 
 /// <summary>
+///     A sample delegate.
+/// </summary>
+public delegate void GlobalDelegate(int x, int y);
+
+/// <summary>
 ///     A sample class that is documented.
 ///
 ///     This a second paragraph.

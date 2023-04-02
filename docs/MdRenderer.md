@@ -24,13 +24,8 @@ public MdRenderer Member(DocMember member)
 public MdRenderer Member(DocTypeDeclaration? parent, DocMember member)
 ```
 
-### ReturnsSection(DocMethod)
+### ReturnsSection(DocComment)
 ```cs
-public MdRenderer ReturnsSection(DocMethod method)
-```
-
-### ReturnsSection(DocIndexer)
-```cs
-public MdRenderer ReturnsSection(DocIndexer method)
+public MdRenderer ReturnsSection(DocComment comment)
 ```
 

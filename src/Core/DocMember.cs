@@ -14,9 +14,12 @@ namespace Summary;
 /// <param name="Comment">The documentation comment of the member (can be empty).</param>
 public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment)
 {
-    public string Cref => this switch
+    public bool MatchesCref(string cref) => Name == cref || Cref == cref;
+
+    private string Cref => this switch
     {
         DocMethod method => $"{method.Name}{TypeParams(method)}{Params(method)}",
+        DocDelegate @delegate => $"{@delegate.Name}{TypeParams(@delegate)}{Params(@delegate)}",
 
         _ => Name,
     };
@@ -24,6 +27,12 @@ public record DocMember(string Name, string Declaration, AccessModifier Access, 
     private static string TypeParams(DocMethod x) =>
         x.TypeParams.Select(x => x.Name).Separated(with: ",").Wrap("{", "}");
 
+    private static string TypeParams(DocDelegate x) =>
+        x.TypeParams.Select(x => x.Name).Separated(with: ",").Wrap("{", "}");
+
     private static string Params(DocMethod x) =>
+        $"({x.Params.Select(x => x.Type?.FullName).Separated(with: ",")})";
+
+    private static string Params(DocDelegate x) =>
         $"({x.Params.Select(x => x.Type?.FullName).Separated(with: ",")})";
 }

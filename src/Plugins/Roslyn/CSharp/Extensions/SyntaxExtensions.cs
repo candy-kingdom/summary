@@ -30,6 +30,7 @@ internal static class SyntaxExtensions
         EventDeclarationSyntax x => x.Property(),
         EventFieldDeclarationSyntax x => x.Property(),
         IndexerDeclarationSyntax x => x.Indexer(),
+        DelegateDeclarationSyntax x => x.Delegate(),
 
         MethodDeclarationSyntax x => x.Method(),
 
@@ -120,6 +121,15 @@ internal static class SyntaxExtensions
         self.TypeParams(),
         self.DeclaringType());
 
+    private static DocDelegate Delegate(this DelegateDeclarationSyntax self) => new(
+        self.Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+        self.Access(),
+        self.Comment(),
+        self.Params(),
+        self.TypeParams(),
+        self.DeclaringType());
+
     private static DocComment Comment(this MemberDeclarationSyntax self)
     {
         var nodes = self
@@ -174,36 +184,39 @@ internal static class SyntaxExtensions
         _ => self.DescendantNodes().Select(x => Member(x, parent)).NonNulls().ToArray(),
     };
 
-    private static DocParam[] Params(this MethodDeclarationSyntax self) => self
-        .ParameterList
+    private static DocParam[] Params(this MethodDeclarationSyntax self) =>
+        self.ParameterList.Params();
+
+    private static DocParam[] Params(this IndexerDeclarationSyntax self) =>
+        self.ParameterList.Params();
+
+    private static DocParam[] Params(this DelegateDeclarationSyntax self) =>
+        self.ParameterList.Params();
+
+    private static DocParam[] Params(this BaseParameterListSyntax self) => self
         .Parameters
-        .Select(x => x.Param(self))
+        .Select(x => x.Param())
         .ToArray();
 
-    private static DocParam[] Params(this IndexerDeclarationSyntax self) => self
-        .ParameterList
-        .Parameters
-        .Select(x => x.Param(self))
-        .ToArray();
-
-    private static DocParam Param(this ParameterSyntax self, MemberDeclarationSyntax member) => new(
+    private static DocParam Param(this ParameterSyntax self) => new(
         self.Type?.Type(),
         self.Identifier.ValueText);
 
-    private static DocTypeParam[] TypeParams(this TypeDeclarationSyntax self) => self
-        .TypeParameterList?
-        .TypeParams(self) ?? System.Array.Empty<DocTypeParam>();
+    private static DocTypeParam[] TypeParams(this TypeDeclarationSyntax self) =>
+        self.TypeParameterList.TypeParams();
 
-    private static DocTypeParam[] TypeParams(this MethodDeclarationSyntax self) => self
-        .TypeParameterList?
-        .TypeParams(self) ?? System.Array.Empty<DocTypeParam>();
+    private static DocTypeParam[] TypeParams(this MethodDeclarationSyntax self) =>
+        self.TypeParameterList.TypeParams();
 
-    private static DocTypeParam[] TypeParams(this TypeParameterListSyntax self, MemberDeclarationSyntax member) => self
+    private static DocTypeParam[] TypeParams(this DelegateDeclarationSyntax self) =>
+        self.TypeParameterList.TypeParams();
+
+    private static DocTypeParam[] TypeParams(this TypeParameterListSyntax? self) => self?
         .Parameters
-        .Select(x => x.TypeParam(member))
-        .ToArray();
+        .Select(x => x.TypeParam())
+        .ToArray() ?? System.Array.Empty<DocTypeParam>();
 
-    private static DocTypeParam TypeParam(this TypeParameterSyntax self, MemberDeclarationSyntax member) => new(self.Identifier.ValueText);
+    private static DocTypeParam TypeParam(this TypeParameterSyntax self) => new(self.Identifier.ValueText);
 
     private static DocType Type(this TypeSyntax self) => self switch
     {

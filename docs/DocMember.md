@@ -35,8 +35,9 @@ The documentation comment of the member (can be empty).
 public DocComment Comment { get; }
 ```
 
-### Cref
+## Methods
+### MatchesCref(string)
 ```cs
-public string Cref { get; }
+public bool MatchesCref(string cref)
 ```
 

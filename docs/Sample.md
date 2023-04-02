@@ -24,6 +24,14 @@ public class Sample<T0, T1>
 - `T0`: A first type parameter.
 - `T1`: A second type parameter.
 
+## Delegates
+### Delegate1
+A sample delegate.
+
+```cs
+public void Delegate1(int x, int y)
+```
+
 ## Events
 ### Event1
 A sample field event.

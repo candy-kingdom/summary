@@ -1,5 +1,4 @@
-﻿using Summary.Markdown.Extensions;
-using Summary.Pipes;
+﻿using Summary.Pipes;
 
 namespace Summary.Markdown;
 
@@ -11,6 +10,10 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
     public Task<Md[]> Run(Doc input) =>
         Task.FromResult(input.Members.Select(Render).ToArray());
 
-    private static Md Render(DocMember member) =>
-        member.Render();
+    private static Md Render(DocMember member)
+    {
+        var text = new MdRenderer().Member(member).Text();
+
+        return new($"{member.Name}.md", text);
+    }
 }

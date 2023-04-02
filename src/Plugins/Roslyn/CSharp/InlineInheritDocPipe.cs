@@ -58,6 +58,8 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 IEnumerable<DocCommentNode> Inlined(DocCommentInheritDoc doc)
                 {
                     var source = doc.Cref is null or "" ? Base(member) : Cref(member, doc.Cref);
+                    if (source == member)
+                        return Enumerable.Empty<DocCommentNode>();
 
                     // We need to inline all comments in `source` to support complex chains
                     // (e.g., `C` inherits `B` which inherits `A`).
@@ -135,7 +137,11 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             cref = cref.Replace(" ", "");
 
             if (x is DocTypeDeclaration declaration)
-                return declaration.Base.SelectMany(Declarations).FirstOrDefault(x => x is not null && x.FullyQualifiedName.EndsWith(cref));
+                return declaration.Base
+                    .SelectMany(Declarations)
+                    .FirstOrDefault(x =>
+                        x is not null &&
+                        x.FullyQualifiedName.EndsWith(cref));
 
             if (x is DocMethod method)
                 return Ref(method.DeclaringType);
@@ -149,6 +155,9 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             if (x is DocIndexer indexer)
                 return Ref(indexer.DeclaringType);
 
+            if (x is DocDelegate @delegate)
+                return Ref(@delegate.DeclaringType);
+
             return null;
 
             DocMember? Ref(DocType? type)
@@ -161,11 +170,11 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                         .NonNulls()
                         .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(full))?
                         .Members
-                        .FirstOrDefault(x => x.Cref == name);
+                        .FirstOrDefault(x => x.MatchesCref(name));
                 }
                 else
                 {
-                    return Declaration(type)?.Members.FirstOrDefault(x => x.Cref == cref);
+                    return Declaration(type)?.Members.FirstOrDefault(x => x.MatchesCref(cref));
                 }
             }
         }

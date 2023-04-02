@@ -9,6 +9,20 @@
 public class InheritDocBase
 {
     /// <summary>
+    ///     A sample delegate.
+    /// </summary>
+    /// <param name="x">First parameter.</param>
+    /// <param name="y">Second parameter.</param>
+    /// <returns>Nothing.</returns>
+    public delegate void Delegate1(int x, int y);
+
+    /// <inheritdoc cref="Delegate1" />
+    public delegate void Delegate2(int x, int y);
+
+    /// <inheritdoc cref="Delegate3" />
+    public delegate void Delegate3(int x, int y);
+
+    /// <summary>
     ///     A field.
     /// </summary>
     public int Field1;

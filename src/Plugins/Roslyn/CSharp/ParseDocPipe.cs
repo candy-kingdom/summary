@@ -17,11 +17,16 @@ public class ParseDocPipe : IPipe<SyntaxTree, Doc>
         var members = root
             .ChildNodes()
             .OfType<TypeDeclarationSyntax>()
+            .Select(x => x.Member())
             .Concat(root
                 .ChildNodes()
                 .OfType<BaseNamespaceDeclarationSyntax>()
-                .SelectMany(x => x.ChildNodes().OfType<TypeDeclarationSyntax>()))
-            .Select(x => x.Member())
+                .SelectMany(x => x
+                    .ChildNodes()
+                    .OfType<TypeDeclarationSyntax>()
+                    .Select(y => y.Member())
+                    .Concat(x.ChildNodes().OfType<DelegateDeclarationSyntax>().Select(y => y.Member()))))
+            .Concat(root.ChildNodes().OfType<DelegateDeclarationSyntax>().Select(x => x.Member()))
             .NonNulls()
             .ToArray();
 

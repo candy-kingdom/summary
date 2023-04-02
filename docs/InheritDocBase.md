@@ -7,6 +7,40 @@ _Remarks section._
 public class InheritDocBase
 ```
 
+## Delegates
+### Delegate1
+A sample delegate.
+
+```cs
+public void Delegate1(int x, int y)
+```
+
+#### Parameters
+- `x`: First parameter.
+- `y`: Second parameter.
+
+#### Returns
+Nothing.
+
+### Delegate2
+A sample delegate.
+
+```cs
+public void Delegate2(int x, int y)
+```
+
+#### Parameters
+- `x`: First parameter.
+- `y`: Second parameter.
+
+#### Returns
+Nothing.
+
+### Delegate3
+```cs
+public void Delegate3(int x, int y)
+```
+
 ## Events
 ### Event1
 An event.
