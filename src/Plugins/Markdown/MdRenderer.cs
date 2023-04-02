@@ -81,7 +81,7 @@ public class MdRenderer
     private MdRenderer Name(DocMember member) => member switch
     {
         DocMethod x =>
-            Line($"{new string('#', _level)} {x.Name}({x.Params.Select(x => x.Type?.FullName ?? "").Separated(with: ", ")})"),
+            Line($"{new string('#', _level)} {x.Render()}"),
         _ =>
             Line($"{new string('#', _level)} {member.Name}"),
     };

@@ -84,3 +84,40 @@ public virtual int Sum(int x, int y)
 #### Returns
 Returns the sum of two values.
 
+### Sum<T>(byte, byte)
+Calculates the byte sum.
+
+```cs
+public byte Sum<T>(byte x, byte y)
+```
+
+#### Parameters
+- `x`: The first byte parameter.
+- `y`: The second byte parameter.
+
+#### Type Parameters
+- `T`: The type parameter.
+
+#### Returns
+Returns the sum of two values.
+
+### Sum(short, short)
+```cs
+public short Sum(short x, short y)
+```
+
+### Sum2(short, short)
+```cs
+public short Sum2(short x, short y)
+```
+
+### Sum3(short, short)
+```cs
+public short Sum3(short x, short y)
+```
+
+### Sum4(short, short)
+```cs
+public short Sum4(short x, short y)
+```
+

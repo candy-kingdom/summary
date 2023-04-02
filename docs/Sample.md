@@ -91,7 +91,7 @@ public int this[int i] { get; }
 What indexer returns.
 
 ## Methods
-### Method(int, string)
+### Method<M0, M1, M2>(int, string)
 A simple method.
 
 It contains two parameters:
@@ -119,7 +119,7 @@ public TimeSpan Method<M0, M1, M2>(int x, string y)
 #### Returns
 The `TimeSpan` instance.
 
-### Method(short, string)
+### Method<M0, M1, M2>(short, string)
 The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).md).
 
 ```cs

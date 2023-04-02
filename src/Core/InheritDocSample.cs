@@ -48,7 +48,29 @@ public class InheritDocBase
     /// <param name="y">The second parameter.</param>
     /// <returns>Returns the sum of two values.</returns>
     public virtual int Sum(int x, int y) => x + y;
+
+    /// <summary>
+    ///     Calculates the byte sum.
+    /// </summary>
+    /// <param name="x">The first byte parameter.</param>
+    /// <param name="y">The second byte parameter.</param>
+    /// <typeparam name="T">The type parameter.</typeparam>
+    /// <returns>Returns the sum of two values.</returns>
+    public byte Sum<T>(byte x, byte y) => (byte) (x + y);
+
+    /// <inheritdoc cref="Sum{T}(byte, byte)"/>
+    public short Sum(short x, short y) => (short) (x + y);
+
+    /// <inheritdoc cref="Sum{T}(byte,byte)"/>
+    public short Sum2(short x, short y) => (short) (x + y);
+
+    /// <inheritdoc cref="InheritDocBase.Sum{T}(byte,byte)"/>
+    public short Sum3(short x, short y) => (short) (x + y);
+
+    /// <inheritdoc cref="Summary.InheritDocBase.Sum{T}(byte,byte)"/>
+    public short Sum4(short x, short y) => (short) (x + y);
 }
+
 
 /// <inheritdoc />
 public class InheritDoc_Child : InheritDocBase

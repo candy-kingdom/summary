@@ -59,6 +59,15 @@ internal static class MarkdownRenderExtensions
         _ => "",
     };
 
+    internal static string Render(this DocMethod self) =>
+        $"{self.Name}{self.RenderTypeParams()}{self.RenderParams()}";
+
+    private static string RenderParams(this DocMethod self) =>
+        $"({self.Params.Select(x => x.Type?.FullName ?? "").Separated(with: ", ")})";
+
+    private static string RenderTypeParams(this DocMethod self) =>
+        self.TypeParams.Length > 0 ? $"<{self.TypeParams.Select(x => x.Name).Separated(with: ", ")}>" : "";
+
     // TODO: Write an efficient implementation.
     private static IEnumerable<DocCommentNode> Trim(this IEnumerable<DocCommentNode> nodes) => nodes
         .SkipWhile(x => x.IsSpace() || x.IsNewLine())
