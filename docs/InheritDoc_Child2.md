@@ -7,10 +7,19 @@ _Remarks section._
 public class InheritDoc_Child2 : InheritDoc_Child
 ```
 
-## Indexers
-### this[int]
+## Events
+### Event1
+An event.
+
 ```cs
-public override int this[int i] { get; }
+public new event Action Event1
+```
+
+### Event2
+An event.
+
+```cs
+public event Action Event2
 ```
 
 ## Properties
@@ -50,18 +59,10 @@ _Property remarks._
 public int Property5 { get; set; }
 ```
 
-### Event1
-An event.
-
+## Indexers
+### this[int]
 ```cs
-public new event Action Event1
-```
-
-### Event2
-An event.
-
-```cs
-public event Action Event2
+public override int this[int i] { get; }
 ```
 
 ## Methods

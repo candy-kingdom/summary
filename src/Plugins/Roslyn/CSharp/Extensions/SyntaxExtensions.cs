@@ -89,7 +89,8 @@ internal static class SyntaxExtensions
         $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
         self.Access(),
         self.Comment(),
-        self.DeclaringType());
+        self.DeclaringType(),
+        Event: true);
 
     /// TODO: Handle `private int _x, _y` cases.
     private static DocProperty Property(this EventFieldDeclarationSyntax self) => new(
@@ -98,7 +99,8 @@ internal static class SyntaxExtensions
         $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[0].Identifier}",
         self.Access(),
         self.Comment(),
-        self.DeclaringType());
+        self.DeclaringType(),
+        Event: true);
 
     private static DocIndexer Indexer(this IndexerDeclarationSyntax self) => new(
         self.Type.Type(),

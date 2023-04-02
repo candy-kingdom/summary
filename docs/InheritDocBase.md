@@ -7,6 +7,14 @@ _Remarks section._
 public class InheritDocBase
 ```
 
+## Events
+### Event1
+An event.
+
+```cs
+public virtual event Action Event1
+```
+
 ## Fields
 ### Field1
 A field.
@@ -21,17 +29,6 @@ A field.
 ```cs
 public int Field2
 ```
-
-## Indexers
-### this[int]
-An indexer.
-
-```cs
-public virtual int this[int i] { get; }
-```
-
-#### Parameters
-- `i`: A parameter to the indexer.
 
 ## Properties
 ### Property1
@@ -61,12 +58,16 @@ _Property remarks._
 public int Property3 { get; set; }
 ```
 
-### Event1
-An event.
+## Indexers
+### this[int]
+An indexer.
 
 ```cs
-public virtual event Action Event1
+public virtual int this[int i] { get; }
 ```
+
+#### Parameters
+- `i`: A parameter to the indexer.
 
 ## Methods
 ### Sum(int, int)

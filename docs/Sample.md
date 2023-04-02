@@ -24,6 +24,21 @@ public class Sample<T0, T1>
 - `T0`: A first type parameter.
 - `T1`: A second type parameter.
 
+## Events
+### Event1
+A sample field event.
+
+```cs
+public event Action Event1
+```
+
+### Event2
+A sample property event.
+
+```cs
+public Action Event2 { add; remove; }
+```
+
 ## Fields
 ### Field1
 A sample field.
@@ -31,20 +46,6 @@ A sample field.
 ```cs
 public int Field1
 ```
-
-## Indexers
-### this[int]
-A sample indexer.
-
-```cs
-public int this[int i] { get; }
-```
-
-#### Parameters
-- `i`: The parameter for indexer.
-
-#### Returns
-What indexer returns.
 
 ## Properties
 ### Property1
@@ -75,19 +76,19 @@ A sample property with custom accessors.
 public int Property4 { get; set; }
 ```
 
-### Event1
-A sample field event.
+## Indexers
+### this[int]
+A sample indexer.
 
 ```cs
-public event Action Event1
+public int this[int i] { get; }
 ```
 
-### Event2
-A sample property event.
+#### Parameters
+- `i`: The parameter for indexer.
 
-```cs
-public Action Event2 { add; remove; }
-```
+#### Returns
+What indexer returns.
 
 ## Methods
 ### Method(int, string)

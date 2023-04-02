@@ -48,9 +48,10 @@ public class MdRenderer
     {
         TypeParamsSection(type);
 
+        MembersSection<DocProperty>("Events", type, x => x.Event);
         MembersSection<DocField>("Fields", type);
+        MembersSection<DocProperty>("Properties", type, x => !x.Event);
         MembersSection<DocIndexer>("Indexers", type);
-        MembersSection<DocProperty>("Properties", type);
         MembersSection<DocMethod>("Methods", type);
 
         return this;
@@ -126,7 +127,10 @@ public class MdRenderer
         ElementSection("Returns", method.Comment.Element("returns"));
 
     private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type) where T : DocMember =>
-        MembersSection(section, type, type.Members.OfType<T>());
+        MembersSection<T>(section, type, _ => true);
+
+    private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type, Func<T, bool> p) where T : DocMember =>
+        MembersSection(section, type, type.Members.OfType<T>().Where(p));
 
     private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type, IEnumerable<T> members) where T : DocMember =>
         MembersSection(section, type, members, Member);
