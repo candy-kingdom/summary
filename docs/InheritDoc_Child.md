@@ -17,6 +17,13 @@ _Property remarks._
 public override int Property1 { get; set; }
 ```
 
+### Event1
+An event.
+
+```cs
+public override event Action Event1
+```
+
 ## Methods
 ### Sum(int, int)
 Calculates the sum.

@@ -40,6 +40,41 @@ A sample property.
 public int Property1 { get; set; }
 ```
 
+### Property2
+A sample property with custom visibility.
+
+```cs
+public int Property2 { private get; set; }
+```
+
+### Property3
+A sample property with custom visibility (2).
+
+```cs
+public int Property3 { get; protected set; }
+```
+
+### Property4
+A sample property with custom accessors.
+
+```cs
+public int Property4 { get; set; }
+```
+
+### Event1
+A sample field event.
+
+```cs
+public event Action Event1
+```
+
+### Event2
+A sample property event.
+
+```cs
+public Action Event2 { add; remove; }
+```
+
 ## Methods
 ### Method(int, string)
 A simple method.

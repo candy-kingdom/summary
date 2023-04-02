@@ -24,8 +24,12 @@ internal static class SyntaxExtensions
     public static DocMember? Member(this SyntaxNode self, DocTypeDeclaration? parent = null) => self switch
     {
         TypeDeclarationSyntax x => x.TypeDeclaration(parent),
+
         FieldDeclarationSyntax x => x.Field(),
         PropertyDeclarationSyntax x => x.Property(),
+        EventDeclarationSyntax x => x.Property(),
+        EventFieldDeclarationSyntax x => x.Property(),
+
         MethodDeclarationSyntax x => x.Method(),
 
         _ => null,
@@ -68,7 +72,7 @@ internal static class SyntaxExtensions
         self.Comment(),
         self.DeclaringType());
 
-    private static DocProperty Property(this ParameterSyntax self, RecordDeclarationSyntax record) => new(
+    private static DocProperty Property(this ParameterSyntax self) => new(
         // Record should always have parameters with types.
         self.Type!.Type(),
         self.Identifier.Text,
@@ -77,6 +81,23 @@ internal static class SyntaxExtensions
         DocComment.Empty,
         self.DeclaringType(),
         Generated: true);
+
+    private static DocProperty Property(this EventDeclarationSyntax self) => new(
+        self.Type.Type(),
+        self.Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+        self.Access(),
+        self.Comment(),
+        self.DeclaringType());
+
+    /// TODO: Handle `private int _x, _y` cases.
+    private static DocProperty Property(this EventFieldDeclarationSyntax self) => new(
+        self.Declaration.Type.Type(),
+        self.Declaration.Variables[0].Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[0].Identifier}",
+        self.Access(),
+        self.Comment(),
+        self.DeclaringType());
 
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(
         self.Identifier.Text,
@@ -114,7 +135,13 @@ internal static class SyntaxExtensions
     }
 
     private static string Accessors(this PropertyDeclarationSyntax self) =>
-        self.AccessorList?.ToString() ?? "{ get; }";
+        self.AccessorList?.Accessors() ?? "{ get; }";
+
+    private static string Accessors(this EventDeclarationSyntax self) =>
+        self.AccessorList?.Accessors() ?? "{ add; remove; }";
+
+    private static string Accessors(this AccessorListSyntax self) =>
+        $"{{ {self.Accessors.Select(x => $"{x.Modifiers.ToString().Space()}{x.Keyword}; ").Separated(with: "")}}}";
 
     private static DocMember[] Members(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null) => self switch
     {
@@ -122,7 +149,7 @@ internal static class SyntaxExtensions
             record
                 .ParameterList?
                 .Parameters
-                .Select(x => x.Property(record))
+                .Select(x => x.Property())
                 .Concat(self
                     .DescendantNodes()
                     .Select(x => Member(x, parent)))

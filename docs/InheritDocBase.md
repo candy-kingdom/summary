@@ -50,6 +50,13 @@ _Property remarks._
 public int Property3 { get; set; }
 ```
 
+### Event1
+An event.
+
+```cs
+public virtual event Action Event1
+```
+
 ## Methods
 ### Sum(int, int)
 Calculates the sum.

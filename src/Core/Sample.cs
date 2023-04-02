@@ -24,6 +24,11 @@
 public class Sample<T0, T1>
 {
     /// <summary>
+    ///     A sample delegate.
+    /// </summary>
+    public delegate void Delegate1(int x, int y);
+
+    /// <summary>
     ///     A sample field.
     /// </summary>
     public int Field1;
@@ -32,6 +37,45 @@ public class Sample<T0, T1>
     ///     A sample property.
     /// </summary>
     public int Property1 { get; set; }
+
+    /// <summary>
+    ///     A sample property with custom visibility.
+    /// </summary>
+    public int Property2 { private get; set; }
+
+    /// <summary>
+    ///     A sample property with custom visibility (2).
+    /// </summary>
+    public int Property3 { get; protected set; }
+
+    /// <summary>
+    ///     A sample property with custom accessors.
+    /// </summary>
+    public int Property4
+    {
+        get => 0;
+        set { }
+    }
+
+    /// <summary>
+    ///     A sample field event.
+    /// </summary>
+    public event Action Event1 = () => { };
+
+    /// <summary>
+    ///     A sample property event.
+    /// </summary>
+    public event Action Event2
+    {
+        add { }
+        remove { }
+    }
+
+    /// <summary>
+    ///     A sample indexer.
+    /// </summary>
+    /// <param name="i">The parameter for indexer.</param>
+    public int this[int i] => 0;
 
     /// <summary>
     ///     A simple method.
