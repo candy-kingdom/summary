@@ -62,6 +62,8 @@ place_constructor_initializer_on_same_line = false
 place_expr_method_on_single_line = never
 place_expr_property_on_single_line = never
 place_expr_accessor_on_single_line = if_owner_is_single_line
+resharper_arguments_literal = named
+resharper_arguments_style_literal_highlighting = hint
 
 ## Generics.
 wrap_before_arrow_with_expressions = false
