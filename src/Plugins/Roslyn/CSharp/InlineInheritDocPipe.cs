@@ -3,6 +3,16 @@ using Summary.Pipes;
 
 namespace Summary.Roslyn.CSharp;
 
+/// <summary>
+///     A <see cref="IPipe{I,O}"/> that inlines <c>&lt;inheritdoc/&gt;</c> tags.
+/// </summary>
+/// <remarks>
+///     Under the hood, the process of inlining works as follows:
+///     <br />
+///         - each member in the <see cref="Doc"/> is analyzed
+///         - if this member contains an <c>&lt;inheritdoc/&gt;</c> element, it's removed from the member comment
+///         - then, the inherited documentation (either from the base type or from the specified cref) is added to the member comment.
+/// </remarks>
 public class InlineInheritDocPipe : IPipe<Doc, Doc>
 {
     public Task<Doc> Run(Doc doc)
@@ -13,46 +23,43 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
 
         DocMember Inline(DocMember member)
         {
+            member = member with { Comment = InlineComment(member.Comment) };
+
             return member switch
             {
-                DocTypeDeclaration type => type with
-                {
-                    Members = type.Members.Select(Inline).ToArray(),
-                    Comment = InlineComment(member.Comment),
-                },
-                _ => member with { Comment = InlineComment(member.Comment) },
+                // For type declarations we want both to inline the comment of the type
+                // as well as the comments of the type members.
+                DocTypeDeclaration type => type with { Members = type.Members.Select(Inline).ToArray() },
+                _ => member,
             };
 
+            // Order nodes so that <inheritdoc /> tags are always at the end.
+            // This allows inlining them without overriding the user-defined nodes.
             DocComment InlineComment(DocComment comment) =>
-                new(comment.Nodes.SelectMany(InlineNode).ToArray());
+                comment with { Nodes = comment.Nodes
+                    .OrderBy(x => x is DocCommentInheritDoc)
+                    .SelectMany(InlineNode)
+                    .ToArray() };
 
-            IEnumerable<DocCommentNode> InlineNode(DocCommentNode node)
+            IEnumerable<DocCommentNode> InlineNode(DocCommentNode node) => node switch
             {
-                if (node is DocCommentInheritDoc inheritDoc)
-                {
-                    foreach (var x in Inlined(inheritDoc))
-                        yield return x;
-                }
-                else
-                {
-                    yield return node;
-                }
+                DocCommentInheritDoc inherit => InlineInheritDoc(inherit),
+                _ => new[] { node },
+            };
 
-                IEnumerable<DocCommentNode> Inlined(DocCommentInheritDoc doc)
-                {
-                    var source = doc.Cref is null or "" ? Base(member) : Cref(member, doc.Cref);
-                    if (source == member)
-                        return Enumerable.Empty<DocCommentNode>();
+            IEnumerable<DocCommentNode> InlineInheritDoc(DocCommentInheritDoc inherit)
+            {
+                var source = inherit.Cref is null or "" ? Base(member) : Cref(member, inherit.Cref);
+                if (source == member)
+                    return Enumerable.Empty<DocCommentNode>();
+                if (source is null)
+                    return Enumerable.Empty<DocCommentNode>();
 
-                    // We need to inline all comments in `source` to support complex chains
-                    // (e.g., `C` inherits `B` which inherits `A`).
-                    return source is not null
-                        ? Merge(member.Comment.Nodes, Inline(source).Comment.Nodes)
-                        : Enumerable.Empty<DocCommentNode>();
+                // We need to inline all comments in `source` to support complex chains
+                // (e.g., `C` inherits `B` which inherits `A`).
+                source = Inline(source);
 
-                    IEnumerable<DocCommentNode> Merge(IEnumerable<DocCommentNode> source, IEnumerable<DocCommentNode> inherit) =>
-                        source.Where(x => x is not DocCommentInheritDoc).Concat(inherit);
-                }
+                return source.Comment.Nodes;
             }
         }
 
@@ -120,11 +127,9 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             cref = cref.Replace(" ", "");
 
             if (x is DocTypeDeclaration declaration)
-                return declaration.Base
-                    .SelectMany(Declarations)
-                    .FirstOrDefault(x =>
-                        x is not null &&
-                        x.FullyQualifiedName.EndsWith(cref));
+                return declaration
+                    .BaseDeclarations(doc)
+                    .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(cref));
 
             if (x is DocMethod method)
                 return Ref(method.DeclaringType);
@@ -147,10 +152,11 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             {
                 if (cref.Split('.') is [_, .., var name])
                 {
-                    var full = cref.Substring(0, cref.Length - name.Length - 1);
+                    var full = cref[..(cref.Length - name.Length - 1)];
 
-                    return Declarations(type)
-                        .NonNulls()
+                    return doc
+                        .Declaration(type)?
+                        .BaseDeclarationsAndSelf(doc)
                         .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(full))?
                         .Members
                         .FirstOrDefault(x => x.MatchesCref(name));
@@ -160,22 +166,6 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                     return doc.Declaration(type)?.Members.FirstOrDefault(x => x.MatchesCref(cref));
                 }
             }
-        }
-
-        IEnumerable<DocTypeDeclaration?> Declarations(DocType? type)
-        {
-            if (type is null)
-                yield break;
-
-            var declaration = doc.Declaration(type);
-            if (declaration is null)
-                yield break;
-
-            yield return declaration;
-
-            foreach (var x in declaration.Base)
-            foreach (var y in Declarations(x).Where(z => z is not null))
-                yield return y;
         }
     }
 }

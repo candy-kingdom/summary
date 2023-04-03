@@ -84,3 +84,22 @@ public DocType[] Base { get; }
 public bool Record { get; }
 ```
 
+## Methods
+### BaseDeclarationsAndSelf(Doc)
+This type declaration and the sequence of type declarations that are base types of this one.
+
+_This method is recursive and will return the sequence of all base types, even non-direct ones._
+
+```cs
+public IEnumerable<DocTypeDeclaration> BaseDeclarationsAndSelf(Doc doc)
+```
+
+### BaseDeclarations(Doc)
+A sequence of type declarations that are base types of this one.
+
+_This method is recursive and will return the sequence of all base types, even non-direct ones._
+
+```cs
+public IEnumerable<DocTypeDeclaration> BaseDeclarations(Doc doc)
+```
+
