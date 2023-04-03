@@ -6,6 +6,9 @@
 /// <param name="Members">The sequence of members this doc contains.</param>
 public record Doc(DocMember[] Members)
 {
+    /// <summary>
+    ///     An empty document.
+    /// </summary>
     public static readonly Doc Empty = new(Array.Empty<DocMember>());
 
     /// <summary>
