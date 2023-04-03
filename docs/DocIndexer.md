@@ -1,54 +1,15 @@
 # DocIndexer
+A [`DocProperty`](./DocProperty.md) that represents an indexer.
+
 ```cs
-public record DocIndexer(
-        DocType Type,
-        string FullyQualifiedName,
-        string Name,
-        string Declaration,
-        AccessModifier Access,
-        DocComment Comment,
-        DocType? DeclaringType,
-        DocParam[] Params) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
+public record DocIndexer : DocProperty
 ```
 
 ## Properties
-### Type
-```cs
-public DocType Type { get; }
-```
-
-### FullyQualifiedName
-```cs
-public string FullyQualifiedName { get; }
-```
-
-### Name
-```cs
-public string Name { get; }
-```
-
-### Declaration
-```cs
-public string Declaration { get; }
-```
-
-### Access
-```cs
-public AccessModifier Access { get; }
-```
-
-### Comment
-```cs
-public DocComment Comment { get; }
-```
-
-### DeclaringType
-```cs
-public DocType? DeclaringType { get; }
-```
-
 ### Params
+The parameters of the indexer.
+
 ```cs
-public DocParam[] Params { get; }
+public required DocParam[] Params { get; init; }
 ```
 

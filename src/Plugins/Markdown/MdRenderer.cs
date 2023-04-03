@@ -31,12 +31,12 @@ public class MdRenderer
     };
 
     private MdRenderer TypeDeclaration(DocTypeDeclaration type) => TypeParamsSection(type)
-        .MembersSection<DocDelegate>("Delegates", type)
+        .MembersSection<DocMethod>("Delegates", type, x => x.Delegate)
         .MembersSection<DocProperty>("Events", type, x => x.Event)
         .MembersSection<DocField>("Fields", type)
-        .MembersSection<DocProperty>("Properties", type, x => !x.Event)
+        .MembersSection<DocProperty>("Properties", type, x => !x.Event && x is not DocIndexer)
         .MembersSection<DocIndexer>("Indexers", type)
-        .MembersSection<DocMethod>("Methods", type, x => x is not DocDelegate);
+        .MembersSection<DocMethod>("Methods", type, x => !x.Delegate);
 
     private MdRenderer Method(DocMethod method) => TypeParamsSection(method)
         .ParamsSection(method)

@@ -7,6 +7,8 @@ public record Doc(DocMember[] Members)
 
 ## Fields
 ### Empty
+An empty document.
+
 ```cs
 public static readonly Doc Empty = new(Array.Empty<DocMember>())
 ```

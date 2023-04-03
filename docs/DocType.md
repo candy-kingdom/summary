@@ -6,6 +6,13 @@ public record DocType(string Name, DocType[] TypeParams)
 ```
 
 ## Properties
+### FullName
+The full name of the type including its type parameters.
+
+```cs
+public string FullName { get; }
+```
+
 ### Name
 The name of the type (without generic arguments).
 
@@ -18,12 +25,5 @@ The generic parameters of this type (if it's generic).
 
 ```cs
 public DocType[] TypeParams { get; }
-```
-
-### FullName
-The full name of the type including its type parameters.
-
-```cs
-public string FullName { get; }
 ```
 

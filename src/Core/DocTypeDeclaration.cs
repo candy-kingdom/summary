@@ -6,22 +6,28 @@ namespace Summary;
 ///     A <see cref="DocMember" /> that represents a documented type declaration (e.g. `struct`, `class`, etc.)
 ///     in the parsed source code.
 /// </summary>
-/// <param name="Members">The members of this type (e.g. fields, properties, methods).</param>
-/// <param name="TypeParams">The type parameters of this type (if it's generic).</param>
-/// <param name="Base">The list of base types for this one.</param>
-/// <inheritdoc cref="DocMember" />
-public record DocTypeDeclaration(
-    string FullyQualifiedName,
-    string Name,
-    string Declaration,
-    AccessModifier Access,
-    DocComment Comment,
-    DocType? DeclaringType,
-    DocMember[] Members,
-    DocTypeParam[] TypeParams,
-    DocType[] Base,
-    bool Record = false) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
+public record DocTypeDeclaration : DocMember
 {
+    /// <summary>
+    ///     The members of this type (e.g. fields, properties, methods).
+    /// </summary>
+    public required DocMember[] Members { get; init; }
+
+    /// <summary>
+    ///     The type parameters of this type (if it's generic).
+    /// </summary>
+    public required DocTypeParam[] TypeParams { get; init; }
+
+    /// <summary>
+    ///     The list of base types for this one.
+    /// </summary>
+    public required DocType[] Base { get; init; }
+
+    /// <summary>
+    ///     Whether this type declaration is a record declaration.
+    /// </summary>
+    public required bool Record { get; init; }
+
     /// <summary>
     ///     A sequence of members of this type declaration that has the same type as the specified one.
     /// </summary>

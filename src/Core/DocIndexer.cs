@@ -1,12 +1,12 @@
 ﻿namespace Summary;
 
-public record DocIndexer(
-        DocType Type,
-        string FullyQualifiedName,
-        string Name,
-        string Declaration,
-        AccessModifier Access,
-        DocComment Comment,
-        DocType? DeclaringType,
-        DocParam[] Params)
-    : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType);
+/// <summary>
+///     A <see cref="DocProperty" /> that represents an indexer.
+/// </summary>
+public record DocIndexer : DocProperty
+{
+    /// <summary>
+    ///     The parameters of the indexer.
+    /// </summary>
+    public required DocParam[] Params { get; init; }
+}

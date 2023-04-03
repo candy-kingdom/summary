@@ -2,26 +2,22 @@
 A member of the generated document (e.g. type, field, property, method, etc.).
 
 ```cs
-public record DocMember(
-    string FullyQualifiedName,
-    string Name,
-    string Declaration,
-    AccessModifier Access,
-    DocComment Comment,
-    DocType? DeclaringType)
+public abstract record DocMember
 ```
 
 ## Properties
 ### FullyQualifiedName
+The fully qualified name of the member.
+
 ```cs
-public string FullyQualifiedName { get; }
+public required string FullyQualifiedName { get; init; }
 ```
 
 ### Name
 The name of the member (e.g. `public int Field` has name `Field`).
 
 ```cs
-public string Name { get; }
+public required string Name { get; init; }
 ```
 
 ### Declaration
@@ -29,32 +25,34 @@ The code-snippet that contains the full declaration of the member
 (e.g. `public int Field` is a declaration of the field member `Field`).
 
 ```cs
-public string Declaration { get; }
+public required string Declaration { get; init; }
 ```
 
 ### Access
 The access modifier of the member.
 
 ```cs
-public AccessModifier Access { get; }
+public required AccessModifier Access { get; init; }
 ```
 
 ### Comment
 The documentation comment of the member (can be empty).
 
 ```cs
-public DocComment Comment { get; }
+public required DocComment Comment { get; init; }
 ```
 
 ### DeclaringType
 The type that this member is declared in (works for nested types as well).
 
 ```cs
-public DocType? DeclaringType { get; }
+public required DocType? DeclaringType { get; init; }
 ```
 
 ## Methods
 ### MatchesCref(string)
+Whether this member matches the specified `cref` reference.
+
 ```cs
 public bool MatchesCref(string cref)
 ```

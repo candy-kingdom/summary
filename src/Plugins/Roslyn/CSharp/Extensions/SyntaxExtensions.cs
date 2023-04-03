@@ -31,100 +31,137 @@ internal static class SyntaxExtensions
     };
 
     private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) =>
-        new(self.FullyQualifiedName(),
-            self.Name()!,
-            self.Declaration(),
-            self.Access(),
-            self.Comment(),
-            self.DeclaringType(),
-            self.Members(),
-            self.TypeParams(),
-            self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
-            self is RecordDeclarationSyntax);
+        new()
+        {
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = self.Declaration(),
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Members = self.Members(),
+            TypeParams = self.TypeParams(),
+            Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
+            Record = self is RecordDeclarationSyntax,
+        };
 
     private static DocType Type(this TypeDeclarationSyntax self) =>
         SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
 
     /// TODO: Handle `private int _x, _y` cases.
-    private static DocField Field(this FieldDeclarationSyntax self) => new(
-        self.Declaration.Type.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType());
+    private static DocField Field(this FieldDeclarationSyntax self) =>
+        new()
+        {
+            Type = self.Declaration.Type.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+        };
 
-    private static DocProperty Property(this PropertyDeclarationSyntax self) => new(
-        self.Type.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType());
+    private static DocProperty Property(this PropertyDeclarationSyntax self) =>
+        new()
+        {
+            Type = self.Type.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Generated = false,
+            Event = false,
+        };
 
-    private static DocProperty Property(this ParameterSyntax self) => new(
-        // Record should always have parameters with types.
-        self.Type!.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
-        AccessModifier.Public,
-        DocComment.Empty,
-        self.DeclaringType(),
-        Generated: true);
+    private static DocProperty Property(this ParameterSyntax self) =>
+        new()
+        {
+            Type = self.Type!.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
+            Access = AccessModifier.Public,
+            Comment = DocComment.Empty,
+            DeclaringType = self.DeclaringType(),
+            Generated = true,
+            Event = false,
+        };
 
-    private static DocProperty Property(this EventDeclarationSyntax self) => new(
-        self.Type.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType(),
-        Event: true);
+    private static DocProperty Property(this EventDeclarationSyntax self) =>
+        new()
+        {
+            Type = self.Type!.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Generated = false,
+            Event = true,
+        };
 
     /// TODO: Handle `private int _x, _y` cases.
-    private static DocProperty Property(this EventFieldDeclarationSyntax self) => new(
-        self.Declaration.Type.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[index: 0].Identifier}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType(),
-        Event: true);
+    private static DocProperty Property(this EventFieldDeclarationSyntax self) =>
+        new()
+        {
+            Type = self.Declaration.Type.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration =
+                $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[index: 0].Identifier}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Generated = false,
+            Event = true,
+        };
 
-    private static DocIndexer Indexer(this IndexerDeclarationSyntax self) => new(
-        self.Type.Type(),
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType(),
-        self.Params());
+    private static DocIndexer Indexer(this IndexerDeclarationSyntax self) =>
+        new()
+        {
+            Type = self.Type.Type(),
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Generated = false,
+            Event = false,
+            Params = self.Params(),
+        };
 
-    private static DocMethod Method(this MethodDeclarationSyntax self) => new(
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
-        self.Access(),
-        self.Comment(),
-        self.DeclaringType(),
-        self.Params(),
-        self.TypeParams());
+    private static DocMethod Method(this MethodDeclarationSyntax self) =>
+        new()
+        {
+            FullyQualifiedName = self.FullyQualifiedName(),
+            Name = self.Name()!,
+            Declaration =
+                $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+            Access = self.Access(),
+            Comment = self.Comment(),
+            DeclaringType = self.DeclaringType(),
+            Params = self.Params(),
+            TypeParams = self.TypeParams(),
+            Delegate = false,
+        };
 
-    private static DocDelegate Delegate(this DelegateDeclarationSyntax self) => new(
-        self.FullyQualifiedName(),
-        self.Name()!,
-        $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
-        self.Access(),
-        self.Comment(),
-        self.Params(),
-        self.TypeParams(),
-        self.DeclaringType());
+    private static DocMethod Delegate(this DelegateDeclarationSyntax self) => new()
+    {
+        FullyQualifiedName = self.FullyQualifiedName(),
+        Name = self.Name()!,
+        Declaration =
+            $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+        Access = self.Access(),
+        Comment = self.Comment(),
+        Params = self.Params(),
+        TypeParams = self.TypeParams(),
+        DeclaringType = self.DeclaringType(),
+        Delegate = true,
+    };
 
     private static DocComment Comment(this MemberDeclarationSyntax self)
     {
@@ -167,15 +204,15 @@ internal static class SyntaxExtensions
     private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
     {
         RecordDeclarationSyntax record =>
-            record
-                .ParameterList?
-                .Parameters
-                .Select(x => x.Property())
-                .Concat(self
-                    .DescendantNodes()
-                    .Select(Member))
+            self
+                .DescendantNodes()
+                .Select(Member)
+                .Concat(record
+                    .ParameterList?
+                    .Parameters
+                    .Select(x => x.Property()) ?? Enumerable.Empty<DocMember>())
                 .NonNulls()
-                .ToArray() ?? System.Array.Empty<DocMember>(),
+                .ToArray(),
 
         _ => self.DescendantNodes().Select(Member).NonNulls().ToArray(),
     };
