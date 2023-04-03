@@ -10,7 +10,7 @@ public record DocComment(DocCommentNode[] Nodes)
 An empty documentation comment.
 
 ```cs
-public static readonly DocComment Empty = new(Array.Empty<DocCommentNode>())
+public static readonly DocComment Empty
 ```
 
 ## Properties

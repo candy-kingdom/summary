@@ -41,8 +41,6 @@ public static class SyntaxNodeExtensions
         DelegateDeclarationSyntax x => x.Identifier.Text,
         IndexerDeclarationSyntax => "this",
 
-        BaseFieldDeclarationSyntax x => x.Declaration.Variables.First().Identifier.Text,
-
         _ => null,
     };
 }

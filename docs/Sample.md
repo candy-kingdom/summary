@@ -1,11 +1,8 @@
 # Sample
 A sample class that is documented.
-
 This a second paragraph.
 It is indented.
-
 This is the third paragraph.
-
 Here is a _italic_, _italic2_ fragment.
 Here is a **bold**, **bold2** fragment.
 Here is a `code` fragment.
@@ -13,7 +10,6 @@ Here is a ~~strikethrough~~ fragment.
 
 _Remarks section._
 _Second line._
-
 _Another paragraph._
 
 ```cs
@@ -53,6 +49,20 @@ A sample field.
 
 ```cs
 public int Field1
+```
+
+### Field2
+A pair of fields.
+
+```cs
+public int Field2
+```
+
+### Field3
+A pair of fields.
+
+```cs
+public int Field3
 ```
 
 ## Properties
@@ -101,11 +111,9 @@ What indexer returns.
 ## Methods
 ### Method<M0, M1, M2>(int, string)
 A simple method.
-
 It contains two parameters:
 - `x` means `x`
 - `y` means `y`
-
 It contains three type parameters:
 - `M0` is the first one
 - `M1` is the second one

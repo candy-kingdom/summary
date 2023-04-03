@@ -10,6 +10,6 @@ public class Unit
 The only instance of the [`Unit`](./Unit.md).
 
 ```cs
-public static readonly Unit Value = new()
+public static readonly Unit Value
 ```
 

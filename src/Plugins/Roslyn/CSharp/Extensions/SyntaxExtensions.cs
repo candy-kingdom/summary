@@ -12,19 +12,37 @@ namespace Summary.Roslyn.CSharp.Extensions;
 internal static class SyntaxExtensions
 {
     /// <summary>
+    ///     Converts the specified syntax node into an array of doc members.
+    /// </summary>
+    /// <remarks>
+    ///     Fields and field-events can be represented as more than one member.
+    /// </remarks>
+    public static IEnumerable<DocMember> Members(this SyntaxNode self) => self switch
+    {
+        TypeDeclarationSyntax x => x.TypeDeclaration().Array(),
+        FieldDeclarationSyntax x => x.Fields(),
+        PropertyDeclarationSyntax x => x.Property().Array(),
+        EventDeclarationSyntax x => x.Property().Array(),
+        EventFieldDeclarationSyntax x => x.Properties(),
+        IndexerDeclarationSyntax x => x.Indexer().Array(),
+        DelegateDeclarationSyntax x => x.Delegate().Array(),
+        MethodDeclarationSyntax x => x.Method().Array(),
+
+        _ => Enumerable.Empty<DocMember>(),
+    };
+
+    /// <summary>
     ///     Converts the specified syntax node to a document member.
     /// </summary>
     public static DocMember? Member(this SyntaxNode self) => self switch
     {
         TypeDeclarationSyntax x => x.TypeDeclaration(),
-
         FieldDeclarationSyntax x => x.Field(),
         PropertyDeclarationSyntax x => x.Property(),
         EventDeclarationSyntax x => x.Property(),
         EventFieldDeclarationSyntax x => x.Property(),
         IndexerDeclarationSyntax x => x.Indexer(),
         DelegateDeclarationSyntax x => x.Delegate(),
-
         MethodDeclarationSyntax x => x.Method(),
 
         _ => null,
@@ -45,19 +63,21 @@ internal static class SyntaxExtensions
             Record = self is RecordDeclarationSyntax,
         };
 
-    private static DocType Type(this TypeDeclarationSyntax self) =>
-        SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
+    private static DocField[] Fields(this FieldDeclarationSyntax self) =>
+        self.Declaration.Variables.Select(x => x.Field(self)).ToArray();
 
-    /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) =>
+        self.Declaration.Variables[index: 0].Field(self);
+
+    private static DocField Field(this VariableDeclaratorSyntax self, FieldDeclarationSyntax field) =>
         new()
         {
-            Type = self.Declaration.Type.Type(),
+            Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
-            Access = self.Access(),
-            Comment = self.Comment(),
+            Declaration = $"{field.Attributes()}{field.Modifiers} {field.Declaration.Type} {self.Identifier}",
+            Access = field.Access(),
+            Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
         };
 
@@ -103,17 +123,21 @@ internal static class SyntaxExtensions
             Event = true,
         };
 
-    /// TODO: Handle `private int _x, _y` cases.
+    private static DocProperty[] Properties(this EventFieldDeclarationSyntax self) =>
+        self.Declaration.Variables.Select(x => x.Property(self)).ToArray();
+
     private static DocProperty Property(this EventFieldDeclarationSyntax self) =>
+        self.Declaration.Variables[index: 0].Property(self);
+
+    private static DocProperty Property(this VariableDeclaratorSyntax self, EventFieldDeclarationSyntax field) =>
         new()
         {
-            Type = self.Declaration.Type.Type(),
+            Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration =
-                $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[index: 0].Identifier}",
-            Access = self.Access(),
-            Comment = self.Comment(),
+            Declaration = $"{field.Attributes()}{field.Modifiers} event {field.Declaration.Type} {self.Identifier}",
+            Access = field.Access(),
+            Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Generated = false,
             Event = true,
@@ -206,7 +230,7 @@ internal static class SyntaxExtensions
         RecordDeclarationSyntax record =>
             self
                 .DescendantNodes()
-                .Select(Member)
+                .SelectMany(Members)
                 .Concat(record
                     .ParameterList?
                     .Parameters
@@ -214,7 +238,7 @@ internal static class SyntaxExtensions
                 .NonNulls()
                 .ToArray(),
 
-        _ => self.DescendantNodes().Select(Member).NonNulls().ToArray(),
+        _ => self.DescendantNodes().SelectMany(Members).NonNulls().ToArray(),
     };
 
     private static DocParam[] Params(this MethodDeclarationSyntax self) =>
@@ -273,6 +297,9 @@ internal static class SyntaxExtensions
 
     private static DocType? DeclaringType(this SyntaxNode self) =>
         self.FirstAncestorOrSelf<TypeDeclarationSyntax>()?.Type();
+
+    private static DocType Type(this TypeDeclarationSyntax self) =>
+        SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
 
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {
@@ -351,5 +378,5 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static DocCommentNode[] Array<T>(this T self) where T : DocCommentNode => new[] { self };
+    private static T[] Array<T>(this T self) => new[] { self };
 }

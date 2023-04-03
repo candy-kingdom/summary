@@ -45,15 +45,15 @@ public class InheritDocBase
     public int Property3 { get; set; }
 
     /// <summary>
-    ///     An event.
-    /// </summary>
-    public virtual event Action Event1 = () => { };
-
-    /// <summary>
     ///     An indexer.
     /// </summary>
     /// <param name="i">A parameter to the indexer.</param>
     public virtual int this[int i] => 0;
+
+    /// <summary>
+    ///     An event.
+    /// </summary>
+    public virtual event Action Event1 = () => { };
 
     /// <summary>
     ///     Calculates the sum.
@@ -72,19 +72,18 @@ public class InheritDocBase
     /// <returns>Returns the sum of two values.</returns>
     public byte Sum<T>(byte x, byte y) => (byte) (x + y);
 
-    /// <inheritdoc cref="Sum{T}(byte, byte)"/>
+    /// <inheritdoc cref="Sum{T}(byte, byte)" />
     public short Sum(short x, short y) => (short) (x + y);
 
-    /// <inheritdoc cref="Sum{T}(byte,byte)"/>
+    /// <inheritdoc cref="Sum{T}(byte,byte)" />
     public short Sum2(short x, short y) => (short) (x + y);
 
-    /// <inheritdoc cref="InheritDocBase.Sum{T}(byte,byte)"/>
+    /// <inheritdoc cref="InheritDocBase.Sum{T}(byte,byte)" />
     public short Sum3(short x, short y) => (short) (x + y);
 
-    /// <inheritdoc cref="Sum{T}"/>
+    /// <inheritdoc cref="Sum{T}" />
     public short Sum4(short x, short y) => (short) (x + y);
 }
-
 
 /// <inheritdoc />
 public class InheritDoc_Child : InheritDocBase
@@ -93,10 +92,10 @@ public class InheritDoc_Child : InheritDocBase
     public override int Property1 { get; set; }
 
     /// <inheritdoc />
-    public override event Action Event1 = () => { };
+    public override int this[int i] => 0;
 
     /// <inheritdoc />
-    public override int this[int i] => 0;
+    public override event Action Event1 = () => { };
 
     /// <inheritdoc />
     public override int Sum(int x, int y) => x + y;
@@ -117,14 +116,17 @@ public class InheritDoc_Child2 : InheritDoc_Child
     /// <inheritdoc cref="InheritDocBase.Property3" />
     public int Property5 { get; set; }
 
-    /// <inheritdoc cref="InheritDocBase.Event1"/>
-    public new event Action Event1 = () => { };
-
-    /// <inheritdoc cref="InheritDocBase.Event1"/>
-    public event Action Event2 = () => { };
-
     /// <inheritdoc cref="InheritDoc_Child.this" />
     public override int this[int i] => 0;
+
+    /// <inheritdoc cref="InheritDocBase.Event1" />
+    public new event Action Event1 = () => { };
+
+    /// <inheritdoc cref="InheritDocBase.Event1" />
+    public event Action Event2 = () => { };
+
+    /// <inheritdoc cref="InheritDocBase.Event1" />
+    public event Action? Event3, Event4;
 
     /// <inheritdoc />
     /// <remarks>
@@ -149,10 +151,10 @@ public class InheritDoc_CrefBase
     /// <returns>Returns the sum of two values.</returns>
     public int Sum(int x, int y) => x + y;
 
-    /// <inheritdoc cref="Sum(int,int)"/>
+    /// <inheritdoc cref="Sum(int,int)" />
     public long Sum(long x, long y) => x + y;
 
-    /// <inheritdoc cref="Sum(int,int)"/>
+    /// <inheritdoc cref="Sum(int,int)" />
     /// <summary>
     ///     Calculates the sum (override).
     /// </summary>
@@ -160,25 +162,19 @@ public class InheritDoc_CrefBase
 }
 
 /// <inheritdoc cref="InheritDoc_CrefBase" />
-public class InheritDoc_CrefBase_Child : InheritDoc_CrefBase
-{
-}
+public class InheritDoc_CrefBase_Child : InheritDoc_CrefBase { }
 
 /// <summary>
 ///     Summary (child).
 /// </summary>
 /// <inheritdoc />
-public class InheritDoc_Child_OverrideSummary : InheritDocBase
-{
-}
+public class InheritDoc_Child_OverrideSummary : InheritDocBase { }
 
 /// <inheritdoc />
 /// <summary>
 ///     Summary (child).
 /// </summary>
-public class InheritDoc_Child_OverrideSummary2 : InheritDocBase
-{
-}
+public class InheritDoc_Child_OverrideSummary2 : InheritDocBase { }
 
 /// <summary>
 ///     Summary (interface).
@@ -186,17 +182,13 @@ public class InheritDoc_Child_OverrideSummary2 : InheritDocBase
 /// <remarks>
 ///     Remarks section (interface).
 /// </remarks>
-public interface IInheritDocBase
-{
-}
+public interface IInheritDocBase { }
 
 /// <inheritdoc />
-public class InheritDoc_InterfaceChild : IInheritDocBase
-{
-}
+public class InheritDoc_InterfaceChild : IInheritDocBase { }
 
 /// <summary>
-///    Summary (record).
+///     Summary (record).
 /// </summary>
 /// <param name="Property">A property.</param>
 public record InheritDocRecordBase(int Property);

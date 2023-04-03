@@ -22,6 +22,20 @@ An event.
 public event Action Event2
 ```
 
+### Event3
+An event.
+
+```cs
+public event Action? Event3
+```
+
+### Event4
+An event.
+
+```cs
+public event Action? Event4
+```
+
 ## Properties
 ### Property1
 A property.
