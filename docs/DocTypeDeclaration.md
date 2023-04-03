@@ -9,11 +9,11 @@ public record DocTypeDeclaration(
     string Declaration,
     AccessModifier Access,
     DocComment Comment,
+    DocType? DeclaringType,
     DocMember[] Members,
     DocTypeParam[] TypeParams,
-    DocTypeDeclaration? Parent,
     DocType[] Base,
-    bool Record = false) : DocMember(Name, Declaration, Access, Comment)
+    bool Record = false) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
@@ -51,6 +51,13 @@ The documentation comment of the member (can be empty).
 public DocComment Comment { get; }
 ```
 
+### DeclaringType
+The type that this member is declared in (works for nested types as well).
+
+```cs
+public DocType? DeclaringType { get; }
+```
+
 ### Members
 The members of this type (e.g. fields, properties, methods).
 
@@ -63,13 +70,6 @@ The type parameters of this type (if it's generic).
 
 ```cs
 public DocTypeParam[] TypeParams { get; }
-```
-
-### Parent
-The containing type this type is defined in (`null` if none).
-
-```cs
-public DocTypeDeclaration? Parent { get; }
 ```
 
 ### Base

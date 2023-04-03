@@ -7,4 +7,4 @@ public record DocDelegate(
     DocComment Comment,
     DocParam[] Params,
     DocTypeParam[] TypeParams,
-    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment);
+    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment, DeclaringType);

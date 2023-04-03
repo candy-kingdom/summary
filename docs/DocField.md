@@ -2,7 +2,13 @@
 A [`DocMember`](./DocMember.md) that represents a documented field in the parsed source code.
 
 ```cs
-public record DocField(DocType Type, string Name, string Declaration, AccessModifier Access, DocComment Comment, DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment)
+public record DocField(
+        DocType Type,
+        string Name,
+        string Declaration,
+        AccessModifier Access,
+        DocComment Comment,
+        DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
@@ -43,6 +49,8 @@ public DocComment Comment { get; }
 ```
 
 ### DeclaringType
+The type that this member is declared in (works for nested types as well).
+
 ```cs
 public DocType? DeclaringType { get; }
 ```

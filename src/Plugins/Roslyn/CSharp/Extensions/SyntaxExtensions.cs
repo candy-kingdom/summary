@@ -3,13 +3,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Summary.Extensions;
 using static System.Environment;
-using DocumentationCommentTriviaSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.DocumentationCommentTriviaSyntax;
-using FieldDeclarationSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax;
-using XmlCrefAttributeSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlCrefAttributeSyntax;
-using XmlElementSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlElementSyntax;
-using XmlEmptyElementSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlEmptyElementSyntax;
-using XmlNodeSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlNodeSyntax;
-using XmlTextSyntax = Microsoft.CodeAnalysis.CSharp.Syntax.XmlTextSyntax;
 
 namespace Summary.Roslyn.CSharp.Extensions;
 
@@ -21,9 +14,9 @@ internal static class SyntaxExtensions
     /// <summary>
     ///     Converts the specified syntax node to a document member.
     /// </summary>
-    public static DocMember? Member(this SyntaxNode self, DocTypeDeclaration? parent = null) => self switch
+    public static DocMember? Member(this SyntaxNode self) => self switch
     {
-        TypeDeclarationSyntax x => x.TypeDeclaration(parent),
+        TypeDeclarationSyntax x => x.TypeDeclaration(),
 
         FieldDeclarationSyntax x => x.Field(),
         PropertyDeclarationSyntax x => x.Property(),
@@ -37,7 +30,7 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null)
+    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self)
     {
         var type = new DocTypeDeclaration(
             self.FullyQualifiedName(),
@@ -45,13 +38,13 @@ internal static class SyntaxExtensions
             self.Declaration(),
             self.Access(),
             self.Comment(),
+            self.DeclaringType(),
             null!,
             self.TypeParams(),
-            parent,
             self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
-            Record: self is RecordDeclarationSyntax);
+            self is RecordDeclarationSyntax);
 
-        return type with { Members = self.Members(parent: type) };
+        return type with { Members = self.Members(type) };
     }
 
     private static DocType Type(this TypeDeclarationSyntax self) =>
@@ -60,7 +53,7 @@ internal static class SyntaxExtensions
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
         self.Declaration.Type.Type(),
-        self.Declaration.Variables[0].Identifier.Text,
+        self.Declaration.Variables[index: 0].Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
         self.Access(),
         self.Comment(),
@@ -96,8 +89,8 @@ internal static class SyntaxExtensions
     /// TODO: Handle `private int _x, _y` cases.
     private static DocProperty Property(this EventFieldDeclarationSyntax self) => new(
         self.Declaration.Type.Type(),
-        self.Declaration.Variables[0].Identifier.Text,
-        $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[0].Identifier}",
+        self.Declaration.Variables[index: 0].Identifier.Text,
+        $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[index: 0].Identifier}",
         self.Access(),
         self.Comment(),
         self.DeclaringType(),
@@ -105,21 +98,21 @@ internal static class SyntaxExtensions
 
     private static DocIndexer Indexer(this IndexerDeclarationSyntax self) => new(
         self.Type.Type(),
-        $"this[{self.ParameterList.Parameters.Select(x => x.Type?.ToString()).NonNulls().Separated(with: ", ")}]",
+        $"this[{self.ParameterList.Parameters.Select(x => x.Type?.ToString()).NonNulls().Separated(", ")}]",
         $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
         self.Access(),
         self.Comment(),
-        self.Params(),
-        self.DeclaringType());
+        self.DeclaringType(),
+        self.Params());
 
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(
         self.Identifier.Text,
         $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
         self.Access(),
         self.Comment(),
+        self.DeclaringType(),
         self.Params(),
-        self.TypeParams(),
-        self.DeclaringType());
+        self.TypeParams());
 
     private static DocDelegate Delegate(this DelegateDeclarationSyntax self) => new(
         self.Identifier.Text,
@@ -139,7 +132,7 @@ internal static class SyntaxExtensions
             .SelectMany(x => x.Content)
             .Nodes();
 
-        return new(nodes);
+        return new DocComment(nodes);
     }
 
     private static AccessModifier Access(this MemberDeclarationSyntax self)
@@ -166,7 +159,7 @@ internal static class SyntaxExtensions
         self.AccessorList?.Accessors() ?? "{ add; remove; }";
 
     private static string Accessors(this AccessorListSyntax self) =>
-        $"{{ {self.Accessors.Select(x => $"{x.Modifiers.ToString().Space()}{x.Keyword}; ").Separated(with: "")}}}";
+        $"{{ {self.Accessors.Select(x => $"{x.Modifiers.ToString().Space()}{x.Keyword}; ").Separated("")}}}";
 
     private static DocMember[] Members(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null) => self switch
     {
@@ -177,11 +170,11 @@ internal static class SyntaxExtensions
                 .Select(x => x.Property())
                 .Concat(self
                     .DescendantNodes()
-                    .Select(x => Member(x, parent)))
+                    .Select(Member))
                 .NonNulls()
                 .ToArray() ?? System.Array.Empty<DocMember>(),
 
-        _ => self.DescendantNodes().Select(x => Member(x, parent)).NonNulls().ToArray(),
+        _ => self.DescendantNodes().Select(Member).NonNulls().ToArray(),
     };
 
     private static DocParam[] Params(this MethodDeclarationSyntax self) =>
@@ -244,9 +237,11 @@ internal static class SyntaxExtensions
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {
         RecordDeclarationSyntax record =>
-            $"{self.Attributes()}{self.Modifiers} {record.Keyword()} {self.Identifier}{self.TypeParameterList}{record.ParameterList} {self.BaseList}".TrimEnd(),
+            $"{self.Attributes()}{self.Modifiers} {record.Keyword()} {self.Identifier}{self.TypeParameterList}{record.ParameterList} {self.BaseList}"
+                .TrimEnd(),
         _ =>
-            $"{self.Attributes()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}".TrimEnd(),
+            $"{self.Attributes()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}"
+                .TrimEnd(),
     };
 
     private static string Attributes(this MemberDeclarationSyntax self) =>
@@ -255,7 +250,7 @@ internal static class SyntaxExtensions
     private static string Attributes(this SyntaxList<AttributeListSyntax> self) =>
         self
             .Select(x => $"{x}")
-            .Separated(with: NewLine) is { } attributes and not ""
+            .Separated(NewLine) is { } attributes and not ""
             ? $"{attributes}{NewLine}"
             : "";
 
@@ -311,7 +306,7 @@ internal static class SyntaxExtensions
 
     private static DocCommentElementAttribute? Attribute(this XmlAttributeSyntax self) => self switch
     {
-        XmlNameAttributeSyntax name => new(self.Name.ToString(), name.Identifier.Identifier.ValueText),
+        XmlNameAttributeSyntax name => new DocCommentElementAttribute(self.Name.ToString(), name.Identifier.Identifier.ValueText),
 
         _ => null,
     };

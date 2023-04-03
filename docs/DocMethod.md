@@ -7,9 +7,9 @@ public record DocMethod(
     string Declaration,
     AccessModifier Access,
     DocComment Comment,
+    DocType? DeclaringType,
     DocParam[] Params,
-    DocTypeParam[] TypeParams,
-    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment)
+    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
@@ -42,6 +42,13 @@ The documentation comment of the member (can be empty).
 public DocComment Comment { get; }
 ```
 
+### DeclaringType
+The type that this member is declared in (works for nested types as well).
+
+```cs
+public DocType? DeclaringType { get; }
+```
+
 ### Params
 ```cs
 public DocParam[] Params { get; }
@@ -50,10 +57,5 @@ public DocParam[] Params { get; }
 ### TypeParams
 ```cs
 public DocTypeParam[] TypeParams { get; }
-```
-
-### DeclaringType
-```cs
-public DocType? DeclaringType { get; }
 ```
 

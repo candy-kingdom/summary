@@ -12,7 +12,8 @@ namespace Summary;
 /// </param>
 /// <param name="Access">The access modifier of the member.</param>
 /// <param name="Comment">The documentation comment of the member (can be empty).</param>
-public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment)
+/// <param name="DeclaringType">The type that this member is declared in (works for nested types as well).</param>
+public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment, DocType? DeclaringType)
 {
     public bool MatchesCref(string cref) => Cref.StartsWith(cref);
 

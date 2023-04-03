@@ -6,6 +6,6 @@ public record DocIndexer(
         string Declaration,
         AccessModifier Access,
         DocComment Comment,
-        DocParam[] Params,
-        DocType? DeclaringType)
-    : DocMember(Name, Declaration, Access, Comment);
+        DocType? DeclaringType,
+        DocParam[] Params)
+    : DocMember(Name, Declaration, Access, Comment, DeclaringType);

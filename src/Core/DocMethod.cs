@@ -1,14 +1,14 @@
 ﻿namespace Summary;
 
 /// <summary>
-///     A <see cref="DocMember"/> that represents a documented method in the parsed source code.
+///     A <see cref="DocMember" /> that represents a documented method in the parsed source code.
 /// </summary>
-/// <inheritdoc cref="DocMember"/>
+/// <inheritdoc cref="DocMember" />
 public record DocMethod(
     string Name,
     string Declaration,
     AccessModifier Access,
     DocComment Comment,
+    DocType? DeclaringType,
     DocParam[] Params,
-    DocTypeParam[] TypeParams,
-    DocType? DeclaringType) : DocMember(Name, Declaration, Access, Comment);
+    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment, DeclaringType);

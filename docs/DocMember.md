@@ -2,7 +2,7 @@
 A member of the generated document (e.g. type, field, property, method, etc.).
 
 ```cs
-public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment)
+public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment, DocType? DeclaringType)
 ```
 
 ## Properties
@@ -33,6 +33,13 @@ The documentation comment of the member (can be empty).
 
 ```cs
 public DocComment Comment { get; }
+```
+
+### DeclaringType
+The type that this member is declared in (works for nested types as well).
+
+```cs
+public DocType? DeclaringType { get; }
 ```
 
 ## Methods
