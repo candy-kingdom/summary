@@ -51,7 +51,9 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
 
             IEnumerable<DocCommentNode> InlineInheritDoc(DocCommentInheritDoc inherit)
             {
-                var source = inherit.Cref is null or "" ? Base(member) : Cref(member, inherit.Cref);
+                // Exclude all spaces from the `cref` for better searching.
+                var cref = inherit.Cref?.Replace(" ", "");
+                var source = cref is null or "" ? Base(member) : Cref(member, cref);
                 if (source == member)
                     return Enumerable.Empty<DocCommentNode>();
                 if (source is null)
@@ -65,42 +67,26 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             }
         }
 
-        DocMember? Base(DocMember? member)
-        {
-            if (member is null)
-                return null;
-
-            if (member is DocTypeDeclaration declaration)
-                return declaration.BaseDeclarations(doc).FirstOrDefault();
-
-            return doc
-                .Declaration(member.DeclaringType)?
-                .BaseDeclarations(doc)
-                .SelectMany(x => x.MembersOfType(member))
-                .FirstOrDefault(x => x.Name == member.Name);
-        }
-
-        // Here we search a member that matches the given `cref` and is also associated with `x`.
-        DocMember? Cref(DocMember member, string cref)
-        {
-            // Exclude all spaces from the `cref` for better searching.
-            cref = cref.Replace(" ", "");
-
-            if (member is DocTypeDeclaration declaration)
-                return declaration
+        DocMember? Base(DocMember? of) =>
+            of is DocTypeDeclaration declaration
+                ? declaration
                     .BaseDeclarations(doc)
-                    .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(cref));
+                    .FirstOrDefault()
+                : doc
+                    .Declaration(of?.DeclaringType)?
+                    .BaseDeclarations(doc)
+                    .SelectMany(x => x.MembersOfType(of!))
+                    .FirstOrDefault(x => x.Name == of!.Name);
 
-            return Ref(member.DeclaringType);
-
-            DocMember? Ref(DocType? type)
-            {
-                return doc
-                    .Declaration(type)?
+        DocMember? Cref(DocMember of, string cref) =>
+            of is DocTypeDeclaration declaration
+                ? declaration
+                    .BaseDeclarations(doc)
+                    .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(cref))
+                : doc
+                    .Declaration(of.DeclaringType)?
                     .BaseDeclarationsAndSelf(doc)
-                    .SelectMany(x => x.MembersOfType(member))
+                    .SelectMany(x => x.MembersOfType(of))
                     .FirstOrDefault(x => x.MatchesCref(cref));
-            }
-        }
     }
 }
