@@ -7,10 +7,8 @@ namespace Summary.Roslyn.CSharp.Extensions;
 public static class SyntaxNodeExtensions
 {
     /// <summary>
-    ///     A fully qualified name of
+    ///     A fully qualified name of the specified syntax node.
     /// </summary>
-    /// <param name="self"></param>
-    /// <returns></returns>
     public static string FullyQualifiedName(this SyntaxNode self)
     {
         var name = new List<string>();
@@ -28,6 +26,9 @@ public static class SyntaxNodeExtensions
         return name.Separated(".");
     }
 
+    /// <summary>
+    ///     A short name of the specified syntax node.
+    /// </summary>
     public static string? Name(this SyntaxNode self) => self switch
     {
         BaseNamespaceDeclarationSyntax x => x.Name.ToString(),
