@@ -20,8 +20,14 @@ public record DocTypeDeclaration(
     DocMember[] Members,
     DocTypeParam[] TypeParams,
     DocType[] Base,
-    bool Record = false) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
+    bool Record = false) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
 {
+    /// <summary>
+    ///     A sequence of members of this type declaration that has the same type as the specified one.
+    /// </summary>
+    public IEnumerable<DocMember> MembersOfType(DocMember member) =>
+        Members.Where(x => x.GetType() == member.GetType());
+
     /// <summary>
     ///     This type declaration and the sequence of type declarations that are base types of this one.
     /// </summary>

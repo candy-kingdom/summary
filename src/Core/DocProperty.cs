@@ -7,6 +7,7 @@
 /// <inheritdoc cref="DocMember" />
 public record DocProperty(
         DocType Type,
+        string FullyQualifiedName,
         string Name,
         string Declaration,
         AccessModifier Access,
@@ -14,4 +15,4 @@ public record DocProperty(
         DocType? DeclaringType,
         bool Generated = false,
         bool Event = false)
-    : DocMember(Name, Declaration, Access, Comment, DeclaringType);
+    : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType);

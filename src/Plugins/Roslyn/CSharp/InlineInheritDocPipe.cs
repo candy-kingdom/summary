@@ -71,46 +71,13 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                 return null;
 
             if (member is DocTypeDeclaration declaration)
-                return declaration.Base.Select(doc.Declaration).FirstOrDefault(x => x is not null);
+                return declaration.BaseDeclarations(doc).FirstOrDefault();
 
-            return ByDeclaringType(member.DeclaringType);
-
-            DocMember? ByDeclaringType(DocType? type)
-            {
-                if (type is null)
-                    return null;
-
-                var declaration = doc.Declaration(type);
-                if (declaration is null)
-                    return null;
-
-                var check = new Stack<DocType>();
-
-                PushBase();
-
-                while (check.Count > 0)
-                {
-                    type = check.Pop();
-                    declaration = doc.Declaration(type);
-
-                    if (declaration is null)
-                        continue;
-
-                    var match = declaration.Members.FirstOrDefault(y => y.Name == member.Name);
-                    if (match is not null)
-                        return match;
-
-                    PushBase();
-                }
-
-                return null;
-
-                void PushBase()
-                {
-                    foreach (var @base in declaration.Base)
-                        check.Push(@base);
-                }
-            }
+            return doc
+                .Declaration(member.DeclaringType)?
+                .BaseDeclarations(doc)
+                .SelectMany(x => x.MembersOfType(member))
+                .FirstOrDefault(x => x.Name == member.Name);
         }
 
         // Here we search a member that matches the given `cref` and is also associated with `x`.
@@ -128,23 +95,10 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
 
             DocMember? Ref(DocType? type)
             {
-                if (cref.Split(separator: '.') is [_, .., var name])
-                {
-                    var full = cref[..(cref.Length - name.Length - 1)];
-
-                    return doc
-                        .Declaration(type)?
-                        .BaseDeclarationsAndSelf(doc)
-                        .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(full))?
-                        .Members
-                        .Where(x => x.GetType() == member.GetType())
-                        .FirstOrDefault(x => x.MatchesCref(name));
-                }
-
                 return doc
                     .Declaration(type)?
-                    .Members
-                    .Where(x => x.GetType() == member.GetType())
+                    .BaseDeclarationsAndSelf(doc)
+                    .SelectMany(x => x.MembersOfType(member))
                     .FirstOrDefault(x => x.MatchesCref(cref));
             }
         }

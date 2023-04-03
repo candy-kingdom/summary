@@ -1,4 +1,4 @@
-# GlobalDelegate
+# GlobalDelegate(int, int)
 A sample delegate.
 
 ```cs

@@ -25,7 +25,7 @@ public class Sample<T0, T1>
 - `T1`: A second type parameter.
 
 ## Delegates
-### Delegate1
+### Delegate1(int, int)
 A sample delegate.
 
 ```cs

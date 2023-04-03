@@ -13,7 +13,7 @@ public record DocTypeDeclaration(
     DocMember[] Members,
     DocTypeParam[] TypeParams,
     DocType[] Base,
-    bool Record = false) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
+    bool Record = false) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
@@ -85,6 +85,13 @@ public bool Record { get; }
 ```
 
 ## Methods
+### MembersOfType(DocMember)
+A sequence of members of this type declaration that has the same type as the specified one.
+
+```cs
+public IEnumerable<DocMember> MembersOfType(DocMember member)
+```
+
 ### BaseDeclarationsAndSelf(Doc)
 This type declaration and the sequence of type declarations that are base types of this one.
 

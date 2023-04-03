@@ -2,18 +2,24 @@
 ```cs
 public record DocIndexer(
         DocType Type,
+        string FullyQualifiedName,
         string Name,
         string Declaration,
         AccessModifier Access,
         DocComment Comment,
         DocType? DeclaringType,
-        DocParam[] Params) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
+        DocParam[] Params) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
 ### Type
 ```cs
 public DocType Type { get; }
+```
+
+### FullyQualifiedName
+```cs
+public string FullyQualifiedName { get; }
 ```
 
 ### Name

@@ -3,16 +3,22 @@ A [`DocMember`](./DocMember.md) that represents a documented method in the parse
 
 ```cs
 public record DocMethod(
+    string FullyQualifiedName,
     string Name,
     string Declaration,
     AccessModifier Access,
     DocComment Comment,
     DocType? DeclaringType,
     DocParam[] Params,
-    DocTypeParam[] TypeParams) : DocMember(Name, Declaration, Access, Comment, DeclaringType)
+    DocTypeParam[] TypeParams) : DocMember(FullyQualifiedName, Name, Declaration, Access, Comment, DeclaringType)
 ```
 
 ## Properties
+### FullyQualifiedName
+```cs
+public string FullyQualifiedName { get; }
+```
+
 ### Name
 The name of the member (e.g. `public int Field` has name `Field`).
 
@@ -57,5 +63,15 @@ public DocParam[] Params { get; }
 ### TypeParams
 ```cs
 public DocTypeParam[] TypeParams { get; }
+```
+
+### SignatureWithoutParams
+```cs
+public string SignatureWithoutParams { get; }
+```
+
+### Signature
+```cs
+public string Signature { get; }
 ```
 

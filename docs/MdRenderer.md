@@ -4,11 +4,6 @@ public class MdRenderer
 ```
 
 ## Methods
-### Dispose()
-```cs
-public void Dispose()
-```
-
 ### Text()
 ```cs
 public string Text()
@@ -27,5 +22,10 @@ public MdRenderer Member(DocTypeDeclaration? parent, DocMember member)
 ### ReturnsSection(DocComment)
 ```cs
 public MdRenderer ReturnsSection(DocComment comment)
+```
+
+### Dispose()
+```cs
+public void Dispose()
 ```
 

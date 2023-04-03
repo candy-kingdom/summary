@@ -8,7 +8,7 @@ public class InheritDocBase
 ```
 
 ## Delegates
-### Delegate1
+### Delegate1(int, int)
 A sample delegate.
 
 ```cs
@@ -22,7 +22,7 @@ public void Delegate1(int x, int y)
 #### Returns
 Nothing.
 
-### Delegate2
+### Delegate2(int, int)
 A sample delegate.
 
 ```cs
@@ -36,7 +36,7 @@ public void Delegate2(int x, int y)
 #### Returns
 Nothing.
 
-### Delegate3
+### Delegate3(int, int)
 ```cs
 public void Delegate3(int x, int y)
 ```

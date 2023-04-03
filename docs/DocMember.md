@@ -2,10 +2,21 @@
 A member of the generated document (e.g. type, field, property, method, etc.).
 
 ```cs
-public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment, DocType? DeclaringType)
+public record DocMember(
+    string FullyQualifiedName,
+    string Name,
+    string Declaration,
+    AccessModifier Access,
+    DocComment Comment,
+    DocType? DeclaringType)
 ```
 
 ## Properties
+### FullyQualifiedName
+```cs
+public string FullyQualifiedName { get; }
+```
+
 ### Name
 The name of the member (e.g. `public int Field` has name `Field`).
 

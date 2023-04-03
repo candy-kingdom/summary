@@ -30,22 +30,17 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self)
-    {
-        var type = new DocTypeDeclaration(
-            self.FullyQualifiedName(),
-            self.Identifier.Text,
+    private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) =>
+        new(self.FullyQualifiedName(),
+            self.Name()!,
             self.Declaration(),
             self.Access(),
             self.Comment(),
             self.DeclaringType(),
-            null!,
+            self.Members(),
             self.TypeParams(),
             self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
             self is RecordDeclarationSyntax);
-
-        return type with { Members = self.Members(type) };
-    }
 
     private static DocType Type(this TypeDeclarationSyntax self) =>
         SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
@@ -53,7 +48,8 @@ internal static class SyntaxExtensions
     /// TODO: Handle `private int _x, _y` cases.
     private static DocField Field(this FieldDeclarationSyntax self) => new(
         self.Declaration.Type.Type(),
-        self.Declaration.Variables[index: 0].Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.Declaration}",
         self.Access(),
         self.Comment(),
@@ -61,7 +57,8 @@ internal static class SyntaxExtensions
 
     private static DocProperty Property(this PropertyDeclarationSyntax self) => new(
         self.Type.Type(),
-        self.Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
         self.Access(),
         self.Comment(),
@@ -70,7 +67,8 @@ internal static class SyntaxExtensions
     private static DocProperty Property(this ParameterSyntax self) => new(
         // Record should always have parameters with types.
         self.Type!.Type(),
-        self.Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
         AccessModifier.Public,
         DocComment.Empty,
@@ -79,7 +77,8 @@ internal static class SyntaxExtensions
 
     private static DocProperty Property(this EventDeclarationSyntax self) => new(
         self.Type.Type(),
-        self.Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
         self.Access(),
         self.Comment(),
@@ -89,7 +88,8 @@ internal static class SyntaxExtensions
     /// TODO: Handle `private int _x, _y` cases.
     private static DocProperty Property(this EventFieldDeclarationSyntax self) => new(
         self.Declaration.Type.Type(),
-        self.Declaration.Variables[index: 0].Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} event {self.Declaration.Type} {self.Declaration.Variables[index: 0].Identifier}",
         self.Access(),
         self.Comment(),
@@ -98,7 +98,8 @@ internal static class SyntaxExtensions
 
     private static DocIndexer Indexer(this IndexerDeclarationSyntax self) => new(
         self.Type.Type(),
-        $"this[{self.ParameterList.Parameters.Select(x => x.Type?.ToString()).NonNulls().Separated(", ")}]",
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
         self.Access(),
         self.Comment(),
@@ -106,7 +107,8 @@ internal static class SyntaxExtensions
         self.Params());
 
     private static DocMethod Method(this MethodDeclarationSyntax self) => new(
-        self.Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
         self.Access(),
         self.Comment(),
@@ -115,7 +117,8 @@ internal static class SyntaxExtensions
         self.TypeParams());
 
     private static DocDelegate Delegate(this DelegateDeclarationSyntax self) => new(
-        self.Identifier.Text,
+        self.FullyQualifiedName(),
+        self.Name()!,
         $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
         self.Access(),
         self.Comment(),
@@ -161,7 +164,7 @@ internal static class SyntaxExtensions
     private static string Accessors(this AccessorListSyntax self) =>
         $"{{ {self.Accessors.Select(x => $"{x.Modifiers.ToString().Space()}{x.Keyword}; ").Separated("")}}}";
 
-    private static DocMember[] Members(this TypeDeclarationSyntax self, DocTypeDeclaration? parent = null) => self switch
+    private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
     {
         RecordDeclarationSyntax record =>
             record
