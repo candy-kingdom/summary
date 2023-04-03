@@ -1,5 +1,5 @@
 # DocComment
-An documentation comment parsed from the source code.
+A documentation comment parsed from the source code.
 
 ```cs
 public record DocComment(DocCommentNode[] Nodes)
