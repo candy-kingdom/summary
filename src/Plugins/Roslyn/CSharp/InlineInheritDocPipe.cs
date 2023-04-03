@@ -1,17 +1,16 @@
-﻿using Summary.Extensions;
-using Summary.Pipes;
+﻿using Summary.Pipes;
 
 namespace Summary.Roslyn.CSharp;
 
 /// <summary>
-///     A <see cref="IPipe{I,O}"/> that inlines <c>&lt;inheritdoc/&gt;</c> tags.
+///     A <see cref="IPipe{I,O}" /> that inlines <c>&lt;inheritdoc/&gt;</c> tags.
 /// </summary>
 /// <remarks>
 ///     Under the hood, the process of inlining works as follows:
 ///     <br />
-///         - each member in the <see cref="Doc"/> is analyzed
-///         - if this member contains an <c>&lt;inheritdoc/&gt;</c> element, it's removed from the member comment
-///         - then, the inherited documentation (either from the base type or from the specified cref) is added to the member comment.
+///     - each member in the <see cref="Doc" /> is analyzed
+///     - if this member contains an <c>&lt;inheritdoc/&gt;</c> element, it's removed from the member comment
+///     - then, the inherited documentation (either from the base type or from the specified cref) is added to the member comment.
 /// </remarks>
 public class InlineInheritDocPipe : IPipe<Doc, Doc>
 {
@@ -36,10 +35,13 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             // Order nodes so that <inheritdoc /> tags are always at the end.
             // This allows inlining them without overriding the user-defined nodes.
             DocComment InlineComment(DocComment comment) =>
-                comment with { Nodes = comment.Nodes
-                    .OrderBy(x => x is DocCommentInheritDoc)
-                    .SelectMany(InlineNode)
-                    .ToArray() };
+                comment with
+                {
+                    Nodes = comment.Nodes
+                        .OrderBy(x => x is DocCommentInheritDoc)
+                        .SelectMany(InlineNode)
+                        .ToArray(),
+                };
 
             IEnumerable<DocCommentNode> InlineNode(DocCommentNode node) => node switch
             {
@@ -63,26 +65,17 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             }
         }
 
-        DocMember? Base(DocMember? x)
+        DocMember? Base(DocMember? member)
         {
-            if (x is null)
+            if (member is null)
                 return null;
 
-            if (x is DocTypeDeclaration declaration)
+            if (member is DocTypeDeclaration declaration)
                 return declaration.Base.Select(doc.Declaration).FirstOrDefault(x => x is not null);
 
-            if (x is DocMethod method)
-                return ByType(method, method.DeclaringType);
+            return ByDeclaringType(member.DeclaringType);
 
-            if (x is DocProperty prop)
-                return ByType(prop, prop.DeclaringType);
-
-            if (x is DocIndexer indexer)
-                return ByType(indexer, indexer.DeclaringType);
-
-            return null;
-
-            T? ByType<T>(T member, DocType? type) where T : DocMember
+            DocMember? ByDeclaringType(DocType? type)
             {
                 if (type is null)
                     return null;
@@ -103,9 +96,9 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                     if (declaration is null)
                         continue;
 
-                    var x = declaration.Members.OfType<T>().FirstOrDefault(x => x.Name == member.Name);
-                    if (x is not null)
-                        return x;
+                    var match = declaration.Members.FirstOrDefault(y => y.Name == member.Name);
+                    if (match is not null)
+                        return match;
 
                     PushBase();
                 }
@@ -120,37 +113,22 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             }
         }
 
-        // TODO: Should check cases where method tries to inherit type documentation?
-        DocMember? Cref(DocMember x, string cref)
+        // Here we search a member that matches the given `cref` and is also associated with `x`.
+        DocMember? Cref(DocMember member, string cref)
         {
-            // Exclude all spaces from the `cref` for even formatting.
+            // Exclude all spaces from the `cref` for better searching.
             cref = cref.Replace(" ", "");
 
-            if (x is DocTypeDeclaration declaration)
+            if (member is DocTypeDeclaration declaration)
                 return declaration
                     .BaseDeclarations(doc)
                     .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(cref));
 
-            if (x is DocMethod method)
-                return Ref(method.DeclaringType);
-
-            if (x is DocField field)
-                return Ref(field.DeclaringType);
-
-            if (x is DocProperty prop)
-                return Ref(prop.DeclaringType);
-
-            if (x is DocIndexer indexer)
-                return Ref(indexer.DeclaringType);
-
-            if (x is DocDelegate @delegate)
-                return Ref(@delegate.DeclaringType);
-
-            return null;
+            return Ref(member.DeclaringType);
 
             DocMember? Ref(DocType? type)
             {
-                if (cref.Split('.') is [_, .., var name])
+                if (cref.Split(separator: '.') is [_, .., var name])
                 {
                     var full = cref[..(cref.Length - name.Length - 1)];
 
@@ -159,12 +137,15 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                         .BaseDeclarationsAndSelf(doc)
                         .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(full))?
                         .Members
+                        .Where(x => x.GetType() == member.GetType())
                         .FirstOrDefault(x => x.MatchesCref(name));
                 }
-                else
-                {
-                    return doc.Declaration(type)?.Members.FirstOrDefault(x => x.MatchesCref(cref));
-                }
+
+                return doc
+                    .Declaration(type)?
+                    .Members
+                    .Where(x => x.GetType() == member.GetType())
+                    .FirstOrDefault(x => x.MatchesCref(cref));
             }
         }
     }
