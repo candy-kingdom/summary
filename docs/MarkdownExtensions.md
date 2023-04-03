@@ -4,8 +4,8 @@ public static class MarkdownExtensions
 ```
 
 ## Methods
-### UseMdRenderer(SummaryGen, string)
+### UseMdRenderer(SummaryPipeline, string)
 ```cs
-public static SummaryGen UseMdRenderer(this SummaryGen self, string output)
+public static SummaryPipeline UseMdRenderer(this SummaryPipeline self, string output)
 ```
 

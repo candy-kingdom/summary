@@ -4,8 +4,8 @@ public static class RoslynExtensions
 ```
 
 ## Methods
-### UseRoslynParser(SummaryGen, string, string)
+### UseRoslynParser(SummaryPipeline, string, string)
 ```cs
-public static SummaryGen UseRoslynParser(this SummaryGen self, string root, string pattern = "*.cs")
+public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string root, string pattern = "*.cs")
 ```
 

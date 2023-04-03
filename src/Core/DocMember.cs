@@ -14,7 +14,7 @@ namespace Summary;
 /// <param name="Comment">The documentation comment of the member (can be empty).</param>
 public record DocMember(string Name, string Declaration, AccessModifier Access, DocComment Comment)
 {
-    public bool MatchesCref(string cref) => Name == cref || Cref == cref;
+    public bool MatchesCref(string cref) => Cref.StartsWith(cref);
 
     private string Cref => this switch
     {

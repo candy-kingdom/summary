@@ -1,30 +1,13 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Summary.Extensions;
+﻿using Summary.Extensions;
 using Summary.Pipes;
 
 namespace Summary.Roslyn.CSharp;
 
-public class InlineInheritDocPipe : IPipe<Doc[], Doc>
+public class InlineInheritDocPipe : IPipe<Doc, Doc>
 {
-    // TODO: [x] Base types (1 level)
-    // TODO: [x] Base interfaces
-    // TODO: [x] Base methods
-    // TODO: [x] Base crefs
-    // TODO: [x] Base properties
-    // TODO: [x] Properties in records
-    // TODO: [x] Base types (n levels)
-    // TODO: [x] Inheriting inherited docs?
-    // TODO: [x] Crefs: base types (types)
-    // TODO: [x] Base members (n levels)
-    // TODO: [x] Crefs: namespaces and full paths
-    // TODO: [x] Base events
-    // TODO: [x] Base indexers
-    // TODO: [ ] Complex crefs with type parameters and overloadings (out, ref, in)
-    // TODO: [ ] Complex merging rules
-    public Task<Doc> Run(Doc[] input)
+    public Task<Doc> Run(Doc doc)
     {
-        var members = input.SelectMany(x => x.Members).ToArray();
-        var inlined = members.Select(Inline).ToArray();
+        var inlined = doc.Members.Select(Inline).ToArray();
 
         return Task.FromResult(new Doc(inlined));
 
@@ -79,7 +62,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 return null;
 
             if (x is DocTypeDeclaration declaration)
-                return declaration.Base.Select(Declaration).FirstOrDefault(x => x is not null);
+                return declaration.Base.Select(doc.Declaration).FirstOrDefault(x => x is not null);
 
             if (x is DocMethod method)
                 return ByType(method, method.DeclaringType);
@@ -97,7 +80,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 if (type is null)
                     return null;
 
-                var declaration = Declaration(type);
+                var declaration = doc.Declaration(type);
                 if (declaration is null)
                     return null;
 
@@ -108,7 +91,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 while (check.Count > 0)
                 {
                     type = check.Pop();
-                    declaration = Declaration(type);
+                    declaration = doc.Declaration(type);
 
                     if (declaration is null)
                         continue;
@@ -174,7 +157,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
                 }
                 else
                 {
-                    return Declaration(type)?.Members.FirstOrDefault(x => x.MatchesCref(cref));
+                    return doc.Declaration(type)?.Members.FirstOrDefault(x => x.MatchesCref(cref));
                 }
             }
         }
@@ -184,7 +167,7 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             if (type is null)
                 yield break;
 
-            var declaration = Declaration(type);
+            var declaration = doc.Declaration(type);
             if (declaration is null)
                 yield break;
 
@@ -194,8 +177,5 @@ public class InlineInheritDocPipe : IPipe<Doc[], Doc>
             foreach (var y in Declarations(x).Where(z => z is not null))
                 yield return y;
         }
-
-        DocTypeDeclaration? Declaration(DocType? type) =>
-            type is null ? null : members.OfType<DocTypeDeclaration>().FirstOrDefault(x => x.Name == type.Name);
     }
 }

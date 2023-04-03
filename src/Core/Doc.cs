@@ -14,4 +14,10 @@ public record Doc(DocMember[] Members)
     /// <param name="a">The first document to merge.</param>
     /// <param name="b">The second document to merge.</param>
     public static Doc Merge(Doc a, Doc b) => new(a.Members.Concat(b.Members).ToArray());
+
+    /// <summary>
+    ///     A type declaration that matches the specified type.
+    /// </summary>
+    public DocTypeDeclaration? Declaration(DocType? type) =>
+        type is null ? null : Members.OfType<DocTypeDeclaration>().FirstOrDefault(x => x.Name == type.Name);
 }

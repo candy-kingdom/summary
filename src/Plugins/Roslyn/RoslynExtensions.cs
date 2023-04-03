@@ -13,6 +13,7 @@ public static class RoslynExtensions
             new ScanDirectoryPipe(root, pattern)
                 .ThenForEach(new ParseSyntaxTreePipe())
                 .ThenForEach(new ParseDocPipe())
+                .Then(new FoldPipe<Doc>(Doc.Merge))
                 .Then(new InlineInheritDocPipe())
                 .Then(new FilterPublicMembersPipe()));
 }

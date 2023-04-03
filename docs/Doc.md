@@ -31,3 +31,10 @@ public static Doc Merge(Doc a, Doc b)
 - `a`: The first document to merge.
 - `b`: The second document to merge.
 
+### Declaration(DocType?<DocType>)
+A type declaration that matches the specified type.
+
+```cs
+public DocTypeDeclaration? Declaration(DocType? type)
+```
+
