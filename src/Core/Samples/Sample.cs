@@ -1,4 +1,4 @@
-﻿namespace Summary;
+﻿namespace Summary.Samples;
 
 /// <summary>
 ///     A sample delegate.

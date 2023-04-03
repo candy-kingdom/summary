@@ -1,4 +1,4 @@
-﻿namespace Summary;
+﻿namespace Summary.Samples;
 
 /// <summary>
 ///     Summary.
@@ -81,7 +81,7 @@ public class InheritDocBase
     /// <inheritdoc cref="InheritDocBase.Sum{T}(byte,byte)"/>
     public short Sum3(short x, short y) => (short) (x + y);
 
-    /// <inheritdoc cref="Summary.InheritDocBase.Sum{T}(byte,byte)"/>
+    /// <inheritdoc cref="Sum{T}"/>
     public short Sum4(short x, short y) => (short) (x + y);
 }
 
@@ -102,7 +102,7 @@ public class InheritDoc_Child : InheritDocBase
     public override int Sum(int x, int y) => x + y;
 }
 
-/// <inheritdoc cref="Summary.InheritDocBase" />
+/// <inheritdoc cref="InheritDocBase" />
 public class InheritDoc_Child2 : InheritDoc_Child
 {
     /// <inheritdoc />
@@ -114,16 +114,16 @@ public class InheritDoc_Child2 : InheritDoc_Child
     /// <inheritdoc cref="InheritDocBase.Property3" />
     public int Property4 { get; set; }
 
-    /// <inheritdoc cref="Summary.InheritDocBase.Property3" />
+    /// <inheritdoc cref="InheritDocBase.Property3" />
     public int Property5 { get; set; }
 
     /// <inheritdoc cref="InheritDocBase.Event1"/>
     public new event Action Event1 = () => { };
 
-    /// <inheritdoc cref="Summary.InheritDocBase.Event1"/>
+    /// <inheritdoc cref="InheritDocBase.Event1"/>
     public event Action Event2 = () => { };
 
-    /// <inheritdoc cref="Summary.InheritDoc_Child.this" />
+    /// <inheritdoc cref="InheritDoc_Child.this" />
     public override int this[int i] => 0;
 
     /// <inheritdoc />
