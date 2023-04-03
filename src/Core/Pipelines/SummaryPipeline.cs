@@ -1,19 +1,19 @@
 ﻿using Summary.Pipes;
 
-namespace Summary;
+namespace Summary.Pipelines;
 
-public class SummaryGen
+public class SummaryPipeline
 {
     private IPipe<Unit, Doc> _parser = new FuncPipe<Unit, Doc>(_ => Doc.Empty);
     private IPipe<Doc, Unit> _render = new FuncPipe<Doc, Unit>(_ => Unit.Value);
 
-    public SummaryGen ParseWith(IPipe<Unit, Doc> parser)
+    public SummaryPipeline ParseWith(IPipe<Unit, Doc> parser)
     {
         _parser = parser;
         return this;
     }
 
-    public SummaryGen RenderWith(IPipe<Doc, Unit> render)
+    public SummaryPipeline RenderWith(IPipe<Doc, Unit> render)
     {
         _render = render;
         return this;
