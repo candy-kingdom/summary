@@ -4,6 +4,9 @@ using Summary.Extensions;
 
 namespace Summary.Roslyn.CSharp.Extensions;
 
+/// <summary>
+///     A set of common extension methods that extend <see cref="SyntaxNode" /> and are not related to Summary API.
+/// </summary>
 internal static class SyntaxNodeExtensions
 {
     /// <summary>
