@@ -1,10 +1,18 @@
 ﻿namespace Summary.Extensions;
 
-public static class StringExtensions
+internal static class StringExtensions
 {
+    /// <summary>
+    ///     Adds a space character to the end of the specified string.
+    ///     If the string is empty, returns the string as is.
+    /// </summary>
     public static string Space(this string self) =>
-        self.Wrap(prefix: "", suffix: " ");
+        self.Wrap("", " ");
 
+    /// <summary>
+    ///     Wraps the specified string with the given prefix and suffix strings.
+    ///     If the string is empty, returns the string as is.
+    /// </summary>
     public static string Wrap(this string self, string prefix, string suffix) =>
         self.Map(x => $"{prefix}{x}{suffix}");
 

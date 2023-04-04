@@ -1,5 +1,5 @@
 # Md
-A markdown document file.
+A Markdown document file.
 
 ```cs
 public record Md(string Name, string Content)
