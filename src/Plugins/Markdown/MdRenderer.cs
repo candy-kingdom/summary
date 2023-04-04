@@ -1,22 +1,35 @@
 ﻿using System.Text;
 using Summary.Extensions;
-using Summary.Markdown.Extensions;
 using static System.Environment;
 
 namespace Summary.Markdown;
 
-public class MdRenderer
+/// <summary>
+///     A <see cref="Doc" /> to Markdown renderer.
+/// </summary>
+/// <remarks>
+///     This type is responsible for converting different <see cref="DocMember" /> instances into text representation.
+///     <br />
+///     It's used only as intermediate helper and should not be exposed to the outside world.
+/// </remarks>
+internal class MdRenderer
 {
     private readonly StringBuilder _sb = new();
 
     private int _level = 1;
 
+    /// <summary>
+    ///     Converts the rendered text into a string.
+    /// </summary>
     public string Text() =>
         _sb.ToString();
 
+    /// <summary>
+    ///     Renders the specified documentation member into Markdown format.
+    /// </summary>
     public MdRenderer Member(DocMember member) => Member(parent: null, member);
 
-    public MdRenderer Member(DocTypeDeclaration? parent, DocMember member) => member switch
+    private MdRenderer Member(DocTypeDeclaration? parent, DocMember member) => member switch
     {
         DocTypeDeclaration type =>
             MemberHeader(type).TypeDeclaration(type),
@@ -58,7 +71,10 @@ public class MdRenderer
     private MdRenderer Name(DocMember member) => member switch
     {
         DocMethod x =>
-            Line($"{new string(c: '#', _level)} {x.Render()}"),
+            Line($"{new string(c: '#', _level)} " +
+                 $"{x.Name}" +
+                 $"{x.TypeParams.Select(x => x.Name).Separated(", ").Wrap("<", ">")}" +
+                 $"({x.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
         DocIndexer x =>
             Line($"{new string(c: '#', _level)} this[{x.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
         _ =>
@@ -98,7 +114,7 @@ public class MdRenderer
         return Line();
     }
 
-    public MdRenderer ReturnsSection(DocComment comment) =>
+    private MdRenderer ReturnsSection(DocComment comment) =>
         ElementSection("Returns", comment.Element("returns"));
 
     private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type) where T : DocMember =>

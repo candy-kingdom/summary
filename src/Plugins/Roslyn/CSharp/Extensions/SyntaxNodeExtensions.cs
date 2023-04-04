@@ -4,7 +4,7 @@ using Summary.Extensions;
 
 namespace Summary.Roslyn.CSharp.Extensions;
 
-public static class SyntaxNodeExtensions
+internal static class SyntaxNodeExtensions
 {
     /// <summary>
     ///     A fully qualified name of the specified syntax node.

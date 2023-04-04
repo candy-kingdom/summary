@@ -12,26 +12,6 @@ namespace Summary.Roslyn.CSharp.Extensions;
 internal static class SyntaxExtensions
 {
     /// <summary>
-    ///     Converts the specified syntax node into an array of doc members.
-    /// </summary>
-    /// <remarks>
-    ///     Fields and field-events can be represented as more than one member.
-    /// </remarks>
-    public static IEnumerable<DocMember> Members(this SyntaxNode self) => self switch
-    {
-        TypeDeclarationSyntax x => x.TypeDeclaration().Array(),
-        FieldDeclarationSyntax x => x.Fields(),
-        PropertyDeclarationSyntax x => x.Property().Array(),
-        EventDeclarationSyntax x => x.Property().Array(),
-        EventFieldDeclarationSyntax x => x.Properties(),
-        IndexerDeclarationSyntax x => x.Indexer().Array(),
-        DelegateDeclarationSyntax x => x.Delegate().Array(),
-        MethodDeclarationSyntax x => x.Method().Array(),
-
-        _ => Enumerable.Empty<DocMember>(),
-    };
-
-    /// <summary>
     ///     Converts the specified syntax node to a document member.
     /// </summary>
     public static DocMember? Member(this SyntaxNode self) => self switch
@@ -48,6 +28,26 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
+    /// <summary>
+    ///     Converts the specified syntax node into an array of doc members.
+    /// </summary>
+    /// <remarks>
+    ///     Fields and field-events can be represented as more than one member.
+    /// </remarks>
+    private static IEnumerable<DocMember> Members(this SyntaxNode self) => self switch
+    {
+        TypeDeclarationSyntax x => x.TypeDeclaration().ToArray(),
+        FieldDeclarationSyntax x => x.Fields(),
+        PropertyDeclarationSyntax x => x.Property().ToArray(),
+        EventDeclarationSyntax x => x.Property().ToArray(),
+        EventFieldDeclarationSyntax x => x.Properties(),
+        IndexerDeclarationSyntax x => x.Indexer().ToArray(),
+        DelegateDeclarationSyntax x => x.Delegate().ToArray(),
+        MethodDeclarationSyntax x => x.Method().ToArray(),
+
+        _ => Enumerable.Empty<DocMember>(),
+    };
+
     private static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) =>
         new()
         {
@@ -59,7 +59,7 @@ internal static class SyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Members = self.Members(),
             TypeParams = self.TypeParams(),
-            Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? System.Array.Empty<DocType>(),
+            Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? Array.Empty<DocType>(),
             Record = self is RecordDeclarationSyntax,
         };
 
@@ -271,24 +271,24 @@ internal static class SyntaxExtensions
     private static DocTypeParam[] TypeParams(this TypeParameterListSyntax? self) => self?
         .Parameters
         .Select(x => x.TypeParam())
-        .ToArray() ?? System.Array.Empty<DocTypeParam>();
+        .ToArray() ?? Array.Empty<DocTypeParam>();
 
     private static DocTypeParam TypeParam(this TypeParameterSyntax self) => new(self.Identifier.ValueText);
 
     private static DocType Type(this TypeSyntax self) => self switch
     {
         PredefinedTypeSyntax x =>
-            new DocType(x.Keyword.Text, System.Array.Empty<DocType>()),
+            new DocType(x.Keyword.Text, Array.Empty<DocType>()),
         IdentifierNameSyntax x =>
-            new DocType(x.Identifier.Text, System.Array.Empty<DocType>()),
+            new DocType(x.Identifier.Text, Array.Empty<DocType>()),
         QualifiedNameSyntax x =>
-            new DocType($"{x.Left}.{x.Right}", System.Array.Empty<DocType>()),
+            new DocType($"{x.Left}.{x.Right}", Array.Empty<DocType>()),
         GenericNameSyntax x =>
             new DocType(x.Identifier.Text, x.TypeArgumentList.Arguments.Select(y => y.Type()).ToArray()),
         TupleTypeSyntax x =>
             new DocType("Tuple", x.Elements.Select(y => y.Type.Type()).ToArray()),
         ArrayTypeSyntax x =>
-            new DocType($"{x.ElementType}[]", System.Array.Empty<DocType>()),
+            new DocType($"{x.ElementType}[]", Array.Empty<DocType>()),
         NullableTypeSyntax x =>
             new DocType($"{x.ElementType}?", new[] { x.ElementType.Type() }),
         _ =>
@@ -334,21 +334,22 @@ internal static class SyntaxExtensions
 
         XmlElementSyntax element =>
             new DocCommentElement(
-                element.StartTag.Name.ToString(),
-                element.StartTag.Attributes.Select(x => x.Attribute()).NonNulls().ToArray(),
-                element.Content.Nodes()).Array(),
+                    element.StartTag.Name.ToString(),
+                    element.StartTag.Attributes.Select(x => x.Attribute()).NonNulls().ToArray(),
+                    element.Content.Nodes())
+                .ToArray(),
 
         XmlEmptyElementSyntax empty => empty.Name.ToString() switch
         {
-            "see" => new DocCommentLink(empty.Cref()).Array(),
-            "paramref" => new DocCommentParamRef(empty.Name()).Array(),
-            "typeparamref" => new DocCommentParamRef(empty.Name()).Array(),
-            "inheritdoc" => new DocCommentInheritDoc(empty.Cref()).Array(),
+            "see" => new DocCommentLink(empty.Cref()).ToArray(),
+            "paramref" => new DocCommentParamRef(empty.Name()).ToArray(),
+            "typeparamref" => new DocCommentParamRef(empty.Name()).ToArray(),
+            "inheritdoc" => new DocCommentInheritDoc(empty.Cref()).ToArray(),
 
-            _ => DocCommentLiteral.New(empty.ToString()).Array(),
+            _ => DocCommentLiteral.New(empty.ToString()).ToArray(),
         },
 
-        _ => DocCommentLiteral.New(xml.ToString()).Array(),
+        _ => DocCommentLiteral.New(xml.ToString()).ToArray(),
     };
 
     private static DocCommentNode Literal(this SyntaxToken token) => token.Kind() switch
@@ -364,7 +365,6 @@ internal static class SyntaxExtensions
             .Select(x => x.Cref.ToString())
             .FirstOrDefault() ?? "";
 
-    // TODO: Probably need a better name.
     private static string Name(this XmlEmptyElementSyntax self) =>
         self.Attributes
             .OfType<XmlNameAttributeSyntax>()
@@ -378,5 +378,6 @@ internal static class SyntaxExtensions
         _ => null,
     };
 
-    private static T[] Array<T>(this T self) => new[] { self };
+    private static DocMember[] ToArray(this DocMember self) => new[] { self };
+    private static DocCommentNode[] ToArray(this DocCommentNode self) => new[] { self };
 }

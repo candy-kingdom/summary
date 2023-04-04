@@ -1,4 +1,4 @@
-﻿using Summary.Markdown.Extensions;
+﻿using Summary.Markdown;
 using Summary.Pipes;
 using Summary.Roslyn.CSharp;
 

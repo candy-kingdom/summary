@@ -1,19 +1,19 @@
 ﻿using Summary.Extensions;
 using static System.Environment;
 
-namespace Summary.Markdown.Extensions;
+namespace Summary.Markdown;
 
 /// <summary>
 ///     Extension methods for better rendering documentation into Markdown format.
 /// </summary>
 internal static class MarkdownRenderExtensions
 {
-    private static string Render(IEnumerable<DocCommentNode> nodes) =>
-        nodes
-            .Trim()
-            .SelectWithNext(Render)
-            .Separated(with: "");
-
+    /// <summary>
+    ///     Converts the specified comment node into a Markdown string.
+    /// </summary>
+    /// <remarks>
+    ///     The next comment node is used to add a trailing trivia to the rendered node.
+    /// </remarks>
     internal static string Render(this DocCommentNode? node, DocCommentNode? next = default) => node switch
     {
         null => "",
@@ -21,44 +21,42 @@ internal static class MarkdownRenderExtensions
         DocCommentLiteral literal => literal.Value,
 
         DocCommentElement { Name: "c" } code =>
-            $"`{Render(code.Nodes)}`{LeadingTrivia(next)}",
+            $"`{code.Nodes.Render()}`{next.LeadingTrivia()}",
         DocCommentElement { Name: "i" or "em" } code =>
-            $"_{Render(code.Nodes)}_{LeadingTrivia(next)}",
+            $"_{code.Nodes.Render()}_{next.LeadingTrivia()}",
         DocCommentElement { Name: "b" or "strong" } code =>
-            $"**{Render(code.Nodes)}**{LeadingTrivia(next)}",
+            $"**{code.Nodes.Render()}**{next.LeadingTrivia()}",
         DocCommentElement { Name: "strike" } code =>
-            $"~~{Render(code.Nodes)}~~{LeadingTrivia(next)}",
+            $"~~{code.Nodes.Render()}~~{next.LeadingTrivia()}",
         DocCommentElement { Name: "code" } code =>
-            $"```cs{NewLine}{Render(code.Nodes)}```",
+            $"```cs{NewLine}{code.Nodes.Render()}```",
 
-        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){LeadingTrivia(next)}",
+        DocCommentLink link => $"[`{link.Value}`](./{link.Value}.md){next.LeadingTrivia()}",
 
-        DocCommentParamRef @ref => $"`{@ref.Value}`{LeadingTrivia(next)}",
+        DocCommentParamRef @ref => $"`{@ref.Value}`{next.LeadingTrivia()}",
 
         DocCommentElement element => element.Nodes
             .Trim()
             .SelectWithNext(Render)
-            .Separated(with: ""),
+            .Separated(""),
 
         _ => node.ToString()!,
     };
 
-    private static string LeadingTrivia(DocCommentNode? node) => node switch
+    private static string Render(this IEnumerable<DocCommentNode> nodes) =>
+        nodes
+            .Trim()
+            .SelectWithNext(Render)
+            .Separated("");
+
+    private static string LeadingTrivia(this DocCommentNode? node) => node switch
     {
         DocCommentLiteral literal => literal.LeadingTrivia,
         _ => "",
     };
 
-    internal static string Render(this DocMethod self) =>
-        $"{self.Name}{self.RenderTypeParams()}{self.RenderParams()}";
-
-    private static string RenderParams(this DocMethod self) =>
-        $"({self.Params.Select(x => x.Type?.FullName ?? "").Separated(with: ", ")})";
-
-    private static string RenderTypeParams(this DocMethod self) =>
-        self.TypeParams.Length > 0 ? $"<{self.TypeParams.Select(x => x.Name).Separated(with: ", ")}>" : "";
-
-    // TODO: Write an efficient implementation.
+    // TODO: Consider writing a more efficient implementation.
+    // This method removes all space and newline characters from the beginning and the end of the sequence.
     private static IEnumerable<DocCommentNode> Trim(this IEnumerable<DocCommentNode> nodes) => nodes
         .SkipWhile(x => x.IsSpace() || x.IsNewLine())
         .Reverse()
