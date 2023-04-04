@@ -4,13 +4,23 @@ using Summary.Roslyn.CSharp;
 
 namespace Summary.Tests.Markdown;
 
-public class MarkdownRendererTests
+public class MarkdownTests
 {
+    [Fact]
+    public void NewLinePreserved() => Parsed(@"
+/// <summary>
+///     A text.
+///
+///     Another text.
+/// </summary>
+public record Person;")
+        .Should().Be($"A text.{Environment.NewLine}{Environment.NewLine}Another text.");
+
     [Fact]
     public void LinkBeforeDot() => Parsed(@"
 /// <summary>
 ///     A <see cref=""Link""/>.
-/// </summary>,,
+/// </summary>
 public record Person;")
         .Should().Be("A [`Link`](./Link.md).");
 
