@@ -25,7 +25,7 @@ public static class RoslynPipelineExtensions
             new ScanDirectoryPipe(root, pattern)
                 .ThenForEach(new ParseSyntaxTreePipe())
                 .ThenForEach(new ParseDocPipe())
-                .Then(new FoldPipe<Doc>(Doc.Merge))
+                .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty))
                 .Then(new InlineInheritDocPipe())
                 .Then(new FilterPublicMembersPipe()));
 }

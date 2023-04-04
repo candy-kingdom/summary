@@ -1,9 +1,15 @@
-# MarkdownRendererTests
+# MarkdownTests
 ```cs
-public class MarkdownRendererTests
+public class MarkdownTests
 ```
 
 ## Methods
+### NewLinePreserved()
+```cs
+[Fact]
+public void NewLinePreserved()
+```
+
 ### LinkBeforeDot()
 ```cs
 [Fact]

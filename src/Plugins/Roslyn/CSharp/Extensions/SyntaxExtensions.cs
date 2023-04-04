@@ -12,6 +12,12 @@ namespace Summary.Roslyn.CSharp.Extensions;
 internal static class SyntaxExtensions
 {
     /// <summary>
+    ///     Converts all child nodes of this node into a sequence of <see cref="DocMember" />.
+    /// </summary>
+    public static IEnumerable<DocMember> ChildMembers(this SyntaxNode self) =>
+        self.ChildNodes().Select(x => x.Member()).NonNulls();
+
+    /// <summary>
     ///     Converts the specified syntax node into a document member.
     /// </summary>
     public static DocMember? Member(this SyntaxNode self) => self switch
