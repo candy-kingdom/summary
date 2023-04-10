@@ -18,7 +18,9 @@ public static class RoslynPipelineExtensions
     ///     This parser will parse all the C# files in the specified directory
     ///     and will extract comments from the corresponding syntax trees using Roslyn API.
     ///     <br />
-    ///     This method is both fast and reliable, and allows better customization.
+    ///     Overall, the method for parsing documentation using Roslyn API, while being dependent on the
+    ///     Roslyn packages, is both fast and reliable, and allows better customization.
+    ///     We recommend using it by default.
     /// </remarks>
     public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string root, string pattern = "*.cs") =>
         self.ParseWith(
