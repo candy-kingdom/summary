@@ -10,17 +10,17 @@ public class SavePipe<I> : IPipe<I, Unit>
 
     public SavePipe(string root, Func<I, (string Path, string Content)> file)
     {
-        if (Directory.Exists(root))
-            Directory.Delete(root, recursive: true);
-
-        Directory.CreateDirectory(root);
-
         _root = root;
         _file = file;
     }
 
     public async Task<Unit> Run(I input)
     {
+        if (Directory.Exists(_root))
+            Directory.Delete(_root, recursive: true);
+
+        Directory.CreateDirectory(_root);
+
         var (path, content) = _file(input);
 
         await File.WriteAllTextAsync(Path.Combine(_root, path), content).ConfigureAwait(false);

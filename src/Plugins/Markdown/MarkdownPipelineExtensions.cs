@@ -19,5 +19,5 @@ public static class MarkdownPipelineExtensions
         self.RenderWith(
             new RenderMarkdownPipe()
                 .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
-                .Then(new FoldPipe<Unit>((_, _) => Unit.Value, Unit.Value)));
+                .Fold());
 }
