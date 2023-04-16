@@ -1,4 +1,4 @@
-# Doc
+# Summary.Doc
 A document parsed from the source code or an assembly.
 
 ```cs

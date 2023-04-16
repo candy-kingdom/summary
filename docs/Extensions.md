@@ -1,4 +1,4 @@
-# Extensions
+# Summary.Tests.Extensions
 Extension methods that simplify unit testing and should not be included in the package.
 
 ```cs

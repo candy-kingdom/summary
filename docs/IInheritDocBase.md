@@ -1,4 +1,4 @@
-# IInheritDocBase
+# Summary.Samples.IInheritDocBase
 Summary (interface).
 
 _Remarks section (interface)._

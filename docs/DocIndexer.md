@@ -1,4 +1,4 @@
-# DocIndexer
+# Summary.DocIndexer
 A [`DocProperty`](./DocProperty.md) that represents an indexer.
 
 ```cs

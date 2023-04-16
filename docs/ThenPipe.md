@@ -1,4 +1,4 @@
-# ThenPipe
+# Summary.Pipes.ThenPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that composes two pipes together.
 
 ```cs

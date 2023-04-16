@@ -1,4 +1,4 @@
-# InheritDoc_CrefBase_Child
+# Summary.Samples.InheritDoc_CrefBase_Child
 Summary.
 
 _Remarks._

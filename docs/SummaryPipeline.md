@@ -1,4 +1,4 @@
-# SummaryPipeline
+# Summary.Pipelines.SummaryPipeline
 A plain Summary pipeline that should be used in simple cases.
 
 _By default, this pipeline supports one parser pipe and one renderer pipe._

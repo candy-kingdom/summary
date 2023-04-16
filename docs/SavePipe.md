@@ -1,4 +1,4 @@
-# SavePipe
+# Summary.Pipes.IO.SavePipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that saves the input to the file.
 
 ```cs

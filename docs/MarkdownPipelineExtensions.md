@@ -1,4 +1,4 @@
-# MarkdownPipelineExtensions
+# Summary.Markdown.MarkdownPipelineExtensions
 A set of extension methods that extend different pipelines with Markdown rendering.
 
 ```cs

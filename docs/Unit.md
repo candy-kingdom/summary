@@ -1,4 +1,4 @@
-# Unit
+# Summary.Pipes.Unit
 A void type that is similar to `void` keyword.
 
 ```cs

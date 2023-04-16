@@ -1,4 +1,4 @@
-# DocCommentParamRef
+# Summary.DocCommentParamRef
 A [`DocCommentNode`](./DocCommentNode.md) that represents the reference to a parameter (`<paramref>`, `<typeparamref>`).
 
 ```cs

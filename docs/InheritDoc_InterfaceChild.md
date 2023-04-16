@@ -1,4 +1,4 @@
-# InheritDoc_InterfaceChild
+# Summary.Samples.InheritDoc_InterfaceChild
 Summary (interface).
 
 _Remarks section (interface)._

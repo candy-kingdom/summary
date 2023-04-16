@@ -14,6 +14,20 @@ namespace Summary.Markdown;
 /// </remarks>
 internal class MdRenderer
 {
+    private class Scope : IDisposable
+    {
+        private readonly MdRenderer _renderer;
+
+        public Scope(MdRenderer renderer)
+        {
+            _renderer = renderer;
+            _renderer._level += 2;
+        }
+
+        public void Dispose() =>
+            _renderer._level -= 2;
+    }
+
     private readonly StringBuilder _sb = new();
 
     private int _level = 1;
@@ -77,6 +91,8 @@ internal class MdRenderer
                  $"({x.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
         DocIndexer x =>
             Line($"{new string(c: '#', _level)} this[{x.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
+        DocTypeDeclaration when _level is 1 =>
+            Line($"{new string(c: '#', _level)} {member.FullyQualifiedName}"),
         _ =>
             Line($"{new string(c: '#', _level)} {member.Name}"),
     };
@@ -170,18 +186,4 @@ internal class MdRenderer
 
     private MdRenderer With<T>(T _) =>
         this;
-
-    private class Scope : IDisposable
-    {
-        private readonly MdRenderer _renderer;
-
-        public Scope(MdRenderer renderer)
-        {
-            _renderer = renderer;
-            _renderer._level += 2;
-        }
-
-        public void Dispose() =>
-            _renderer._level -= 2;
-    }
 }

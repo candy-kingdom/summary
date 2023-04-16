@@ -1,4 +1,4 @@
-# DocComment
+# Summary.DocComment
 A documentation comment parsed from the source code.
 
 ```cs

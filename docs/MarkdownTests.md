@@ -1,4 +1,4 @@
-# MarkdownTests
+# Summary.Tests.Markdown.MarkdownTests
 ```cs
 public class MarkdownTests
 ```

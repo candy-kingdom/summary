@@ -1,4 +1,4 @@
-# PipeExtensions
+# Summary.Pipes.PipeExtensions
 Extension methods for [`IPipe{I,O}`](./IPipe{I,O}.md).
 
 ```cs
@@ -6,11 +6,18 @@ public static class PipeExtensions
 ```
 
 ## Methods
+### Fold<I>(IPipe<I, Unit[]>)
+Folds the result of the specified pipe into a single [`Unit`](./Unit.md) value.
+
+```cs
+public static IPipe<I, Unit> Fold<I>(this IPipe<I, Unit[]> self)
+```
+
 ### Run<O>(IPipe<Unit, O>)
 Asynchronously runs the pipe.
 
 ```cs
-public static Task<O> Run<O>(this IPipe<Unit, O> pipe)
+public static Task<O> Run<O>(this IPipe<Unit, O> self)
 ```
 
 ### Then<I, O1, O2>(IPipe<I, O1>, IPipe<O1, O2>)

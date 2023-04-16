@@ -1,4 +1,4 @@
-# InheritDocBase
+# Summary.Samples.InheritDocBase
 Summary.
 
 _Remarks section._

@@ -1,4 +1,4 @@
-# PipesTests
+# Summary.Tests.Core.PipesTests
 ```cs
 public class PipesTests
 ```

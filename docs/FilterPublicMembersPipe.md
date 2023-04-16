@@ -1,4 +1,4 @@
-# FilterPublicMembersPipe
+# Summary.Pipes.Filters.FilterPublicMembersPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that filters out non-public types and members from the parsed document.
 
 ```cs

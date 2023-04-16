@@ -1,4 +1,4 @@
-# ScanDirectoryPipe
+# Summary.Pipes.IO.ScanDirectoryPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that searches specified directory (recursively) for files that match specified pattern.
 
 ```cs

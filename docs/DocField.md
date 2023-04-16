@@ -1,4 +1,4 @@
-# DocField
+# Summary.DocField
 A [`DocMember`](./DocMember.md) that represents a documented field in the parsed source code.
 
 ```cs

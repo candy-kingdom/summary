@@ -1,4 +1,4 @@
-# DocTypeParam
+# Summary.DocTypeParam
 A type parameter of a [`DocMember`](./DocMember.md).
 
 ```cs

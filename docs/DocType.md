@@ -1,4 +1,4 @@
-# DocType
+# Summary.DocType
 A simple type (e.g. `int`, `string`, `List<int>`, etc.).
 
 ```cs

@@ -1,4 +1,4 @@
-# InheritDoc_Child_OverrideSummary
+# Summary.Samples.InheritDoc_Child_OverrideSummary
 Summary (child).
 
 _Remarks section._

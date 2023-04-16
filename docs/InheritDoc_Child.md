@@ -1,4 +1,4 @@
-# InheritDoc_Child
+# Summary.Samples.InheritDoc_Child
 Summary.
 
 _Remarks section._

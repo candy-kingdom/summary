@@ -1,7 +1,7 @@
 ﻿namespace Summary.Pipes.IO;
 
 /// <summary>
-///     A <see cref="IPipe{I,O}"/> that saves the input to the file.
+///     A <see cref="IPipe{I,O}" /> that saves the input to the file.
 /// </summary>
 public class SavePipe<I> : IPipe<I, Unit>
 {
@@ -16,14 +16,9 @@ public class SavePipe<I> : IPipe<I, Unit>
 
     public async Task<Unit> Run(I input)
     {
-        if (Directory.Exists(_root))
-            Directory.Delete(_root, recursive: true);
-
-        Directory.CreateDirectory(_root);
-
         var (path, content) = _file(input);
 
-        await File.WriteAllTextAsync(Path.Combine(_root, path), content).ConfigureAwait(false);
+        await File.WriteAllTextAsync(Path.Combine(_root, path), content).ConfigureAwait(continueOnCapturedContext: false);
 
         return Unit.Value;
     }

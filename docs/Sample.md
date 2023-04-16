@@ -1,4 +1,4 @@
-# Sample
+# Summary.Samples.Sample
 A sample class that is documented.
 This a second paragraph.
 It is indented.

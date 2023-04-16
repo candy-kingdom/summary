@@ -1,4 +1,4 @@
-# InheritDocRecordBase
+# Summary.Samples.InheritDocRecordBase
 Summary (record).
 
 ```cs

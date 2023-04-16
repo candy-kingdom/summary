@@ -1,4 +1,4 @@
-# DocCommentElementAttribute
+# Summary.DocCommentElementAttribute
 An XML-documentation attribute (e.g. `name` in `param`, etc.).
 
 ```cs

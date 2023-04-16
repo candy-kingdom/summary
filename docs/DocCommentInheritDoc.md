@@ -1,4 +1,4 @@
-# DocCommentInheritDoc
+# Summary.DocCommentInheritDoc
 A [`DocCommentNode`](./DocCommentNode.md) that inherits documentation from another member
 (`<inheritdoc>`).
 

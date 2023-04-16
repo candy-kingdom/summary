@@ -1,4 +1,4 @@
-# DocParam
+# Summary.DocParam
 A parameter of a [`DocMethod`](./DocMethod.md).
 
 ```cs

@@ -1,4 +1,4 @@
-# InlineInheritDocPipe
+# Summary.Roslyn.CSharp.InlineInheritDocPipe
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that inlines `<inheritdoc/>` tags.
 
 _Under the hood, the process of inlining works as follows:_

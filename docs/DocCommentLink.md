@@ -1,4 +1,4 @@
-# DocCommentLink
+# Summary.DocCommentLink
 A [`DocCommentNode`](./DocCommentNode.md) that represents the link to other member (e.g. `<see cref="SomeMember"/>`).
 
 ```cs

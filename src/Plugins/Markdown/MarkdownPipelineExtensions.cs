@@ -18,6 +18,7 @@ public static class MarkdownPipelineExtensions
     public static SummaryPipeline UseMdRenderer(this SummaryPipeline self, string output) =>
         self.RenderWith(
             new RenderMarkdownPipe()
+                .Then(new CleanupDirPipe<Md[]>(output))
                 .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
                 .Fold());
 }
