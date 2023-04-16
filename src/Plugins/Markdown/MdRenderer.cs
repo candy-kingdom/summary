@@ -79,8 +79,8 @@ internal class MdRenderer
         .ElementSection("Example", member.Comment.Element("example"));
 
     private MdRenderer GeneratedProperty(DocTypeDeclaration parent, DocMember prop) => Name(prop)
-        .Element(parent.Comment.Param(prop.Name))
-        .Declaration(prop);
+        .Declaration(prop)
+        .Element(parent.Comment.Param(prop.Name));
 
     private MdRenderer Name(DocMember member) => member switch
     {

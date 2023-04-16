@@ -7,9 +7,9 @@ A [`DocCommentNode`](./DocCommentNode.md) that represents the reference to a par
 
 ## Properties
 ### Value
-The name of the parameter .
-
 ```cs
 public string Value { get; }
 ```
+
+The name of the parameter .
 

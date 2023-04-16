@@ -15,11 +15,11 @@ An empty document.
 
 ## Properties
 ### Members
-The sequence of members this doc contains.
-
 ```cs
 public DocMember[] Members { get; }
 ```
+
+The sequence of members this doc contains.
 
 ## Methods
 ### Merge(Doc, Doc)

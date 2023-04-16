@@ -7,16 +7,16 @@ A Markdown document file.
 
 ## Properties
 ### Name
-The name of the document file.
-
 ```cs
 public string Name { get; }
 ```
 
-### Content
-The content of the document document.
+The name of the document file.
 
+### Content
 ```cs
 public string Content { get; }
 ```
+
+The content of the document document.
 

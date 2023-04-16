@@ -7,18 +7,18 @@ A parameter of a [`DocMethod`](./DocMethod.md).
 
 ## Properties
 ### Type
-The type of the parameter.
-
 ```cs
 public DocType? Type { get; }
 ```
 
-### Name
-The name of the parameter.
+The type of the parameter.
 
+### Name
 ```cs
 public string Name { get; }
 ```
+
+The name of the parameter.
 
 ## Methods
 ### Comment(DocMember)

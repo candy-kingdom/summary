@@ -8,9 +8,9 @@ A [`DocCommentNode`](./DocCommentNode.md) that inherits documentation from anoth
 
 ## Properties
 ### Cref
-An optional link to the member the documentation should be inherited from.
-
 ```cs
 public string? Cref { get; }
 ```
+
+An optional link to the member the documentation should be inherited from.
 

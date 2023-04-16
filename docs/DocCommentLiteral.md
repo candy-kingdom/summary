@@ -9,18 +9,18 @@ _Literals are simple tokens that are parsed as text._
 
 ## Properties
 ### Value
-The value of the literal.
-
 ```cs
 public string Value { get; }
 ```
 
-### LeadingTrivia
-The leading trivia of the literal that is not included in the `Value`(i.e. space characters, newlines).
+The value of the literal.
 
+### LeadingTrivia
 ```cs
 public string LeadingTrivia { get; }
 ```
+
+The leading trivia of the literal that is not included in the `Value`(i.e. space characters, newlines).
 
 ## Methods
 ### New(string)

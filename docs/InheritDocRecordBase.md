@@ -7,9 +7,9 @@ Summary (record).
 
 ## Properties
 ### Property
-A property.
-
 ```cs
 public int Property { get; }
 ```
+
+A property.
 

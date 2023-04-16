@@ -9,11 +9,11 @@ _Each element can contain simple text as well as other elements._
 
 ## Properties
 ### Name
-The name of the element (e.g. `remarks`, `summary`, `example`).
-
 ```cs
 public string Name { get; }
 ```
+
+The name of the element (e.g. `remarks`, `summary`, `example`).
 
 ### Attributes
 ```cs
@@ -21,9 +21,9 @@ public DocCommentElementAttribute[] Attributes { get; }
 ```
 
 ### Nodes
-The sequence of nodes this element consists of.
-
 ```cs
 public DocCommentNode[] Nodes { get; }
 ```
+
+The sequence of nodes this element consists of.
 

@@ -15,11 +15,11 @@ An empty documentation comment.
 
 ## Properties
 ### Nodes
-The sequence of nodes this comment consists of (e.g. `summary`, `remarks`, etc.).
-
 ```cs
 public DocCommentNode[] Nodes { get; }
 ```
+
+The sequence of nodes this comment consists of (e.g. `summary`, `remarks`, etc.).
 
 ## Methods
 ### Param(string)

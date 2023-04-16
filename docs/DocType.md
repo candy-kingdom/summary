@@ -14,16 +14,16 @@ public string FullName { get; }
 The full name of the type including its type parameters.
 
 ### Name
-The name of the type (without generic arguments).
-
 ```cs
 public string Name { get; }
 ```
 
-### TypeParams
-The generic parameters of this type (if it's generic).
+The name of the type (without generic arguments).
 
+### TypeParams
 ```cs
 public DocType[] TypeParams { get; }
 ```
+
+The generic parameters of this type (if it's generic).
 

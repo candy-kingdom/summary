@@ -7,9 +7,9 @@ A [`DocCommentNode`](./DocCommentNode.md) that represents the link to other memb
 
 ## Properties
 ### Value
-The name of the member the link links to.
-
 ```cs
 public string Value { get; }
 ```
+
+The name of the member the link links to.
 
