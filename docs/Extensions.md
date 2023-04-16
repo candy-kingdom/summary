@@ -1,17 +1,17 @@
 # Summary.Tests.Extensions
-Extension methods that simplify unit testing and should not be included in the package.
-
 ```cs
 public static class Extensions
 ```
 
+Extension methods that simplify unit testing and should not be included in the package.
+
 ## Methods
 ### RunSync<O>(IPipe<Unit, O>)
-Runs the pipe synchronously
-
 ```cs
 public static O RunSync<O>(this IPipe<Unit, O> self)
 ```
+
+Runs the pipe synchronously
 
 #### Parameters
 - `self`: The pipe to execute.

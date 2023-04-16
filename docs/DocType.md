@@ -1,17 +1,17 @@
 # Summary.DocType
-A simple type (e.g. `int`, `string`, `List<int>`, etc.).
-
 ```cs
 public record DocType(string Name, DocType[] TypeParams)
 ```
 
+A simple type (e.g. `int`, `string`, `List<int>`, etc.).
+
 ## Properties
 ### FullName
-The full name of the type including its type parameters.
-
 ```cs
 public string FullName { get; }
 ```
+
+The full name of the type including its type parameters.
 
 ### Name
 The name of the type (without generic arguments).

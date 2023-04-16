@@ -1,9 +1,9 @@
 # Summary.DocTypeParam
-A type parameter of a [`DocMember`](./DocMember.md).
-
 ```cs
 public record DocTypeParam(string Name)
 ```
+
+A type parameter of a [`DocMember`](./DocMember.md).
 
 ## Properties
 ### Name
@@ -15,9 +15,9 @@ public string Name { get; }
 
 ## Methods
 ### Comment(DocMember)
-The comment of the parameter (i.e., `<typeparam>` tag).
-
 ```cs
 public DocCommentElement? Comment(DocMember parent)
 ```
+
+The comment of the parameter (i.e., `<typeparam>` tag).
 

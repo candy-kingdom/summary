@@ -1,9 +1,9 @@
 # Summary.Markdown.Md
-A Markdown document file.
-
 ```cs
 public record Md(string Name, string Content)
 ```
+
+A Markdown document file.
 
 ## Properties
 ### Name

@@ -73,9 +73,9 @@ internal class MdRenderer
         .ReturnsSection(indexer.Comment);
 
     private MdRenderer MemberHeader(DocMember member) => Name(member)
+        .Declaration(member)
         .Element(member.Comment.Element("summary"))
         .Element(member.Comment.Element("remarks"), x => $"_{x}_")
-        .Declaration(member)
         .ElementSection("Example", member.Comment.Element("example"));
 
     private MdRenderer GeneratedProperty(DocTypeDeclaration parent, DocMember prop) => Name(prop)

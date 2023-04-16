@@ -1,9 +1,9 @@
 # Summary.DocCommentElementAttribute
-An XML-documentation attribute (e.g. `name` in `param`, etc.).
-
 ```cs
 public record DocCommentElementAttribute(string Name, string Value)
 ```
+
+An XML-documentation attribute (e.g. `name` in `param`, etc.).
 
 ## Properties
 ### Name

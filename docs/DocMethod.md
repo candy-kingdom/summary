@@ -1,43 +1,43 @@
 # Summary.DocMethod
-A [`DocMember`](./DocMember.md) that represents a documented method in the parsed source code.
-
 ```cs
 public record DocMethod : DocMember
 ```
 
+A [`DocMember`](./DocMember.md) that represents a documented method in the parsed source code.
+
 ## Properties
 ### TypeParams
-The type parameters of the method.
-
 ```cs
 public required DocTypeParam[] TypeParams { get; init; }
 ```
 
-### Params
-The parameters of the method.
+The type parameters of the method.
 
+### Params
 ```cs
 public required DocParam[] Params { get; init; }
 ```
 
-### Delegate
-Whether this method represents a delegate.
+The parameters of the method.
 
+### Delegate
 ```cs
 public required bool Delegate { get; init; }
 ```
 
-### SignatureWithoutParams
-The signature of the method without parameters in link format (e.g., `Sum{T}`).
+Whether this method represents a delegate.
 
+### SignatureWithoutParams
 ```cs
 public string SignatureWithoutParams { get; }
 ```
 
-### Signature
-The signature of the method in link format (e.g., `Sum{T}(T, T)`).
+The signature of the method without parameters in link format (e.g., `Sum{T}`).
 
+### Signature
 ```cs
 public string Signature { get; }
 ```
+
+The signature of the method in link format (e.g., `Sum{T}(T, T)`).
 

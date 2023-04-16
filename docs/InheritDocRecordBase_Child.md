@@ -1,9 +1,9 @@
 # Summary.Samples.InheritDocRecordBase_Child
-Summary (record).
-
 ```cs
 public record InheritDocRecordBase_Child(int Property, int OtherProperty) : InheritDocRecordBase(Property)
 ```
+
+Summary (record).
 
 ## Properties
 ### Property

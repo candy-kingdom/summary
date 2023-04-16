@@ -1,19 +1,19 @@
 # Summary.Samples.InheritDocBase
-Summary.
-
-_Remarks section._
-
 ```cs
 public class InheritDocBase
 ```
 
+Summary.
+
+_Remarks section._
+
 ## Delegates
 ### Delegate1(int, int)
-A sample delegate.
-
 ```cs
 public void Delegate1(int x, int y)
 ```
+
+A sample delegate.
 
 #### Parameters
 - `x`: First parameter.
@@ -23,11 +23,11 @@ public void Delegate1(int x, int y)
 Nothing.
 
 ### Delegate2(int, int)
-A sample delegate.
-
 ```cs
 public void Delegate2(int x, int y)
 ```
+
+A sample delegate.
 
 #### Parameters
 - `x`: First parameter.
@@ -43,73 +43,73 @@ public void Delegate3(int x, int y)
 
 ## Events
 ### Event1
-An event.
-
 ```cs
 public virtual event Action Event1
 ```
 
+An event.
+
 ## Fields
 ### Field1
-A field.
-
 ```cs
 public int Field1
 ```
 
-### Field2
 A field.
 
+### Field2
 ```cs
 public int Field2
 ```
 
+A field.
+
 ## Properties
 ### Property1
-A property.
-
-_Property remarks._
-
 ```cs
 public virtual int Property1 { get; set; }
 ```
 
-### Property2
 A property.
 
 _Property remarks._
 
+### Property2
 ```cs
 public virtual int Property2 { get; set; }
 ```
 
-### Property3
 A property.
 
 _Property remarks._
 
+### Property3
 ```cs
 public int Property3 { get; set; }
 ```
 
+A property.
+
+_Property remarks._
+
 ## Indexers
 ### this[int]
-An indexer.
-
 ```cs
 public virtual int this[int i] { get; }
 ```
+
+An indexer.
 
 #### Parameters
 - `i`: A parameter to the indexer.
 
 ## Methods
 ### Sum(int, int)
-Calculates the sum.
-
 ```cs
 public virtual int Sum(int x, int y)
 ```
+
+Calculates the sum.
 
 #### Parameters
 - `x`: The first parameter.
@@ -119,11 +119,11 @@ public virtual int Sum(int x, int y)
 Returns the sum of two values.
 
 ### Sum<T>(byte, byte)
-Calculates the byte sum.
-
 ```cs
 public byte Sum<T>(byte x, byte y)
 ```
+
+Calculates the byte sum.
 
 #### Type Parameters
 - `T`: The type parameter.
@@ -136,11 +136,11 @@ public byte Sum<T>(byte x, byte y)
 Returns the sum of two values.
 
 ### Sum(short, short)
-Calculates the byte sum.
-
 ```cs
 public short Sum(short x, short y)
 ```
+
+Calculates the byte sum.
 
 #### Parameters
 - `x`: The first byte parameter.
@@ -150,11 +150,11 @@ public short Sum(short x, short y)
 Returns the sum of two values.
 
 ### Sum2(short, short)
-Calculates the byte sum.
-
 ```cs
 public short Sum2(short x, short y)
 ```
+
+Calculates the byte sum.
 
 #### Parameters
 - `x`: The first byte parameter.
@@ -164,11 +164,11 @@ public short Sum2(short x, short y)
 Returns the sum of two values.
 
 ### Sum3(short, short)
-Calculates the byte sum.
-
 ```cs
 public short Sum3(short x, short y)
 ```
+
+Calculates the byte sum.
 
 #### Parameters
 - `x`: The first byte parameter.
@@ -178,11 +178,11 @@ public short Sum3(short x, short y)
 Returns the sum of two values.
 
 ### Sum4(short, short)
-Calculates the byte sum.
-
 ```cs
 public short Sum4(short x, short y)
 ```
+
+Calculates the byte sum.
 
 #### Parameters
 - `x`: The first byte parameter.

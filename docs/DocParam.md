@@ -1,9 +1,9 @@
 # Summary.DocParam
-A parameter of a [`DocMethod`](./DocMethod.md).
-
 ```cs
 public record DocParam(DocType? Type, string Name)
 ```
+
+A parameter of a [`DocMethod`](./DocMethod.md).
 
 ## Properties
 ### Type
@@ -22,9 +22,9 @@ public string Name { get; }
 
 ## Methods
 ### Comment(DocMember)
-The comment of the parameter (i.e., `<param>` tag).
-
 ```cs
 public DocCommentElement? Comment(DocMember parent)
 ```
+
+The comment of the parameter (i.e., `<param>` tag).
 

@@ -1,17 +1,17 @@
 # Summary.Doc
-A document parsed from the source code or an assembly.
-
 ```cs
 public record Doc(DocMember[] Members)
 ```
 
+A document parsed from the source code or an assembly.
+
 ## Fields
 ### Empty
-An empty document.
-
 ```cs
 public static readonly Doc Empty
 ```
+
+An empty document.
 
 ## Properties
 ### Members
@@ -23,20 +23,20 @@ public DocMember[] Members { get; }
 
 ## Methods
 ### Merge(Doc, Doc)
-Merges two documents together returning the new merged document.
-
 ```cs
 public static Doc Merge(Doc a, Doc b)
 ```
+
+Merges two documents together returning the new merged document.
 
 #### Parameters
 - `a`: The first document to merge.
 - `b`: The second document to merge.
 
 ### Declaration(DocType?<DocType>)
-A type declaration that matches the specified type.
-
 ```cs
 public DocTypeDeclaration? Declaration(DocType? type)
 ```
+
+A type declaration that matches the specified type.
 

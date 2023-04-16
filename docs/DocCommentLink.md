@@ -1,9 +1,9 @@
 # Summary.DocCommentLink
-A [`DocCommentNode`](./DocCommentNode.md) that represents the link to other member (e.g. `<see cref="SomeMember"/>`).
-
 ```cs
 public record DocCommentLink(string Value) : DocCommentNode
 ```
+
+A [`DocCommentNode`](./DocCommentNode.md) that represents the link to other member (e.g. `<see cref="SomeMember"/>`).
 
 ## Properties
 ### Value

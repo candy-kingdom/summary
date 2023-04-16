@@ -1,10 +1,10 @@
 # Summary.DocCommentInheritDoc
-A [`DocCommentNode`](./DocCommentNode.md) that inherits documentation from another member
-(`<inheritdoc>`).
-
 ```cs
 public record DocCommentInheritDoc(string? Cref) : DocCommentNode
 ```
+
+A [`DocCommentNode`](./DocCommentNode.md) that inherits documentation from another member
+(`<inheritdoc>`).
 
 ## Properties
 ### Cref

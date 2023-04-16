@@ -1,15 +1,15 @@
 # Summary.DocField
-A [`DocMember`](./DocMember.md) that represents a documented field in the parsed source code.
-
 ```cs
 public record DocField : DocMember
 ```
 
+A [`DocMember`](./DocMember.md) that represents a documented field in the parsed source code.
+
 ## Properties
 ### Type
-The type of the field.
-
 ```cs
 public required DocType Type { get; init; }
 ```
+
+The type of the field.
 

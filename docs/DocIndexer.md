@@ -1,15 +1,15 @@
 # Summary.DocIndexer
-A [`DocProperty`](./DocProperty.md) that represents an indexer.
-
 ```cs
 public record DocIndexer : DocProperty
 ```
 
+A [`DocProperty`](./DocProperty.md) that represents an indexer.
+
 ## Properties
 ### Params
-The parameters of the indexer.
-
 ```cs
 public required DocParam[] Params { get; init; }
 ```
+
+The parameters of the indexer.
 
