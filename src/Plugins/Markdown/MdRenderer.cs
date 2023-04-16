@@ -82,6 +82,7 @@ internal class MdRenderer
         .Declaration(prop)
         .Element(parent.Comment.Param(prop.Name));
 
+    // TODO: We can omit rendering `Name` and render `Declaration` only but it'd be nice to make this customizable via plugins.
     private MdRenderer Name(DocMember member) => member switch
     {
         DocMethod x =>
