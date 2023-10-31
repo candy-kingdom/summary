@@ -24,7 +24,7 @@ const string input = "./src";
 // The folder you want to put the generator output into.
 const string output = "./docs";
 
-await new SummaryGen()
+await new SummaryPipeline()
     .UseRoslynParser(input)
     .UseMdRenderer(output)
     .Run();
