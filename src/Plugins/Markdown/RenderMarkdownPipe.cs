@@ -1,4 +1,5 @@
-﻿using Summary.Pipes;
+﻿using Summary.Extensions;
+using Summary.Pipes;
 
 namespace Summary.Markdown;
 
@@ -14,6 +15,15 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
     {
         var text = new MdRenderer().Member(member).Text();
 
-        return new($"{member.Name}.md", text);
+        return new($"{Name(member)}.md", text);
+
+        string Name(DocMember x) => x switch
+        {
+            DocTypeDeclaration type => $"{x.Name}{TypeParams(type)}",
+
+            _ => x.Name,
+        };
+
+        string TypeParams(DocTypeDeclaration x) => x.TypeParams.Length is 0 ? "" : $"{{{x.TypeParams.Select(x => x.Name).Separated(with: ",")}}}";
     }
 }
