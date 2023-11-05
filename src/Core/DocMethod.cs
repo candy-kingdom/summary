@@ -33,7 +33,7 @@ public record DocMethod : DocMember
     public string Signature => $"{SignatureWithoutParams}{ParamsSignature}";
 
     private string TypeParamsSignature =>
-        TypeParams.Select(x => x.Name).Separated(",").Wrap("{", "}");
+        TypeParams.Select(x => x.Name).Separated(",").Surround("{", "}");
 
     private string ParamsSignature =>
         $"({Params.Select(x => x.Type?.FullName).Separated(",")})";

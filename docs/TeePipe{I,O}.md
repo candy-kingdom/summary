@@ -1,4 +1,4 @@
-# Summary.Pipes.TeePipe
+# Summary.Pipes.TeePipe<I, O>
 ```cs
 public class TeePipe<I, O> : IPipe<I, O>
 ```

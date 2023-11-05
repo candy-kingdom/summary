@@ -1,4 +1,4 @@
-# Summary.Pipes.FoldPipe
+# Summary.Pipes.FoldPipe<O>
 ```cs
 public class FoldPipe<O> : IPipe<O[], O>
 ```

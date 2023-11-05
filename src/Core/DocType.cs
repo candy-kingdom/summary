@@ -13,5 +13,5 @@ public record DocType(string Name, DocType[] TypeParams)
     ///     The full name of the type including its type parameters.
     /// </summary>
     public string FullName =>
-        $"{Name}{TypeParams.Select(t => t.FullName).Separated(with: ", ").Wrap("<", ">")}";
+        $"{Name}{TypeParams.Select(t => t.FullName).Separated(with: ", ").Surround("<", ">")}";
 }

@@ -1,4 +1,4 @@
-# Summary.Pipes.IO.SavePipe
+# Summary.Pipes.IO.SavePipe<I>
 ```cs
 public class SavePipe<I> : IPipe<I, Unit>
 ```

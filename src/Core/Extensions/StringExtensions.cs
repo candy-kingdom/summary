@@ -7,14 +7,14 @@ internal static class StringExtensions
     ///     If the string is empty, returns the string as is.
     /// </summary>
     public static string Space(this string self) =>
-        self.Wrap("", " ");
+        self.Surround("", " ");
 
     /// <summary>
-    ///     Wraps the specified string with the given prefix and suffix strings.
+    ///     Surrounds the specified string with the given prefix and suffix strings.
     ///     If the string is empty, returns the string as is.
     /// </summary>
-    public static string Wrap(this string self, string prefix, string suffix) =>
-        self.Map(x => $"{prefix}{x}{suffix}");
+    public static string Surround(this string self, string left, string right) =>
+        self.Map(x => $"{left}{x}{right}");
 
     private static string Map(this string self, Func<string, string> map) =>
         self is "" ? self : map(self);

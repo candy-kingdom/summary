@@ -1,4 +1,4 @@
-# Summary.Pipes.IO.CleanupDirPipe
+# Summary.Pipes.IO.CleanupDirPipe<I>
 ```cs
 public class CleanupDirPipe<I> : IPipe<I, I>
 ```

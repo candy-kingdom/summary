@@ -88,12 +88,12 @@ internal class MdRenderer
         DocMethod x =>
             Line($"{new string(c: '#', _level)} " +
                  $"{x.Name}" +
-                 $"{x.TypeParams.Select(x => x.Name).Separated(", ").Wrap("<", ">")}" +
+                 $"{x.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
                  $"({x.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
         DocIndexer x =>
             Line($"{new string(c: '#', _level)} this[{x.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
-        DocTypeDeclaration when _level is 1 =>
-            Line($"{new string(c: '#', _level)} {member.FullyQualifiedName}"),
+        DocTypeDeclaration x when _level is 1 =>
+            Line($"{new string(c: '#', _level)} {member.FullyQualifiedName}{x.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
         _ =>
             Line($"{new string(c: '#', _level)} {member.Name}"),
     };

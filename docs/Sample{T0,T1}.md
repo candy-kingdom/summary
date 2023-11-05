@@ -1,4 +1,4 @@
-# Summary.Samples.Sample
+# Summary.Samples.Sample<T0, T1>
 ```cs
 public class Sample<T0, T1>
 ```

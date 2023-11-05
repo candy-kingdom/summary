@@ -11,7 +11,7 @@ A member of the generated document (e.g. type, field, property, method, etc.).
 public required string FullyQualifiedName { get; init; }
 ```
 
-The fully qualified name of the member.
+The fully qualified name of the member (e.g., `Summary.DocMember`).
 
 ### Name
 ```cs
