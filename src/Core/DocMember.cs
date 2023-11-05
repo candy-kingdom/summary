@@ -6,7 +6,7 @@
 public abstract record DocMember
 {
     /// <summary>
-    ///     The fully qualified name of the member.
+    ///     The fully qualified name of the member (e.g., `Summary.DocMember`).
     /// </summary>
     public required string FullyQualifiedName { get; init; }
 
