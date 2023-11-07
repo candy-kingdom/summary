@@ -35,6 +35,7 @@
       <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
       <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.4.0" />
       <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.4.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     </ItemGroup>
 
     <ItemGroup>

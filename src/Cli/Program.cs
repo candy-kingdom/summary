@@ -1,11 +1,14 @@
-﻿using Summary.Markdown;
+﻿using Summary.Cli.Logging;
+using Summary.Markdown;
 using Summary.Pipelines;
 using Summary.Roslyn;
 
 const string input = "../../../../../";
 const string output = "../../../../../docs";
 
-await new SummaryPipeline()
+var options = new SummaryPipeline.Options().UseLoggerFactory(new ConsoleLoggerFactory());
+
+await new SummaryPipeline(options)
     .UseRoslynParser(input)
     .UseMdRenderer(output)
     .Run();
