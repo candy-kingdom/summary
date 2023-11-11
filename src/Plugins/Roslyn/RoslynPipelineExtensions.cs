@@ -23,11 +23,12 @@ public static class RoslynPipelineExtensions
     ///     We recommend using it by default.
     /// </remarks>
     public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string root, string pattern = "*.cs") =>
-        self.ParseWith(
+        self.ParseWith(options =>
             new ScanDirectoryPipe(root, pattern)
                 .ThenForEach(new ParseSyntaxTreePipe())
                 .ThenForEach(new ParseDocPipe())
+                .LogWith(options.LoggerFactory, $"Parsing documentation from '{root}'...")
                 .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty))
-                .Then(new InlineInheritDocPipe())
-                .Then(new FilterPublicMembersPipe()));
+                .Then(new InlineInheritDocPipe().LogWith(options.LoggerFactory, "Inlining <inheritdoc> tags..."))
+                .Then(new FilterPublicMembersPipe().LogWith(options.LoggerFactory, "Filtering public members...")));
 }

@@ -99,12 +99,22 @@ public class SummaryPipeline
     /// </summary>
     public async Task Run()
     {
-        var sw = Stopwatch.StartNew();
+        var doc = await Parse();
 
-        _logger.LogInformation("Generating...");
+        await Render(doc);
 
-        await _parser.Then(_render).Run();
+        Task<Doc> Parse()
+        {
+            using var _ = _logger.BeginScope("Parsing...");
 
-        _logger.LogInformation($"Done ({sw.Elapsed.TotalMilliseconds} ms.)");
+            return _parser.Run();
+        }
+
+        Task Render(Doc doc)
+        {
+            using var _ = _logger.BeginScope("Rendering...");
+
+            return _render.Run(doc);
+        }
     }
 }

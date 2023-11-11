@@ -48,3 +48,17 @@ public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> action)
 
 Constructs a new pipe that will execute the specified action on the output.
 
+### LogWith<I, O>(IPipe<I, O>, ILoggerFactory, string)
+```cs
+public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message)
+```
+
+Logs the execution of the given pipe using the specified logger factory.
+
+### LogWith<I, O>(IPipe<I, O>, ILogger, string)
+```cs
+public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILogger logger, string message)
+```
+
+Logs the execution of the given pipe using the specified logger.
+

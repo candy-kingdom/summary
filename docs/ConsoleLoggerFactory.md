@@ -10,9 +10,19 @@ public static readonly ILogger Instance
 ```
 
 ## Methods
+### Dispose()
+```cs
+public void Dispose()
+```
+
 ### Log<TState>(LogLevel, EventId, TState, Exception?<Exception>, Func<TState, Exception?<Exception>, string>)
 ```cs
-public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
 ```
 
 ### IsEnabled(LogLevel)

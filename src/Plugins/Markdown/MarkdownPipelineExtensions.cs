@@ -16,9 +16,10 @@ public static class MarkdownPipelineExtensions
     ///     The renderer will write all the rendered Markdown files to the specified output directory.
     /// </remarks>
     public static SummaryPipeline UseMdRenderer(this SummaryPipeline self, string output) =>
-        self.RenderWith(
+        self.RenderWith(options =>
             new RenderMarkdownPipe()
                 .Then(new CleanupDirPipe<Md[]>(output))
                 .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
+                .LogWith(options.LoggerFactory, $"Writing Markdown files into '{output}'...")
                 .Fold());
 }

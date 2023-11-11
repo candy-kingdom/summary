@@ -1,4 +1,7 @@
-﻿namespace Summary.Pipes;
+﻿using Microsoft.Extensions.Logging;
+using Summary.Pipes.Logging;
+
+namespace Summary.Pipes;
 
 /// <summary>
 ///     Extension methods for <see cref="IPipe{I,O}" />.
@@ -40,4 +43,16 @@ public static class PipeExtensions
     /// </summary>
     public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> action) =>
         new TeePipe<I, O>(a, action);
+
+    /// <summary>
+    ///     Logs the execution of the given pipe using the specified logger factory.
+    /// </summary>
+    public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message) =>
+        self.LogWith(factory.CreateLogger(self.GetType().Name), message);
+
+    /// <summary>
+    ///     Logs the execution of the given pipe using the specified logger.
+    /// </summary>
+    public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILogger logger, string message) =>
+        new LoggedPipe<I, O>(self, logger, message);
 }
