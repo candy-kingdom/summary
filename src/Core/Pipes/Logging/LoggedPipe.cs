@@ -5,6 +5,9 @@ namespace Summary.Pipes.Logging;
 /// <summary>
 ///     A <see cref="IPipe{I,O}"/> whose output is logged using the provided logger.
 /// </summary>
+/// <remarks>
+///     Logging is implemented by simply beginning a new scope with the given message.
+/// </remarks>
 public class LoggedPipe<I, O> : IPipe<I, O>
 {
     private readonly IPipe<I, O> _inner;
