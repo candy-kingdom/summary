@@ -24,9 +24,12 @@ public class ConsoleLoggerFactory : ILoggerFactory
             public void Dispose()
             {
                 _logger._indent -= Indent;
-                _logger.Log($"Done! ({_sw.ElapsedMilliseconds} ms.)");
+                _logger.Log($"{Done} Done! ({_sw.ElapsedMilliseconds} ms.)");
             }
         }
+
+        private const string Arrow = ">";
+        private const string Done = "✓";
 
         public static readonly ILogger Instance = new Logger();
 
@@ -44,7 +47,7 @@ public class ConsoleLoggerFactory : ILoggerFactory
 
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
-            Log(state);
+            Log($"{Arrow} {state}");
 
             return new Scope(this);
         }
