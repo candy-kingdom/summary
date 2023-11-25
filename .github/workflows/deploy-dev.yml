@@ -1,0 +1,47 @@
+name: Deploy (dev)
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Setup
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: |
+        cd src
+        dotnet restore
+    - name: Build
+      run: |
+        cd src
+        dotnet build --configuration Release --no-restore
+    - name: Test
+      run: |
+        cd src
+        dotnet test --no-restore --verbosity normal
+    - name: Pack
+      run: |
+        cd src
+        dotnet pack --configuration Release /p:VersionSuffix=dev$(date +%Y%m%d%H%M)
+    - name: Publish Core
+      run: |
+        cd src/Core
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
+    - name: Publish Roslyn Plugin
+      run: |
+        cd src/Plugins/Roslyn
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
+    - name: Publish Markdown Plugin
+      run: |
+        cd src/Plugins/Markdown
+        dotnet nuget push **/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s ${{secrets.NUGET_SOURCE}} --skip-duplicate
