@@ -47,12 +47,18 @@ public static class PipeExtensions
     /// <summary>
     ///     Logs the execution of the given pipe using the specified logger factory.
     /// </summary>
-    public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message) =>
-        self.LogWith(factory.CreateLogger(self.GetType().Name), message);
+    public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message) =>
+        self.Logged(factory.CreateLogger(self.GetType().Name), message);
+
+    public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message) =>
+        self.Logged(factory.CreateLogger(self.GetType().Name), message);
 
     /// <summary>
     ///     Logs the execution of the given pipe using the specified logger.
     /// </summary>
-    public static IPipe<I, O> LogWith<I, O>(this IPipe<I, O> self, ILogger logger, string message) =>
+    public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message) =>
+        new LoggedPipe<I, O>(self, logger, message);
+
+    public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message) =>
         new LoggedPipe<I, O>(self, logger, message);
 }

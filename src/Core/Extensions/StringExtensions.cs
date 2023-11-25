@@ -18,4 +18,10 @@ internal static class StringExtensions
 
     private static string Map(this string self, Func<string, string> map) =>
         self is "" ? self : map(self);
+
+    /// <summary>
+    ///     Converts the given relative path into full path.
+    /// </summary>
+    public static string AsFullPath(this string self) =>
+        Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, self));
 }

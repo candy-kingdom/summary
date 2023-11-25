@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Summary.Pipes;
 
@@ -105,14 +104,14 @@ public class SummaryPipeline
 
         Task<Doc> Parse()
         {
-            using var _ = _logger.BeginScope("Parsing...");
+            using var _ = _logger.BeginScope(nameof(Parse));
 
             return _parser.Run();
         }
 
         Task Render(Doc doc)
         {
-            using var _ = _logger.BeginScope("Rendering...");
+            using var _ = _logger.BeginScope(nameof(Render));
 
             return _render.Run(doc);
         }

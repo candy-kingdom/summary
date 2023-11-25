@@ -1,4 +1,5 @@
-﻿using Summary.Pipelines;
+﻿using Summary.Extensions;
+using Summary.Pipelines;
 using Summary.Pipes;
 using Summary.Pipes.Filters;
 using Summary.Pipes.IO;
@@ -27,8 +28,8 @@ public static class RoslynPipelineExtensions
             new ScanDirectoryPipe(root, pattern)
                 .ThenForEach(new ParseSyntaxTreePipe())
                 .ThenForEach(new ParseDocPipe())
-                .LogWith(options.LoggerFactory, $"Parsing documentation from '{root}'...")
-                .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty))
-                .Then(new InlineInheritDocPipe().LogWith(options.LoggerFactory, "Inlining <inheritdoc> tags..."))
-                .Then(new FilterPublicMembersPipe().LogWith(options.LoggerFactory, "Filtering public members...")));
+                .Logged(options.LoggerFactory, $"Parse directory '{root.AsFullPath()}' with '{pattern}' pattern")
+                .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty).Logged(options.LoggerFactory, docs => $"Merge {docs.Length} files"))
+                .Then(new InlineInheritDocPipe().Logged(options.LoggerFactory, "Inline <inheritdoc> tags"))
+                .Then(new FilterPublicMembersPipe().Logged(options.LoggerFactory, "Remove non-public members")));
 }

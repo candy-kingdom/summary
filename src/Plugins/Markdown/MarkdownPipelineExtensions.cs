@@ -1,4 +1,5 @@
-﻿using Summary.Pipelines;
+﻿using Summary.Extensions;
+using Summary.Pipelines;
 using Summary.Pipes;
 using Summary.Pipes.IO;
 
@@ -20,6 +21,6 @@ public static class MarkdownPipelineExtensions
             new RenderMarkdownPipe()
                 .Then(new CleanupDirPipe<Md[]>(output))
                 .ThenForEach(new SavePipe<Md>(output, x => (x.Name, x.Content)))
-                .LogWith(options.LoggerFactory, $"Writing Markdown files into '{output}'...")
+                .Logged(options.LoggerFactory, $"Write Markdown files into directory '{output.AsFullPath()}'")
                 .Fold());
 }
