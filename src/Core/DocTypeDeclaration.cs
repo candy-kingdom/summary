@@ -28,6 +28,19 @@ public record DocTypeDeclaration : DocMember
     /// </summary>
     public required bool Record { get; init; }
 
+    public IEnumerable<DocMember> AllMembers
+    {
+        get
+        {
+            return FromMany(Members);
+
+            IEnumerable<DocMember> FromMany(IEnumerable<DocMember> members) => members
+                .Concat(members.OfType<DocTypeDeclaration>().SelectMany(FromType));
+            IEnumerable<DocMember> FromType(DocTypeDeclaration type) => FromMany(type.Members);
+        }
+    }
+
+
     /// <summary>
     ///     A sequence of members of this type declaration that has the same type as the specified one.
     /// </summary>

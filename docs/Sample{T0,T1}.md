@@ -15,6 +15,7 @@ Here is a ~~strikethrough~~ fragment.
 _Remarks section._
 _Second line._
 _Another paragraph._
+_Btw, this type has a child: [`Sample{T0,T1}.Child`](./Sample{T0,T1}.Child.md)._
 
 ## Type Parameters
 - `T0`: A first type parameter.
@@ -44,6 +45,13 @@ public Action Event2 { add; remove; }
 A sample property event.
 
 ## Fields
+### Field
+```cs
+public int Field
+```
+
+A field of the child class.
+
 ### Field1
 ```cs
 public int Field1

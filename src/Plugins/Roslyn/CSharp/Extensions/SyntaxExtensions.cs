@@ -75,7 +75,7 @@ internal static class SyntaxExtensions
     ///     A <see cref="DocType" /> that represents the type this node is declared in.
     /// </summary>
     public static DocType? DeclaringType(this SyntaxNode self) =>
-        self.FirstAncestorOrSelf<TypeDeclarationSyntax>()?.Type();
+        self.Ancestors().OfType<TypeDeclarationSyntax>().FirstOrDefault()?.Type();
 
     /// <summary>
     ///     A list of attributes of the specified member formatted as a string.

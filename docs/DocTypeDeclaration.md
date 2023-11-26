@@ -35,6 +35,11 @@ public required bool Record { get; init; }
 
 Whether this type declaration is a record declaration.
 
+### AllMembers
+```cs
+public IEnumerable<DocMember> AllMembers { get; }
+```
+
 ## Methods
 ### MembersOfType(DocMember)
 ```cs

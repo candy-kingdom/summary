@@ -19,11 +19,23 @@ public delegate void GlobalDelegate(int x, int y);
 ///     Remarks section.
 ///     Second line.
 ///     Another paragraph.
+///     Btw, this type has a child: <see cref="Sample{T0,T1}.Child"/>.
 /// </remarks>
 /// <typeparam name="T0">A first type parameter.</typeparam>
 /// <typeparam name="T1">A second type parameter.</typeparam>
 public class Sample<T0, T1>
 {
+    /// <summary>
+    ///     A child of the <see cref="Sample{T0,T1}"/> class.
+    /// </summary>
+    public class Child
+    {
+        /// <summary>
+        ///     A field of the child class.
+        /// </summary>
+        public int Field;
+    }
+
     /// <summary>
     ///     A sample delegate.
     /// </summary>

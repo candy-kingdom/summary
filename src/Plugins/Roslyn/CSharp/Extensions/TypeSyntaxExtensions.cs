@@ -12,7 +12,7 @@ internal static class TypeSyntaxExtensions
     ///     Converts the given type declaration into <see cref="DocType" />.
     /// </summary>
     public static DocType Type(this TypeDeclarationSyntax self) =>
-        SyntaxFactory.ParseTypeName(self.Identifier.ValueText).Type();
+        SyntaxFactory.ParseTypeName($"{self.Identifier}{self.TypeParameterList}").Type();
 
     /// <summary>
     ///     Converts the given type syntax into <see cref="DocType" />.

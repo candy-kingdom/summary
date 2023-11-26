@@ -8,6 +8,6 @@ A [`IPipe{I,O}`](./IPipe{I,O}.md) that renders generated document into the seque
 ## Methods
 ### Run(Doc)
 ```cs
-public Task<Md[]> Run(Doc input)
+public Task<Md[]> Run(Doc doc)
 ```
 
