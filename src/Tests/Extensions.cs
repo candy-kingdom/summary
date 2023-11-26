@@ -8,7 +8,7 @@ namespace Summary.Tests;
 public static class Extensions
 {
     /// <summary>
-    ///     Runs the pipe synchronously
+    ///     Runs the pipe synchronously.
     /// </summary>
     /// <param name="self">The pipe to execute.</param>
     public static O RunSync<O>(this IPipe<Unit, O> self) =>
