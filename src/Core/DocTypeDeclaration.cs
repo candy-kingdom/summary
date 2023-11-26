@@ -28,6 +28,9 @@ public record DocTypeDeclaration : DocMember
     /// </summary>
     public required bool Record { get; init; }
 
+    /// <summary>
+    ///     All nested members (including children of children) of this type declaration.
+    /// </summary>
     public IEnumerable<DocMember> AllMembers
     {
         get
