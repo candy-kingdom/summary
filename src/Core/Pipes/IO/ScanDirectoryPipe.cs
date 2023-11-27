@@ -5,20 +5,22 @@
 /// </summary>
 public class ScanDirectoryPipe : IPipe<Unit, string[]>
 {
-    private readonly string _root;
+    private readonly string[] _sources;
     private readonly string _pattern;
 
-    public ScanDirectoryPipe(string root, string pattern)
+    public ScanDirectoryPipe(string[] sources, string pattern)
     {
-        _root = root;
+        _sources = sources;
         _pattern = pattern;
     }
 
     public async Task<string[]> Run(Unit _)
     {
-        var tasks = Directory
-            .EnumerateFiles(_root, _pattern, SearchOption.AllDirectories)
-            .Select(x => File.ReadAllTextAsync(x));
+        var tasks = _sources
+            .SelectMany(x =>
+                Directory
+                    .EnumerateFiles(x, _pattern, SearchOption.AllDirectories)
+                    .Select(x => File.ReadAllTextAsync(x)));
 
         return await Task.WhenAll(tasks).ConfigureAwait(false);
     }
