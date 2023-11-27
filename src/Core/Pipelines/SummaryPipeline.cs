@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Summary.Pipes;
+using Summary.Pipes.Filters;
 
 namespace Summary.Pipelines;
 
@@ -37,11 +38,12 @@ public class SummaryPipeline
         private Options With<T>(T _) => this;
     }
 
-    private readonly Options _options;
-    private readonly ILogger<SummaryPipeline> _logger;
+    private ILogger<SummaryPipeline> _logger = null!;
+    private Options _options = null!;
 
     private IPipe<Unit, Doc> _parser = new FuncPipe<Unit, Doc>(_ => Doc.Empty);
     private IPipe<Doc, Unit> _render = new FuncPipe<Doc, Unit>(_ => Unit.Value);
+
 
     /// <summary>
     ///     Constructs the documentation generation pipeline with default options.
@@ -53,9 +55,22 @@ public class SummaryPipeline
     /// </summary>
     public SummaryPipeline(Options options)
     {
-        _options = options;
-        _logger = options.LoggerFactory.CreateLogger<SummaryPipeline>();
+        Set(options);
     }
+
+    /// <summary>
+    ///     The list of all filters applied after the document is parsed.
+    /// </summary>
+    /// <remarks>
+    ///     Filters are applied in a separate run after the document is successfully parsed.
+    /// </remarks>
+    public List<IPipe<Doc, Doc>> Filters { get; } = new() { new FilterPublicMembersPipe() };
+
+    /// <summary>
+    ///     Customizes the default pipeline options using the specified delegate.
+    /// </summary>
+    public SummaryPipeline Customize(Func<Options, Options> options) =>
+        Set(options(_options));
 
     /// <summary>
     ///     Specifies the custom parser with logging support for this pipeline.
@@ -100,6 +115,8 @@ public class SummaryPipeline
     {
         var doc = await Parse();
 
+        doc = await Filter(doc);
+
         await Render(doc);
 
         Task<Doc> Parse()
@@ -109,11 +126,29 @@ public class SummaryPipeline
             return _parser.Run();
         }
 
+        async Task<Doc> Filter(Doc doc)
+        {
+            using var _ = _logger.BeginScope(nameof(Filter));
+
+            foreach (var filter in Filters)
+                doc = await filter.Run(doc);
+
+            return doc;
+        }
+
         Task Render(Doc doc)
         {
             using var _ = _logger.BeginScope(nameof(Render));
 
             return _render.Run(doc);
         }
+    }
+
+    private SummaryPipeline Set(Options options)
+    {
+        _options = options;
+        _logger = options.LoggerFactory.CreateLogger<SummaryPipeline>();
+
+        return this;
     }
 }

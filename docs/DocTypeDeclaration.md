@@ -40,6 +40,8 @@ Whether this type declaration is a record declaration.
 public IEnumerable<DocMember> AllMembers { get; }
 ```
 
+All nested members (including children of children) of this type declaration.
+
 ## Methods
 ### MembersOfType(DocMember)
 ```cs

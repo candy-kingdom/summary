@@ -6,9 +6,8 @@ using Summary.Roslyn;
 const string input = "../../../../../";
 const string output = "../../../../../docs";
 
-var options = new SummaryPipeline.Options().UseLoggerFactory(new ConsoleLoggerFactory());
-
-await new SummaryPipeline(options)
+await new SummaryPipeline()
+    .UseLoggerFactory(new ConsoleLoggerFactory())
     .UseRoslynParser(input)
     .UseMdRenderer(output)
     .Run();
