@@ -11,9 +11,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AssemblyVersion>0.0.3</AssemblyVersion>
-        <FileVersion>0.0.3</FileVersion>
-        <PackageVersion>0.0.3</PackageVersion>
+        <VersionPrefix>0.0.4</VersionPrefix>
 
         <Title>Summary.Roslyn</Title>
         <Description>Plugin for Summary documentation generator that parses documentation using Roslyn API.</Description>
@@ -24,7 +22,7 @@
         <PackageTags>docs;doc;documentation;documentation generator;api reference;roslyn</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-        <Copyright>Copyright © 2023 @joshua-light, @konstantin-ogulchansky</Copyright>
+        <Copyright>Copyright © 2023 @joshua-light, @kostiantxn</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
