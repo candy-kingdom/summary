@@ -12,7 +12,7 @@ namespace Summary.Roslyn;
 /// </summary>
 public static class RoslynPipelineExtensions
 {
-    /// <inheritdoc cref="UseRoslynParser(Summary.Pipelines.SummaryPipeline,string[],string)"/>
+    /// <inheritdoc cref="UseRoslynParser(SummaryPipeline,string[],string)"/>
     public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string source, string pattern = "*.cs") =>
         self.UseRoslynParser(new[] { source }, pattern);
 
