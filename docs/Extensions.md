@@ -11,7 +11,7 @@ Extension methods that simplify unit testing and should not be included in the p
 public static O RunSync<O>(this IPipe<Unit, O> self)
 ```
 
-Runs the pipe synchronously
+Runs the pipe synchronously.
 
 #### Parameters
 - `self`: The pipe to execute.
