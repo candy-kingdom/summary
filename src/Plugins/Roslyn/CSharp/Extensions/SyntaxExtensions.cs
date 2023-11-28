@@ -68,6 +68,10 @@ internal static class SyntaxExtensions
         if (self.Modifiers.Any(SyntaxKind.PrivateKeyword))
             return AccessModifier.Private;
 
+        // Interface members without explicit access modifiers are considered public.
+        if (self.Parent is InterfaceDeclarationSyntax)
+            return AccessModifier.Public;
+
         return AccessModifier.Private;
     }
 
