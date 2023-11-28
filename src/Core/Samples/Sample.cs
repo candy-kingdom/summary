@@ -24,6 +24,7 @@ public delegate void GlobalDelegate(int x, int y);
 /// <typeparam name="T0">A first type parameter.</typeparam>
 /// <typeparam name="T1">A second type parameter.</typeparam>
 public class Sample<T0, T1>
+    where T1 : class, new()
 {
     /// <summary>
     ///     A child of the <see cref="Sample{T0,T1}"/> class.
