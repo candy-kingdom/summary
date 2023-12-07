@@ -33,6 +33,5 @@ public static class RoslynPipelineExtensions
                 .ThenForEach(new ParseDocPipe())
                 .Logged(options.LoggerFactory, $"Parse directories [{sources.Select(x => $"'{x.AsFullPath()}'").Separated(with: ", ")}] with '{pattern}' pattern")
                 .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty).Logged(options.LoggerFactory, docs => $"Merge {docs.Length} files"))
-                .Then(new InlineInheritDocPipe().Logged(options.LoggerFactory, "Inline <inheritdoc> tags"))
-                .Then(new FilterPublicMembersPipe().Logged(options.LoggerFactory, "Remove non-public members")));
+                .Then(new InlineInheritDocPipe().Logged(options.LoggerFactory, "Inline <inheritdoc> tags")));
 }

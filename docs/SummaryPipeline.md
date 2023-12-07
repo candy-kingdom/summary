@@ -19,6 +19,15 @@ public ILoggerFactory LoggerFactory { get; }
 
 The factory that provides logger implementations.
 
+### Filters
+```cs
+public List<IPipe<Doc, Doc>> Filters { get; }
+```
+
+The list of all filters applied after the document is parsed.
+
+_Filters are applied in a separate run after the document is successfully parsed._
+
 ## Methods
 ### UseLoggerFactory(ILoggerFactory)
 ```cs
@@ -26,6 +35,13 @@ public Options UseLoggerFactory(ILoggerFactory loggers)
 ```
 
 Specifies the logger factory that will be used to create loggers for the pipeline.
+
+### Customize(Func<Options, Options>)
+```cs
+public SummaryPipeline Customize(Func<Options, Options> options)
+```
+
+Customizes the default pipeline options using the specified delegate.
 
 ### ParseWith(Func<Options, IPipe<Unit, Doc>>)
 ```cs
