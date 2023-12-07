@@ -64,7 +64,7 @@ public class SummaryPipeline
     /// <remarks>
     ///     Filters are applied in a separate run after the document is successfully parsed.
     /// </remarks>
-    public List<IPipe<Doc, Doc>> Filters { get; } = new() { new FilterMemberPipe(x => x.Access is AccessModifier.Public) };
+    public List<IPipe<Doc, Doc>> Filters { get; } = new();
 
     /// <summary>
     ///     Customizes the default pipeline options using the specified delegate.
