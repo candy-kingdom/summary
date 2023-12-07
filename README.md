@@ -27,6 +27,7 @@ const string output = "./docs";
 await new SummaryPipeline()
     .UseRoslynParser(input)
     .UseMdRenderer(output)
+    .UseDefaultFilters()
     .Run();
 ```
 

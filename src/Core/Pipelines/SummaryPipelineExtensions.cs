@@ -20,14 +20,40 @@ public static class SummaryPipelineExtensions
         self.Customize(options => options.UseLoggerFactory(factory));
 
     /// <summary>
-    ///     Disables <see cref="FilterPublicMembersPipe"/> filter in the pipeline.
-    ///     This makes the generator to include private members into the parsed document.
+    ///     Enables default filters for the given pipeline (i.e. a filter that removes all non-public members).
     /// </summary>
-    public static SummaryPipeline IncludeNonPublicMembers(this SummaryPipeline self)
-    {
-        self.Filters.RemoveAll(x => x is FilterPublicMembersPipe);
-        return self;
-    }
+    public static SummaryPipeline UseDefaultFilters(this SummaryPipeline self) => self
+        .IncludeOnly(AccessModifier.Public);
+
+    /// <summary>
+    ///     Includes only members that have at least the given access modifier.
+    /// </summary>
+    /// <example>
+    ///     In order to include both <c>internal</c> and <c>public</c> members in the generated docs,
+    ///     you can call this method as follows:
+    ///     <para><code>
+    ///         var pipeline = ...;
+    ///
+    ///         pipeline.IncludeAtLeast(AccessModifier.Internal);
+    ///     </code></para>
+    /// </example>
+    public static SummaryPipeline IncludeAtLeast(this SummaryPipeline self, AccessModifier access) => self
+        .UseFilter(new FilterMemberPipe(x => x.Access >= access));
+
+    /// <summary>
+    ///     Includes only members that have at least the given access modifier.
+    /// </summary>
+    /// <example>
+    ///     In order to include onl <c>internal</c> members in the generated docs,
+    ///     you can call this method as follows:
+    ///     <para><code>
+    ///         var pipeline = ...;
+    ///
+    ///         pipeline.IncludeOnly(AccessModifier.Internal);
+    ///     </code></para>
+    /// </example>
+    public static SummaryPipeline IncludeOnly(this SummaryPipeline self, AccessModifier access) => self
+        .UseFilter(new FilterMemberPipe(x => x.Access == access));
 
     /// <summary>
     ///     Adds the given filter into the pipeline.

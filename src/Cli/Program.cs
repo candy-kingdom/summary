@@ -10,4 +10,5 @@ await new SummaryPipeline()
     .UseLoggerFactory(new ConsoleLoggerFactory())
     .UseRoslynParser(input)
     .UseMdRenderer(output)
+    .UseDefaultFilters()
     .Run();
