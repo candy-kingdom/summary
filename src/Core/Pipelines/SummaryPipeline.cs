@@ -53,10 +53,8 @@ public class SummaryPipeline
     /// <summary>
     ///     Constructs the documentation generation pipeline with the specified options.
     /// </summary>
-    public SummaryPipeline(Options options)
-    {
+    public SummaryPipeline(Options options) =>
         Set(options);
-    }
 
     /// <summary>
     ///     The list of all filters applied after the document is parsed.
