@@ -16,6 +16,10 @@ public class ScanDirectoryPipe : IPipe<Unit, string[]>
 
     public async Task<string[]> Run(Unit _)
     {
+        // TODO: Consider refactoring this into more proper solution (@j.light).
+        if (_sources is [var root] && File.Exists(root))
+            return new[] { await File.ReadAllTextAsync(root) };
+
         var tasks = _sources
             .SelectMany(x =>
                 Directory

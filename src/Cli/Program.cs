@@ -3,7 +3,7 @@ using Summary.Markdown;
 using Summary.Pipelines;
 using Summary.Roslyn;
 
-const string input = "../../../../../";
+const string input = "../../../../../src/";
 const string output = "../../../../../docs";
 
 var options = new SummaryPipeline.Options().UseLoggerFactory(new ConsoleLoggerFactory());
