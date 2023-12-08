@@ -49,6 +49,21 @@ public required DocType? DeclaringType { get; init; }
 
 The type that this member is declared in (works for nested types as well).
 
+### Deprecated
+```cs
+[MemberNotNullWhen(true, nameof(Deprecation))]
+public bool Deprecated { get; }
+```
+
+Whether the member is deprecated (e.g. marked with `[Obsolete]`).
+
+### Deprecation
+```cs
+public DocDeprecation? Deprecation { get; init; }
+```
+
+The member deprecation information.
+
 ## Methods
 ### MatchesCref(string)
 ```cs

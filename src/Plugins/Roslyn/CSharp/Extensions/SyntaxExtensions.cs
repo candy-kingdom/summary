@@ -82,6 +82,56 @@ internal static class SyntaxExtensions
         self.Ancestors().OfType<TypeDeclarationSyntax>().FirstOrDefault()?.Type();
 
     /// <summary>
+    ///     A <see cref="DocDeprecation"/> that contains the member deprecation information.
+    /// </summary>
+    public static DocDeprecation? Deprecation(this SyntaxList<AttributeListSyntax> self)
+    {
+        var attribute = self
+            .SelectMany(x => x.Attributes)
+            .FirstOrDefault(x => x.Name.ToString() is
+                "Obsolete" or "System.Obsolete" or "global::System.Obsolete" or
+                "ObsoleteAttribute" or "System.ObsoleteAttribute" or "global::System.ObsoleteAttribute");
+
+        if (attribute is null)
+            return null;
+
+        var message = null as string;
+        var error = false;
+
+        if (attribute.ArgumentList?.Arguments.Count > 0)
+        {
+            var arguments = attribute.ArgumentList.Arguments;
+
+            // `message` is the first positional argument.
+            if (arguments[0] is { NameColon: null, NameEquals: null })
+            {
+                message = arguments[0].Expression.ToString();
+
+                // `error` is the second positional or named argument.
+                if (arguments.Count > 1 && arguments[1].NameEquals is null)
+                    bool.TryParse(arguments[1].Expression.ToString(), out error);
+            }
+            else
+            {
+                message = Named(arguments, "message");
+
+                bool.TryParse(Named(arguments, "error"), out error);
+
+                static string? Named(SeparatedSyntaxList<AttributeArgumentSyntax> arguments, string name) =>
+                    arguments
+                        .FirstOrDefault(x => x.NameEquals?.Name.Identifier.ValueText == name)?
+                        .Expression.ToString();
+            }
+        }
+
+        return new DocDeprecation
+        {
+            Message = message,
+            Error = error,
+        };
+    }
+
+    /// <summary>
     ///     A list of attributes of the specified member formatted as a string.
     /// </summary>
     public static string Attributes(this MemberDeclarationSyntax self) =>

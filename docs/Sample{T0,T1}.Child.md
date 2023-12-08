@@ -1,5 +1,6 @@
-# Summary.Samples.Sample.Child
+# ~~Summary.Samples.Sample.Child~~
 ```cs
+[Obsolete(error: true, message: "The type is deprecated.")]
 public class Child
 ```
 

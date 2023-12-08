@@ -87,15 +87,15 @@ internal class MdRenderer
     {
         DocMethod x =>
             Line($"{new string(c: '#', _level)} " +
-                 $"{x.Name}" +
+                 $"{x.Name.Surround("~~", "~~", when: x.Deprecated)}" +
                  $"{x.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
                  $"({x.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
         DocIndexer x =>
             Line($"{new string(c: '#', _level)} this[{x.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
         DocTypeDeclaration x when _level is 1 =>
-            Line($"{new string(c: '#', _level)} {member.FullyQualifiedName}{x.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
+            Line($"{new string(c: '#', _level)} {x.FullyQualifiedName.Surround("~~", "~~", when: x.Deprecated)}{x.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
         _ =>
-            Line($"{new string(c: '#', _level)} {member.Name}"),
+            Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
     };
 
     private MdRenderer ElementSection(string name, DocCommentElement? element, Func<string, string>? map = null) =>

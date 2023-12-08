@@ -32,5 +32,6 @@ internal static class FieldSyntaxExtensions
             Access = field.Access(),
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = field.AttributeLists.Deprecation(),
         };
 }

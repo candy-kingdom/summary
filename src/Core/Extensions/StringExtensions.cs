@@ -16,6 +16,13 @@ internal static class StringExtensions
     public static string Surround(this string self, string left, string right) =>
         self.Map(x => $"{left}{x}{right}");
 
+    /// <summary>
+    ///     Surrounds the specified string with the given prefix and suffix strings
+    ///     if the specified condition is satisfied. If the string is empty, returns the string as is.
+    /// </summary>
+    public static string Surround(this string self, string left, string right, bool when) =>
+        when ? self.Surround(left, right) : self;
+
     private static string Map(this string self, Func<string, string> map) =>
         self is "" ? self : map(self);
 

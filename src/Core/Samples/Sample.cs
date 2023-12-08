@@ -29,6 +29,7 @@ public class Sample<T0, T1>
     /// <summary>
     ///     A child of the <see cref="Sample{T0,T1}"/> class.
     /// </summary>
+    [Obsolete(error: true, message: "The type is deprecated.")]
     public class Child
     {
         /// <summary>
@@ -45,6 +46,7 @@ public class Sample<T0, T1>
     /// <summary>
     ///     A sample field.
     /// </summary>
+    [Obsolete("The field is deprecated.")]
     public int Field1;
 
     /// <summary>
