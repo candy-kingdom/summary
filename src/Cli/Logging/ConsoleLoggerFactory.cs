@@ -3,6 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Summary.Cli.Logging;
 
+/// <summary>
+///     A simple factory for console loggers that format messages in the Summary CLI way.
+/// </summary>
 public class ConsoleLoggerFactory : ILoggerFactory
 {
     private class Logger : ILogger

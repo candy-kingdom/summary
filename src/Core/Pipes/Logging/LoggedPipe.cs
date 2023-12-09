@@ -8,26 +8,15 @@ namespace Summary.Pipes.Logging;
 /// <remarks>
 ///     Logging is implemented by simply beginning a new scope with the given message.
 /// </remarks>
-public class LoggedPipe<I, O> : IPipe<I, O>
+public class LoggedPipe<I, O>(IPipe<I, O> inner, ILogger logger, Func<I, string> message) : IPipe<I, O>
 {
-    private readonly IPipe<I, O> _inner;
-    private readonly ILogger _logger;
-    private readonly Func<I, string> _message;
-
     public LoggedPipe(IPipe<I, O> inner, ILogger logger, string message)
         : this(inner, logger, _ => message) { }
 
-    public LoggedPipe(IPipe<I, O> inner, ILogger logger, Func<I, string> message)
-    {
-        _inner = inner;
-        _logger = logger;
-        _message = message;
-    }
-
     public Task<O> Run(I input)
     {
-        using var _ = _logger.BeginScope(_message(input));
+        using var _ = logger.BeginScope(message(input));
 
-        return _inner.Run(input);
+        return inner.Run(input);
     }
 }

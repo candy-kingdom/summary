@@ -3,6 +3,8 @@
 public class ConsoleLoggerFactory : ILoggerFactory
 ```
 
+A simple factory for console loggers that format messages in the Summary CLI way.
+
 ## Fields
 ### Instance
 ```cs

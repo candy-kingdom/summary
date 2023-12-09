@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Summary.Pipes;
-using Summary.Pipes.Filters;
 
 namespace Summary.Pipelines;
 
