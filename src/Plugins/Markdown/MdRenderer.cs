@@ -114,6 +114,9 @@ internal class MdRenderer
     {
         if (!string.IsNullOrWhiteSpace(deprecation?.Message))
         {
+            // We currently render the deprecation message as an alert: https://github.com/orgs/community/discussions/16925.
+            // > Alerts are an extension of Markdown used to emphasize critical information. On GitHub, they
+            // > are displayed with distinctive colors and icons to indicate the importance of the content.
             return this
                 .Line($"> [!WARNING]")
                 .Line($"> {deprecation.Message}")
