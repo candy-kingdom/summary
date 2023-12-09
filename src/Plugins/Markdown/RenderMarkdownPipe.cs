@@ -25,7 +25,7 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 
         string Name(DocMember x) => x switch
         {
-            DocTypeDeclaration { DeclaringType: null } type  => $"{x.Name}{TypeParams(type)}",
+            DocTypeDeclaration { DeclaringType: null } type => $"{x.Name}{TypeParams(type)}",
             DocTypeDeclaration { DeclaringType: not null } type => $"{type.DeclaringType!.FullName.AsCref()}.{x.Name}{TypeParams(type)}",
 
             _ => x.Name,

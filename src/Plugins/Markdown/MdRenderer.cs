@@ -28,15 +28,15 @@ internal class MdRenderer
             _renderer._level -= 2;
     }
 
-    private readonly StringBuilder _sb = new();
+    private readonly StringBuilder _builder = new();
 
     private int _level = 1;
 
     /// <summary>
-    ///     Converts the rendered text into a string.
+    ///     Converts the rendered Markdown into a string.
     /// </summary>
     public string Text() =>
-        _sb.ToString();
+        _builder.ToString();
 
     /// <summary>
     ///     Renders the specified documentation member into Markdown format.
@@ -45,146 +45,132 @@ internal class MdRenderer
 
     private MdRenderer Member(DocTypeDeclaration? parent, DocMember member) => member switch
     {
-        DocTypeDeclaration type =>
-            MemberHeader(type).TypeDeclaration(type),
-        DocMethod method =>
-            MemberHeader(method).Method(method),
-        DocProperty { Generated: true } generated =>
-            GeneratedProperty(parent!, generated),
-        DocIndexer indexer =>
-            MemberHeader(indexer).Indexer(indexer),
-        _ =>
-            MemberHeader(member),
+        DocTypeDeclaration type => TypeDeclaration(type),
+        DocMethod method => Method(method),
+        DocProperty property => Property(parent!, property),
+        _ => Header(member),
     };
 
-    private MdRenderer TypeDeclaration(DocTypeDeclaration type) => TypeParamsSection(type)
-        .MembersSection<DocMethod>("Delegates", type, x => x.Delegate)
-        .MembersSection<DocProperty>("Events", type, x => x.Event)
-        .MembersSection<DocField>("Fields", type)
-        .MembersSection<DocProperty>("Properties", type, x => !x.Event && x is not DocIndexer)
-        .MembersSection<DocIndexer>("Indexers", type)
-        .MembersSection<DocMethod>("Methods", type, x => !x.Delegate);
+    private MdRenderer TypeDeclaration(DocTypeDeclaration type) => this
+        .Header(type)
+        .TypeParams(type)
+        .Members<DocMethod>("Delegates", type, x => x.Delegate)
+        .Members<DocProperty>("Events", type, x => x.Event)
+        .Members<DocField>("Fields", type)
+        .Members<DocProperty>("Properties", type, x => !x.Event && x is not DocIndexer)
+        .Members<DocIndexer>("Indexers", type)
+        .Members<DocMethod>("Methods", type, x => !x.Delegate);
 
-    private MdRenderer Method(DocMethod method) => TypeParamsSection(method)
-        .ParamsSection(method)
-        .ReturnsSection(method.Comment);
+    private MdRenderer Method(DocMethod method) => this
+        .Header(method)
+        .TypeParams(method)
+        .Params(method)
+        .Returns(method.Comment);
 
-    private MdRenderer Indexer(DocIndexer indexer) => ParamsSection(indexer)
-        .ReturnsSection(indexer.Comment);
+    private MdRenderer Property(DocTypeDeclaration parent, DocProperty property)
+    {
+        if (property.Generated)
+            return this
+                .Name(property)
+                .Declaration(property)
+                .Element(parent.Comment.Param(property.Name));
 
-    private MdRenderer MemberHeader(DocMember member) => Name(member)
-        .Deprecation(member)
+        if (property is DocIndexer indexer)
+            return Indexer(indexer);
+
+        return Header(property);
+    }
+
+    private MdRenderer Header(DocMember member) => this
+        .Name(member)
+        .Deprecation(member.Deprecation)
         .Declaration(member)
         .Element(member.Comment.Element("summary"))
         .Element(member.Comment.Element("remarks"), x => $"_{x}_")
-        .ElementSection("Example", member.Comment.Element("example"));
+        .Elements("Example", member.Comment.Element("example"));
 
-    private MdRenderer GeneratedProperty(DocTypeDeclaration parent, DocMember prop) => Name(prop)
-        .Declaration(prop)
-        .Element(parent.Comment.Param(prop.Name));
+    private MdRenderer Indexer(DocIndexer indexer) => this
+        .Header(indexer)
+        .Params(indexer)
+        .Returns(indexer.Comment);
 
     // TODO: We can omit rendering `Name` and render `Declaration` only but it'd be nice to make this customizable via plugins.
     private MdRenderer Name(DocMember member) => member switch
     {
-        DocMethod x =>
+        DocMethod method =>
             Line($"{new string(c: '#', _level)} " +
-                 $"{x.Name.Surround("~~", "~~", when: x.Deprecated)}" +
-                 $"{x.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
-                 $"({x.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
-        DocIndexer x =>
-            Line($"{new string(c: '#', _level)} this[{x.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
-        DocTypeDeclaration x when _level is 1 =>
-            Line($"{new string(c: '#', _level)} {x.FullyQualifiedName.Surround("~~", "~~", when: x.Deprecated)}{x.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
+                 $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
+                 $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
+                 $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
+        DocIndexer indexer =>
+            Line($"{new string(c: '#', _level)} this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
+        DocTypeDeclaration type when _level is 1 =>
+            Line($"{new string(c: '#', _level)} {type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
         _ =>
             Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
     };
 
-    private MdRenderer ElementSection(string name, DocCommentElement? element, Func<string, string>? map = null) =>
-        element is null ? this : Line($"{new string(c: '#', _level + 1)} {name}").Element(element, map);
-
-    private MdRenderer Declaration(DocMember member) => Line("```cs")
-        .Line(member.Declaration)
-        .Line("```")
-        .Line();
-
-    private MdRenderer Deprecation(DocMember member)
+    private MdRenderer Deprecation(DocDeprecation? deprecation)
     {
-        if (member.Deprecated && !string.IsNullOrWhiteSpace(member.Deprecation.Message))
+        if (!string.IsNullOrWhiteSpace(deprecation?.Message))
         {
-            return Line("> [!WARNING]")
-                .Line($"> {member.Deprecation.Message}")
+            return this
+                .Line($"> [!WARNING]")
+                .Line($"> {deprecation.Message}")
                 .Line();
         }
 
         return this;
     }
 
-    private MdRenderer TypeParamsSection(DocMethod method) =>
-        ParamsSection("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
+    private MdRenderer Declaration(DocMember member) => this
+        .Line("```cs")
+        .Line(member.Declaration)
+        .Line("```")
+        .Line();
 
-    private MdRenderer TypeParamsSection(DocTypeDeclaration type) =>
-        ParamsSection("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
+    private MdRenderer TypeParams(DocMethod method) =>
+        Params("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
 
-    private MdRenderer ParamsSection(DocMethod method) =>
-        ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
+    private MdRenderer TypeParams(DocTypeDeclaration type) =>
+        Params("Type Parameters", type.TypeParams.Select(x => (x.Name, x.Comment(type))));
 
-    private MdRenderer ParamsSection(DocIndexer method) =>
-        ParamsSection("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
+    private MdRenderer Params(DocMethod method) =>
+        Params("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
 
-    private MdRenderer ParamsSection(string section, IEnumerable<(string Name, DocCommentElement? Comment)> parameters)
-    {
-        if (parameters.All(x => x.Comment is null))
-            return this;
+    private MdRenderer Params(DocIndexer method) =>
+        Params("Parameters", method.Params.Select(x => (x.Name, x.Comment(method))));
 
-        Section(section);
+    private MdRenderer Params(string section, IEnumerable<(string Name, DocCommentElement? Comment)> parameters) =>
+        Params(section, parameters.Where(x => x.Comment is not null).ToList()!);
 
-        foreach (var param in parameters)
-            Line($"- `{param.Name}`: {param.Comment.Render()}");
+    private MdRenderer Params(string section, ICollection<(string Name, DocCommentElement Comment)> parameters) =>
+        Section(section, parameters, x => Line($"- `{x.Name}`: {x.Comment.Render()}")).Line(when: parameters.Any());
 
-        return Line();
-    }
+    private MdRenderer Members<T>(string section, DocTypeDeclaration type) where T : DocMember =>
+        Members<T>(section, type, _ => true);
 
-    private MdRenderer ReturnsSection(DocComment comment) =>
-        ElementSection("Returns", comment.Element("returns"));
+    private MdRenderer Members<T>(string section, DocTypeDeclaration type, Func<T, bool> p) where T : DocMember =>
+        Members(section, type, type.Members.OfType<T>().Where(p));
 
-    private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type) where T : DocMember =>
-        MembersSection<T>(section, type, _ => true);
+    private MdRenderer Members<T>(string section, DocTypeDeclaration type, IEnumerable<T> members) where T : DocMember =>
+        Section(section, members, x => Member(type, x));
 
-    private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type, Func<T, bool> p) where T : DocMember =>
-        MembersSection(section, type, type.Members.OfType<T>().Where(p));
+    private MdRenderer Returns(DocComment comment) =>
+        Elements("Returns", comment.Element("returns"));
 
-    private MdRenderer MembersSection<T>(string section, DocTypeDeclaration type, IEnumerable<T> members) where T : DocMember =>
-        MembersSection(section, type, members, Member);
-
-    private MdRenderer MembersSection<T>(
-        string section,
-        DocTypeDeclaration type,
-        IEnumerable<T> members,
-        Func<DocTypeDeclaration, T, MdRenderer> render) where T : DocMember
-    {
-        if (members.Any())
-        {
-            Section(section);
-
-            using var _ = new Scope(this);
-
-            foreach (var x in members)
-                render(type, x);
-        }
-
-        return this;
-    }
+    private MdRenderer Elements(string section, DocCommentElement? element, Func<string, string>? map = null) =>
+        element is null ? this : Section(section).Element(element, map);
 
     private MdRenderer Element(DocCommentElement? element, Func<string, string>? map = null)
     {
         if (element is null)
             return this;
 
-        var lines =
-            element
-                .Render()
-                .Split(NewLine)
-                .Select(x => x is "" ? x : map?.Invoke(x) ?? x);
+        var lines = element
+            .Render()
+            .Split(NewLine)
+            .Select(x => x is "" ? x : map?.Invoke(x) ?? x);
 
         foreach (var line in lines)
             Line(line);
@@ -192,12 +178,41 @@ internal class MdRenderer
         return Line();
     }
 
-    private MdRenderer Section(string name) =>
-        Line($"{new string(c: '#', _level + 1)} {name}");
+    private MdRenderer Section(string name)
+    {
+        _builder.Append('#', _level + 1).Append(' ').AppendLine(name);
+        return this;
+    }
 
-    private MdRenderer Line(string s = "", bool when = true) =>
-        With(when ? _sb.AppendLine(s) : _sb);
+    private MdRenderer Section<T>(string name, IEnumerable<T> items, Action<T> render)
+    {
+        var scope = null as IDisposable;
 
-    private MdRenderer With<T>(T _) =>
-        this;
+        try
+        {
+            foreach (var item in items)
+            {
+                scope ??= Section(name).Scoped();
+
+                render(item);
+            }
+        }
+        finally
+        {
+            scope?.Dispose();
+        }
+
+        return this;
+    }
+
+    private MdRenderer Line(string text = "", bool when = true)
+    {
+        if (when)
+            _builder.AppendLine(text);
+
+        return this;
+    }
+
+    private Scope Scoped() =>
+        new(this);
 }
