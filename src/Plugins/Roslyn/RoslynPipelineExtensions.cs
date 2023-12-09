@@ -28,10 +28,10 @@ public static class RoslynPipelineExtensions
     /// </remarks>
     public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string[] sources, string pattern = "*.cs") =>
         self.ParseWith(options =>
-            new ScanDirectoryPipe(sources, pattern)
+            new ScanPipe(sources, pattern)
                 .ThenForEach(new ParseSyntaxTreePipe())
                 .ThenForEach(new ParseDocPipe())
-                .Logged(options.LoggerFactory, $"Parse directories [{sources.Select(x => $"'{x.AsFullPath()}'").Separated(with: ", ")}] with '{pattern}' pattern")
+                .Logged(options.LoggerFactory, $"Scan [{sources.Select(x => $"'{x.AsFullPath()}'").Separated(with: ", ")}] using '{pattern}' pattern")
                 .Then(new FoldPipe<Doc>(Doc.Merge, Doc.Empty).Logged(options.LoggerFactory, docs => $"Merge {docs.Length} files"))
                 .Then(new InlineInheritDocPipe().Logged(options.LoggerFactory, "Inline <inheritdoc> tags")));
 }

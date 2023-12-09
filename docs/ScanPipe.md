@@ -1,6 +1,6 @@
-# Summary.Pipes.IO.ScanDirectoryPipe
+# Summary.Pipes.IO.ScanPipe
 ```cs
-public class ScanDirectoryPipe : IPipe<Unit, string[]>
+public class ScanPipe : IPipe<Unit, string[]>
 ```
 
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that searches specified directory (recursively) for files that match specified pattern.
