@@ -54,7 +54,7 @@ A field of the child class.
 
 ### ~~Field1~~
 > [!WARNING]
-> "The field is deprecated."
+> The field is deprecated.
 
 ```cs
 [Obsolete("The field is deprecated.")]

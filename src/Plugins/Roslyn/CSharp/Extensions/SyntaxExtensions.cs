@@ -95,40 +95,43 @@ internal static class SyntaxExtensions
         if (attribute is null)
             return null;
 
-        var message = null as string;
-        var error = false;
-
-        if (attribute.ArgumentList?.Arguments.Count > 0)
-        {
-            var arguments = attribute.ArgumentList.Arguments;
-
-            // `message` is the first positional argument.
-            if (arguments[0] is { NameColon: null, NameEquals: null })
-            {
-                message = arguments[0].Expression.ToString();
-
-                // `error` is the second positional or named argument.
-                if (arguments.Count > 1 && arguments[1].NameEquals is null)
-                    bool.TryParse(arguments[1].Expression.ToString(), out error);
-            }
-            else
-            {
-                message = Named(arguments, "message");
-
-                bool.TryParse(Named(arguments, "error"), out error);
-
-                static string? Named(SeparatedSyntaxList<AttributeArgumentSyntax> arguments, string name) =>
-                    arguments
-                        .FirstOrDefault(x => x.NameEquals?.Name.Identifier.ValueText == name)?
-                        .Expression.ToString();
-            }
-        }
-
         return new DocDeprecation
         {
-            Message = message,
-            Error = error,
+            Message = Message(attribute),
+            Error = Error(attribute),
         };
+
+        static string? Message(AttributeSyntax attribute)
+        {
+            var message = Argument(attribute, position: 0, name: "message")?.Expression.ToString();
+            if (message is not null && message.StartsWith("\"") && message.EndsWith("\""))
+                return message[1..^1];
+
+            return message;
+        }
+
+        static bool Error(AttributeSyntax attribute)
+        {
+            var error = Argument(attribute, position: 1, name: "error")?.Expression.ToString();
+
+            return bool.TryParse(error, out var parsed) && parsed;
+        }
+
+        static AttributeArgumentSyntax? Argument(AttributeSyntax attribute, int position, string name)
+        {
+            if (attribute.ArgumentList is null)
+                return null;
+
+            if (attribute.ArgumentList.Arguments.Count > position)
+            {
+                var argument = attribute.ArgumentList.Arguments[position];
+                if (argument is { NameColon: null, NameEquals: null })
+                    return argument;
+            }
+
+            return attribute.ArgumentList.Arguments.FirstOrDefault(
+                x => x.NameColon?.Name.Identifier.ValueText == name);
+        }
     }
 
     /// <summary>
