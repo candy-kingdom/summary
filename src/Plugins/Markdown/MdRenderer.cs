@@ -73,6 +73,7 @@ internal class MdRenderer
         .ReturnsSection(indexer.Comment);
 
     private MdRenderer MemberHeader(DocMember member) => Name(member)
+        .Deprecation(member)
         .Declaration(member)
         .Element(member.Comment.Element("summary"))
         .Element(member.Comment.Element("remarks"), x => $"_{x}_")
@@ -105,6 +106,18 @@ internal class MdRenderer
         .Line(member.Declaration)
         .Line("```")
         .Line();
+
+    private MdRenderer Deprecation(DocMember member)
+    {
+        if (member.Deprecated && !string.IsNullOrWhiteSpace(member.Deprecation.Message))
+        {
+            return Line("> [!WARNING]")
+                .Line($"> {member.Deprecation.Message}")
+                .Line();
+        }
+
+        return this;
+    }
 
     private MdRenderer TypeParamsSection(DocMethod method) =>
         ParamsSection("Type Parameters", method.TypeParams.Select(x => (x.Name, x.Comment(method))));
