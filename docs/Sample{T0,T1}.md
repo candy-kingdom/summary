@@ -52,8 +52,12 @@ public int Field
 
 A field of the child class.
 
-### Field1
+### ~~Field1~~
+> [!WARNING]
+> The field is deprecated.
+
 ```cs
+[Obsolete("The field is deprecated.")]
 public int Field1
 ```
 

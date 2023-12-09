@@ -82,6 +82,59 @@ internal static class SyntaxExtensions
         self.Ancestors().OfType<TypeDeclarationSyntax>().FirstOrDefault()?.Type();
 
     /// <summary>
+    ///     A <see cref="DocDeprecation"/> that contains the member deprecation information.
+    /// </summary>
+    public static DocDeprecation? Deprecation(this SyntaxList<AttributeListSyntax> self)
+    {
+        var attribute = self
+            .SelectMany(x => x.Attributes)
+            .FirstOrDefault(x => x.Name.ToString() is
+                "Obsolete" or "System.Obsolete" or "global::System.Obsolete" or
+                "ObsoleteAttribute" or "System.ObsoleteAttribute" or "global::System.ObsoleteAttribute");
+
+        if (attribute is null)
+            return null;
+
+        return new DocDeprecation
+        {
+            Message = Message(attribute),
+            Error = Error(attribute),
+        };
+
+        static string? Message(AttributeSyntax attribute)
+        {
+            var message = Argument(attribute, position: 0, name: "message")?.Expression.ToString();
+            if (message is not null && message.StartsWith("\"") && message.EndsWith("\""))
+                return message[1..^1];
+
+            return message;
+        }
+
+        static bool Error(AttributeSyntax attribute)
+        {
+            var error = Argument(attribute, position: 1, name: "error")?.Expression.ToString();
+
+            return bool.TryParse(error, out var parsed) && parsed;
+        }
+
+        static AttributeArgumentSyntax? Argument(AttributeSyntax attribute, int position, string name)
+        {
+            if (attribute.ArgumentList is null)
+                return null;
+
+            if (attribute.ArgumentList.Arguments.Count > position)
+            {
+                var argument = attribute.ArgumentList.Arguments[position];
+                if (argument is { NameColon: null, NameEquals: null })
+                    return argument;
+            }
+
+            return attribute.ArgumentList.Arguments.FirstOrDefault(
+                x => x.NameColon?.Name.Identifier.ValueText == name);
+        }
+    }
+
+    /// <summary>
     ///     A list of attributes of the specified member formatted as a string.
     /// </summary>
     public static string Attributes(this MemberDeclarationSyntax self) =>

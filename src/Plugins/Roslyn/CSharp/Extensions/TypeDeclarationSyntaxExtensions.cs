@@ -21,6 +21,7 @@ internal static class TypeDeclarationSyntaxExtensions
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = self.AttributeLists.Deprecation(),
             Members = self.Members(),
             TypeParams = self.TypeParams(),
             Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? Array.Empty<DocType>(),

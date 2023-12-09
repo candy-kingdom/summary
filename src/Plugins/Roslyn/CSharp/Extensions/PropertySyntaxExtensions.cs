@@ -27,6 +27,7 @@ internal static class PropertySyntaxExtensions
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = self.AttributeLists.Deprecation(),
             Generated = false,
             Event = false,
         };
@@ -47,6 +48,7 @@ internal static class PropertySyntaxExtensions
             Access = AccessModifier.Public,
             Comment = DocComment.Empty,
             DeclaringType = self.DeclaringType(),
+            Deprecation = self.AttributeLists.Deprecation(),
             Generated = true,
             Event = false,
         };
@@ -64,6 +66,7 @@ internal static class PropertySyntaxExtensions
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = self.AttributeLists.Deprecation(),
             Generated = false,
             Event = true,
         };
@@ -90,6 +93,7 @@ internal static class PropertySyntaxExtensions
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = self.AttributeLists.Deprecation(),
             Generated = false,
             Event = false,
             Params = self.ParameterList.Params(),
@@ -105,6 +109,7 @@ internal static class PropertySyntaxExtensions
             Access = field.Access(),
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
+            Deprecation = field.AttributeLists.Deprecation(),
             Generated = false,
             Event = true,
         };

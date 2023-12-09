@@ -1,4 +1,6 @@
-﻿namespace Summary;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Summary;
 
 /// <summary>
 ///     A member of the generated document (e.g. type, field, property, method, etc.).
@@ -35,6 +37,17 @@ public abstract record DocMember
     ///     The type that this member is declared in (works for nested types as well).
     /// </summary>
     public required DocType? DeclaringType { get; init; }
+
+    /// <summary>
+    ///     Whether the member is deprecated (e.g. marked with <c>[Obsolete]</c>).
+    /// </summary>
+    [MemberNotNullWhen(true, nameof(Deprecation))]
+    public bool Deprecated => Deprecation is not null;
+
+    /// <summary>
+    ///     The member deprecation information.
+    /// </summary>
+    public DocDeprecation? Deprecation { get; init; }
 
     /// <summary>
     ///     Whether this member matches the specified `cref` reference.

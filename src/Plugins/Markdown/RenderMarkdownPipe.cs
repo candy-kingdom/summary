@@ -10,12 +10,12 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 {
     public Task<Md[]> Run(Doc doc) =>
         Task.FromResult(doc
-        .Members
-        .Concat(doc
             .Members
-            .OfType<DocTypeDeclaration>()
-            .SelectMany(x => x.AllMembers.OfType<DocTypeDeclaration>()))
-        .Select(Render).ToArray());
+            .Concat(doc
+                .Members
+                .OfType<DocTypeDeclaration>()
+                .SelectMany(x => x.AllMembers.OfType<DocTypeDeclaration>()))
+            .Select(Render).ToArray());
 
     private static Md Render(DocMember member)
     {
@@ -25,7 +25,7 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 
         string Name(DocMember x) => x switch
         {
-            DocTypeDeclaration { DeclaringType: null } type  => $"{x.Name}{TypeParams(type)}",
+            DocTypeDeclaration { DeclaringType: null } type => $"{x.Name}{TypeParams(type)}",
             DocTypeDeclaration { DeclaringType: not null } type => $"{type.DeclaringType!.FullName.AsCref()}.{x.Name}{TypeParams(type)}",
 
             _ => x.Name,
