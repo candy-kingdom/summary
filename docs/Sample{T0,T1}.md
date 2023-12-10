@@ -30,14 +30,14 @@ public void Delegate1(int x, int y)
 A sample delegate.
 
 ## Events
-### [Event1](../src/Core/Samples/Sample.cs#L91)
+### [Event1](../src/Core/Samples/Sample.cs#L92)
 ```cs
 public event Action Event1
 ```
 
 A sample field event.
 
-### [Event2](../src/Core/Samples/Sample.cs#L96)
+### [Event2](../src/Core/Samples/Sample.cs#L97)
 ```cs
 public Action Event2 { add; remove; }
 ```
@@ -92,14 +92,17 @@ public int Property2 { private get; set; }
 
 A sample property with custom visibility.
 
-### [Property3](../src/Core/Samples/Sample.cs#L70)
+### [Property3](../src/Core/Samples/Sample.cs#L71)
 ```cs
 public int Property3 { get; protected set; }
 ```
 
-A sample property with custom visibility (2).
+A sample property with custom visibility and an exception.
 
-### [Property4](../src/Core/Samples/Sample.cs#L75)
+#### Exceptions
+- `ArithmeticException`: Invalid number.
+
+### [Property4](../src/Core/Samples/Sample.cs#L76)
 ```cs
 public int Property4 { get; set; }
 ```
@@ -107,7 +110,7 @@ public int Property4 { get; set; }
 A sample property with custom accessors.
 
 ## Indexers
-### [this[int]](../src/Core/Samples/Sample.cs#L86)
+### [this[int]](../src/Core/Samples/Sample.cs#L87)
 ```cs
 public int this[int i] { get; }
 ```
@@ -121,7 +124,7 @@ A sample indexer.
 What indexer returns.
 
 ## Methods
-### [Method<M0, M1, M2>(int, string)](../src/Core/Samples/Sample.cs#L118)
+### [Method<M0, M1, M2>(int, string)](../src/Core/Samples/Sample.cs#L121)
 ```cs
 public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
@@ -147,7 +150,11 @@ It contains three type parameters:
 #### Returns
 The `TimeSpan` instance.
 
-### [Method<M0, M1, M2>(short, string)](../src/Core/Samples/Sample.cs#L125)
+#### Exceptions
+- `ArgumentException`: The argument is incorrect.
+- `ApplicationException`: Something went wrong.
+
+### [Method<M0, M1, M2>(short, string)](../src/Core/Samples/Sample.cs#L128)
 ```cs
 public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```
@@ -165,4 +172,8 @@ The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).m
 
 #### Returns
 The `TimeSpan` instance.
+
+#### Exceptions
+- `ArgumentException`: The argument is incorrect.
+- `ApplicationException`: Something went wrong.
 

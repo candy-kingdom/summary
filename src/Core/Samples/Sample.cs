@@ -65,8 +65,9 @@ public class Sample<T0, T1>
     public int Property2 { private get; set; }
 
     /// <summary>
-    ///     A sample property with custom visibility (2).
+    ///     A sample property with custom visibility and an exception.
     /// </summary>
+    /// <exception cref="ArithmeticException">Invalid number.</exception>
     public int Property3 { get; protected set; }
 
     /// <summary>
@@ -115,6 +116,8 @@ public class Sample<T0, T1>
     /// <typeparam name="M1">The second type parameter of the method.</typeparam>
     /// <typeparam name="M2">The third type parameter of the method.</typeparam>
     /// <returns>The <c>TimeSpan</c> instance.</returns>
+    /// <exception cref="ArgumentException">The argument is incorrect.</exception>
+    /// <exception cref="ApplicationException">Something went wrong.</exception>
     public TimeSpan Method<M0, M1, M2>(int x, string y) =>
         TimeSpan.Zero;
 
