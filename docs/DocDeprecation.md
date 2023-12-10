@@ -1,4 +1,4 @@
-# [Summary.DocDeprecation](../src/Core/DocDeprecation.cs#L5)
+# [Summary.DocDeprecation](../src/Core/DocDeprecation.cs#L6)
 ```cs
 public record DocDeprecation
 ```
@@ -6,14 +6,14 @@ public record DocDeprecation
 Contains deprecation information (e.g. the warning message).
 
 ## Properties
-### [Message](../src/Core/DocDeprecation.cs#L10)
+### [Message](../src/Core/DocDeprecation.cs#L11)
 ```cs
 public string? Message { get; init; }
 ```
 
 The deprecation warning message.
 
-### [Error](../src/Core/DocDeprecation.cs#L15)
+### [Error](../src/Core/DocDeprecation.cs#L16)
 ```cs
 public bool Error { get; init; }
 ```

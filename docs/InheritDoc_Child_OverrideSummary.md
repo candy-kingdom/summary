@@ -1,4 +1,4 @@
-# [Summary.Samples.InheritDoc_Child_OverrideSummary](../src/Core/Samples/InheritDocSample.cs#L170)
+# [Summary.Samples.InheritDoc_Child_OverrideSummary](../src/Core/Samples/InheritDocSample.cs#L171)
 ```cs
 public class InheritDoc_Child_OverrideSummary : InheritDocBase
 ```

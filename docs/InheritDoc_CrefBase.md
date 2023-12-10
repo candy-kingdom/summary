@@ -1,4 +1,4 @@
-# [Summary.Samples.InheritDoc_CrefBase](../src/Core/Samples/InheritDocSample.cs#L143)
+# [Summary.Samples.InheritDoc_CrefBase](../src/Core/Samples/InheritDocSample.cs#L144)
 ```cs
 public class InheritDoc_CrefBase
 ```
@@ -8,7 +8,7 @@ Summary.
 _Remarks._
 
 ## Methods
-### [Sum(int, int)](../src/Core/Samples/InheritDocSample.cs#L151)
+### [Sum(int, int)](../src/Core/Samples/InheritDocSample.cs#L152)
 ```cs
 public int Sum(int x, int y)
 ```
@@ -22,7 +22,7 @@ Calculates the sum.
 #### Returns
 Returns the sum of two values.
 
-### [Sum(long, long)](../src/Core/Samples/InheritDocSample.cs#L154)
+### [Sum(long, long)](../src/Core/Samples/InheritDocSample.cs#L155)
 ```cs
 public long Sum(long x, long y)
 ```
@@ -36,7 +36,7 @@ Calculates the sum.
 #### Returns
 Returns the sum of two values.
 
-### [Sum_OverrideSummary(long, long)](../src/Core/Samples/InheritDocSample.cs#L160)
+### [Sum_OverrideSummary(long, long)](../src/Core/Samples/InheritDocSample.cs#L161)
 ```cs
 public long Sum_OverrideSummary(long x, long y)
 ```

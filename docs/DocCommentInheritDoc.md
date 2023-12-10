@@ -1,4 +1,4 @@
-# [Summary.DocCommentInheritDoc](../src/Core/DocCommentInheritDoc.cs#L7)
+# [Summary.DocCommentInheritDoc](../src/Core/DocCommentInheritDoc.cs#L8)
 ```cs
 public record DocCommentInheritDoc(string? Cref) : DocCommentNode
 ```
@@ -7,7 +7,7 @@ A [`DocCommentNode`](./DocCommentNode.md) that inherits documentation from anoth
 (`<inheritdoc>`).
 
 ## Properties
-### [Cref](../src/Core/DocCommentInheritDoc.cs#L7)
+### [Cref](../src/Core/DocCommentInheritDoc.cs#L8)
 ```cs
 public string? Cref { get; }
 ```

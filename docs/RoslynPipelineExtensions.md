@@ -1,4 +1,4 @@
-# [Summary.Roslyn.RoslynPipelineExtensions](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L12)
+# [Summary.Roslyn.RoslynPipelineExtensions](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L13)
 ```cs
 public static class RoslynPipelineExtensions
 ```
@@ -6,7 +6,7 @@ public static class RoslynPipelineExtensions
 A set of extension methods that extend different pipelines with Roslyn parsing.
 
 ## Methods
-### [UseRoslynParser(SummaryPipeline, string, string)](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L15)
+### [UseRoslynParser(SummaryPipeline, string, string)](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L16)
 ```cs
 public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string source, string pattern = "*.cs")
 ```
@@ -19,7 +19,7 @@ _<para/>_
 _Under the hood, we call [`System.IO.Directory.EnumerateFiles(string,string,SearchOption)`](./System.IO.Directory.EnumerateFiles(string,string,SearchOption).md) method_
 _to get the list of all files for each of the specified root paths, and then concatenate the results._
 
-### [UseRoslynParser(SummaryPipeline, string[], string)](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L28)
+### [UseRoslynParser(SummaryPipeline, string[], string)](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L29)
 ```cs
 public static SummaryPipeline UseRoslynParser(this SummaryPipeline self, string[] sources, string pattern = "*.cs")
 ```

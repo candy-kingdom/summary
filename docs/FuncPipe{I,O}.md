@@ -1,4 +1,4 @@
-# [Summary.Pipes.FuncPipe<I, O>](../src/Core/Pipes/FuncPipe.cs#L5)
+# [Summary.Pipes.FuncPipe<I, O>](../src/Core/Pipes/FuncPipe.cs#L6)
 ```cs
 public class FuncPipe<I, O> : IPipe<I, O>
 ```
@@ -6,7 +6,7 @@ public class FuncPipe<I, O> : IPipe<I, O>
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that wraps [`Func{I,O}`](./Func{I,O}.md).
 
 ## Methods
-### [Run(I)](../src/Core/Pipes/FuncPipe.cs#L15)
+### [Run(I)](../src/Core/Pipes/FuncPipe.cs#L16)
 ```cs
 public Task<O> Run(I input)
 ```

@@ -1,4 +1,4 @@
-# [GlobalDelegate(int, int)](../src/Core/Samples/Sample.cs#L5)
+# [GlobalDelegate(int, int)](../src/Core/Samples/Sample.cs#L6)
 ```cs
 public void GlobalDelegate(int x, int y)
 ```

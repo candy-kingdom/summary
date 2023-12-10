@@ -1,4 +1,4 @@
-# [Summary.DocCommentNode](../src/Core/DocCommentNode.cs#L8)
+# [Summary.DocCommentNode](../src/Core/DocCommentNode.cs#L9)
 ```cs
 public abstract record DocCommentNode
 ```

@@ -1,4 +1,4 @@
-# [Summary.Pipes.IO.ScanPipe](../src/Core/Pipes/IO/ScanPipe.cs#L5)
+# [Summary.Pipes.IO.ScanPipe](../src/Core/Pipes/IO/ScanPipe.cs#L6)
 ```cs
 public class ScanPipe : IPipe<Unit, Source[]>
 ```
@@ -6,7 +6,7 @@ public class ScanPipe : IPipe<Unit, Source[]>
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that searches specified directory (recursively) for files that match specified pattern.
 
 ## Methods
-### [Run(Unit)](../src/Core/Pipes/IO/ScanPipe.cs#L7)
+### [Run(Unit)](../src/Core/Pipes/IO/ScanPipe.cs#L8)
 ```cs
 public async Task<Source[]> Run(Unit _)
 ```
