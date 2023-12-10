@@ -28,7 +28,7 @@ internal static class FieldSyntaxExtensions
             Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{field.Attributes()}{field.Modifiers} {field.Declaration.Type} {self.Identifier}",
+            Declaration = $"{field.AttributesDeclaration()}{field.Modifiers} {field.Declaration.Type} {self.Identifier}",
             Access = field.Access(),
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
