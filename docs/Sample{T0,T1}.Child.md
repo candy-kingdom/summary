@@ -1,4 +1,4 @@
-# [~~Summary.Samples.Sample.Child~~](../src/Core/Samples/Sample.cs#L33)
+# [~~Summary.Samples.Sample.Child~~](../src/Core/Samples/Sample.cs#L42)
 > [!WARNING]
 > The type is deprecated.
 
@@ -10,7 +10,7 @@ public class Child
 A child of the [`Sample{T0,T1}`](./Sample{T0,T1}.md) class.
 
 ## Fields
-### [Field](../src/Core/Samples/Sample.cs#L38)
+### [Field](../src/Core/Samples/Sample.cs#L47)
 ```cs
 public int Field
 ```
