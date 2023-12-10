@@ -20,13 +20,13 @@ internal static class EnumerableExtensions
         string.Join(with, self);
 
     /// <summary>
-    ///     Filters out all `null` values from the specified sequence.
+    ///     Filters out all <c>null</c> values from the specified sequence.
     /// </summary>
     public static IEnumerable<T> NonNulls<T>(this IEnumerable<T?> self) =>
         self.Where(x => x != null)!;
 
     /// <summary>
-    ///     Applies the specified `map` function on each element in the specified sequence.
+    ///     Applies the specified <c>map</c> function on each element in the specified sequence.
     ///     Additionally, passes the optional next element.
     /// </summary>
     public static IEnumerable<V> SelectWithNext<T, V>(this IEnumerable<T> self, Func<T, T?, V> map) =>

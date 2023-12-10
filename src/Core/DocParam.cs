@@ -8,7 +8,7 @@
 public record DocParam(DocType? Type, string Name)
 {
     /// <summary>
-    ///     The comment of the parameter (i.e., `&lt;param&gt;` tag).
+    ///     The comment of the parameter (i.e., <c>&lt;param&gt;</c> tag).
     /// </summary>
     public DocCommentElement? Comment(DocMember parent) =>
         parent.Comment.Param(Name);

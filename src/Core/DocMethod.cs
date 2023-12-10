@@ -23,12 +23,12 @@ public record DocMethod : DocMember
     public required bool Delegate { get; init; } = false;
 
     /// <summary>
-    ///     The signature of the method without parameters in link format (e.g., `Sum{T}`).
+    ///     The signature of the method without parameters in link format (e.g., <c>Sum{T}</c>).
     /// </summary>
     public string SignatureWithoutParams => $"{FullyQualifiedName}{TypeParamsSignature}";
 
     /// <summary>
-    ///     The signature of the method in link format (e.g., `Sum{T}(T, T)`).
+    ///     The signature of the method in link format (e.g., <c>Sum{T}(T, T)</c>).
     /// </summary>
     public string Signature => $"{SignatureWithoutParams}{ParamsSignature}";
 

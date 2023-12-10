@@ -33,13 +33,13 @@ public static class PipeExtensions
         when ? a.Then(b) : a;
 
     /// <summary>
-    ///     Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
+    ///     Constructs a new pipe that will apply the specified <c>select</c> function to the output of the current pipe.
     /// </summary>
     public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> map) =>
         a.Then(new FuncPipe<O1, O2>(map));
 
     /// <summary>
-    ///     Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
+    ///     Constructs a new pipe that will apply the specified <c>select</c> function to the output of the current pipe.
     /// </summary>
     public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, Func<O, O> map, bool when) =>
         when ? a.Then(map) : a;
@@ -62,6 +62,7 @@ public static class PipeExtensions
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message) =>
         self.Logged(factory.CreateLogger(self.GetType().Name), message);
 
+    /// <inheritdoc cref="Logged{I,O}(IPipe{I,O},ILoggerFactory,string)" />
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message) =>
         self.Logged(factory.CreateLogger(self.GetType().Name), message);
 
@@ -71,6 +72,7 @@ public static class PipeExtensions
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message) =>
         new LoggedPipe<I, O>(self, logger, message);
 
+    /// <inheritdoc cref="Logged{I,O}(IPipe{I,O},ILogger,string)" />
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message) =>
         new LoggedPipe<I, O>(self, logger, message);
 }

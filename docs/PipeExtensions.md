@@ -69,19 +69,19 @@ public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory fac
 
 Logs the execution of the given pipe using the specified logger factory.
 
-### [Logged<I, O>(IPipe<I, O>, ILoggerFactory, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L65)
+### [Logged<I, O>(IPipe<I, O>, ILoggerFactory, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L66)
 ```cs
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message)
 ```
 
-### [Logged<I, O>(IPipe<I, O>, ILogger, string)](../src/Core/Pipes/PipeExtensions.cs#L71)
+### [Logged<I, O>(IPipe<I, O>, ILogger, string)](../src/Core/Pipes/PipeExtensions.cs#L72)
 ```cs
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message)
 ```
 
 Logs the execution of the given pipe using the specified logger.
 
-### [Logged<I, O>(IPipe<I, O>, ILogger, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L74)
+### [Logged<I, O>(IPipe<I, O>, ILogger, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L76)
 ```cs
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message)
 ```

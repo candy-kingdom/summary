@@ -33,7 +33,7 @@ internal static class StringExtensions
         Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, self));
 
     /// <summary>
-    ///     Converts the given string into the format of `cref` attribute value.
+    ///     Converts the given string into the format of <c>cref</c> attribute value.
     /// </summary>
     /// <example>
     ///     In the following example, the <c>"Some&lt;T1, T2&gt;"</c> string

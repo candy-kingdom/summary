@@ -5,6 +5,7 @@ namespace Summary.Pipes.Filters;
 /// </summary>
 public class FilterMemberPipe(Predicate<DocMember> p) : IPipe<Doc, Doc>
 {
+    /// <inheritdoc />
     public Task<Doc> Run(Doc input) =>
         Task.FromResult(new Doc(Filtered(input.Members)));
 

@@ -1,7 +1,7 @@
 ﻿namespace Summary.Pipes;
 
 /// <summary>
-///     A void type that is similar to `void` keyword.
+///     A void type that is similar to <c>void</c> keyword.
 /// </summary>
 public class Unit
 {

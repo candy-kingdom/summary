@@ -5,6 +5,7 @@
 /// </summary>
 public class ScanPipe(string[] sources, string pattern) : IPipe<Unit, Source[]>
 {
+    /// <inheritdoc />
     public async Task<Source[]> Run(Unit _)
     {
         // TODO: Consider refactoring this into more proper solution (@j.light).

@@ -1,4 +1,14 @@
-﻿namespace Summary.Samples;
+﻿// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable EventNeverInvoked.Global
+// ReSharper disable EventNeverSubscribedTo.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+#pragma warning disable CS0067
+#pragma warning disable CS1573
+#pragma warning disable CA1070
+#pragma warning disable CA1822
+
+namespace Summary.Samples;
 
 /// <summary>
 ///     Summary.
@@ -162,19 +172,19 @@ public class InheritDoc_CrefBase
 }
 
 /// <inheritdoc cref="InheritDoc_CrefBase" />
-public class InheritDoc_CrefBase_Child : InheritDoc_CrefBase { }
+public class InheritDoc_CrefBase_Child : InheritDoc_CrefBase;
 
 /// <summary>
 ///     Summary (child).
 /// </summary>
 /// <inheritdoc />
-public class InheritDoc_Child_OverrideSummary : InheritDocBase { }
+public class InheritDoc_Child_OverrideSummary : InheritDocBase;
 
 /// <inheritdoc />
 /// <summary>
 ///     Summary (child).
 /// </summary>
-public class InheritDoc_Child_OverrideSummary2 : InheritDocBase { }
+public class InheritDoc_Child_OverrideSummary2 : InheritDocBase;
 
 /// <summary>
 ///     Summary (interface).
@@ -182,10 +192,10 @@ public class InheritDoc_Child_OverrideSummary2 : InheritDocBase { }
 /// <remarks>
 ///     Remarks section (interface).
 /// </remarks>
-public interface IInheritDocBase { }
+public interface IInheritDocBase;
 
 /// <inheritdoc />
-public class InheritDoc_InterfaceChild : IInheritDocBase { }
+public class InheritDoc_InterfaceChild : IInheritDocBase;
 
 /// <summary>
 ///     Summary (record).
