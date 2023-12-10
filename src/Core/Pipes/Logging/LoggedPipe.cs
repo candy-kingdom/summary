@@ -10,9 +10,13 @@ namespace Summary.Pipes.Logging;
 /// </remarks>
 public class LoggedPipe<I, O>(IPipe<I, O> inner, ILogger logger, Func<I, string> message) : IPipe<I, O>
 {
+    /// <summary>
+    ///     Initializes a pipe.
+    /// </summary>
     public LoggedPipe(IPipe<I, O> inner, ILogger logger, string message)
         : this(inner, logger, _ => message) { }
 
+    /// <inheritdoc />
     public Task<O> Run(I input)
     {
         using var _ = logger.BeginScope(message(input));

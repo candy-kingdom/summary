@@ -1,4 +1,4 @@
-# [Summary.Samples.IInheritDocBase](../src/Core/Samples/InheritDocSample.cs#L185)
+# [Summary.Samples.IInheritDocBase](../src/Core/Samples/InheritDocSample.cs#L195)
 ```cs
 public interface IInheritDocBase
 ```

@@ -62,6 +62,7 @@ public static class PipeExtensions
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message) =>
         self.Logged(factory.CreateLogger(self.GetType().Name), message);
 
+    /// <inheritdoc cref="Logged{I,O}(IPipe{I,O},ILoggerFactory,string)" />
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message) =>
         self.Logged(factory.CreateLogger(self.GetType().Name), message);
 
@@ -71,6 +72,7 @@ public static class PipeExtensions
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message) =>
         new LoggedPipe<I, O>(self, logger, message);
 
+    /// <inheritdoc cref="Logged{I,O}(IPipe{I,O},ILogger,string)" />
     public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message) =>
         new LoggedPipe<I, O>(self, logger, message);
 }

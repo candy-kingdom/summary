@@ -1,10 +1,10 @@
 ﻿namespace Summary;
 
 /// <summary>
-///     An access modifier of a <see cref="DocMember"/> (e.g. `private`, `public`, etc.).
+///     An access modifier of a <see cref="DocMember" /> (e.g. <c>private</c>, <c>public</c>, etc.).
 /// </summary>
 /// <remarks>
-///     The modifiers are ordered starting from the smallest one (<see cref="Private"/>).
+///     The modifiers are ordered starting from the smallest one (<see cref="Private" />).
 /// </remarks>
 public enum AccessModifier
 {
