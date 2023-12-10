@@ -13,6 +13,13 @@ public required DocType Type { get; init; }
 
 The type of the property.
 
+### Accessors
+```cs
+public required DocPropertyAccessor[] Accessors { get; init; }
+```
+
+The accessors of the property (e.g., `get`, `set`, `init`).
+
 ### Generated
 ```cs
 public required bool Generated { get; init; }

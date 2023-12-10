@@ -50,10 +50,10 @@ internal static class TypeDeclarationSyntaxExtensions
     private static string Declaration(this TypeDeclarationSyntax self) => self switch
     {
         RecordDeclarationSyntax record =>
-            $"{self.Attributes()}{self.Modifiers} {record.Keyword()} {self.Identifier}{self.TypeParameterList}{record.ParameterList} {self.BaseList}"
+            $"{self.AttributesDeclaration()}{self.Modifiers} {record.Keyword()} {self.Identifier}{self.TypeParameterList}{record.ParameterList} {self.BaseList}"
                 .TrimEnd(),
         _ =>
-            $"{self.Attributes()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}"
+            $"{self.AttributesDeclaration()}{self.Modifiers} {self.Keyword} {self.Identifier}{self.TypeParameterList} {self.BaseList}"
                 .TrimEnd(),
     };
 
