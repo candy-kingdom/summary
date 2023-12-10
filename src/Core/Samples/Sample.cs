@@ -1,4 +1,13 @@
-﻿namespace Summary.Samples;
+﻿// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Local
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable EventNeverSubscribedTo.Global
+// ReSharper disable ValueParameterNotUsed
+// ReSharper disable UnusedTypeParameter
+#pragma warning disable CS0067
+
+namespace Summary.Samples;
 
 /// <summary>
 ///     A sample delegate.
