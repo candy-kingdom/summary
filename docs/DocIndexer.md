@@ -6,7 +6,7 @@ public record DocIndexer : DocProperty
 A [`DocProperty`](./DocProperty.md) that represents an indexer.
 
 ## Properties
-### Params
+### [Params](../src/Core/DocIndexer.cs#L10)
 ```cs
 public required DocParam[] Params { get; init; }
 ```

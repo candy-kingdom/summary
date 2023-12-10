@@ -6,7 +6,7 @@ public record DocTypeParam(string Name)
 A type parameter of a [`DocMember`](./DocMember.md).
 
 ## Properties
-### Name
+### [Name](../src/Core/DocTypeParam.cs#L6)
 ```cs
 public string Name { get; }
 ```
@@ -14,7 +14,7 @@ public string Name { get; }
 The name of the parameter.
 
 ## Methods
-### Comment(DocMember)
+### [Comment(DocMember)](../src/Core/DocTypeParam.cs#L11)
 ```cs
 public DocCommentElement? Comment(DocMember parent)
 ```

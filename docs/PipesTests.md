@@ -4,25 +4,25 @@ public class PipesTests
 ```
 
 ## Methods
-### Func()
+### [Func()](../src/Tests/Core/PipesTests.cs#L7)
 ```cs
 [Fact]
 public void Func()
 ```
 
-### Then()
+### [Then()](../src/Tests/Core/PipesTests.cs#L18)
 ```cs
 [Fact]
 public void Then()
 ```
 
-### Tee()
+### [Tee()](../src/Tests/Core/PipesTests.cs#L34)
 ```cs
 [Fact]
 public void Tee()
 ```
 
-### Select()
+### [Select()](../src/Tests/Core/PipesTests.cs#L48)
 ```cs
 [Fact]
 public void Select()

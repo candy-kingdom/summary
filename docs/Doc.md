@@ -6,7 +6,7 @@ public record Doc(DocMember[] Members)
 A document parsed from the source code or an assembly.
 
 ## Fields
-### Empty
+### [Empty](../src/Core/Doc.cs#L11)
 ```cs
 public static readonly Doc Empty
 ```
@@ -14,7 +14,7 @@ public static readonly Doc Empty
 An empty document.
 
 ## Properties
-### Members
+### [Members](../src/Core/Doc.cs#L6)
 ```cs
 public DocMember[] Members { get; }
 ```
@@ -22,7 +22,7 @@ public DocMember[] Members { get; }
 The sequence of members this doc contains.
 
 ## Methods
-### Merge(Doc, Doc)
+### [Merge(Doc, Doc)](../src/Core/Doc.cs#L18)
 ```cs
 public static Doc Merge(Doc a, Doc b)
 ```
@@ -33,7 +33,7 @@ Merges two documents together returning the new merged document.
 - `a`: The first document to merge.
 - `b`: The second document to merge.
 
-### Declaration(DocType?<DocType>)
+### [Declaration(DocType?<DocType>)](../src/Core/Doc.cs#L23)
 ```cs
 public DocTypeDeclaration? Declaration(DocType? type)
 ```

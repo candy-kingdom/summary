@@ -8,7 +8,7 @@ Summary.
 _Remarks section._
 
 ## Events
-### Event1
+### [Event1](../src/Core/Samples/InheritDocSample.cs#L97)
 ```cs
 public override event Action Event1
 ```
@@ -16,7 +16,7 @@ public override event Action Event1
 An event.
 
 ## Properties
-### Property1
+### [Property1](../src/Core/Samples/InheritDocSample.cs#L91)
 ```cs
 public override int Property1 { get; set; }
 ```
@@ -26,7 +26,7 @@ A property.
 _Property remarks._
 
 ## Indexers
-### this[int]
+### [this[int]](../src/Core/Samples/InheritDocSample.cs#L94)
 ```cs
 public override int this[int i] { get; }
 ```
@@ -37,7 +37,7 @@ An indexer.
 - `i`: A parameter to the indexer.
 
 ## Methods
-### Sum(int, int)
+### [Sum(int, int)](../src/Core/Samples/InheritDocSample.cs#L100)
 ```cs
 public override int Sum(int x, int y)
 ```

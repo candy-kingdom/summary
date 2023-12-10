@@ -4,19 +4,19 @@ public class RoslynParserTests
 ```
 
 ## Methods
-### Class()
+### [Class()](../src/Tests/Roslyn/RoslynParserTests.cs#L8)
 ```cs
 [Fact]
 public void Class()
 ```
 
-### Record()
+### [Record()](../src/Tests/Roslyn/RoslynParserTests.cs#L16)
 ```cs
 [Fact]
 public void Record()
 ```
 
-### RecordStruct()
+### [RecordStruct()](../src/Tests/Roslyn/RoslynParserTests.cs#L24)
 ```cs
 [Fact]
 public void RecordStruct()

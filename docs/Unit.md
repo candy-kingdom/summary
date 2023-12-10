@@ -6,7 +6,7 @@ public class Unit
 A void type that is similar to `void` keyword.
 
 ## Fields
-### Value
+### [Value](../src/Core/Pipes/Unit.cs#L10)
 ```cs
 public static readonly Unit Value
 ```

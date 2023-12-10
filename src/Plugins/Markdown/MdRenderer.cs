@@ -105,17 +105,20 @@ internal class MdRenderer
         {
             DocMethod method =>
                 Line($"{new string(c: '#', _level)} " +
-                     $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
-                     $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
-                     $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
+                     Link(
+                         $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
+                         $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
+                         $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})")),
             DocIndexer indexer =>
-                Line($"{new string(c: '#', _level)} this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]")),
             DocTypeDeclaration type when _level is 1 =>
                 Line($"{new string(c: '#', _level)} " +
                      Link($"{type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}" +
                           $"{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}")),
             _ =>
-                Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"{member.Name.Surround("~~", "~~", when: member.Deprecated)}")),
         };
 
         string Link(string text)

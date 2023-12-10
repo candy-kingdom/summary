@@ -21,6 +21,7 @@ internal static class MethodSyntaxExtensions
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
             Params = self.ParameterList.Params(),
             TypeParams = self.TypeParameterList.TypeParams(),
             Delegate = false,
@@ -41,6 +42,7 @@ internal static class MethodSyntaxExtensions
         TypeParams = self.TypeParameterList.TypeParams(),
         DeclaringType = self.DeclaringType(),
         Deprecation = self.AttributeLists.Deprecation(),
+        Location = self.Identifier.Location(),
         Delegate = true,
     };
 }

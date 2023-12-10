@@ -8,14 +8,14 @@ A [`DocCommentNode`](./DocCommentNode.md) that represents a literal value (e.g. 
 _Literals are simple tokens that are parsed as text._
 
 ## Properties
-### Value
+### [Value](../src/Core/DocCommentLiteral.cs#L14)
 ```cs
 public string Value { get; }
 ```
 
 The value of the literal.
 
-### LeadingTrivia
+### [LeadingTrivia](../src/Core/DocCommentLiteral.cs#L14)
 ```cs
 public string LeadingTrivia { get; }
 ```
@@ -23,7 +23,7 @@ public string LeadingTrivia { get; }
 The leading trivia of the literal that is not included in the `Value`(i.e. space characters, newlines).
 
 ## Methods
-### New(string)
+### [New(string)](../src/Core/DocCommentLiteral.cs#L19)
 ```cs
 public static DocCommentLiteral New(string value)
 ```

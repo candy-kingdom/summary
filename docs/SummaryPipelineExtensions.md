@@ -6,7 +6,7 @@ public static class SummaryPipelineExtensions
 Convenient extensions for [`SummaryPipeline`](./SummaryPipeline.md).
 
 ## Methods
-### UseLoggerFactory(SummaryPipeline, ILoggerFactory)
+### [UseLoggerFactory(SummaryPipeline, ILoggerFactory)](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L18)
 ```cs
 public static SummaryPipeline UseLoggerFactory(this SummaryPipeline self, ILoggerFactory factory)
 ```
@@ -16,14 +16,14 @@ Specifies the logger factory to use for pipes inside the pipeline.
 _This method should be called _before_ anything else so that_
 _given logger factory is passed into all subsequent calls._
 
-### UseDefaultFilters(SummaryPipeline)
+### [UseDefaultFilters(SummaryPipeline)](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L24)
 ```cs
 public static SummaryPipeline UseDefaultFilters(this SummaryPipeline self)
 ```
 
 Enables default filters for the given pipeline (i.e. a filter that removes all non-public members).
 
-### IncludeAtLeast(SummaryPipeline, AccessModifier)
+### [IncludeAtLeast(SummaryPipeline, AccessModifier)](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L39)
 ```cs
 public static SummaryPipeline IncludeAtLeast(this SummaryPipeline self, AccessModifier access)
 ```
@@ -39,7 +39,7 @@ var pipeline = ...;
 pipeline.IncludeAtLeast(AccessModifier.Internal);
 ```
 
-### IncludeOnly(SummaryPipeline, AccessModifier)
+### [IncludeOnly(SummaryPipeline, AccessModifier)](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L54)
 ```cs
 public static SummaryPipeline IncludeOnly(this SummaryPipeline self, AccessModifier access)
 ```
@@ -55,7 +55,7 @@ var pipeline = ...;
 pipeline.IncludeOnly(AccessModifier.Internal);
 ```
 
-### UseFilter(SummaryPipeline, IPipe<Doc, Doc>)
+### [UseFilter(SummaryPipeline, IPipe<Doc, Doc>)](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L61)
 ```cs
 public static SummaryPipeline UseFilter(this SummaryPipeline self, IPipe<Doc, Doc> filter)
 ```

@@ -28,6 +28,7 @@ internal static class PropertySyntaxExtensions
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
             Generated = false,
             Event = false,
         };
@@ -49,6 +50,7 @@ internal static class PropertySyntaxExtensions
             Comment = DocComment.Empty,
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
             Generated = true,
             Event = false,
         };
@@ -67,6 +69,7 @@ internal static class PropertySyntaxExtensions
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
             Generated = false,
             Event = true,
         };
@@ -94,6 +97,7 @@ internal static class PropertySyntaxExtensions
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
+            Location = self.ThisKeyword.Location(),
             Generated = false,
             Event = false,
             Params = self.ParameterList.Params(),
@@ -110,6 +114,7 @@ internal static class PropertySyntaxExtensions
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
             Generated = false,
             Event = true,
         };

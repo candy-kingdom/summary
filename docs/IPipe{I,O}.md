@@ -10,7 +10,7 @@ An asynchronous pipe that can transform an input to the output.
 - `O`: The type of the output of the pipe.
 
 ## Methods
-### Run(I)
+### [Run(I)](../src/Core/Pipes/IPipe.cs#L12)
 ```cs
  Task<O> Run(I input)
 ```
