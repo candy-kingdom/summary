@@ -1,4 +1,5 @@
 ﻿using Summary.Pipes;
+using Summary.Pipes.IO;
 using Summary.Roslyn.CSharp;
 
 namespace Summary.Tests.Roslyn;
@@ -32,7 +33,7 @@ public class RoslynParserTests
     private static string Declaration(string src) =>
         new ParseSyntaxTreePipe()
             .Then(new ParseDocPipe())
-            .RunSync(src)
+            .RunSync(new Source(src))
             .Members
             .OfType<DocTypeDeclaration>()
             .Single()
