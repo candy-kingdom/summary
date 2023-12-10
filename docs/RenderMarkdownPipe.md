@@ -1,4 +1,4 @@
-# Summary.Markdown.RenderMarkdownPipe
+# [Summary.Markdown.RenderMarkdownPipe](../src/Plugins/Markdown/RenderMarkdownPipe.cs#L8)
 ```cs
 public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 ```

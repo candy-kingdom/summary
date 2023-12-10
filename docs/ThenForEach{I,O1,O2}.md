@@ -1,4 +1,4 @@
-# Summary.Pipes.ThenForEach<I, O1, O2>
+# [Summary.Pipes.ThenForEach<I, O1, O2>](../src/Core/Pipes/ThenForEach.cs#L5)
 ```cs
 public class ThenForEach<I, O1, O2> : IPipe<I, O2[]>
 ```

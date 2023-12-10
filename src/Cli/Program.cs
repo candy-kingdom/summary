@@ -4,7 +4,7 @@ using Summary.Pipelines;
 using Summary.Roslyn;
 
 const string input = "../../../../../src/";
-const string output = "../../../../../docs";
+const string output = "../../../../../docs/";
 
 await new SummaryPipeline()
     .UseLoggerFactory(new ConsoleLoggerFactory())

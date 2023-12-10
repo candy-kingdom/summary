@@ -1,4 +1,4 @@
-# Summary.DocIndexer
+# [Summary.DocIndexer](../src/Core/DocIndexer.cs#L5)
 ```cs
 public record DocIndexer : DocProperty
 ```

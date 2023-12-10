@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDocBase
+# [Summary.Samples.InheritDocBase](../src/Core/Samples/InheritDocSample.cs#L8)
 ```cs
 public class InheritDocBase
 ```

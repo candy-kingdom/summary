@@ -1,4 +1,4 @@
-# Summary.Pipelines.SummaryPipelineExtensions
+# [Summary.Pipelines.SummaryPipelineExtensions](../src/Core/Pipelines/SummaryPipelineExtensions.cs#L9)
 ```cs
 public static class SummaryPipelineExtensions
 ```

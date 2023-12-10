@@ -1,4 +1,4 @@
-# Summary.Pipelines.SummaryPipeline
+# [Summary.Pipelines.SummaryPipeline](../src/Core/Pipelines/SummaryPipeline.cs#L16)
 ```cs
 public class SummaryPipeline
 ```

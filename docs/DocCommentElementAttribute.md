@@ -1,4 +1,4 @@
-# Summary.DocCommentElementAttribute
+# [Summary.DocCommentElementAttribute](../src/Core/DocCommentElementAttribute.cs#L7)
 ```cs
 public record DocCommentElementAttribute(string Name, string Value)
 ```

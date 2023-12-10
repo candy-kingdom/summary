@@ -1,4 +1,4 @@
-# Summary.Pipes.FuncPipe<I, O>
+# [Summary.Pipes.FuncPipe<I, O>](../src/Core/Pipes/FuncPipe.cs#L5)
 ```cs
 public class FuncPipe<I, O> : IPipe<I, O>
 ```

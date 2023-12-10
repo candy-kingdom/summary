@@ -1,4 +1,4 @@
-# Summary.Pipes.PipeExtensions
+# [Summary.Pipes.PipeExtensions](../src/Core/Pipes/PipeExtensions.cs#L8)
 ```cs
 public static class PipeExtensions
 ```
@@ -27,9 +27,23 @@ public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, IPipe<O1, O2> b)
 
 Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
 
+### Then<I, O>(IPipe<I, O>, IPipe<O, O>, bool)
+```cs
+public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, IPipe<O, O> b, bool when)
+```
+
+Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
+
 ### Then<I, O1, O2>(IPipe<I, O1>, Func<O1, O2>)
 ```cs
 public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> map)
+```
+
+Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
+
+### Then<I, O>(IPipe<I, O>, Func<O, O>, bool)
+```cs
+public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, Func<O, O> map, bool when)
 ```
 
 Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.

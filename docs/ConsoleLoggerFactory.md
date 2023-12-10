@@ -1,4 +1,4 @@
-# Summary.Cli.Logging.ConsoleLoggerFactory
+# [Summary.Cli.Logging.ConsoleLoggerFactory](../src/Cli/Logging/ConsoleLoggerFactory.cs#L8)
 ```cs
 public class ConsoleLoggerFactory : ILoggerFactory
 ```

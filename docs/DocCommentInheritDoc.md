@@ -1,4 +1,4 @@
-# Summary.DocCommentInheritDoc
+# [Summary.DocCommentInheritDoc](../src/Core/DocCommentInheritDoc.cs#L7)
 ```cs
 public record DocCommentInheritDoc(string? Cref) : DocCommentNode
 ```

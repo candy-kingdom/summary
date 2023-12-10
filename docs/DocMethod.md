@@ -1,4 +1,4 @@
-# Summary.DocMethod
+# [Summary.DocMethod](../src/Core/DocMethod.cs#L7)
 ```cs
 public record DocMethod : DocMember
 ```

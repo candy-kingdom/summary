@@ -1,4 +1,4 @@
-# Summary.Tests.Core.PipesTests
+# [Summary.Tests.Core.PipesTests](../src/Tests/Core/PipesTests.cs#L4)
 ```cs
 public class PipesTests
 ```

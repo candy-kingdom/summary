@@ -1,4 +1,4 @@
-# Summary.Markdown.Md
+# [Summary.Markdown.Md](../src/Plugins/Markdown/Md.cs#L7)
 ```cs
 public record Md(string Name, string Content)
 ```

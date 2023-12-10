@@ -1,4 +1,4 @@
-# Summary.Pipes.IPipe<I, O>
+# [Summary.Pipes.IPipe<I, O>](../src/Core/Pipes/IPipe.cs#L7)
 ```cs
 public interface IPipe<in I, O>
 ```

@@ -1,4 +1,4 @@
-# Summary.DocCommentElement
+# [Summary.DocCommentElement](../src/Core/DocCommentElement.cs#L10)
 ```cs
 public record DocCommentElement(string Name, DocCommentElementAttribute[] Attributes, DocCommentNode[] Nodes) : DocCommentNode
 ```

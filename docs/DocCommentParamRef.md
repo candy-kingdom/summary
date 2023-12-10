@@ -1,4 +1,4 @@
-# Summary.DocCommentParamRef
+# [Summary.DocCommentParamRef](../src/Core/DocCommentParamRef.cs#L6)
 ```cs
 public record DocCommentParamRef(string Value) : DocCommentNode
 ```

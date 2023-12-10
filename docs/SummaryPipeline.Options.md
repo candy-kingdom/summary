@@ -1,4 +1,4 @@
-# Summary.Pipelines.SummaryPipeline.Options
+# [Summary.Pipelines.SummaryPipeline.Options](../src/Core/Pipelines/SummaryPipeline.cs#L21)
 ```cs
 public class Options
 ```

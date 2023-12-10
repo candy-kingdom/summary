@@ -1,4 +1,4 @@
-# Summary.Pipes.Logging.LoggedPipe<I, O>
+# [Summary.Pipes.Logging.LoggedPipe<I, O>](../src/Core/Pipes/Logging/LoggedPipe.cs#L10)
 ```cs
 public class LoggedPipe<I, O> : IPipe<I, O>
 ```

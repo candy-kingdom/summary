@@ -1,4 +1,4 @@
-# Summary.DocCommentLink
+# [Summary.DocCommentLink](../src/Core/DocCommentLink.cs#L7)
 ```cs
 public record DocCommentLink(string Value) : DocCommentNode
 ```

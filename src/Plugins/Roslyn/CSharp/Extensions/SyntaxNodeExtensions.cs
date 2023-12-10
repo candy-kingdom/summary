@@ -46,4 +46,29 @@ internal static class SyntaxNodeExtensions
 
         _ => null,
     };
+
+    public static DocLocation? Location(this SyntaxNode self) =>
+        self.GetLocation().Location();
+
+    public static DocLocation? Location(this SyntaxToken self) =>
+        self.GetLocation().Location();
+
+    private static DocLocation? Location(this Location location)
+    {
+        if (!string.IsNullOrWhiteSpace(location.SourceTree?.FilePath))
+        {
+            var line = location.GetLineSpan();
+            var start = line.StartLinePosition;
+            var end = line.EndLinePosition;
+
+            return new DocLocation
+            {
+                Path = location.SourceTree.FilePath,
+                Start = (start.Line, start.Character),
+                End = (end.Line, end.Character),
+            };
+        }
+
+        return null;
+    }
 }

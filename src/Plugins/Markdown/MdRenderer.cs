@@ -29,8 +29,12 @@ internal class MdRenderer
     }
 
     private readonly StringBuilder _builder = new();
+    private readonly string _output;
 
     private int _level = 1;
+
+    public MdRenderer(string output) =>
+        _output = Path.GetFullPath(output);
 
     /// <summary>
     ///     Converts the rendered Markdown into a string.
@@ -95,20 +99,38 @@ internal class MdRenderer
         .Returns(indexer.Comment);
 
     // TODO: We can omit rendering `Name` and render `Declaration` only but it'd be nice to make this customizable via plugins.
-    private MdRenderer Name(DocMember member) => member switch
+    private MdRenderer Name(DocMember member)
     {
-        DocMethod method =>
-            Line($"{new string(c: '#', _level)} " +
-                 $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
-                 $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
-                 $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
-        DocIndexer indexer =>
-            Line($"{new string(c: '#', _level)} this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
-        DocTypeDeclaration type when _level is 1 =>
-            Line($"{new string(c: '#', _level)} {type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
-        _ =>
-            Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
-    };
+        return member switch
+        {
+            DocMethod method =>
+                Line($"{new string(c: '#', _level)} " +
+                     $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
+                     $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
+                     $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
+            DocIndexer indexer =>
+                Line($"{new string(c: '#', _level)} this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
+            DocTypeDeclaration type when _level is 1 =>
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"{type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}" +
+                          $"{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}")),
+            _ =>
+                Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
+        };
+
+        string Link(string text)
+        {
+            if (member.Location is not null)
+            {
+                var from = new Uri(_output);
+                var to = new Uri(member.Location.Path);
+
+                return $"[{text}]({from.MakeRelativeUri(to)}#L{member.Location.Start.Line})";
+            }
+
+            return text;
+        }
+    }
 
     private MdRenderer Deprecation(DocDeprecation? deprecation)
     {

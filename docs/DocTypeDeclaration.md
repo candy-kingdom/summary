@@ -1,4 +1,4 @@
-# Summary.DocTypeDeclaration
+# [Summary.DocTypeDeclaration](../src/Core/DocTypeDeclaration.cs#L8)
 ```cs
 public record DocTypeDeclaration : DocMember
 ```

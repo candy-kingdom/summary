@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDoc_InterfaceChild
+# [Summary.Samples.InheritDoc_InterfaceChild](../src/Core/Samples/InheritDocSample.cs#L187)
 ```cs
 public class InheritDoc_InterfaceChild : IInheritDocBase
 ```

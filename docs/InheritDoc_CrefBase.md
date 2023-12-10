@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDoc_CrefBase
+# [Summary.Samples.InheritDoc_CrefBase](../src/Core/Samples/InheritDocSample.cs#L143)
 ```cs
 public class InheritDoc_CrefBase
 ```

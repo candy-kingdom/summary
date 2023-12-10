@@ -1,4 +1,4 @@
-# Summary.DocTypeParam
+# [Summary.DocTypeParam](../src/Core/DocTypeParam.cs#L6)
 ```cs
 public record DocTypeParam(string Name)
 ```

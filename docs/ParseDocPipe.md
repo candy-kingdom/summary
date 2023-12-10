@@ -1,4 +1,4 @@
-# Summary.Roslyn.CSharp.ParseDocPipe
+# [Summary.Roslyn.CSharp.ParseDocPipe](../src/Plugins/Roslyn/CSharp/ParseDocPipe.cs#L11)
 ```cs
 public class ParseDocPipe : IPipe<SyntaxTree, Doc>
 ```

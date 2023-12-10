@@ -1,4 +1,4 @@
-# Summary.Roslyn.CSharp.InlineInheritDocPipe
+# [Summary.Roslyn.CSharp.InlineInheritDocPipe](../src/Plugins/Roslyn/CSharp/InlineInheritDocPipe.cs#L16)
 ```cs
 public class InlineInheritDocPipe : IPipe<Doc, Doc>
 ```

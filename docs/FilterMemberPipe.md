@@ -1,4 +1,4 @@
-# Summary.Pipes.Filters.FilterMemberPipe
+# [Summary.Pipes.Filters.FilterMemberPipe](../src/Core/Pipes/Filters/FilterMemberPipe.cs#L5)
 ```cs
 public class FilterMemberPipe : IPipe<Doc, Doc>
 ```

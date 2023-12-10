@@ -1,4 +1,4 @@
-# Summary.Pipes.Unit
+# [Summary.Pipes.Unit](../src/Core/Pipes/Unit.cs#L5)
 ```cs
 public class Unit
 ```

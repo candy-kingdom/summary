@@ -1,4 +1,4 @@
-# Summary.DocMember
+# [Summary.DocMember](../src/Core/DocMember.cs#L7)
 ```cs
 public abstract record DocMember
 ```
@@ -63,6 +63,13 @@ public DocDeprecation? Deprecation { get; init; }
 ```
 
 The member deprecation information.
+
+### Location
+```cs
+public DocLocation? Location { get; init; }
+```
+
+The location of the member.
 
 ## Methods
 ### MatchesCref(string)

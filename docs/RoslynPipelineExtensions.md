@@ -1,4 +1,4 @@
-# Summary.Roslyn.RoslynPipelineExtensions
+# [Summary.Roslyn.RoslynPipelineExtensions](../src/Plugins/Roslyn/RoslynPipelineExtensions.cs#L12)
 ```cs
 public static class RoslynPipelineExtensions
 ```

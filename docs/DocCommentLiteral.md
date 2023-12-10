@@ -1,4 +1,4 @@
-# Summary.DocCommentLiteral
+# [Summary.DocCommentLiteral](../src/Core/DocCommentLiteral.cs#L14)
 ```cs
 public record DocCommentLiteral(string Value, string LeadingTrivia = "") : DocCommentNode
 ```

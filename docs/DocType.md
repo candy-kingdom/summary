@@ -1,4 +1,4 @@
-# Summary.DocType
+# [Summary.DocType](../src/Core/DocType.cs#L9)
 ```cs
 public record DocType(string Name, DocType[] TypeParams)
 ```

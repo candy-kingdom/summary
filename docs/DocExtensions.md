@@ -1,4 +1,4 @@
-# Summary.DocExtensions
+# [Summary.DocExtensions](../src/Core/DocExtensions.cs#L7)
 ```cs
 public static class DocExtensions
 ```

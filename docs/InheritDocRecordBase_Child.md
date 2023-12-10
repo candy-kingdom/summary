@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDocRecordBase_Child
+# [Summary.Samples.InheritDocRecordBase_Child](../src/Core/Samples/InheritDocSample.cs#L197)
 ```cs
 public record InheritDocRecordBase_Child(int Property, int OtherProperty) : InheritDocRecordBase(Property)
 ```

@@ -1,4 +1,4 @@
-# Summary.DocProperty
+# [Summary.DocProperty](../src/Core/DocProperty.cs#L5)
 ```cs
 public record DocProperty : DocMember
 ```

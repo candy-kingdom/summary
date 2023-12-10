@@ -1,4 +1,4 @@
-# Summary.Doc
+# [Summary.Doc](../src/Core/Doc.cs#L6)
 ```cs
 public record Doc(DocMember[] Members)
 ```

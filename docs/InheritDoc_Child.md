@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDoc_Child
+# [Summary.Samples.InheritDoc_Child](../src/Core/Samples/InheritDocSample.cs#L88)
 ```cs
 public class InheritDoc_Child : InheritDocBase
 ```

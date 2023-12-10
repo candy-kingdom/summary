@@ -1,4 +1,4 @@
-# Summary.DocParam
+# [Summary.DocParam](../src/Core/DocParam.cs#L7)
 ```cs
 public record DocParam(DocType? Type, string Name)
 ```

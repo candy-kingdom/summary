@@ -1,4 +1,4 @@
-# Summary.Samples.Sample<T0, T1>
+# [Summary.Samples.Sample<T0, T1>](../src/Core/Samples/Sample.cs#L25)
 ```cs
 public class Sample<T0, T1>
 ```

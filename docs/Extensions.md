@@ -1,4 +1,4 @@
-# Summary.Tests.Extensions
+# [Summary.Tests.Extensions](../src/Tests/Extensions.cs#L7)
 ```cs
 public static class Extensions
 ```

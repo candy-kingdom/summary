@@ -1,4 +1,4 @@
-# Summary.Pipes.TeePipe<I, O>
+# [Summary.Pipes.TeePipe<I, O>](../src/Core/Pipes/TeePipe.cs#L5)
 ```cs
 public class TeePipe<I, O> : IPipe<I, O>
 ```

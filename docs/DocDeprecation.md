@@ -1,4 +1,4 @@
-# Summary.DocDeprecation
+# [Summary.DocDeprecation](../src/Core/DocDeprecation.cs#L5)
 ```cs
 public record DocDeprecation
 ```
