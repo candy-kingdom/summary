@@ -43,7 +43,21 @@ public record DocComment(DocCommentNode[] Nodes)
     /// <summary>
     ///     A nested documentation element that matches the specified predicate <c>p</c>.
     /// </summary>
-    /// <param name="p">The predicate to apply on each nested documentation element.</param>
+    /// <param name="p">The predicate to filter nested documentation elements.</param>
     public DocCommentElement? Element(Func<DocCommentElement, bool> p) =>
-        Nodes.OfType<DocCommentElement>().FirstOrDefault(p);
+        Elements(p).FirstOrDefault();
+
+    /// <summary>
+    ///     A sequence of nested documentation elements that have the specified name (e.g. <c>summary</c>, <c>remarks</c>, etc.).
+    /// </summary>
+    /// <param name="tag">The name of the element tag to search inside the comment.</param>
+    public IEnumerable<DocCommentElement> Elements(string tag) =>
+        Elements(x => x.Name == tag);
+
+    /// <summary>
+    ///     A sequence of nested documentation elements that match the specified predicate.
+    /// </summary>
+    /// <param name="p">The predicate to filter nested documentation elements.</param>
+    public IEnumerable<DocCommentElement> Elements(Func<DocCommentElement, bool> p) =>
+        Nodes.OfType<DocCommentElement>().Where(p);
 }

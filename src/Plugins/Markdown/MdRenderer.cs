@@ -69,7 +69,8 @@ internal class MdRenderer
         .Header(method)
         .TypeParams(method)
         .Params(method)
-        .Returns(method.Comment);
+        .Returns(method.Comment)
+        .Exceptions(method.Comment);
 
     private MdRenderer Property(DocTypeDeclaration parent, DocProperty property)
     {
@@ -77,13 +78,20 @@ internal class MdRenderer
             return this
                 .Name(property)
                 .Declaration(property)
-                .Element(parent.Comment.Param(property.Name));
+                .Element(parent.Comment.Param(property.Name))
+                .Exceptions(property.Comment);
 
         if (property is DocIndexer indexer)
             return Indexer(indexer);
 
-        return Header(property);
+        return Header(property).Exceptions(property.Comment);
     }
+
+    private MdRenderer Indexer(DocIndexer indexer) => this
+        .Header(indexer)
+        .Params(indexer)
+        .Returns(indexer.Comment)
+        .Exceptions(indexer.Comment);
 
     private MdRenderer Header(DocMember member) => this
         .Name(member)
@@ -93,12 +101,6 @@ internal class MdRenderer
         .Element(member.Comment.Element("remarks"), x => $"_{x}_")
         .Elements("Example", member.Comment.Element("example"));
 
-    private MdRenderer Indexer(DocIndexer indexer) => this
-        .Header(indexer)
-        .Params(indexer)
-        .Returns(indexer.Comment);
-
-    // TODO: We can omit rendering `Name` and render `Declaration` only but it'd be nice to make this customizable via plugins.
     private MdRenderer Name(DocMember member)
     {
         return member switch
@@ -186,6 +188,9 @@ internal class MdRenderer
 
     private MdRenderer Returns(DocComment comment) =>
         Elements("Returns", comment.Element("returns"));
+
+    private MdRenderer Exceptions(DocComment comment) =>
+        Params("Exceptions", comment.Elements("exception").Select(x => (x.Attribute("cref")?.Value ?? "", x))!);
 
     private MdRenderer Elements(string section, DocCommentElement? element, Func<string, string>? map = null) =>
         element is null ? this : Section(section).Element(element, map);

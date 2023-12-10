@@ -71,5 +71,25 @@ public DocCommentElement? Element(Func<DocCommentElement, bool> p)
 A nested documentation element that matches the specified predicate `p`.
 
 #### Parameters
-- `p`: The predicate to apply on each nested documentation element.
+- `p`: The predicate to filter nested documentation elements.
+
+### [Elements(string)](../src/Core/DocComment.cs#L54)
+```cs
+public IEnumerable<DocCommentElement> Elements(string tag)
+```
+
+A sequence of nested documentation elements that have the specified name (e.g. `summary`, `remarks`, etc.).
+
+#### Parameters
+- `tag`: The name of the element tag to search inside the comment.
+
+### [Elements(Func<DocCommentElement, bool>)](../src/Core/DocComment.cs#L61)
+```cs
+public IEnumerable<DocCommentElement> Elements(Func<DocCommentElement, bool> p)
+```
+
+A sequence of nested documentation elements that match the specified predicate.
+
+#### Parameters
+- `p`: The predicate to filter nested documentation elements.
 
