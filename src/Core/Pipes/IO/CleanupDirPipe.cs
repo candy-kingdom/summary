@@ -5,6 +5,7 @@ namespace Summary.Pipes.IO;
 /// </summary>
 public class CleanupDirPipe<I>(string root) : IPipe<I, I>
 {
+    /// <inheritdoc />
     public Task<I> Run(I input)
     {
         if (Directory.Exists(root))

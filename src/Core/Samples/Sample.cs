@@ -1,4 +1,13 @@
-﻿namespace Summary.Samples;
+﻿// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Local
+// ReSharper disable UnusedParameter.Global
+// ReSharper disable EventNeverSubscribedTo.Global
+// ReSharper disable ValueParameterNotUsed
+// ReSharper disable UnusedTypeParameter
+#pragma warning disable CS0067
+
+namespace Summary.Samples;
 
 /// <summary>
 ///     A sample delegate.
@@ -65,8 +74,9 @@ public class Sample<T0, T1>
     public int Property2 { private get; set; }
 
     /// <summary>
-    ///     A sample property with custom visibility (2).
+    ///     A sample property with custom visibility and an exception.
     /// </summary>
+    /// <exception cref="ArithmeticException">Invalid number.</exception>
     public int Property3 { get; protected set; }
 
     /// <summary>
@@ -102,19 +112,21 @@ public class Sample<T0, T1>
     /// <summary>
     ///     A simple method.
     ///     It contains two parameters:
-    ///     - <paramref name="x" /> means `x`
-    ///     - <paramref name="y" /> means `y`
+    ///     - <paramref name="x" /> means <c>x</c>
+    ///     - <paramref name="y" /> means <c>y</c>
     ///     It contains three type parameters:
     ///     - <typeparamref name="M0" /> is the first one
     ///     - <typeparamref name="M1" /> is the second one
     ///     - <typeparamref name="M2" /> is the third one
     /// </summary>
-    /// <param name="x">The `x` of the method.</param>
-    /// <param name="y">The `y` of the method.</param>
+    /// <param name="x">The <c>x</c> of the method.</param>
+    /// <param name="y">The <c>y</c> of the method.</param>
     /// <typeparam name="M0">The first type parameter of the method.</typeparam>
     /// <typeparam name="M1">The second type parameter of the method.</typeparam>
     /// <typeparam name="M2">The third type parameter of the method.</typeparam>
-    /// <returns>The `TimeSpan` instance.</returns>
+    /// <returns>The <c>TimeSpan</c> instance.</returns>
+    /// <exception cref="ArgumentException">The argument is incorrect.</exception>
+    /// <exception cref="ApplicationException">Something went wrong.</exception>
     public TimeSpan Method<M0, M1, M2>(int x, string y) =>
         TimeSpan.Zero;
 

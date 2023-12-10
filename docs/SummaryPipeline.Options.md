@@ -1,4 +1,4 @@
-# Summary.Pipelines.SummaryPipeline.Options
+# [Summary.Pipelines.SummaryPipeline.Options](../src/Core/Pipelines/SummaryPipeline.cs#L22)
 ```cs
 public class Options
 ```
@@ -6,7 +6,7 @@ public class Options
 A set of options that configure the behavior of the summary pipeline.
 
 ## Properties
-### LoggerFactory
+### [LoggerFactory](../src/Core/Pipelines/SummaryPipeline.cs#L29)
 ```cs
 public ILoggerFactory LoggerFactory { get; }
 ```
@@ -14,7 +14,7 @@ public ILoggerFactory LoggerFactory { get; }
 The factory that provides logger implementations.
 
 ## Methods
-### UseLoggerFactory(ILoggerFactory)
+### [UseLoggerFactory(ILoggerFactory)](../src/Core/Pipelines/SummaryPipeline.cs#L34)
 ```cs
 public Options UseLoggerFactory(ILoggerFactory loggers)
 ```

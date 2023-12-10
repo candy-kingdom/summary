@@ -1,4 +1,4 @@
-# Summary.Cli.Logging.ConsoleLoggerFactory
+# [Summary.Cli.Logging.ConsoleLoggerFactory](../src/Cli/Logging/ConsoleLoggerFactory.cs#L9)
 ```cs
 public class ConsoleLoggerFactory : ILoggerFactory
 ```
@@ -6,18 +6,18 @@ public class ConsoleLoggerFactory : ILoggerFactory
 A simple factory for console loggers that format messages in the Summary CLI way.
 
 ## Fields
-### Instance
+### [Instance](../src/Cli/Logging/ConsoleLoggerFactory.cs#L37)
 ```cs
 public static readonly ILogger Instance
 ```
 
 ## Methods
-### Dispose()
+### [Dispose()](../src/Cli/Logging/ConsoleLoggerFactory.cs#L27)
 ```cs
 public void Dispose()
 ```
 
-### Log<TState>(LogLevel, EventId, TState, Exception?<Exception>, Func<TState, Exception?<Exception>, string>)
+### [Log<TState>(LogLevel, EventId, TState, Exception?<Exception>, Func<TState, Exception?<Exception>, string>)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L41)
 ```cs
 public void Log<TState>(
             LogLevel logLevel,
@@ -27,27 +27,27 @@ public void Log<TState>(
             Func<TState, Exception?, string> formatter)
 ```
 
-### IsEnabled(LogLevel)
+### [IsEnabled(LogLevel)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L49)
 ```cs
 public bool IsEnabled(LogLevel logLevel)
 ```
 
-### BeginScope<TState>(TState)
+### [BeginScope<TState>(TState)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L51)
 ```cs
 public IDisposable? BeginScope<TState>(TState state)
 ```
 
-### CreateLogger(string)
+### [CreateLogger(string)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L63)
 ```cs
 public ILogger CreateLogger(string categoryName)
 ```
 
-### AddProvider(ILoggerProvider)
+### [AddProvider(ILoggerProvider)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L65)
 ```cs
 public void AddProvider(ILoggerProvider provider)
 ```
 
-### Dispose()
+### [Dispose()](../src/Cli/Logging/ConsoleLoggerFactory.cs#L69)
 ```cs
 public void Dispose()
 ```

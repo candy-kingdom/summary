@@ -8,18 +8,18 @@ namespace Summary;
 public abstract record DocMember
 {
     /// <summary>
-    ///     The fully qualified name of the member (e.g., `Summary.DocMember`).
+    ///     The fully qualified name of the member (e.g., <c>Summary.DocMember</c>).
     /// </summary>
     public required string FullyQualifiedName { get; init; }
 
     /// <summary>
-    ///     The name of the member (e.g. `public int Field` has name `Field`).
+    ///     The name of the member (e.g. <c>public int Field</c> has name <c>Field</c>).
     /// </summary>
     public required string Name { get; init; }
 
     /// <summary>
     ///     The code-snippet that contains the full declaration of the member
-    ///     (e.g. `public int Field` is a declaration of the field member `Field`).
+    ///     (e.g. <c>public int Field</c> is a declaration of the field member <c>Field</c>).
     /// </summary>
     public required string Declaration { get; init; }
 
@@ -50,7 +50,12 @@ public abstract record DocMember
     public DocDeprecation? Deprecation { get; init; }
 
     /// <summary>
-    ///     Whether this member matches the specified `cref` reference.
+    ///     The location of the member.
+    /// </summary>
+    public DocLocation? Location { get; init; }
+
+    /// <summary>
+    ///     Whether this member matches the specified <c>cref</c> reference.
     /// </summary>
     public bool MatchesCref(string cref)
     {

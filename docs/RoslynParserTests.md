@@ -1,22 +1,22 @@
-# Summary.Tests.Roslyn.RoslynParserTests
+# [Summary.Tests.Roslyn.RoslynParserTests](../src/Tests/Roslyn/RoslynParserTests.cs#L7)
 ```cs
 public class RoslynParserTests
 ```
 
 ## Methods
-### Class()
+### [Class()](../src/Tests/Roslyn/RoslynParserTests.cs#L10)
 ```cs
 [Fact]
 public void Class()
 ```
 
-### Record()
+### [Record()](../src/Tests/Roslyn/RoslynParserTests.cs#L18)
 ```cs
 [Fact]
 public void Record()
 ```
 
-### RecordStruct()
+### [RecordStruct()](../src/Tests/Roslyn/RoslynParserTests.cs#L26)
 ```cs
 [Fact]
 public void RecordStruct()

@@ -29,8 +29,12 @@ internal class MdRenderer
     }
 
     private readonly StringBuilder _builder = new();
+    private readonly string _output;
 
     private int _level = 1;
+
+    public MdRenderer(string output) =>
+        _output = Path.GetFullPath(output);
 
     /// <summary>
     ///     Converts the rendered Markdown into a string.
@@ -66,7 +70,8 @@ internal class MdRenderer
         .Header(method)
         .TypeParams(method)
         .Params(method)
-        .Returns(method.Comment);
+        .Returns(method.Comment)
+        .Exceptions(method.Comment);
 
     private MdRenderer Property(DocTypeDeclaration parent, DocProperty property)
     {
@@ -74,13 +79,20 @@ internal class MdRenderer
             return this
                 .Name(property)
                 .Declaration(property)
-                .Element(parent.Comment.Param(property.Name));
+                .Element(parent.Comment.Param(property.Name))
+                .Exceptions(property.Comment);
 
         if (property is DocIndexer indexer)
             return Indexer(indexer);
 
-        return Header(property);
+        return Header(property).Exceptions(property.Comment);
     }
+
+    private MdRenderer Indexer(DocIndexer indexer) => this
+        .Header(indexer)
+        .Params(indexer)
+        .Returns(indexer.Comment)
+        .Exceptions(indexer.Comment);
 
     private MdRenderer Header(DocMember member) => this
         .Name(member)
@@ -90,26 +102,41 @@ internal class MdRenderer
         .Element(member.Comment.Element("remarks"), x => $"_{x}_")
         .Elements("Example", member.Comment.Element("example"));
 
-    private MdRenderer Indexer(DocIndexer indexer) => this
-        .Header(indexer)
-        .Params(indexer)
-        .Returns(indexer.Comment);
-
-    // TODO: We can omit rendering `Name` and render `Declaration` only but it'd be nice to make this customizable via plugins.
-    private MdRenderer Name(DocMember member) => member switch
+    private MdRenderer Name(DocMember member)
     {
-        DocMethod method =>
-            Line($"{new string(c: '#', _level)} " +
-                 $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
-                 $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
-                 $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})"),
-        DocIndexer indexer =>
-            Line($"{new string(c: '#', _level)} this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]"),
-        DocTypeDeclaration type when _level is 1 =>
-            Line($"{new string(c: '#', _level)} {type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}"),
-        _ =>
-            Line($"{new string(c: '#', _level)} {member.Name.Surround("~~", "~~", when: member.Deprecated)}"),
-    };
+        return member switch
+        {
+            DocMethod method =>
+                Line($"{new string(c: '#', _level)} " +
+                     Link(
+                         $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
+                         $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
+                         $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})")),
+            DocIndexer indexer =>
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]")),
+            DocTypeDeclaration type when _level is 1 =>
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"{type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}" +
+                          $"{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}")),
+            _ =>
+                Line($"{new string(c: '#', _level)} " +
+                     Link($"{member.Name.Surround("~~", "~~", when: member.Deprecated)}")),
+        };
+
+        string Link(string text)
+        {
+            if (member.Location is not null)
+            {
+                var from = new Uri(_output);
+                var to = new Uri(member.Location.Path);
+
+                return $"[{text}]({from.MakeRelativeUri(to)}#L{member.Location.Start.Line + 1})";
+            }
+
+            return text;
+        }
+    }
 
     private MdRenderer Deprecation(DocDeprecation? deprecation)
     {
@@ -167,6 +194,9 @@ internal class MdRenderer
 
     private MdRenderer Returns(DocComment comment) =>
         Elements("Returns", comment.Element("returns"));
+
+    private MdRenderer Exceptions(DocComment comment) =>
+        Params("Exceptions", comment.Elements("exception").Select(x => (x.Attribute("cref")?.Value ?? " ", x))!);
 
     private MdRenderer Elements(string section, DocCommentElement? element, Func<string, string>? map = null) =>
         element is null ? this : Section(section).Element(element, map);

@@ -5,6 +5,7 @@
 /// </summary>
 public class ThenForEach<I, O1, O2>(IPipe<I, O1[]> inner, IPipe<O1, O2> map) : IPipe<I, O2[]>
 {
+    /// <inheritdoc />
     public async Task<O2[]> Run(I input)
     {
         var os = await inner.Run(input).ConfigureAwait(false);

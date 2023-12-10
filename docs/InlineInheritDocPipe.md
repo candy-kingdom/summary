@@ -1,4 +1,4 @@
-# Summary.Roslyn.CSharp.InlineInheritDocPipe
+# [Summary.Roslyn.CSharp.InlineInheritDocPipe](../src/Plugins/Roslyn/CSharp/InlineInheritDocPipe.cs#L17)
 ```cs
 public class InlineInheritDocPipe : IPipe<Doc, Doc>
 ```
@@ -12,7 +12,7 @@ _- if this member contains an `<inheritdoc/>` element, it's removed from the mem
 _- then, the inherited documentation (either from the base type or from the specified cref) is added to the member comment._
 
 ## Methods
-### Run(Doc)
+### [Run(Doc)](../src/Plugins/Roslyn/CSharp/InlineInheritDocPipe.cs#L19)
 ```cs
 public Task<Doc> Run(Doc doc)
 ```

@@ -1,5 +1,3 @@
-using Summary.Samples;
-
 namespace Summary.Pipes.Filters;
 
 /// <summary>
@@ -10,6 +8,7 @@ public class FilterMemberPipe(Func<DocMember, bool> predicate, Func<DocMember, D
 {
     private readonly Func<DocMember, DocMember> _map = map ?? (static x => x);
 
+    /// <inheritdoc />
     public Task<Doc> Run(Doc input) =>
         Task.FromResult(new Doc(Filtered(input.Members)));
 

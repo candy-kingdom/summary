@@ -5,6 +5,7 @@
 /// </summary>
 public class TeePipe<I, O>(IPipe<I, O> inner, Action<O> tee) : IPipe<I, O>
 {
+    /// <inheritdoc />
     public async Task<O> Run(I input)
     {
         var output =  await inner.Run(input).ConfigureAwait(false);

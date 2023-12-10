@@ -3,8 +3,8 @@
 namespace Summary;
 
 /// <summary>
-///     A <see cref="DocMember" /> that represents a documented type declaration (e.g. `struct`, `class`, etc.)
-///     in the parsed source code.
+///     A <see cref="DocMember" /> that represents a documented type declaration
+///     (e.g. <c>struct</c>, <c>class</c>, etc.) in the parsed source code.
 /// </summary>
 public record DocTypeDeclaration : DocMember
 {

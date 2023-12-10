@@ -76,7 +76,7 @@ internal static class XmlSyntaxExtensions
     private static DocCommentElementAttribute? Attribute(this XmlAttributeSyntax self) => self switch
     {
         XmlNameAttributeSyntax name => new DocCommentElementAttribute(self.Name.ToString(), name.Identifier.Identifier.ValueText),
-
+        XmlCrefAttributeSyntax cref => new DocCommentElementAttribute(self.Name.ToString(), cref.Cref.ToString()),
         _ => null,
     };
 

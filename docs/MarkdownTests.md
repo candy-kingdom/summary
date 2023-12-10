@@ -1,22 +1,22 @@
-# Summary.Tests.Markdown.MarkdownTests
+# [Summary.Tests.Markdown.MarkdownTests](../src/Tests/Markdown/MarkdownTests.cs#L8)
 ```cs
 public class MarkdownTests
 ```
 
 ## Methods
-### NewLinePreserved()
+### [NewLinePreserved()](../src/Tests/Markdown/MarkdownTests.cs#L11)
 ```cs
 [Fact]
 public void NewLinePreserved()
 ```
 
-### LinkBeforeDot()
+### [LinkBeforeDot()](../src/Tests/Markdown/MarkdownTests.cs#L23)
 ```cs
 [Fact]
 public void LinkBeforeDot()
 ```
 
-### LinkBeforeSpace()
+### [LinkBeforeSpace()](../src/Tests/Markdown/MarkdownTests.cs#L33)
 ```cs
 [Fact]
 public void LinkBeforeSpace()
