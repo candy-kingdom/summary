@@ -8,10 +8,11 @@ One of the [`DocProperty`](./DocProperty.md) accessors (e.g., `get`, `set`, `ini
 ## Fields
 ### Access
 ```cs
-public AccessModifier Access
+public AccessModifier? Access
 ```
 
 The access modifier of the accessor.
+If the value is `null`, then the access modifier is inherited from the property declaration.
 
 ### Kind
 ```cs

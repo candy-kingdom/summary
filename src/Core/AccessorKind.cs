@@ -19,15 +19,5 @@ public enum AccessorKind
     ///     It's a <c>init</c> accessor.
     /// </summary>
     Init,
-
-    /// <summary>
-    ///     It's an event <c>add</c> accessor.
-    /// </summary>
-    Add,
-
-    /// <summary>
-    ///     It's an event <c>remove</c> accessor.
-    /// </summary>
-    Remove,
 }
 

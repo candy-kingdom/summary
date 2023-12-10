@@ -1,4 +1,6 @@
-﻿namespace Summary;
+﻿using Summary.Extensions;
+
+namespace Summary;
 
 /// <summary>
 ///     A <see cref="DocMember" /> that represents a documented property in the parsed source code.
@@ -20,8 +22,20 @@ public record DocProperty : DocMember
     /// </summary>
     public required bool Generated { get; init; }
 
+    // TODO: Consider having a separate `DocEvent` type since events are more specialized properties (@j.light).
     /// <summary>
     ///     Whether this property represents an event.
     /// </summary>
     public required bool Event { get; init; }
+
+    /// <summary>
+    ///     The declaration of property accessors as they declared in the C# source code.
+    /// </summary>
+    public string AccessorsDeclaration => Accessors
+        .Select(x => $"{AccessDeclaration(x).ToLower().Space() ?? ""}{x.Kind.ToString().ToLower()};")
+        .Separated(with: " ")
+        .Surround("{ ", " }");
+
+    private string AccessDeclaration(DocPropertyAccessor x) =>
+        x.Access is null || x.Access == Access ? "" : x.Access.Value.ToString();
 }

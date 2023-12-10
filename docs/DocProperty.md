@@ -34,3 +34,10 @@ public required bool Event { get; init; }
 
 Whether this property represents an event.
 
+### AccessorsDeclaration
+```cs
+public string AccessorsDeclaration { get; }
+```
+
+The declaration of property accessors as they declared in the C# source code.
+

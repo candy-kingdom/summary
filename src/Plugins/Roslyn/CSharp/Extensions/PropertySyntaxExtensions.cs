@@ -25,7 +25,7 @@ internal static class PropertySyntaxExtensions
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier} {self.AccessorsDeclaration()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
@@ -47,7 +47,7 @@ internal static class PropertySyntaxExtensions
             Type = self.Type!.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.AttributeLists.AttributesDeclaration()}public {self.Type} {self.Identifier} {{ get; }}",
+            Declaration = $"{self.AttributeLists.AttributesDeclaration()}public {self.Type} {self.Identifier}",
             Access = AccessModifier.Public,
             Comment = DocComment.Empty,
             DeclaringType = self.DeclaringType(),
@@ -66,12 +66,13 @@ internal static class PropertySyntaxExtensions
             Type = self.Type!.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier} {self.AccessorsDeclaration()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
-            Accessors = self.Accessors(),
+            // All events have `add` and `remove` accessors by default.
+            Accessors = Array.Empty<DocPropertyAccessor>(),
             Generated = false,
             Event = true,
         };
@@ -94,7 +95,7 @@ internal static class PropertySyntaxExtensions
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.AccessorsDeclaration()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} this{self.ParameterList}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
@@ -116,7 +117,7 @@ internal static class PropertySyntaxExtensions
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
-            // TODO: Fix.
+            // All events have `add` and `remove` accessors by default.
             Accessors = Array.Empty<DocPropertyAccessor>(),
             Generated = false,
             Event = true,
@@ -126,9 +127,6 @@ internal static class PropertySyntaxExtensions
         self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();
 
     private static DocPropertyAccessor[] Accessors(this IndexerDeclarationSyntax self) =>
-        self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();
-
-    private static DocPropertyAccessor[] Accessors(this EventDeclarationSyntax self) =>
         self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();
 
     private static DocPropertyAccessor Accessor(this AccessorDeclarationSyntax self, MemberDeclarationSyntax parent) =>
@@ -157,8 +155,6 @@ internal static class PropertySyntaxExtensions
         SyntaxKind.GetKeyword => AccessorKind.Get,
         SyntaxKind.SetKeyword => AccessorKind.Set,
         SyntaxKind.InitKeyword => AccessorKind.Init,
-        SyntaxKind.AddKeyword => AccessorKind.Add,
-        SyntaxKind.RemoveKeyword => AccessorKind.Remove,
 
         _ => throw new InvalidOperationException($"Unrecognized accessor: {self}"),
     };

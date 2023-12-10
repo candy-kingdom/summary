@@ -48,6 +48,7 @@ internal class MdRenderer
         DocTypeDeclaration type => TypeDeclaration(type),
         DocMethod method => Method(method),
         DocProperty property => Property(parent!, property),
+
         _ => Header(member),
     };
 
@@ -128,7 +129,12 @@ internal class MdRenderer
 
     private MdRenderer Declaration(DocMember member) => this
         .Line("```cs")
-        .Line(member.Declaration)
+        .Line(member switch
+        {
+            DocProperty property => $"{property.Declaration}{property.AccessorsDeclaration.Surround(" ", "")}",
+
+            _ => member.Declaration,
+        })
         .Line("```")
         .Line();
 

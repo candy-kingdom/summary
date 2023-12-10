@@ -24,8 +24,9 @@ public record DocPropertyAccessor
 
     /// <summary>
     ///     The access modifier of the accessor.
+    ///     If the value is <c>null</c>, then the access modifier is inherited from the property declaration.
     /// </summary>
-    public AccessModifier Access;
+    public AccessModifier? Access;
 
     /// <summary>
     ///     The kind of the accessor.
