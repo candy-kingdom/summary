@@ -3,8 +3,8 @@
 public record DocTypeDeclaration : DocMember
 ```
 
-A [`DocMember`](./DocMember.md) that represents a documented type declaration (e.g. `struct`, `class`, etc.)
-in the parsed source code.
+A [`DocMember`](./DocMember.md) that represents a documented type declaration
+(e.g. `struct`, `class`, etc.) in the parsed source code.
 
 ## Properties
 ### [Members](../src/Core/DocTypeDeclaration.cs#L14)

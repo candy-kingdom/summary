@@ -27,7 +27,7 @@ The sequence of nodes this comment consists of (e.g. `summary`, `remarks`, etc.)
 public DocCommentElement? Param(string name)
 ```
 
-A nested <param>documentation element that has the specified name.
+A nested `<param>` documentation element that has the specified name.
 
 #### Parameters
 - `name`: The name of the parameter to search inside the comment.
@@ -37,7 +37,7 @@ A nested <param>documentation element that has the specified name.
 public DocCommentElement? TypeParam(string name)
 ```
 
-A nested <typeparam>documentation element that has the specified name.
+A nested `<typeparam>` documentation element that has the specified name.
 
 #### Parameters
 - `name`: The name of the parameter to search inside the comment.

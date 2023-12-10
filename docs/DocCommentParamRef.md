@@ -1,15 +1,16 @@
-# [Summary.DocCommentParamRef](../src/Core/DocCommentParamRef.cs#L7)
+# [Summary.DocCommentParamRef](../src/Core/DocCommentParamRef.cs#L8)
 ```cs
 public record DocCommentParamRef(string Value) : DocCommentNode
 ```
 
-A [`DocCommentNode`](./DocCommentNode.md) that represents the reference to a parameter (`<paramref>`, `<typeparamref>`).
+A [`DocCommentNode`](./DocCommentNode.md) that represents the reference to a parameter
+(`<paramref>`, `<typeparamref>`).
 
 ## Properties
-### [Value](../src/Core/DocCommentParamRef.cs#L7)
+### [Value](../src/Core/DocCommentParamRef.cs#L8)
 ```cs
 public string Value { get; }
 ```
 
-The name of the parameter .
+The name of the parameter.
 

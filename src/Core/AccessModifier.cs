@@ -9,22 +9,22 @@
 public enum AccessModifier
 {
     /// <summary>
-    ///     The `private` keyword access modifier.
+    ///     The <c>private</c> keyword access modifier.
     /// </summary>
     Private,
 
     /// <summary>
-    ///     The `protected` keyword access modifier.
+    ///     The <c>protected</c> keyword access modifier.
     /// </summary>
     Protected,
 
     /// <summary>
-    ///     The `internal` keyword access modifier.
+    ///     The <c>internal</c> keyword access modifier.
     /// </summary>
     Internal,
 
     /// <summary>
-    ///     The `public` keyword access modifier.
+    ///     The <c>public</c> keyword access modifier.
     /// </summary>
     Public,
 }
