@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDocRecordBase_Child
+# [Summary.Samples.InheritDocRecordBase_Child](../src/Core/Samples/InheritDocSample.cs#L198)
 ```cs
 public record InheritDocRecordBase_Child(int Property, int OtherProperty) : InheritDocRecordBase(Property)
 ```
@@ -6,14 +6,14 @@ public record InheritDocRecordBase_Child(int Property, int OtherProperty) : Inhe
 Summary (record).
 
 ## Properties
-### Property
+### [Property](../src/Core/Samples/InheritDocSample.cs#L198)
 ```cs
 public int Property { get; }
 ```
 
 A property.
 
-### OtherProperty
+### [OtherProperty](../src/Core/Samples/InheritDocSample.cs#L198)
 ```cs
 public int OtherProperty { get; }
 ```

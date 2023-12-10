@@ -24,6 +24,7 @@ internal static class TypeDeclarationSyntaxExtensions
             Deprecation = self.AttributeLists.Deprecation(),
             Members = self.Members(),
             TypeParams = self.TypeParams(),
+            Location = self.Identifier.Location(),
             Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? Array.Empty<DocType>(),
             Record = self is RecordDeclarationSyntax,
         };

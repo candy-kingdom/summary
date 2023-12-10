@@ -33,5 +33,6 @@ internal static class FieldSyntaxExtensions
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
+            Location = self.Identifier.Location(),
         };
 }

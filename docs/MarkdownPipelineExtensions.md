@@ -1,4 +1,4 @@
-# Summary.Markdown.MarkdownPipelineExtensions
+# [Summary.Markdown.MarkdownPipelineExtensions](../src/Plugins/Markdown/MarkdownPipelineExtensions.cs#L11)
 ```cs
 public static class MarkdownPipelineExtensions
 ```
@@ -6,9 +6,9 @@ public static class MarkdownPipelineExtensions
 A set of extension methods that extend different pipelines with Markdown rendering.
 
 ## Methods
-### UseMdRenderer(SummaryPipeline, string)
+### [UseMdRenderer(SummaryPipeline, string, bool)](../src/Plugins/Markdown/MarkdownPipelineExtensions.cs#L19)
 ```cs
-public static SummaryPipeline UseMdRenderer(this SummaryPipeline self, string output)
+public static SummaryPipeline UseMdRenderer(this SummaryPipeline self, string output, bool cleanup = true)
 ```
 
 Adds a Markdown renderer to the specified pipeline.

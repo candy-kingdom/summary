@@ -1,4 +1,4 @@
-# Summary.Markdown.Md
+# [Summary.Markdown.Md](../src/Plugins/Markdown/Md.cs#L8)
 ```cs
 public record Md(string Name, string Content)
 ```
@@ -6,14 +6,14 @@ public record Md(string Name, string Content)
 A Markdown document file.
 
 ## Properties
-### Name
+### [Name](../src/Plugins/Markdown/Md.cs#L8)
 ```cs
 public string Name { get; }
 ```
 
 The name of the document file.
 
-### Content
+### [Content](../src/Plugins/Markdown/Md.cs#L8)
 ```cs
 public string Content { get; }
 ```

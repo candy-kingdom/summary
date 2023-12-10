@@ -1,4 +1,4 @@
-# Summary.Pipes.Logging.LoggedPipe<I, O>
+# [Summary.Pipes.Logging.LoggedPipe<I, O>](../src/Core/Pipes/Logging/LoggedPipe.cs#L11)
 ```cs
 public class LoggedPipe<I, O> : IPipe<I, O>
 ```
@@ -8,7 +8,7 @@ A [`IPipe{I,O}`](./IPipe{I,O}.md) whose output is logged using the provided logg
 _Logging is implemented by simply beginning a new scope with the given message._
 
 ## Methods
-### Run(I)
+### [Run(I)](../src/Core/Pipes/Logging/LoggedPipe.cs#L16)
 ```cs
 public Task<O> Run(I input)
 ```

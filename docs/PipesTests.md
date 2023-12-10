@@ -1,28 +1,28 @@
-# Summary.Tests.Core.PipesTests
+# [Summary.Tests.Core.PipesTests](../src/Tests/Core/PipesTests.cs#L5)
 ```cs
 public class PipesTests
 ```
 
 ## Methods
-### Func()
+### [Func()](../src/Tests/Core/PipesTests.cs#L8)
 ```cs
 [Fact]
 public void Func()
 ```
 
-### Then()
+### [Then()](../src/Tests/Core/PipesTests.cs#L19)
 ```cs
 [Fact]
 public void Then()
 ```
 
-### Tee()
+### [Tee()](../src/Tests/Core/PipesTests.cs#L35)
 ```cs
 [Fact]
 public void Tee()
 ```
 
-### Select()
+### [Select()](../src/Tests/Core/PipesTests.cs#L49)
 ```cs
 [Fact]
 public void Select()

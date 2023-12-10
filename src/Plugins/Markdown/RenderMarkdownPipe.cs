@@ -8,6 +8,11 @@ namespace Summary.Markdown;
 /// </summary>
 public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 {
+    private readonly string _output;
+
+    public RenderMarkdownPipe(string output) =>
+        _output = output;
+
     public Task<Md[]> Run(Doc doc) =>
         Task.FromResult(doc
             .Members
@@ -17,9 +22,9 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
                 .SelectMany(x => x.AllMembers.OfType<DocTypeDeclaration>()))
             .Select(Render).ToArray());
 
-    private static Md Render(DocMember member)
+    private Md Render(DocMember member)
     {
-        var text = new MdRenderer().Member(member).Text();
+        var text = new MdRenderer(_output).Member(member).Text();
 
         return new($"{Name(member)}.md", text);
 

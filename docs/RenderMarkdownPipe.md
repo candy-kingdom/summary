@@ -1,4 +1,4 @@
-# Summary.Markdown.RenderMarkdownPipe
+# [Summary.Markdown.RenderMarkdownPipe](../src/Plugins/Markdown/RenderMarkdownPipe.cs#L9)
 ```cs
 public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 ```
@@ -6,7 +6,7 @@ public class RenderMarkdownPipe : IPipe<Doc, Md[]>
 A [`IPipe{I,O}`](./IPipe{I,O}.md) that renders generated document into the sequence of Markdown files.
 
 ## Methods
-### Run(Doc)
+### [Run(Doc)](../src/Plugins/Markdown/RenderMarkdownPipe.cs#L16)
 ```cs
 public Task<Md[]> Run(Doc doc)
 ```

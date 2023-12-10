@@ -43,7 +43,6 @@ public class SummaryPipeline
     private IPipe<Unit, Doc> _parser = new FuncPipe<Unit, Doc>(_ => Doc.Empty);
     private IPipe<Doc, Unit> _render = new FuncPipe<Doc, Unit>(_ => Unit.Value);
 
-
     /// <summary>
     ///     Constructs the documentation generation pipeline with default options.
     /// </summary>

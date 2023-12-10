@@ -1,4 +1,4 @@
-# Summary.Pipes.IPipe<I, O>
+# [Summary.Pipes.IPipe<I, O>](../src/Core/Pipes/IPipe.cs#L8)
 ```cs
 public interface IPipe<in I, O>
 ```
@@ -10,7 +10,7 @@ An asynchronous pipe that can transform an input to the output.
 - `O`: The type of the output of the pipe.
 
 ## Methods
-### Run(I)
+### [Run(I)](../src/Core/Pipes/IPipe.cs#L13)
 ```cs
  Task<O> Run(I input)
 ```

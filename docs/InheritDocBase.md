@@ -1,4 +1,4 @@
-# Summary.Samples.InheritDocBase
+# [Summary.Samples.InheritDocBase](../src/Core/Samples/InheritDocSample.cs#L9)
 ```cs
 public class InheritDocBase
 ```
@@ -8,7 +8,7 @@ Summary.
 _Remarks section._
 
 ## Delegates
-### Delegate1(int, int)
+### [Delegate1(int, int)](../src/Core/Samples/InheritDocSample.cs#L17)
 ```cs
 public void Delegate1(int x, int y)
 ```
@@ -22,7 +22,7 @@ A sample delegate.
 #### Returns
 Nothing.
 
-### Delegate2(int, int)
+### [Delegate2(int, int)](../src/Core/Samples/InheritDocSample.cs#L20)
 ```cs
 public void Delegate2(int x, int y)
 ```
@@ -36,13 +36,13 @@ A sample delegate.
 #### Returns
 Nothing.
 
-### Delegate3(int, int)
+### [Delegate3(int, int)](../src/Core/Samples/InheritDocSample.cs#L23)
 ```cs
 public void Delegate3(int x, int y)
 ```
 
 ## Events
-### Event1
+### [Event1](../src/Core/Samples/InheritDocSample.cs#L56)
 ```cs
 public virtual event Action Event1
 ```
@@ -50,14 +50,14 @@ public virtual event Action Event1
 An event.
 
 ## Fields
-### Field1
+### [Field1](../src/Core/Samples/InheritDocSample.cs#L28)
 ```cs
 public int Field1
 ```
 
 A field.
 
-### Field2
+### [Field2](../src/Core/Samples/InheritDocSample.cs#L31)
 ```cs
 public int Field2
 ```
@@ -65,7 +65,7 @@ public int Field2
 A field.
 
 ## Properties
-### Property1
+### [Property1](../src/Core/Samples/InheritDocSample.cs#L39)
 ```cs
 public virtual int Property1 { get; set; }
 ```
@@ -74,7 +74,7 @@ A property.
 
 _Property remarks._
 
-### Property2
+### [Property2](../src/Core/Samples/InheritDocSample.cs#L42)
 ```cs
 public virtual int Property2 { get; set; }
 ```
@@ -83,7 +83,7 @@ A property.
 
 _Property remarks._
 
-### Property3
+### [Property3](../src/Core/Samples/InheritDocSample.cs#L45)
 ```cs
 public int Property3 { get; set; }
 ```
@@ -93,7 +93,7 @@ A property.
 _Property remarks._
 
 ## Indexers
-### this[int]
+### [this[int]](../src/Core/Samples/InheritDocSample.cs#L51)
 ```cs
 public virtual int this[int i] { get; }
 ```
@@ -104,7 +104,7 @@ An indexer.
 - `i`: A parameter to the indexer.
 
 ## Methods
-### Sum(int, int)
+### [Sum(int, int)](../src/Core/Samples/InheritDocSample.cs#L64)
 ```cs
 public virtual int Sum(int x, int y)
 ```
@@ -118,7 +118,7 @@ Calculates the sum.
 #### Returns
 Returns the sum of two values.
 
-### Sum<T>(byte, byte)
+### [Sum<T>(byte, byte)](../src/Core/Samples/InheritDocSample.cs#L73)
 ```cs
 public byte Sum<T>(byte x, byte y)
 ```
@@ -135,7 +135,7 @@ Calculates the byte sum.
 #### Returns
 Returns the sum of two values.
 
-### Sum(short, short)
+### [Sum(short, short)](../src/Core/Samples/InheritDocSample.cs#L76)
 ```cs
 public short Sum(short x, short y)
 ```
@@ -149,7 +149,7 @@ Calculates the byte sum.
 #### Returns
 Returns the sum of two values.
 
-### Sum2(short, short)
+### [Sum2(short, short)](../src/Core/Samples/InheritDocSample.cs#L79)
 ```cs
 public short Sum2(short x, short y)
 ```
@@ -163,7 +163,7 @@ Calculates the byte sum.
 #### Returns
 Returns the sum of two values.
 
-### Sum3(short, short)
+### [Sum3(short, short)](../src/Core/Samples/InheritDocSample.cs#L82)
 ```cs
 public short Sum3(short x, short y)
 ```
@@ -177,7 +177,7 @@ Calculates the byte sum.
 #### Returns
 Returns the sum of two values.
 
-### Sum4(short, short)
+### [Sum4(short, short)](../src/Core/Samples/InheritDocSample.cs#L85)
 ```cs
 public short Sum4(short x, short y)
 ```

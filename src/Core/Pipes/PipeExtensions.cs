@@ -27,10 +27,22 @@ public static class PipeExtensions
         new ThenPipe<I, O1, O2>(a, b);
 
     /// <summary>
+    ///     Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
+    /// </summary>
+    public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, IPipe<O, O> b, bool when) =>
+        when ? a.Then(b) : a;
+
+    /// <summary>
     ///     Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
     /// </summary>
     public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> map) =>
         a.Then(new FuncPipe<O1, O2>(map));
+
+    /// <summary>
+    ///     Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
+    /// </summary>
+    public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, Func<O, O> map, bool when) =>
+        when ? a.Then(map) : a;
 
     /// <summary>
     ///     Constructs a new pipe that will apply the specified map pipe to the each element of the output of the current pipe.

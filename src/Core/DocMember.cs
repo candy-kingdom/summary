@@ -50,6 +50,11 @@ public abstract record DocMember
     public DocDeprecation? Deprecation { get; init; }
 
     /// <summary>
+    ///     The location of the member.
+    /// </summary>
+    public DocLocation? Location { get; init; }
+
+    /// <summary>
     ///     Whether this member matches the specified `cref` reference.
     /// </summary>
     public bool MatchesCref(string cref)

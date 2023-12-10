@@ -1,4 +1,4 @@
-# Summary.DocParam
+# [Summary.DocParam](../src/Core/DocParam.cs#L8)
 ```cs
 public record DocParam(DocType? Type, string Name)
 ```
@@ -6,14 +6,14 @@ public record DocParam(DocType? Type, string Name)
 A parameter of a [`DocMethod`](./DocMethod.md).
 
 ## Properties
-### Type
+### [Type](../src/Core/DocParam.cs#L8)
 ```cs
 public DocType? Type { get; }
 ```
 
 The type of the parameter.
 
-### Name
+### [Name](../src/Core/DocParam.cs#L8)
 ```cs
 public string Name { get; }
 ```
@@ -21,7 +21,7 @@ public string Name { get; }
 The name of the parameter.
 
 ## Methods
-### Comment(DocMember)
+### [Comment(DocMember)](../src/Core/DocParam.cs#L13)
 ```cs
 public DocCommentElement? Comment(DocMember parent)
 ```
