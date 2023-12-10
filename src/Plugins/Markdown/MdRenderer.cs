@@ -190,7 +190,7 @@ internal class MdRenderer
         Elements("Returns", comment.Element("returns"));
 
     private MdRenderer Exceptions(DocComment comment) =>
-        Params("Exceptions", comment.Elements("exception").Select(x => (x.Attribute("cref")?.Value ?? "", x))!);
+        Params("Exceptions", comment.Elements("exception").Select(x => (x.Attribute("cref")?.Value ?? " ", x))!);
 
     private MdRenderer Elements(string section, DocCommentElement? element, Func<string, string>? map = null) =>
         element is null ? this : Section(section).Element(element, map);
