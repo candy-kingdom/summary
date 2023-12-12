@@ -1,4 +1,6 @@
-﻿namespace Summary;
+﻿using Summary.Caching;
+
+namespace Summary;
 
 /// <summary>
 ///     A document parsed from the source code or an assembly.
@@ -18,9 +20,18 @@ public record Doc(DocMember[] Members)
     /// <param name="b">The second document to merge.</param>
     public static Doc Merge(Doc a, Doc b) => new(a.Members.Concat(b.Members).ToArray());
 
+    private DocIndex? _index;
+    internal DocIndex Index => _index ??= new(this);
+
     /// <summary>
     ///     A type declaration that matches the specified type.
     /// </summary>
     public DocTypeDeclaration? Declaration(DocType? type) =>
-        type is null ? null : Members.OfType<DocTypeDeclaration>().FirstOrDefault(x => x.Name == type.Name);
+        Index.Declaration(type);
+
+    public DocMember? Cref(DocCommentLink link) =>
+        Index.ByCref(link);
+
+    public DocMember? Cref(string value, DocMember scope) =>
+        Index.ByCref(value, scope);
 }

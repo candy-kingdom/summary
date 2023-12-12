@@ -1,4 +1,4 @@
-# [Summary.Doc](../src/Core/Doc.cs#L7)
+# [Summary.Doc](../src/Core/Doc.cs#L9)
 ```cs
 public record Doc(DocMember[] Members)
 ```
@@ -6,7 +6,7 @@ public record Doc(DocMember[] Members)
 A document parsed from the source code or an assembly.
 
 ## Fields
-### [Empty](../src/Core/Doc.cs#L12)
+### [Empty](../src/Core/Doc.cs#L14)
 ```cs
 public static readonly Doc Empty
 ```
@@ -14,7 +14,7 @@ public static readonly Doc Empty
 An empty document.
 
 ## Properties
-### [Members](../src/Core/Doc.cs#L7)
+### [Members](../src/Core/Doc.cs#L9)
 ```cs
 public DocMember[] Members { get; }
 ```
@@ -22,7 +22,7 @@ public DocMember[] Members { get; }
 The sequence of members this doc contains.
 
 ## Methods
-### [Merge(Doc, Doc)](../src/Core/Doc.cs#L19)
+### [Merge(Doc, Doc)](../src/Core/Doc.cs#L21)
 ```cs
 public static Doc Merge(Doc a, Doc b)
 ```
@@ -33,10 +33,20 @@ Merges two documents together returning the new merged document.
 - `a`: The first document to merge.
 - `b`: The second document to merge.
 
-### [Declaration(DocType?<DocType>)](../src/Core/Doc.cs#L24)
+### [Declaration(DocType?<DocType>)](../src/Core/Doc.cs#L29)
 ```cs
 public DocTypeDeclaration? Declaration(DocType? type)
 ```
 
 A type declaration that matches the specified type.
+
+### [Cref(DocCommentLink)](../src/Core/Doc.cs#L32)
+```cs
+public DocMember? Cref(DocCommentLink link)
+```
+
+### [Cref(string, DocMember)](../src/Core/Doc.cs#L35)
+```cs
+public DocMember? Cref(string value, DocMember scope)
+```
 

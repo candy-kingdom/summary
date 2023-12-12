@@ -1,4 +1,5 @@
-﻿using Summary.Extensions;
+﻿using Summary.Caching;
+using Summary.Extensions;
 
 namespace Summary;
 
@@ -31,18 +32,8 @@ public record DocTypeDeclaration : DocMember
     /// <summary>
     ///     All nested members (including children of children) of this type declaration.
     /// </summary>
-    public IEnumerable<DocMember> AllMembers
-    {
-        get
-        {
-            return FromMany(Members);
-
-            IEnumerable<DocMember> FromMany(IEnumerable<DocMember> members) => members
-                .Concat(members.OfType<DocTypeDeclaration>().SelectMany(FromType));
-            IEnumerable<DocMember> FromType(DocTypeDeclaration type) => FromMany(type.Members);
-        }
-    }
-
+    public IEnumerable<DocMember> AllMembers =>
+        Members.Dfs(x => x is DocTypeDeclaration type ? type.Members : Enumerable.Empty<DocMember>());
 
     /// <summary>
     ///     A sequence of members of this type declaration that has the same type as the specified one.
@@ -56,13 +47,13 @@ public record DocTypeDeclaration : DocMember
     /// <remarks>
     ///     This method is recursive and will return the sequence of all base types, even non-direct ones.
     /// </remarks>
-    public IEnumerable<DocTypeDeclaration> BaseDeclarationsAndSelf(Doc doc) =>
+    public IEnumerable<DocTypeDeclaration> SelfAndBaseDeclarations(Doc doc) =>
         new[] { this }.Concat(BaseDeclarations(doc));
 
     /// <summary>
     ///     A sequence of type declarations that are base types of this one.
     /// </summary>
-    /// <inheritdoc cref="BaseDeclarationsAndSelf" />
+    /// <inheritdoc cref="SelfAndBaseDeclarations" />
     public IEnumerable<DocTypeDeclaration> BaseDeclarations(Doc doc) =>
-        Base.Select(doc.Declaration).NonNulls().SelectMany(x => x.BaseDeclarationsAndSelf(doc));
+        Base.Select(doc.Declaration).NonNulls().SelectMany(x => x.SelfAndBaseDeclarations(doc));
 }

@@ -48,5 +48,5 @@ public class MarkdownTests
             .Single()
             .Comment
             .Element("summary")!
-            .Render();
+            .Render(new Doc(Array.Empty<DocMember>()));
 }

@@ -74,6 +74,8 @@ Logs the execution of the given pipe using the specified logger factory.
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message)
 ```
 
+Logs the execution of the given pipe using the specified logger factory.
+
 ### [Logged<I, O>(IPipe<I, O>, ILogger, string)](../src/Core/Pipes/PipeExtensions.cs#L72)
 ```cs
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message)

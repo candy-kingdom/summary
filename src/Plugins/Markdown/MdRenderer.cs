@@ -12,7 +12,7 @@ namespace Summary.Markdown;
 ///     <br />
 ///     It's used only as intermediate helper and should not be exposed to the outside world.
 /// </remarks>
-internal class MdRenderer
+internal class MdRenderer(Doc doc, string output)
 {
     private class Scope : IDisposable
     {
@@ -28,13 +28,10 @@ internal class MdRenderer
             _renderer._level -= 2;
     }
 
+    private readonly string _output = Path.GetFullPath(output);
     private readonly StringBuilder _builder = new();
-    private readonly string _output;
 
     private int _level = 1;
-
-    public MdRenderer(string output) =>
-        _output = Path.GetFullPath(output);
 
     /// <summary>
     ///     Converts the rendered Markdown into a string.
@@ -109,15 +106,13 @@ internal class MdRenderer
                 Line($"{new string(c: '#', _level)} " +
                      Link(
                          $"{method.Name.Surround("~~", "~~", when: method.Deprecated)}" +
-                         $"{method.TypeParams.Select(x => x.Name).Separated(", ").Surround("<", ">")}" +
                          $"({method.Params.Select(x => x.Type?.FullName).NonNulls().Separated(", ")})")),
             DocIndexer indexer =>
                 Line($"{new string(c: '#', _level)} " +
                      Link($"this[{indexer.Params.Select(x => x.Type?.Name).NonNulls().Separated(", ")}]")),
             DocTypeDeclaration type when _level is 1 =>
                 Line($"{new string(c: '#', _level)} " +
-                     Link($"{type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}" +
-                          $"{type.TypeParams.Select(x => x.Name).Separated(with: ", ").Surround("<", ">")}")),
+                     Link($"{type.FullyQualifiedName.Surround("~~", "~~", when: type.Deprecated)}")),
             _ =>
                 Line($"{new string(c: '#', _level)} " +
                      Link($"{member.Name.Surround("~~", "~~", when: member.Deprecated)}")),
@@ -175,7 +170,7 @@ internal class MdRenderer
         Params(section, parameters.Where(x => x.Comment is not null).ToList()!);
 
     private MdRenderer Params(string section, ICollection<(string Name, DocCommentElement Comment)> parameters) =>
-        Section(section, parameters, x => Line($"- `{x.Name}`: {x.Comment.Render()}")).Line(when: parameters.Any());
+        Section(section, parameters, x => Line($"- `{x.Name}`: {x.Comment.Render(doc)}")).Line(when: parameters.Any());
 
     private MdRenderer Members<T>(string section, DocTypeDeclaration type) where T : DocMember =>
         Members<T>(section, type, _ => true);
@@ -201,7 +196,7 @@ internal class MdRenderer
             return this;
 
         var lines = element
-            .Render()
+            .Render(doc)
             .Split(NewLine)
             .Select(x => x is "" ? x : map?.Invoke(x) ?? x);
 

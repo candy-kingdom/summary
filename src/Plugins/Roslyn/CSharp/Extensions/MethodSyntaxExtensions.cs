@@ -13,6 +13,7 @@ internal static class MethodSyntaxExtensions
     public static DocMethod Method(this MethodDeclarationSyntax self) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration =
@@ -24,6 +25,7 @@ internal static class MethodSyntaxExtensions
             Location = self.Identifier.Location(),
             Params = self.ParameterList.Params(),
             TypeParams = self.TypeParameterList.TypeParams(),
+            Usings = self.Usings(),
             Delegate = false,
         };
 
@@ -32,6 +34,7 @@ internal static class MethodSyntaxExtensions
     /// </summary>
     public static DocMethod Delegate(this DelegateDeclarationSyntax self) => new()
     {
+        Namespace = self.Namespace() ?? "",
         FullyQualifiedName = self.FullyQualifiedName(),
         Name = self.Name()!,
         Declaration =
@@ -43,6 +46,7 @@ internal static class MethodSyntaxExtensions
         DeclaringType = self.DeclaringType(),
         Deprecation = self.AttributeLists.Deprecation(),
         Location = self.Identifier.Location(),
+        Usings = self.Usings(),
         Delegate = true,
     };
 }

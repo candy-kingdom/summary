@@ -27,17 +27,19 @@ public required bool Delegate { get; init; }
 
 Whether this method represents a delegate.
 
-### [SignatureWithoutParams](../src/Core/DocMethod.cs#L28)
-```cs
-public string SignatureWithoutParams { get; }
-```
-
-The signature of the method without parameters in link format (e.g., `Sum{T}`).
-
-### [Signature](../src/Core/DocMethod.cs#L33)
+### [Signature](../src/Core/DocMethod.cs#L29)
 ```cs
 public string Signature { get; }
 ```
 
-The signature of the method in link format (e.g., `Sum{T}(T, T)`).
+The full signature of the method that includes both type parameters and regular parameters
+(e.g., `"Method<T1, T2>(int, short)"`).
+
+### [FullyQualifiedSignature](../src/Core/DocMethod.cs#L36)
+```cs
+public string FullyQualifiedSignature { get; }
+```
+
+The full signature of the method that includes both type parameters and regular parameters
+(e.g., `"Method<T1, T2>(int, short)"`).
 

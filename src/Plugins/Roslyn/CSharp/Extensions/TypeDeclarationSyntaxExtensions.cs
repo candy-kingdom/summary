@@ -15,6 +15,7 @@ internal static class TypeDeclarationSyntaxExtensions
     public static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = self.Declaration(),
@@ -26,6 +27,7 @@ internal static class TypeDeclarationSyntaxExtensions
             TypeParams = self.TypeParams(),
             Location = self.Identifier.Location(),
             Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? Array.Empty<DocType>(),
+            Usings = self.Usings(),
             Record = self is RecordDeclarationSyntax,
         };
 

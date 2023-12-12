@@ -1,4 +1,4 @@
-# [Summary.Samples.Sample<T0, T1>](../src/Core/Samples/Sample.cs#L26)
+# [Summary.Samples.Sample<T0, T1>](../src/Core/Samples/Sample.cs#L35)
 ```cs
 public class Sample<T0, T1>
 ```
@@ -15,14 +15,14 @@ Here is a ~~strikethrough~~ fragment.
 _Remarks section._
 _Second line._
 _Another paragraph._
-_Btw, this type has a child: [`Sample{T0,T1}.Child`](./Sample{T0,T1}.Child.md)._
+_Btw, this type has a child: [`Sample{T0,T1}.Child`](./Child.md)._
 
 ## Type Parameters
 - `T0`: A first type parameter.
 - `T1`: A second type parameter.
 
 ## Delegates
-### [Delegate1(int, int)](../src/Core/Samples/Sample.cs#L44)
+### [Delegate1(int, int)](../src/Core/Samples/Sample.cs#L53)
 ```cs
 public void Delegate1(int x, int y)
 ```
@@ -30,14 +30,14 @@ public void Delegate1(int x, int y)
 A sample delegate.
 
 ## Events
-### [Event1](../src/Core/Samples/Sample.cs#L92)
+### [Event1](../src/Core/Samples/Sample.cs#L101)
 ```cs
 public event Action Event1
 ```
 
 A sample field event.
 
-### [Event2](../src/Core/Samples/Sample.cs#L97)
+### [Event2](../src/Core/Samples/Sample.cs#L106)
 ```cs
 public Action Event2 { add; remove; }
 ```
@@ -45,14 +45,14 @@ public Action Event2 { add; remove; }
 A sample property event.
 
 ## Fields
-### [Field](../src/Core/Samples/Sample.cs#L38)
+### [Field](../src/Core/Samples/Sample.cs#L47)
 ```cs
 public int Field
 ```
 
 A field of the child class.
 
-### [~~Field1~~](../src/Core/Samples/Sample.cs#L50)
+### [~~Field1~~](../src/Core/Samples/Sample.cs#L59)
 > [!WARNING]
 > The field is deprecated.
 
@@ -63,14 +63,14 @@ public int Field1
 
 A sample field.
 
-### [Field2](../src/Core/Samples/Sample.cs#L55)
+### [Field2](../src/Core/Samples/Sample.cs#L64)
 ```cs
 public int Field2
 ```
 
 A pair of fields.
 
-### [Field3](../src/Core/Samples/Sample.cs#L55)
+### [Field3](../src/Core/Samples/Sample.cs#L64)
 ```cs
 public int Field3
 ```
@@ -78,21 +78,21 @@ public int Field3
 A pair of fields.
 
 ## Properties
-### [Property1](../src/Core/Samples/Sample.cs#L60)
+### [Property1](../src/Core/Samples/Sample.cs#L69)
 ```cs
 public int Property1 { get; set; }
 ```
 
 A sample property.
 
-### [Property2](../src/Core/Samples/Sample.cs#L65)
+### [Property2](../src/Core/Samples/Sample.cs#L74)
 ```cs
 public int Property2 { private get; set; }
 ```
 
 A sample property with custom visibility.
 
-### [Property3](../src/Core/Samples/Sample.cs#L71)
+### [Property3](../src/Core/Samples/Sample.cs#L80)
 ```cs
 public int Property3 { get; protected set; }
 ```
@@ -102,7 +102,7 @@ A sample property with custom visibility and an exception.
 #### Exceptions
 - `ArithmeticException`: Invalid number.
 
-### [Property4](../src/Core/Samples/Sample.cs#L76)
+### [Property4](../src/Core/Samples/Sample.cs#L85)
 ```cs
 public int Property4 { get; set; }
 ```
@@ -110,7 +110,7 @@ public int Property4 { get; set; }
 A sample property with custom accessors.
 
 ## Indexers
-### [this[int]](../src/Core/Samples/Sample.cs#L87)
+### [this[int]](../src/Core/Samples/Sample.cs#L96)
 ```cs
 public int this[int i] { get; }
 ```
@@ -124,7 +124,7 @@ A sample indexer.
 What indexer returns.
 
 ## Methods
-### [Method<M0, M1, M2>(int, string)](../src/Core/Samples/Sample.cs#L121)
+### [Method<M0, M1, M2>(int, string)](../src/Core/Samples/Sample.cs#L130)
 ```cs
 public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
@@ -154,12 +154,12 @@ The `TimeSpan` instance.
 - `ArgumentException`: The argument is incorrect.
 - `ApplicationException`: Something went wrong.
 
-### [Method<M0, M1, M2>(short, string)](../src/Core/Samples/Sample.cs#L128)
+### [Method<M0, M1, M2>(short, string)](../src/Core/Samples/Sample.cs#L137)
 ```cs
 public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```
 
-The overloaded [`Method{M0,M1,M2}(int,string)`](./Method{M0,M1,M2}(int,string).md).
+The overloaded [`Method{M0,M1,M2}(int,string)`](./Sample{T0,T1}.md#Method<M0, M1, M2>(int, string)).
 
 #### Type Parameters
 - `M0`: The first type parameter of the method.

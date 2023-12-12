@@ -20,6 +20,7 @@ internal static class PropertySyntaxExtensions
     public static DocProperty Property(this PropertyDeclarationSyntax self) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
@@ -29,6 +30,7 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             Generated = false,
             Event = false,
         };
@@ -42,6 +44,7 @@ internal static class PropertySyntaxExtensions
     public static DocProperty Property(this ParameterSyntax self) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type!.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
@@ -51,6 +54,7 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             Generated = true,
             Event = false,
         };
@@ -61,7 +65,8 @@ internal static class PropertySyntaxExtensions
     public static DocProperty Property(this EventDeclarationSyntax self) =>
         new()
         {
-            Type = self.Type!.Type(),
+            Namespace = self.Namespace() ?? "",
+            Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
@@ -70,6 +75,7 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             Generated = false,
             Event = true,
         };
@@ -89,6 +95,7 @@ internal static class PropertySyntaxExtensions
     public static DocIndexer Indexer(this IndexerDeclarationSyntax self) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
@@ -98,14 +105,16 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.ThisKeyword.Location(),
+            Params = self.ParameterList.Params(),
+            Usings = self.Usings(),
             Generated = false,
             Event = false,
-            Params = self.ParameterList.Params(),
         };
 
     private static DocProperty Property(this VariableDeclaratorSyntax self, EventFieldDeclarationSyntax field) =>
         new()
         {
+            Namespace = self.Namespace() ?? "",
             Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
@@ -115,6 +124,7 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             Generated = false,
             Event = true,
         };
