@@ -105,7 +105,12 @@ internal class DocIndex
         IEnumerable<DocMember> Among(IEnumerable<DocMember> members) =>
             members
                 .Dfs(x => x is DocTypeDeclaration type ? type.Members : Enumerable.Empty<DocMember>())
-                .DistinctBy(x => x.FullyQualifiedName)
+                .DistinctBy(x => x switch
+                {
+                    DocMethod m => m.FullyQualifiedSignature,
+
+                    _ => x.FullyQualifiedName,
+                })
                 .Where(x => MatchesCref(x, cref));
 
         IEnumerable<DocMember> SuitableMembers() =>
@@ -121,6 +126,9 @@ internal class DocIndex
         // TODO: This doesn't work ideally.
         if (member is DocMethod method && cref.EndsWith(")"))
         {
+            if (Match(method.FullyQualifiedSignature.AsCref(), cref))
+                return true;
+
             var name = cref[..cref.IndexOf('(')];
             var parameters = Params();
 

@@ -88,3 +88,5 @@ Logs the execution of the given pipe using the specified logger.
 public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message)
 ```
 
+Logs the execution of the given pipe using the specified logger.
+
