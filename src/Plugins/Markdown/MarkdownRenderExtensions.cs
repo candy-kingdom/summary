@@ -12,7 +12,7 @@ internal static class MarkdownRenderExtensions
     ///     The source file name for this member.
     /// </summary>
     internal static string FileName(this DocMember self) =>
-        self.Name.AsCref();
+        self.FullyQualifiedName.AsCref();
 
     /// <summary>
     ///     Converts the specified comment node into a Markdown string.
