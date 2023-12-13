@@ -7,6 +7,9 @@ namespace Summary;
 /// </summary>
 public record DocMethod : DocMember
 {
+    private string? _signature;
+    private string? _fullyQualifiedSignature;
+
     /// <summary>
     ///     The type parameters of the method.
     /// </summary>
@@ -27,12 +30,12 @@ public record DocMethod : DocMember
     ///     (e.g., <c>"Method&lt;T1, T2&gt;(int, short)"</c>).
     /// </summary>
     public string Signature =>
-        $"{Name}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
+        _signature ??= $"{Name}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
 
     /// <summary>
     ///     The full signature of the method that includes both type parameters and regular parameters
     ///     (e.g., <c>"Method&lt;T1, T2&gt;(int, short)"</c>).
     /// </summary>
     public string FullyQualifiedSignature =>
-        $"{FullyQualifiedName}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
+        _fullyQualifiedSignature ??= $"{FullyQualifiedName}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
 }

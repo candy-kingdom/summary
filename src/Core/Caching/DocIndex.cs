@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Text.RegularExpressions;
 using Summary.Extensions;
 
@@ -9,8 +8,20 @@ namespace Summary.Caching;
 /// </summary>
 internal partial class DocIndex
 {
-    private readonly Dictionary<DocCommentLink, DocMember?> _byLink = new();
-    private readonly Dictionary<string, Dictionary<DocMember, DocMember?>> _byCref = new();
+    private class MembersCache
+    {
+        public readonly Dictionary<DocCommentLink, DocMember?> ByLink = new();
+        public readonly Dictionary<string, Dictionary<DocMember, DocMember?>> ByCref = new();
+        public readonly Dictionary<DocCommentNode, DocMember?> ByCommentNode = new();
+    }
+
+    private class AncestorsCache
+    {
+        public readonly Dictionary<DocMember, List<DocMember>> ByMember = new();
+    }
+
+    private readonly MembersCache _members = new();
+    private readonly AncestorsCache _ancestors = new();
 
     /// <summary>
     ///     Builds new index form the specified document.
@@ -65,21 +76,24 @@ internal partial class DocIndex
     /// </summary>
     public IEnumerable<DocMember> Ancestors(DocMember member)
     {
-        var set = new HashSet<DocMember>();
+        return _ancestors.ByMember.TryGetValue(member, out var ancestors)
+            ? ancestors
+            : _ancestors.ByMember[member] = Recursive().ToList();
 
-        while (member.DeclaringType is not null)
+        IEnumerable<DocMember> Recursive()
         {
-            var parent = Declaration(member.DeclaringType);
-            if (parent is null)
-                yield break;
+            while (member.DeclaringType is not null)
+            {
+                var parent = Declaration(member.DeclaringType);
+                if (parent is null)
+                    yield break;
 
-            if (!set.Add(parent))
-                throw new InvalidOperationException("Yo");
+                yield return parent;
 
-            yield return parent;
-
-            member = parent;
+                member = parent;
+            }
         }
+
     }
 
     /// <summary>
@@ -108,34 +122,6 @@ internal partial class DocIndex
         _ => BaseDeclarations(Declaration(member.DeclaringType)),
     };
 
-    private IEnumerable<DocTypeDeclaration> _BaseDeclarations(DocTypeDeclaration? type)
-    {
-        if (type is null)
-            yield break;
-
-        var set = new HashSet<DocTypeDeclaration>();
-
-        foreach (var @base in type.Base)
-        {
-            var declaration = BaseDeclaration(@base, type);
-            if (declaration is null)
-                continue;
-
-            if (!set.Add(declaration))
-                throw new InvalidOperationException();
-
-            yield return declaration;
-
-            foreach (var x in BaseDeclarations(declaration))
-            {
-                yield return x;
-
-                if (!set.Add(x))
-                    throw new InvalidOperationException();
-            }
-        }
-    }
-
     /// <summary>
     ///     The base type declaration of the given type.
     ///     The <paramref name="child"/> is a member that inherits from the <paramref name="@base"/>.
@@ -155,22 +141,25 @@ internal partial class DocIndex
     /// <summary>
     ///     The <see cref="DocMember"/> the comment node is defined for.
     /// </summary>
+    // TODO: We can include the member inside `DocCommentNode` at the generation time (@j.light).
     public DocMember? Member(DocCommentNode node) =>
-        Members.FirstOrDefault(x => Nodes(x).Contains(node));
+        _members.ByCommentNode.TryGetValue(node, out var member)
+            ? member
+            : _members.ByCommentNode[node] = Members.FirstOrDefault(x => Nodes(x).Contains(node));
 
     /// <summary>
     ///     Searches a <see cref="DocMember"/> by the provided link.
     /// </summary>
     public DocMember? ByCref(DocCommentLink link)
     {
-        if (_byLink.TryGetValue(link, out var member))
+        if (_members.ByLink.TryGetValue(link, out var member))
             return member;
 
         var scope = Member(link);
 
         member = scope is null ? null : ByCref(link.Value.Replace(" ", ""), scope);
 
-        return _byLink[link] = member;
+        return _members.ByLink[link] = member;
     }
 
     /// <summary>
@@ -180,8 +169,8 @@ internal partial class DocIndex
     /// </summary>
     public DocMember? ByCref(string cref, DocMember scope, bool includingBase = true)
     {
-        if (!_byCref.TryGetValue(cref, out var byScope))
-            _byCref[cref] = byScope = new();
+        if (!_members.ByCref.TryGetValue(cref, out var byScope))
+            _members.ByCref[cref] = byScope = new();
 
         if (byScope.TryGetValue(scope, out var member))
             return member;

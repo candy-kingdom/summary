@@ -1,4 +1,5 @@
-﻿using Summary.Extensions;
+﻿using Summary.Caching;
+using Summary.Extensions;
 using static System.Environment;
 
 namespace Summary.Markdown;
