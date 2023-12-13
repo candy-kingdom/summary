@@ -39,7 +39,11 @@ internal static class TypeSyntaxExtensions
             new DocType($"{x.ElementType}[]", Array.Empty<DocType>()),
         NullableTypeSyntax x =>
             new DocType($"{x.ElementType}?", new[] { x.ElementType.Type() }),
+        PointerTypeSyntax x =>
+            new DocType($"{x.ElementType}*", Array.Empty<DocType>()),
+        RefTypeSyntax x =>
+            new DocType($"{x.RefKeyword} {x.Type}", Array.Empty<DocType>()),
         _ =>
-            throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self}"),
+            throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self} ({self.GetType()})"),
     };
 }

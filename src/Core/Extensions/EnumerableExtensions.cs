@@ -53,4 +53,24 @@ internal static class EnumerableExtensions
     /// </summary>
     public static bool SequenceEqual<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> equal) where T : notnull =>
         self.SequenceEqual(other, new Comparer<T>(equal, x => x.GetHashCode()));
+
+    /// <summary>
+    ///     Performs the DFS on all items of the specified sequence using provided <paramref name="nested"/> func
+    ///     to obtain nodes one level deeper from the given.
+    /// </summary>
+    public static IEnumerable<T> Dfs<T>(this IEnumerable<T> self, Func<T, IEnumerable<T>> nested)
+    {
+        return FromMany(self);
+
+        IEnumerable<T> FromMany(IEnumerable<T> x) =>
+            x.SelectMany(FromOne);
+
+        IEnumerable<T> FromOne(T x)
+        {
+            yield return x;
+
+            foreach (var y in FromMany(nested(x)))
+                yield return y;
+        }
+    }
 }
