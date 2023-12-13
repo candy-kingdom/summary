@@ -1,10 +1,9 @@
-using System.Text;
 using System.Text.RegularExpressions;
 using Summary.Extensions;
 
 namespace Summary.Caching;
 
-internal class DocIndex
+internal partial class DocIndex
 {
     public DocIndex(Doc doc) =>
         Members = doc.Members
@@ -117,58 +116,48 @@ internal class DocIndex
             usings.SelectMany(x => Members.Where(y => y.Namespace == x));
     }
 
-    public bool MatchesCref(DocMember member, string cref)
+    private bool MatchesCref(DocMember member, string cref)
     {
-        // TODO: Need to implement correct matching by type parameters.
-        if (Match(member.FullyQualifiedName.AsCref(), cref))
+        if (member.FullyQualifiedName.AsRawCref().EndsWith(cref.AsRawCref()))
             return true;
 
-        // TODO: This doesn't work ideally.
-        if (member is DocMethod method && cref.EndsWith(")"))
+        if (member is DocMethod method)
         {
-            if (Match(method.FullyQualifiedSignature.AsCref(), cref))
+            if (method.FullyQualifiedSignature.EndsWith(cref))
                 return true;
 
-            var name = cref[..cref.IndexOf('(')];
+            // Make sure we're matching method with the link to a method.
+            if (cref[^1] is not ')')
+                return false;
+
+            var i = cref.IndexOf('(');
+            if (i is -1)
+                return false;
+
+            var name = cref[..i].AsRawCref();
+            if (!method.FullyQualifiedName.AsRawCref().EndsWith(name))
+                return false;
+
             var parameters = Params();
+            if (!method.Params.Select(x => x.Type!.FullName.AsCref()).SequenceEqual(parameters, (a, b) => b.EndsWith(a)))
+                return false;
 
-            if (Match(method.FullyQualifiedName.AsCref(), name))
-            {
-                if (parameters.Length == method.Params.Length)
-                {
-                    for (var i = 0; i < parameters.Length; i++)
-                    {
-                        if (method.Params[i].Type is null)
-                            return false;
+            return true;
 
-                        if (!Match(parameters[i], method.Params[i].Type!.FullName.AsCref()))
-                            return false;
-                    }
-
-                    return true;
-                }
-            }
-
-            string[] Params()
-            {
-                var value = cref[(cref.IndexOf('(') + 1)..cref.IndexOf(')')];
-
-                return Regex.Split(value, @",(?![^\{]*\})");
-            }
+            string[] Params() =>
+                ParamsRegex()
+                    .Split(cref[(i + 1)..^1])
+                    .Select(x => x.AsCref())
+                    .ToArray();
         }
 
         return false;
-
-        bool Match(string a, string b)
-        {
-            a = Regex.Replace(a, @"(?<={)[^{},]*(?=,)|(?<=,)[^{},]*(?=})", "");
-            b = Regex.Replace(b, @"(?<={)[^{},]*(?=,)|(?<=,)[^{},]*(?=})", "");
-
-            return a.EndsWith(b);
-        }
     }
 
-    private IEnumerable<string> Namespaces(string @using)
+    [GeneratedRegex(@",(?![^\{]*\})")]
+    private static partial Regex ParamsRegex();
+
+    private static IEnumerable<string> Namespaces(string @using)
     {
         if (@using is "")
             yield break;

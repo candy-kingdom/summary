@@ -1,6 +1,8 @@
-﻿namespace Summary.Extensions;
+﻿using System.Text.RegularExpressions;
 
-internal static class StringExtensions
+namespace Summary.Extensions;
+
+internal static partial class StringExtensions
 {
     /// <summary>
     ///     Adds a space character to the end of the specified string.
@@ -49,6 +51,28 @@ internal static class StringExtensions
     /// </example>
     public static string AsCref(this string self) =>
         self.Replace("<", "{").Replace(">", "}").Replace(" ", "");
+
+    /// <summary>
+    ///     Converts the given string into the format of <c>cref</c> attribute value
+    ///     but also removes all generic parameter names.
+    /// </summary>
+    /// <example>
+    ///     In the following example, the <c>"Some&lt;T1, T2&gt;"</c> string
+    ///     (which represents the name of some type)
+    ///     is converted into <c>"Some{,}"</c>, the raw form of <c>cref</c> that can be used for comparisons
+    ///     without involving generic type parameter names.
+    ///     <para><code>
+    ///         var a = "Some&lt;T1, T2&gt;";
+    ///         var b = a.AsCref();
+    ///         <br/>
+    ///         b.Should().Be("Some{,}");
+    ///     </code></para>
+    /// </example>
+    public static string AsRawCref(this string self) =>
+        RawCrefRegex().Replace(self.AsCref(), "");
+
+    [GeneratedRegex(@"(?<={)[^{},]*(?=,)|(?<=,)[^{},]*(?=})")]
+    private static partial Regex RawCrefRegex();
 
     /// <summary>
     ///     Converts the given string from the format of <c>cref</c> attribute value.

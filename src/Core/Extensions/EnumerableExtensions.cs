@@ -5,6 +5,22 @@
 /// </summary>
 internal static class EnumerableExtensions
 {
+    private class Comparer<T>(Func<T, T, bool> equals, Func<T, int> hash) : IEqualityComparer<T>
+    {
+        public bool Equals(T? x, T? y)
+        {
+            if (x is null && y is null)
+                return true;
+            if (x is null || y is null)
+                return false;
+
+            return equals(x, y);
+        }
+
+        public int GetHashCode(T obj) =>
+            hash(obj);
+    }
+
     /// <summary>
     ///     Constructs a new string by placing the specified separator between each item in the specified sequence.
     /// </summary>
@@ -31,4 +47,10 @@ internal static class EnumerableExtensions
     /// </summary>
     public static IEnumerable<V> SelectWithNext<T, V>(this IEnumerable<T> self, Func<T, T?, V> map) =>
         self.Select((x, i) => map(x, self.ElementAtOrDefault(i + 1)));
+
+    /// <summary>
+    ///     Whether the two sequences are equal.
+    /// </summary>
+    public static bool SequenceEqual<T>(this IEnumerable<T> self, IEnumerable<T> other, Func<T, T, bool> equal) where T : notnull =>
+        self.SequenceEqual(other, new Comparer<T>(equal, x => x.GetHashCode()));
 }
