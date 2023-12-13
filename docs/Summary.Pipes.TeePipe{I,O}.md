@@ -3,7 +3,7 @@
 public class TeePipe<I, O> : IPipe<I, O>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that invokes an action on the output of the pipe each time it's executed.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that invokes an action on the output of the pipe each time it's executed.
 
 ## Methods
 ### [Run(I)](../src/Core/Pipes/TeePipe.cs#L9)

@@ -3,7 +3,7 @@
 public class LoggedPipe<I, O> : IPipe<I, O>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) whose output is logged using the provided logger.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) whose output is logged using the provided logger.
 
 _Logging is implemented by simply beginning a new scope with the given message._
 

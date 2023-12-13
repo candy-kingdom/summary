@@ -3,7 +3,7 @@
 public class SavePipe<I> : IPipe<I, Unit>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that saves the input to the file.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that saves the input to the file.
 
 ## Methods
 ### [Run(I)](../src/Core/Pipes/IO/SavePipe.cs#L9)

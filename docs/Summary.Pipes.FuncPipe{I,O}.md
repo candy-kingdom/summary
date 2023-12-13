@@ -3,7 +3,7 @@
 public class FuncPipe<I, O> : IPipe<I, O>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that wraps <u>`Func{I,O}`</u>.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that wraps <u>`Func<I, O>`</u>.
 
 ## Methods
 ### [Run(I)](../src/Core/Pipes/FuncPipe.cs#L21)

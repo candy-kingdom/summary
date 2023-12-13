@@ -3,7 +3,7 @@
 public class InlineInheritDocPipe : IPipe<Doc, Doc>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that inlines `<inheritdoc/>` tags.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that inlines `<inheritdoc/>` tags.
 
 _Under the hood, the process of inlining works as follows:_
 _<br />_

@@ -3,7 +3,7 @@
 public static class PipeExtensions
 ```
 
-Extension methods for [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md).
+Extension methods for [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md).
 
 ## Methods
 ### [Fold<I>(IPipe<I, Unit[]>)](../src/Core/Pipes/PipeExtensions.cs#L14)

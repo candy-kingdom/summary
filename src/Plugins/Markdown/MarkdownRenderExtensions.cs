@@ -73,9 +73,9 @@ internal static class MarkdownRenderExtensions
     {
         var cref = doc.Cref(self);
         if (cref is null)
-            return $"<u>`{self.Value}`</u>";
+            return $"<u>`{self.Value.FromCref()}`</u>";
 
-        return $"[`{self.Value}`](./{FileName(cref)}.md{SectionName(cref)})";
+        return $"[`{self.Value.FromCref()}`](./{FileName(cref)}.md{SectionName(cref)})";
 
         string FileName(DocMember x) => x switch
         {
@@ -87,7 +87,15 @@ internal static class MarkdownRenderExtensions
 
         string SectionName(DocMember x) => x switch
         {
-            DocMethod method => $"#{method.Signature}",
+            DocMethod method => $"#{method.Signature
+                .ToLower()
+                .Replace("(", "")
+                .Replace(")", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace(" ", "")
+                .Replace(",", "-")
+                .Replace(".", "")}",
 
             _ => "",
         };

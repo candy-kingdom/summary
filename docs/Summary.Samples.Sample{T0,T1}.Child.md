@@ -7,7 +7,7 @@
 public class Child
 ```
 
-A child of the [`Sample{T0,T1}`](./Summary.Samples.Sample{T0,T1}.md) class.
+A child of the [`Sample<T0, T1>`](./Summary.Samples.Sample{T0,T1}.md) class.
 
 ## Fields
 ### [Field](../src/Core/Samples/Sample.cs#L47)

@@ -9,5 +9,5 @@ public class Child : Base2
 public void Test()
 ```
 
-[`ClassX.Method2`](./Summary2.ClassX.md#Method2())
+[`ClassX.Method2`](./Summary2.ClassX.md#method2)
 

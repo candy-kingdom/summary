@@ -49,4 +49,26 @@ internal static class StringExtensions
     /// </example>
     public static string AsCref(this string self) =>
         self.Replace("<", "{").Replace(">", "}").Replace(" ", "");
+
+    /// <summary>
+    ///     Converts the given string from the format of <c>cref</c> attribute value.
+    /// </summary>
+    /// <example>
+    ///     In the following example, the <c>"Some&lt;T1, T2&gt;"</c> string
+    ///     In the following example, the <c>"Some{T1,T2}"</c> string
+    ///     (which represents the name of some type in the <c>cref</c> format)
+    ///     is converted into <c>"Some&lt;T1, T2&gt;</c> so that it can be displayed somewhere.
+    ///     <para><code>
+    ///         var a = "Some{T1,T2}";
+    ///         var b = a.AsCref();
+    ///         <br/>
+    ///         b.Should().Be("Some&lt;T1, T2&gt;");
+    ///     </code></para>
+    /// </example>
+    public static string FromCref(this string self) =>
+        self
+            .AsCref()
+            .Replace("{", "<")
+            .Replace("}", ">")
+            .Replace(",", ", ");
 }

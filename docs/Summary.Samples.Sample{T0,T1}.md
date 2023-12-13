@@ -15,7 +15,7 @@ Here is a ~~strikethrough~~ fragment.
 _Remarks section._
 _Second line._
 _Another paragraph._
-_Btw, this type has a child: [`Sample{T0,T1}.Child`](./Summary.Samples.Sample{T0,T1}.Child.md)._
+_Btw, this type has a child: [`Sample<T0, T1>.Child`](./Summary.Samples.Sample{T0,T1}.Child.md)._
 
 ## Type Parameters
 - `T0`: A first type parameter.
@@ -159,7 +159,7 @@ The `TimeSpan` instance.
 public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```
 
-The overloaded [`Method{M0,M1,M2}(int,string)`](./Summary.Samples.Sample{T0,T1}.md#Method<M0, M1, M2>(int, string)).
+The overloaded [`Method<M0, M1, M2>(int, string)`](./Summary.Samples.Sample{T0,T1}.md#methodm0-m1-m2int-string).
 
 #### Type Parameters
 - `M0`: The first type parameter of the method.

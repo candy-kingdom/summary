@@ -3,7 +3,7 @@
 public class FoldPipe<O> : IPipe<O[], O>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that aggregates the result of the specified pipe.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that aggregates the result of the specified pipe.
 
 ## Methods
 ### [Run(O[])](../src/Core/Pipes/FoldPipe.cs#L9)

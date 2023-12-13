@@ -3,7 +3,7 @@
 public class ScanPipe : IPipe<Unit, Source[]>
 ```
 
-A [`IPipe{I,O}`](./Summary.Pipes.IPipe{I,O}.md) that searches specified directory (recursively) for files that match specified pattern.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that searches specified directory (recursively) for files that match specified pattern.
 
 ## Methods
 ### [Run(Unit)](../src/Core/Pipes/IO/ScanPipe.cs#L9)
