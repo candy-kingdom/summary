@@ -28,10 +28,4 @@ public record Doc(DocMember[] Members)
     /// </summary>
     public DocTypeDeclaration? Declaration(DocType? type) =>
         Index.Declaration(type);
-
-    public DocMember? Cref(DocCommentLink link) =>
-        Index.ByCref(link);
-
-    public DocMember? Cref(string value, DocMember scope) =>
-        Index.ByCref(value, scope);
 }

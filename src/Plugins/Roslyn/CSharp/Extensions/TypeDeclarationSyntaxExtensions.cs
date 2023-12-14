@@ -13,14 +13,13 @@ internal static class TypeDeclarationSyntaxExtensions
     ///     Converts the given type declaration into <see cref="DocTypeDeclaration" />.
     /// </summary>
     public static DocTypeDeclaration TypeDeclaration(this TypeDeclarationSyntax self) =>
-        new()
+        new DocTypeDeclaration
         {
             Namespace = self.Namespace() ?? "",
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = self.Declaration(),
             Access = self.Access(),
-            Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Members = self.Members(),
@@ -29,7 +28,7 @@ internal static class TypeDeclarationSyntaxExtensions
             Base = self.BaseList?.Types.Select(x => x.Type.Type()).ToArray() ?? Array.Empty<DocType>(),
             Usings = self.Usings(),
             Record = self is RecordDeclarationSyntax,
-        };
+        }.WithComment(self);
 
     private static DocMember[] Members(this TypeDeclarationSyntax self) => self switch
     {

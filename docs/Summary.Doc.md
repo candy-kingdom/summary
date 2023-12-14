@@ -40,13 +40,3 @@ public DocTypeDeclaration? Declaration(DocType? type)
 
 A type declaration that matches the specified type.
 
-### [Cref(DocCommentLink)](../src/Core/Doc.cs#L32)
-```cs
-public DocMember? Cref(DocCommentLink link)
-```
-
-### [Cref(string, DocMember)](../src/Core/Doc.cs#L35)
-```cs
-public DocMember? Cref(string value, DocMember scope)
-```
-

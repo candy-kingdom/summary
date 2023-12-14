@@ -86,7 +86,7 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                         };
                     }
 
-                    return doc.Cref(cref, member);
+                    return doc.Index.Member(cref, member);
                 }
             }
         }

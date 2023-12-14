@@ -50,21 +50,3 @@ public IEnumerable<DocMember> MembersOfType(DocMember member)
 
 A sequence of members of this type declaration that has the same type as the specified one.
 
-### [SelfAndBaseDeclarations(Doc)](../src/Core/DocTypeDeclaration.cs#L50)
-```cs
-public IEnumerable<DocTypeDeclaration> SelfAndBaseDeclarations(Doc doc)
-```
-
-This type declaration and the sequence of type declarations that are base types of this one.
-
-_This method is recursive and will return the sequence of all base types, even non-direct ones._
-
-### [BaseDeclarations(Doc)](../src/Core/DocTypeDeclaration.cs#L57)
-```cs
-public IEnumerable<DocTypeDeclaration> BaseDeclarations(Doc doc)
-```
-
-A sequence of type declarations that are base types of this one.
-
-_This method is recursive and will return the sequence of all base types, even non-direct ones._
-

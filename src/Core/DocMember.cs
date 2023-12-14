@@ -34,14 +34,14 @@ public abstract record DocMember
     public required AccessModifier Access { get; init; }
 
     /// <summary>
-    ///     The documentation comment of the member (can be empty).
-    /// </summary>
-    public required DocComment Comment { get; init; }
-
-    /// <summary>
     ///     The type that this member is declared in (works for nested types as well).
     /// </summary>
     public required DocType? DeclaringType { get; init; }
+
+    /// <summary>
+    ///     The documentation comment of the member (can be empty).
+    /// </summary>
+    public DocComment Comment { get; set; } = DocComment.Empty;
 
     /// <summary>
     ///     Whether the member is deprecated (e.g. marked with <c>[Obsolete]</c>).

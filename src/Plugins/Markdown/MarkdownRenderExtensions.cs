@@ -72,7 +72,7 @@ internal static class MarkdownRenderExtensions
 
     private static string Render(this DocCommentLink self, Doc doc)
     {
-        var cref = doc.Cref(self);
+        var cref = doc.Index.Member(self);
         if (cref is null)
             return $"<u>`{self.Value.FromCref()}`</u>";
 

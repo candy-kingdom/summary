@@ -40,20 +40,4 @@ public record DocTypeDeclaration : DocMember
     /// </summary>
     public IEnumerable<DocMember> MembersOfType(DocMember member) =>
         Members.Where(x => x.GetType() == member.GetType());
-
-    /// <summary>
-    ///     This type declaration and the sequence of type declarations that are base types of this one.
-    /// </summary>
-    /// <remarks>
-    ///     This method is recursive and will return the sequence of all base types, even non-direct ones.
-    /// </remarks>
-    public IEnumerable<DocTypeDeclaration> SelfAndBaseDeclarations(Doc doc) =>
-        new[] { this }.Concat(BaseDeclarations(doc));
-
-    /// <summary>
-    ///     A sequence of type declarations that are base types of this one.
-    /// </summary>
-    /// <inheritdoc cref="SelfAndBaseDeclarations" />
-    public IEnumerable<DocTypeDeclaration> BaseDeclarations(Doc doc) =>
-        Base.Select(doc.Declaration).NonNulls().SelectMany(x => x.SelfAndBaseDeclarations(doc));
 }

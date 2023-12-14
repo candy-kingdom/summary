@@ -13,23 +13,24 @@ internal static class XmlSyntaxExtensions
 {
     /// <summary>
     ///     Parses XML documentation from the specified member into <see cref="DocComment" /> object.
+    ///     <paramref name="member"/> is a member the comment is defined for.
     /// </summary>
-    public static DocComment Comment(this MemberDeclarationSyntax self)
+    public static DocComment Comment(this MemberDeclarationSyntax self, DocMember member)
     {
         var nodes = self
             .GetLeadingTrivia()
             .Select(x => x.GetStructure())
             .OfType<DocumentationCommentTriviaSyntax>()
             .SelectMany(x => x.Content)
-            .Nodes();
+            .Nodes(member);
 
         return new DocComment(nodes);
     }
 
-    private static DocCommentNode[] Nodes(this IEnumerable<XmlNodeSyntax> self) =>
-        self.SelectMany(Nodes).ToArray();
+    private static DocCommentNode[] Nodes(this IEnumerable<XmlNodeSyntax> self, DocMember member) =>
+        self.SelectMany(x => Nodes(x, member)).ToArray();
 
-    private static DocCommentNode[] Nodes(this XmlNodeSyntax xml) => xml switch
+    private static DocCommentNode[] Nodes(this XmlNodeSyntax xml, DocMember member) => xml switch
     {
         XmlTextSyntax text =>
             text.TextTokens.Select(Literal).ToArray(),
@@ -38,12 +39,12 @@ internal static class XmlSyntaxExtensions
             new DocCommentElement(
                     element.StartTag.Name.ToString(),
                     element.StartTag.Attributes.Select(x => x.Attribute()).NonNulls().ToArray(),
-                    element.Content.Nodes())
+                    element.Content.Nodes(member))
                 .ToArray(),
 
         XmlEmptyElementSyntax empty => empty.Name.ToString() switch
         {
-            "see" => new DocCommentLink(empty.Cref()).ToArray(),
+            "see" => new DocCommentLink(member, empty.Cref()).ToArray(),
             "paramref" => new DocCommentParamRef(empty.Name()).ToArray(),
             "typeparamref" => new DocCommentParamRef(empty.Name()).ToArray(),
             "inheritdoc" => new DocCommentInheritDoc(empty.Cref()).ToArray(),

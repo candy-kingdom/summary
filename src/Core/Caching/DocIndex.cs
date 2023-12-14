@@ -135,29 +135,20 @@ internal partial class DocIndex
             return declaration;
 
         // We omit base types since we're using this method for finding member that corresponds to base type.
-        return ByCref(@base.FullName.AsCref(), child, includingBase: false) as DocTypeDeclaration;
+        return Member(@base.FullName.AsCref(), child, includingBase: false) as DocTypeDeclaration;
     }
-
-    /// <summary>
-    ///     The <see cref="DocMember"/> the comment node is defined for.
-    /// </summary>
-    // TODO: We can include the member inside `DocCommentNode` at the generation time (@j.light).
-    public DocMember? Member(DocCommentNode node) =>
-        _members.ByCommentNode.TryGetValue(node, out var member)
-            ? member
-            : _members.ByCommentNode[node] = Members.FirstOrDefault(x => Nodes(x).Contains(node));
 
     /// <summary>
     ///     Searches a <see cref="DocMember"/> by the provided link.
     /// </summary>
-    public DocMember? ByCref(DocCommentLink link)
+    public DocMember? Member(DocCommentLink link)
     {
         if (_members.ByLink.TryGetValue(link, out var member))
             return member;
 
-        var scope = Member(link);
+        var scope = link.Member;
 
-        member = scope is null ? null : ByCref(link.Value.Replace(" ", ""), scope);
+        member = scope is null ? null : Member(link.Value.Replace(" ", ""), scope);
 
         return _members.ByLink[link] = member;
     }
@@ -167,7 +158,7 @@ internal partial class DocIndex
     ///     The <paramref name="scope"/> member represents the inner-most scope to start the search from.
     ///     Specify <see cref="includingBase"/> if you want to search among lists of base types.
     /// </summary>
-    public DocMember? ByCref(string cref, DocMember scope, bool includingBase = true)
+    public DocMember? Member(string cref, DocMember scope, bool includingBase = true)
     {
         if (!_members.ByCref.TryGetValue(cref, out var byScope))
             _members.ByCref[cref] = byScope = new();
@@ -205,7 +196,7 @@ internal partial class DocIndex
     /// <summary>
     ///     Whether the given member matches the specified <c>cref</c>.
     /// </summary>
-    private bool MatchesCref(DocMember member, string cref)
+    private static bool MatchesCref(DocMember member, string cref)
     {
         if (member.FullyQualifiedName.AsRawCref().EndsWith(cref.AsRawCref()))
         {

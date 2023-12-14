@@ -42,19 +42,19 @@ public required AccessModifier Access { get; init; }
 
 The access modifier of the member.
 
-### [Comment](../src/Core/DocMember.cs#L39)
-```cs
-public required DocComment Comment { get; init; }
-```
-
-The documentation comment of the member (can be empty).
-
-### [DeclaringType](../src/Core/DocMember.cs#L44)
+### [DeclaringType](../src/Core/DocMember.cs#L39)
 ```cs
 public required DocType? DeclaringType { get; init; }
 ```
 
 The type that this member is declared in (works for nested types as well).
+
+### [Comment](../src/Core/DocMember.cs#L44)
+```cs
+public DocComment Comment { get; set; }
+```
+
+The documentation comment of the member (can be empty).
 
 ### [Deprecated](../src/Core/DocMember.cs#L50)
 ```cs

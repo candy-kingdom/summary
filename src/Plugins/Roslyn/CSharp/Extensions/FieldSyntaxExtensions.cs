@@ -23,7 +23,7 @@ internal static class FieldSyntaxExtensions
         self.Declaration.Variables[index: 0].Field(self);
 
     private static DocField Field(this VariableDeclaratorSyntax self, FieldDeclarationSyntax field) =>
-        new()
+        new DocField
         {
             Namespace = self.Namespace() ?? "",
             Type = field.Declaration.Type.Type(),
@@ -31,10 +31,9 @@ internal static class FieldSyntaxExtensions
             Name = self.Name()!,
             Declaration = $"{field.AttributesDeclaration()}{field.Modifiers} {field.Declaration.Type} {self.Identifier}",
             Access = field.Access(),
-            Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
             Usings = self.Usings(),
-        };
+        }.WithComment(field);
 }

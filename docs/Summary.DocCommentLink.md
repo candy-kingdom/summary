@@ -1,12 +1,19 @@
-# [Summary.DocCommentLink](../src/Core/DocCommentLink.cs#L8)
+# [Summary.DocCommentLink](../src/Core/DocCommentLink.cs#L9)
 ```cs
-public record DocCommentLink(string Value) : DocCommentNode
+public record DocCommentLink(DocMember? Member, string Value) : DocCommentNode
 ```
 
 A [`DocCommentNode`](./Summary.DocCommentNode.md) that represents the link to other member (e.g. `<see cref="SomeMember"/>`).
 
 ## Properties
-### [Value](../src/Core/DocCommentLink.cs#L8)
+### [Member](../src/Core/DocCommentLink.cs#L9)
+```cs
+public DocMember? Member { get; }
+```
+
+The doc member the link references to.
+
+### [Value](../src/Core/DocCommentLink.cs#L9)
 ```cs
 public string Value { get; }
 ```
