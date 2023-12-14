@@ -3,7 +3,7 @@
 public static class FilteringExtensions
 ```
 
-A set of extensions for [`SummaryPipeline`](./SummaryPipeline.md) that add support for filtering functionality.
+A set of extensions for [`SummaryPipeline`](./Summary.Pipelines.SummaryPipeline.md) that add support for filtering functionality.
 
 ## Methods
 ### [UseDefaultFilters(SummaryPipeline)](../src/Core/Pipelines/SummaryPipelineFilteringExtensions.cs#L14)

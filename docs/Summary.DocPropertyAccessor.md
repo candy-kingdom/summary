@@ -3,7 +3,7 @@
 public record DocPropertyAccessor
 ```
 
-One of the [`DocProperty`](./DocProperty.md) accessors (e.g., `get`, `set`, `init`).
+One of the [`DocProperty`](./Summary.DocProperty.md) accessors (e.g., `get`, `set`, `init`).
 
 ## Fields
 ### [Access](../src/Core/DocPropertyAccessor.cs#L29)

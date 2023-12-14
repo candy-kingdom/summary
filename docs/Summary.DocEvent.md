@@ -3,9 +3,9 @@
 public record DocEvent : DocMember
 ```
 
-A [`DocMember`](./DocMember.md) that represents a documented event in the parsed source code.
+A [`DocMember`](./Summary.DocMember.md) that represents a documented event in the parsed source code.
 
-_Similar to [`DocProperty`](./DocProperty.md) but with its own set of accessors._
+_Similar to [`DocProperty`](./Summary.DocProperty.md) but with its own set of accessors._
 
 ## Properties
 ### [Type](../src/Core/DocEvent.cs#L14)

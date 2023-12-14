@@ -45,7 +45,7 @@ var b = a.AsCref();
 b.Should().Be("Some{,}");
 ```
 
-### [FromCref(string)](../src/Core/Caching/CrefCache.cs#L74)
+### [FromCref(string)](../src/Core/Caching/CrefCache.cs#L73)
 ```cs
 public static string FromCref(this string self)
 ```
@@ -53,7 +53,6 @@ public static string FromCref(this string self)
 Converts the given string from the format of `cref` attribute value.
 
 #### Example
-In the following example, the `"Some<T1, T2>"` string
 In the following example, the `"Some{T1,T2}"` string
 (which represents the name of some type in the `cref` format)
 is converted into `"Some<T1, T2>` so that it can be displayed somewhere.

@@ -114,7 +114,6 @@ internal static class PropertySyntaxExtensions
             Params = self.ParameterList.Params(),
             Usings = self.Usings(),
             Accessors = self.Accessors(),
-            Params = self.ParameterList.Params(),
             Generated = false,
             Event = false,
         };
