@@ -60,7 +60,6 @@ public static partial class CrefCache
     ///     Converts the given string from the format of <c>cref</c> attribute value.
     /// </summary>
     /// <example>
-    ///     In the following example, the <c>"Some&lt;T1, T2&gt;"</c> string
     ///     In the following example, the <c>"Some{T1,T2}"</c> string
     ///     (which represents the name of some type in the <c>cref</c> format)
     ///     is converted into <c>"Some&lt;T1, T2&gt;</c> so that it can be displayed somewhere.
