@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Summary.Extensions;
 
 namespace Summary.Roslyn.CSharp.Extensions;
@@ -24,12 +26,13 @@ internal static class PropertySyntaxExtensions
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Accessors = self.Accessors(),
             Usings = self.Usings(),
             Generated = false,
             Event = false,
@@ -48,13 +51,14 @@ internal static class PropertySyntaxExtensions
             Type = self.Type!.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.AttributeLists.Attributes()}public {self.Type} {self.Identifier} {{ get; }}",
+            Declaration = $"{self.AttributeLists.AttributesDeclaration()}public {self.Type} {self.Identifier}",
             Access = AccessModifier.Public,
             Comment = DocComment.Empty,
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
             Usings = self.Usings(),
+            Accessors = DocPropertyAccessor.Defaults(),
             Generated = true,
             Event = false,
         };
@@ -69,13 +73,15 @@ internal static class PropertySyntaxExtensions
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} {self.Identifier} {self.Accessors()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
             Usings = self.Usings(),
+            // All events have `add` and `remove` accessors by default.
+            Accessors = Array.Empty<DocPropertyAccessor>(),
             Generated = false,
             Event = true,
         };
@@ -99,7 +105,7 @@ internal static class PropertySyntaxExtensions
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{self.Attributes()}{self.Modifiers} {self.Type} this{self.ParameterList} {self.Accessors()}",
+            Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} this{self.ParameterList}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
@@ -107,6 +113,8 @@ internal static class PropertySyntaxExtensions
             Location = self.ThisKeyword.Location(),
             Params = self.ParameterList.Params(),
             Usings = self.Usings(),
+            Accessors = self.Accessors(),
+            Params = self.ParameterList.Params(),
             Generated = false,
             Event = false,
         };
@@ -118,26 +126,64 @@ internal static class PropertySyntaxExtensions
             Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
-            Declaration = $"{field.Attributes()}{field.Modifiers} event {field.Declaration.Type} {self.Identifier}",
+            Declaration = $"{field.AttributesDeclaration()}{field.Modifiers} event {field.Declaration.Type} {self.Identifier}",
             Access = field.Access(),
             Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            // All events have `add` and `remove` accessors by default.
+            Accessors = Array.Empty<DocPropertyAccessor>(),
             Usings = self.Usings(),
             Generated = false,
             Event = true,
         };
 
-    private static string Accessors(this PropertyDeclarationSyntax self) =>
-        self.AccessorList?.Accessors() ?? "{ get; }";
+    private static DocPropertyAccessor[] Accessors(this PropertyDeclarationSyntax self) =>
+        self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();
 
-    private static string Accessors(this IndexerDeclarationSyntax self) =>
-        self.AccessorList?.Accessors() ?? "{ get; }";
+    private static DocPropertyAccessor[] Accessors(this IndexerDeclarationSyntax self) =>
+        self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();
 
-    private static string Accessors(this EventDeclarationSyntax self) =>
-        self.AccessorList?.Accessors() ?? "{ add; remove; }";
+    private static DocPropertyAccessor Accessor(this AccessorDeclarationSyntax self, MemberDeclarationSyntax parent) =>
+        new()
+        {
+            Access = self.Access() ?? parent.Access(),
+            Kind = Kind(self),
+        };
 
-    private static string Accessors(this AccessorListSyntax self) =>
+    private static AccessModifier? Access(this AccessorDeclarationSyntax self)
+    {
+        if (self.Modifiers.Any(SyntaxKind.PublicKeyword))
+            return AccessModifier.Public;
+        if (self.Modifiers.Any(SyntaxKind.ProtectedKeyword))
+            return AccessModifier.Protected;
+        if (self.Modifiers.Any(SyntaxKind.InternalKeyword))
+            return AccessModifier.Internal;
+        if (self.Modifiers.Any(SyntaxKind.PrivateKeyword))
+            return AccessModifier.Private;
+
+        return null;
+    }
+
+    private static AccessorKind Kind(this AccessorDeclarationSyntax self) => self.Keyword.Kind() switch
+    {
+        SyntaxKind.GetKeyword => AccessorKind.Get,
+        SyntaxKind.SetKeyword => AccessorKind.Set,
+        SyntaxKind.InitKeyword => AccessorKind.Init,
+
+        _ => throw new InvalidOperationException($"Unrecognized accessor: {self}"),
+    };
+
+    private static string AccessorsDeclaration(this PropertyDeclarationSyntax self) =>
+        self.AccessorList?.AccessorsDeclaration() ?? "{ get; }";
+
+    private static string AccessorsDeclaration(this IndexerDeclarationSyntax self) =>
+        self.AccessorList?.AccessorsDeclaration() ?? "{ get; }";
+
+    private static string AccessorsDeclaration(this EventDeclarationSyntax self) =>
+        self.AccessorList?.AccessorsDeclaration() ?? "{ add; remove; }";
+
+    private static string AccessorsDeclaration(this AccessorListSyntax self) =>
         $"{{ {self.Accessors.Select(x => $"{x.Modifiers.ToString().Space()}{x.Keyword}; ").Separated("")}}}";
 }

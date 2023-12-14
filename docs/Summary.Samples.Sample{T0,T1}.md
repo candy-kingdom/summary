@@ -39,7 +39,7 @@ A sample field event.
 
 ### [Event2](../src/Core/Samples/Sample.cs#L106)
 ```cs
-public Action Event2 { add; remove; }
+public Action Event2
 ```
 
 A sample property event.
@@ -87,14 +87,14 @@ A sample property.
 
 ### [Property2](../src/Core/Samples/Sample.cs#L74)
 ```cs
-public int Property2 { private get; set; }
+public int Property2 { set; }
 ```
 
 A sample property with custom visibility.
 
 ### [Property3](../src/Core/Samples/Sample.cs#L80)
 ```cs
-public int Property3 { get; protected set; }
+public int Property3 { get; }
 ```
 
 A sample property with custom visibility and an exception.

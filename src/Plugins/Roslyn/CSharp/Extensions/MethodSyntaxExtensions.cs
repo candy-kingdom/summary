@@ -17,7 +17,7 @@ internal static class MethodSyntaxExtensions
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration =
-                $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+                $"{self.AttributesDeclaration()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
             Access = self.Access(),
             Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
@@ -38,7 +38,7 @@ internal static class MethodSyntaxExtensions
         FullyQualifiedName = self.FullyQualifiedName(),
         Name = self.Name()!,
         Declaration =
-            $"{self.Attributes()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
+            $"{self.AttributesDeclaration()}{self.Modifiers} {self.ReturnType} {self.Identifier}{self.TypeParameterList}{self.ParameterList}",
         Access = self.Access(),
         Comment = self.Comment(),
         Params = self.ParameterList.Params(),

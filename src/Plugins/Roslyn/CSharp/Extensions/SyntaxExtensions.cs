@@ -137,13 +137,13 @@ internal static class SyntaxExtensions
     /// <summary>
     ///     A list of attributes of the specified member formatted as a string.
     /// </summary>
-    public static string Attributes(this MemberDeclarationSyntax self) =>
-        self.AttributeLists.Attributes();
+    public static string AttributesDeclaration(this MemberDeclarationSyntax self) =>
+        self.AttributeLists.AttributesDeclaration();
 
     /// <summary>
     ///     Formats the specified list of attributes.
     /// </summary>
-    public static string Attributes(this SyntaxList<AttributeListSyntax> self) =>
+    public static string AttributesDeclaration(this SyntaxList<AttributeListSyntax> self) =>
         self
             .Select(x => $"{x}")
             .Separated(NewLine) is { } attributes and not ""
