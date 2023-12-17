@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Summary.Extensions;
 using Summary.Pipes;
 
 namespace Summary.Roslyn.CSharp;
@@ -55,7 +56,7 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
             {
                 // Exclude all spaces from the `cref` for better searching.
                 var cref = inherit.Cref?.Replace(" ", "");
-                var source = cref is null or "" ? Base(member) : Cref(member, cref);
+                var source = Source();
                 if (source == member)
                     return Enumerable.Empty<DocCommentNode>();
                 if (source is null)
@@ -66,29 +67,28 @@ public class InlineInheritDocPipe : IPipe<Doc, Doc>
                 source = Inline(source);
 
                 return source.Comment.Nodes;
+
+                DocMember? Source()
+                {
+                    if (cref is null or "")
+                    {
+                        return member switch
+                        {
+                            DocTypeDeclaration type =>
+                                doc.Index
+                                    .BaseDeclarations(type)
+                                    .FirstOrDefault(),
+
+                            _ =>
+                                doc.Index.BaseDeclarations(member)
+                                    .SelectMany(x => x.MembersOfType(member))
+                                    .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(member.Name)),
+                        };
+                    }
+
+                    return doc.Index.Member(cref, member);
+                }
             }
         }
-
-        DocMember? Base(DocMember? of) =>
-            of is DocTypeDeclaration declaration
-                ? declaration
-                    .BaseDeclarations(doc)
-                    .FirstOrDefault()
-                : doc
-                    .Declaration(of?.DeclaringType)?
-                    .BaseDeclarations(doc)
-                    .SelectMany(x => x.MembersOfType(of!))
-                    .FirstOrDefault(x => x.Name == of!.Name);
-
-        DocMember? Cref(DocMember of, string cref) =>
-            of is DocTypeDeclaration declaration
-                ? declaration
-                    .BaseDeclarations(doc)
-                    .FirstOrDefault(x => x.FullyQualifiedName.EndsWith(cref))
-                : doc
-                    .Declaration(of.DeclaringType)?
-                    .BaseDeclarationsAndSelf(doc)
-                    .SelectMany(x => x.MembersOfType(of))
-                    .FirstOrDefault(x => x.MatchesCref(cref));
     }
 }

@@ -7,6 +7,9 @@ namespace Summary;
 /// </summary>
 public record DocMethod : DocMember
 {
+    private string? _signature;
+    private string? _fullyQualifiedSignature;
+
     /// <summary>
     ///     The type parameters of the method.
     /// </summary>
@@ -23,18 +26,16 @@ public record DocMethod : DocMember
     public required bool Delegate { get; init; } = false;
 
     /// <summary>
-    ///     The signature of the method without parameters in link format (e.g., <c>Sum{T}</c>).
+    ///     The full signature of the method that includes both type parameters and regular parameters
+    ///     (e.g., <c>"Method&lt;T1, T2&gt;(int, short)"</c>).
     /// </summary>
-    public string SignatureWithoutParams => $"{FullyQualifiedName}{TypeParamsSignature}";
+    public string Signature =>
+        _signature ??= $"{Name}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
 
     /// <summary>
-    ///     The signature of the method in link format (e.g., <c>Sum{T}(T, T)</c>).
+    ///     The full signature of the method that includes both type parameters and regular parameters
+    ///     (e.g., <c>"Method&lt;T1, T2&gt;(int, short)"</c>).
     /// </summary>
-    public string Signature => $"{SignatureWithoutParams}{ParamsSignature}";
-
-    private string TypeParamsSignature =>
-        TypeParams.Select(x => x.Name).Separated(",").Surround("{", "}");
-
-    private string ParamsSignature =>
-        $"({Params.Select(x => x.Type?.FullName).Separated(",")})";
+    public string FullyQualifiedSignature =>
+        _fullyQualifiedSignature ??= $"{FullyQualifiedName}({Params.Select(x => x.Type?.FullName).Separated(", ")})";
 }

@@ -20,21 +20,22 @@ internal static class PropertySyntaxExtensions
     ///     Converts the given property declaration into <see cref="DocProperty" />.
     /// </summary>
     public static DocProperty Property(this PropertyDeclarationSyntax self) =>
-        new()
+        new DocProperty
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
-            Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
             Accessors = self.Accessors(),
+            Usings = self.Usings(),
             Generated = false,
             Event = false,
-        };
+        }.WithComment(self);
 
     /// <summary>
     ///     Converts the given parameter node into <see cref="DocProperty" />.
@@ -43,8 +44,9 @@ internal static class PropertySyntaxExtensions
     ///     It makes sense to convert a parameter node into a property if it's a record property declared as a parameter.
     /// </remarks>
     public static DocProperty Property(this ParameterSyntax self) =>
-        new()
+        new DocProperty
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type!.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
@@ -54,6 +56,7 @@ internal static class PropertySyntaxExtensions
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             Accessors = DocPropertyAccessor.Defaults(),
             Generated = true,
             Event = false,
@@ -63,22 +66,23 @@ internal static class PropertySyntaxExtensions
     ///     Converts the given event property declaration into <see cref="DocProperty" />.
     /// </summary>
     public static DocProperty Property(this EventDeclarationSyntax self) =>
-        new()
+        new DocProperty
         {
-            Type = self.Type!.Type(),
+            Namespace = self.Namespace() ?? "",
+            Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} {self.Identifier}",
             Access = self.Access(),
-            Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
+            Usings = self.Usings(),
             // All events have `add` and `remove` accessors by default.
             Accessors = Array.Empty<DocPropertyAccessor>(),
             Generated = false,
             Event = true,
-        };
+        }.WithComment(self);
 
     /// <summary>
     ///     Converts the given event field declaration into <see cref="DocProperty" />.
@@ -93,40 +97,42 @@ internal static class PropertySyntaxExtensions
     ///     Converts the given indexer declaration into <see cref="DocIndexer" /> property.
     /// </summary>
     public static DocIndexer Indexer(this IndexerDeclarationSyntax self) =>
-        new()
+        new DocIndexer
         {
+            Namespace = self.Namespace() ?? "",
             Type = self.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = $"{self.AttributesDeclaration()}{self.Modifiers} {self.Type} this{self.ParameterList}",
             Access = self.Access(),
-            Comment = self.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = self.AttributeLists.Deprecation(),
             Location = self.ThisKeyword.Location(),
-            Accessors = self.Accessors(),
             Params = self.ParameterList.Params(),
+            Usings = self.Usings(),
+            Accessors = self.Accessors(),
             Generated = false,
             Event = false,
-        };
+        }.WithComment(self);
 
     private static DocProperty Property(this VariableDeclaratorSyntax self, EventFieldDeclarationSyntax field) =>
-        new()
+        new DocProperty
         {
+            Namespace = self.Namespace() ?? "",
             Type = field.Declaration.Type.Type(),
             FullyQualifiedName = self.FullyQualifiedName(),
             Name = self.Name()!,
             Declaration = $"{field.AttributesDeclaration()}{field.Modifiers} event {field.Declaration.Type} {self.Identifier}",
             Access = field.Access(),
-            Comment = field.Comment(),
             DeclaringType = self.DeclaringType(),
             Deprecation = field.AttributeLists.Deprecation(),
             Location = self.Identifier.Location(),
             // All events have `add` and `remove` accessors by default.
             Accessors = Array.Empty<DocPropertyAccessor>(),
+            Usings = self.Usings(),
             Generated = false,
             Event = true,
-        };
+        }.WithComment(field);
 
     private static DocPropertyAccessor[] Accessors(this PropertyDeclarationSyntax self) =>
         self.AccessorList?.Accessors.Select(x => x.Accessor(self)).ToArray() ?? DocPropertyAccessor.Defaults();

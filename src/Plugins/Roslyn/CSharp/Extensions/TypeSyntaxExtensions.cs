@@ -12,7 +12,10 @@ internal static class TypeSyntaxExtensions
     ///     Converts the given type declaration into <see cref="DocType" />.
     /// </summary>
     public static DocType Type(this TypeDeclarationSyntax self) =>
-        SyntaxFactory.ParseTypeName($"{self.Identifier}{self.TypeParameterList}").Type();
+        SyntaxFactory.ParseTypeName($"{self.Identifier}{self.TypeParameterList}").Type() with
+        {
+            FullyQualifiedName = self.FullyQualifiedName(),
+        };
 
     /// <summary>
     ///     Converts the given type syntax into <see cref="DocType" />.
@@ -36,7 +39,11 @@ internal static class TypeSyntaxExtensions
             new DocType($"{x.ElementType}[]", Array.Empty<DocType>()),
         NullableTypeSyntax x =>
             new DocType($"{x.ElementType}?", new[] { x.ElementType.Type() }),
+        PointerTypeSyntax x =>
+            new DocType($"{x.ElementType}*", Array.Empty<DocType>()),
+        RefTypeSyntax x =>
+            new DocType($"{x.RefKeyword} {x.Type}", Array.Empty<DocType>()),
         _ =>
-            throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self}"),
+            throw new ArgumentOutOfRangeException($"Couldn't recognize syntax node: {self} ({self.GetType()})"),
     };
 }

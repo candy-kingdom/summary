@@ -1,6 +1,8 @@
-﻿namespace Summary.Extensions;
+﻿using System.Text.RegularExpressions;
 
-internal static class StringExtensions
+namespace Summary.Extensions;
+
+internal static partial class StringExtensions
 {
     /// <summary>
     ///     Adds a space character to the end of the specified string.
@@ -31,22 +33,4 @@ internal static class StringExtensions
     /// </summary>
     public static string AsFullPath(this string self) =>
         Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, self));
-
-    /// <summary>
-    ///     Converts the given string into the format of <c>cref</c> attribute value.
-    /// </summary>
-    /// <example>
-    ///     In the following example, the <c>"Some&lt;T1, T2&gt;"</c> string
-    ///     (which represents the name of some type)
-    ///     is converted into <c>"Some{T1,T2}"</c> as if it was a value of a link
-    ///     (e.g., &lt;see cref="Some{T1,T2}"&gt;):
-    ///     <para><code>
-    ///         var a = "Some&lt;T1, T2&gt;";
-    ///         var b = a.AsCref();
-    ///         <br/>
-    ///         b.Should().Be("Some{T1,T2}");
-    ///     </code></para>
-    /// </example>
-    public static string AsCref(this string self) =>
-        self.Replace("<", "{").Replace(">", "}").Replace(" ", "");
 }

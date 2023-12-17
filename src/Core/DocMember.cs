@@ -8,6 +8,11 @@ namespace Summary;
 public abstract record DocMember
 {
     /// <summary>
+    ///     The namespace the member is defined in.
+    /// </summary>
+    public required string Namespace { get; init; }
+
+    /// <summary>
     ///     The fully qualified name of the member (e.g., <c>Summary.DocMember</c>).
     /// </summary>
     public required string FullyQualifiedName { get; init; }
@@ -29,14 +34,14 @@ public abstract record DocMember
     public required AccessModifier Access { get; init; }
 
     /// <summary>
-    ///     The documentation comment of the member (can be empty).
-    /// </summary>
-    public required DocComment Comment { get; init; }
-
-    /// <summary>
     ///     The type that this member is declared in (works for nested types as well).
     /// </summary>
     public required DocType? DeclaringType { get; init; }
+
+    /// <summary>
+    ///     The documentation comment of the member (can be empty).
+    /// </summary>
+    public DocComment Comment { get; set; } = DocComment.Empty;
 
     /// <summary>
     ///     Whether the member is deprecated (e.g. marked with <c>[Obsolete]</c>).
@@ -55,18 +60,7 @@ public abstract record DocMember
     public DocLocation? Location { get; init; }
 
     /// <summary>
-    ///     Whether this member matches the specified <c>cref</c> reference.
+    ///     The list of <c>using</c> statements imported in the scope of this type declaration.
     /// </summary>
-    public bool MatchesCref(string cref)
-    {
-        // TODO: Check whether it's enough for most of the cases.
-        if (FullyQualifiedName.EndsWith(cref))
-            return true;
-
-        if (this is DocMethod method)
-            return method.SignatureWithoutParams.EndsWith(cref) ||
-                   method.Signature.EndsWith(cref);
-
-        return false;
-    }
+    public required string[] Usings { get; init; }
 }

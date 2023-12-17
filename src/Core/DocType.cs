@@ -7,7 +7,8 @@ namespace Summary;
 /// </summary>
 /// <param name="Name">The name of the type (without generic arguments).</param>
 /// <param name="TypeParams">The generic parameters of this type (if it's generic).</param>
-public record DocType(string Name, DocType[] TypeParams)
+/// <param name="FullyQualifiedName">An optional fully qualified name (<c>null</c> for parameter or field types).</param>
+public record DocType(string Name, DocType[] TypeParams, string? FullyQualifiedName = null)
 {
     /// <summary>
     ///     The full name of the type including its type parameters.
