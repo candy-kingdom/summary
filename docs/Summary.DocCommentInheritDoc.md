@@ -4,7 +4,7 @@ public record DocCommentInheritDoc(string? Cref) : DocCommentNode
 ```
 
 A [`DocCommentNode`](./Summary.DocCommentNode.md) that inherits documentation from another member
-(`<inheritdoc>`).
+(`&lt;inheritdoc&gt;`).
 
 ## Properties
 ### [Cref](../src/Core/DocCommentInheritDoc.cs#L8)

@@ -17,14 +17,14 @@ public static readonly ILogger Instance
 public void Dispose()
 ```
 
-### [Log<TState>(LogLevel, EventId, TState, Exception?<Exception>, Func<TState, Exception?<Exception>, string>)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L41)
+### [Log&lt;TState&gt;(LogLevel, EventId, TState, Exception?&lt;Exception&gt;, Func&lt;TState, Exception?&lt;Exception&gt;, string&gt;)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L41)
 ```cs
-public void Log<TState>(
+public void Log&lt;TState&gt;(
             LogLevel logLevel,
             EventId eventId,
             TState state,
             Exception? exception,
-            Func<TState, Exception?, string> formatter)
+            Func&lt;TState, Exception?, string&gt; formatter)
 ```
 
 ### [IsEnabled(LogLevel)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L49)
@@ -32,9 +32,9 @@ public void Log<TState>(
 public bool IsEnabled(LogLevel logLevel)
 ```
 
-### [BeginScope<TState>(TState)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L51)
+### [BeginScope&lt;TState&gt;(TState)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L51)
 ```cs
-public IDisposable? BeginScope<TState>(TState state)
+public IDisposable? BeginScope&lt;TState&gt;(TState state)
 ```
 
 ### [CreateLogger(string)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L63)

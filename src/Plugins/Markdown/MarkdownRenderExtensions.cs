@@ -10,6 +10,17 @@ namespace Summary.Markdown;
 internal static class MarkdownRenderExtensions
 {
     /// <summary>
+    ///     Escapes all different HTML characters such as '&gt;' or '&lt;' from the specified Markdown string.
+    /// </summary>
+    /// <remarks>
+    ///     The output string can safely be used in a rendered Markdown.
+    /// </remarks>
+    internal static string Escape(this string self) =>
+        self
+            .Replace("<", "&lt;")
+            .Replace(">", "&gt;");
+
+    /// <summary>
     ///     The source file name for this member.
     /// </summary>
     internal static string FileName(this DocMember self) =>

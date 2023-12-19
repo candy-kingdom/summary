@@ -1,14 +1,14 @@
-# [Summary.Pipes.ThenPipe<I, O1, O2>](../src/Core/Pipes/ThenPipe.cs#L6)
+# [Summary.Pipes.ThenPipe&lt;I, O1, O2&gt;](../src/Core/Pipes/ThenPipe.cs#L6)
 ```cs
-public class ThenPipe<I, O1, O2> : IPipe<I, O2>
+public class ThenPipe&lt;I, O1, O2&gt; : IPipe&lt;I, O2&gt;
 ```
 
-A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that composes two pipes together.
+A [`IPipe&lt;I, O&gt;`](./Summary.Pipes.IPipe{I,O}.md) that composes two pipes together.
 
 ## Methods
 ### [Run(I)](../src/Core/Pipes/ThenPipe.cs#L9)
 ```cs
-public async Task<O2> Run(I i)
+public async Task&lt;O2&gt; Run(I i)
 ```
 
 Asynchronously processes the specified input and returns the output.

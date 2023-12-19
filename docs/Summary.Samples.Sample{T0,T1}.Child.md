@@ -1,13 +1,13 @@
-# [~~Summary.Samples.Sample<T0, T1>.Child~~](../src/Core/Samples/Sample.cs#L42)
-> [!WARNING]
-> The type is deprecated.
+# [~~Summary.Samples.Sample&lt;T0, T1&gt;.Child~~](../src/Core/Samples/Sample.cs#L42)
+&gt; [!WARNING]
+&gt; The type is deprecated.
 
 ```cs
 [Obsolete(error: true, message: "The type is deprecated.")]
 public class Child
 ```
 
-A child of the [`Sample<T0, T1>`](./Summary.Samples.Sample{T0,T1}.md) class.
+A child of the [`Sample&lt;T0, T1&gt;`](./Summary.Samples.Sample{T0,T1}.md) class.
 
 ## Fields
 ### [Field](../src/Core/Samples/Sample.cs#L47)

@@ -6,9 +6,9 @@ public static class Extensions
 Extension methods that simplify unit testing and should not be included in the package.
 
 ## Methods
-### [RunSync<O>(IPipe<Unit, O>)](../src/Tests/Extensions.cs#L14)
+### [RunSync&lt;O&gt;(IPipe&lt;Unit, O&gt;)](../src/Tests/Extensions.cs#L14)
 ```cs
-public static O RunSync<O>(this IPipe<Unit, O> self)
+public static O RunSync&lt;O&gt;(this IPipe&lt;Unit, O&gt; self)
 ```
 
 Runs the pipe synchronously.
@@ -16,9 +16,9 @@ Runs the pipe synchronously.
 #### Parameters
 - `self`: The pipe to execute.
 
-### [RunSync<I, O>(IPipe<I, O>, I)](../src/Tests/Extensions.cs#L18)
+### [RunSync&lt;I, O&gt;(IPipe&lt;I, O&gt;, I)](../src/Tests/Extensions.cs#L18)
 ```cs
-public static O RunSync<I, O>(this IPipe<I, O> self, I input)
+public static O RunSync&lt;I, O&gt;(this IPipe&lt;I, O&gt; self, I input)
 ```
 
 Runs the pipe synchronously.

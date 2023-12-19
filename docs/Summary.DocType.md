@@ -3,7 +3,7 @@
 public record DocType(string Name, DocType[] TypeParams, string? FullyQualifiedName = null)
 ```
 
-A simple type (e.g. `int`, `string`, `List<int>`, etc.).
+A simple type (e.g. `int`, `string`, `List&lt;int&gt;`, etc.).
 
 ## Properties
 ### [FullName](../src/Core/DocType.cs#L16)

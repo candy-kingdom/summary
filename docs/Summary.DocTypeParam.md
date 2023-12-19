@@ -19,5 +19,5 @@ The name of the parameter.
 public DocCommentElement? Comment(DocMember parent)
 ```
 
-The comment of the parameter (i.e., `<typeparam>` tag).
+The comment of the parameter (i.e., `&lt;typeparam&gt;` tag).
 

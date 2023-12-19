@@ -23,7 +23,7 @@ The path to the file.
 ## Methods
 ### [Read(string, CancellationToken)](../src/Core/Pipes/IO/Source.cs#L13)
 ```cs
-public static async Task<Source> Read(string path, CancellationToken token = default)
+public static async Task&lt;Source&gt; Read(string path, CancellationToken token = default)
 ```
 
 Reads source code from the specified file.

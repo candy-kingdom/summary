@@ -4,7 +4,7 @@ public record DocCommentParamRef(string Value) : DocCommentNode
 ```
 
 A [`DocCommentNode`](./Summary.DocCommentNode.md) that represents the reference to a parameter
-(`<paramref>`, `<typeparamref>`).
+(`&lt;paramref&gt;`, `&lt;typeparamref&gt;`).
 
 ## Properties
 ### [Value](../src/Core/DocCommentParamRef.cs#L8)

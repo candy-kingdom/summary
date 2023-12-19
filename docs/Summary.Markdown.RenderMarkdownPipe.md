@@ -1,13 +1,13 @@
 # [Summary.Markdown.RenderMarkdownPipe](../src/Plugins/Markdown/RenderMarkdownPipe.cs#L9)
 ```cs
-public class RenderMarkdownPipe : IPipe<Doc, Md[]>
+public class RenderMarkdownPipe : IPipe&lt;Doc, Md[]&gt;
 ```
 
-A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that renders generated document into the sequence of Markdown files.
+A [`IPipe&lt;I, O&gt;`](./Summary.Pipes.IPipe{I,O}.md) that renders generated document into the sequence of Markdown files.
 
 ## Methods
 ### [Run(Doc)](../src/Plugins/Markdown/RenderMarkdownPipe.cs#L11)
 ```cs
-public Task<Md[]> Run(Doc doc)
+public Task&lt;Md[]&gt; Run(Doc doc)
 ```
 

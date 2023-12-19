@@ -118,9 +118,9 @@ Calculates the sum.
 #### Returns
 Returns the sum of two values.
 
-### [Sum<T>(byte, byte)](../src/Core/Samples/InheritDocSample.cs#L83)
+### [Sum&lt;T&gt;(byte, byte)](../src/Core/Samples/InheritDocSample.cs#L83)
 ```cs
-public byte Sum<T>(byte x, byte y)
+public byte Sum&lt;T&gt;(byte x, byte y)
 ```
 
 Calculates the byte sum.

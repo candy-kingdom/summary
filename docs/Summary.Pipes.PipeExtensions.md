@@ -3,89 +3,89 @@
 public static class PipeExtensions
 ```
 
-Extension methods for [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md).
+Extension methods for [`IPipe&lt;I, O&gt;`](./Summary.Pipes.IPipe{I,O}.md).
 
 ## Methods
-### [Fold<I>(IPipe<I, Unit[]>)](../src/Core/Pipes/PipeExtensions.cs#L14)
+### [Fold&lt;I&gt;(IPipe&lt;I, Unit[]&gt;)](../src/Core/Pipes/PipeExtensions.cs#L14)
 ```cs
-public static IPipe<I, Unit> Fold<I>(this IPipe<I, Unit[]> self)
+public static IPipe&lt;I, Unit&gt; Fold&lt;I&gt;(this IPipe&lt;I, Unit[]&gt; self)
 ```
 
 Folds the result of the specified pipe into a single [`Unit`](./Summary.Pipes.Unit.md) value.
 
-### [Run<O>(IPipe<Unit, O>)](../src/Core/Pipes/PipeExtensions.cs#L20)
+### [Run&lt;O&gt;(IPipe&lt;Unit, O&gt;)](../src/Core/Pipes/PipeExtensions.cs#L20)
 ```cs
-public static Task<O> Run<O>(this IPipe<Unit, O> self)
+public static Task&lt;O&gt; Run&lt;O&gt;(this IPipe&lt;Unit, O&gt; self)
 ```
 
 Asynchronously runs the pipe.
 
-### [Then<I, O1, O2>(IPipe<I, O1>, IPipe<O1, O2>)](../src/Core/Pipes/PipeExtensions.cs#L26)
+### [Then&lt;I, O1, O2&gt;(IPipe&lt;I, O1&gt;, IPipe&lt;O1, O2&gt;)](../src/Core/Pipes/PipeExtensions.cs#L26)
 ```cs
-public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, IPipe<O1, O2> b)
+public static IPipe&lt;I, O2&gt; Then&lt;I, O1, O2&gt;(this IPipe&lt;I, O1&gt; a, IPipe&lt;O1, O2&gt; b)
 ```
 
 Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
 
-### [Then<I, O>(IPipe<I, O>, IPipe<O, O>, bool)](../src/Core/Pipes/PipeExtensions.cs#L32)
+### [Then&lt;I, O&gt;(IPipe&lt;I, O&gt;, IPipe&lt;O, O&gt;, bool)](../src/Core/Pipes/PipeExtensions.cs#L32)
 ```cs
-public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, IPipe<O, O> b, bool when)
+public static IPipe&lt;I, O&gt; Then&lt;I, O&gt;(this IPipe&lt;I, O&gt; a, IPipe&lt;O, O&gt; b, bool when)
 ```
 
 Composes the pipe with another pipe so that the output of the first pipe is passed as an input to the second pipe.
 
-### [Then<I, O1, O2>(IPipe<I, O1>, Func<O1, O2>)](../src/Core/Pipes/PipeExtensions.cs#L38)
+### [Then&lt;I, O1, O2&gt;(IPipe&lt;I, O1&gt;, Func&lt;O1, O2&gt;)](../src/Core/Pipes/PipeExtensions.cs#L38)
 ```cs
-public static IPipe<I, O2> Then<I, O1, O2>(this IPipe<I, O1> a, Func<O1, O2> map)
+public static IPipe&lt;I, O2&gt; Then&lt;I, O1, O2&gt;(this IPipe&lt;I, O1&gt; a, Func&lt;O1, O2&gt; map)
 ```
 
 Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
 
-### [Then<I, O>(IPipe<I, O>, Func<O, O>, bool)](../src/Core/Pipes/PipeExtensions.cs#L44)
+### [Then&lt;I, O&gt;(IPipe&lt;I, O&gt;, Func&lt;O, O&gt;, bool)](../src/Core/Pipes/PipeExtensions.cs#L44)
 ```cs
-public static IPipe<I, O> Then<I, O>(this IPipe<I, O> a, Func<O, O> map, bool when)
+public static IPipe&lt;I, O&gt; Then&lt;I, O&gt;(this IPipe&lt;I, O&gt; a, Func&lt;O, O&gt; map, bool when)
 ```
 
 Constructs a new pipe that will apply the specified `select` function to the output of the current pipe.
 
-### [ThenForEach<I, O1, O2>(IPipe<I, O1[]>, IPipe<O1, O2>)](../src/Core/Pipes/PipeExtensions.cs#L50)
+### [ThenForEach&lt;I, O1, O2&gt;(IPipe&lt;I, O1[]&gt;, IPipe&lt;O1, O2&gt;)](../src/Core/Pipes/PipeExtensions.cs#L50)
 ```cs
-public static IPipe<I, O2[]> ThenForEach<I, O1, O2>(this IPipe<I, O1[]> a, IPipe<O1, O2> b)
+public static IPipe&lt;I, O2[]&gt; ThenForEach&lt;I, O1, O2&gt;(this IPipe&lt;I, O1[]&gt; a, IPipe&lt;O1, O2&gt; b)
 ```
 
 Constructs a new pipe that will apply the specified map pipe to the each element of the output of the current pipe.
 
-### [Tee<I, O>(IPipe<I, O>, Action<O>)](../src/Core/Pipes/PipeExtensions.cs#L56)
+### [Tee&lt;I, O&gt;(IPipe&lt;I, O&gt;, Action&lt;O&gt;)](../src/Core/Pipes/PipeExtensions.cs#L56)
 ```cs
-public static IPipe<I, O> Tee<I, O>(this IPipe<I, O> a, Action<O> action)
+public static IPipe&lt;I, O&gt; Tee&lt;I, O&gt;(this IPipe&lt;I, O&gt; a, Action&lt;O&gt; action)
 ```
 
 Constructs a new pipe that will execute the specified action on the output.
 
-### [Logged<I, O>(IPipe<I, O>, ILoggerFactory, string)](../src/Core/Pipes/PipeExtensions.cs#L62)
+### [Logged&lt;I, O&gt;(IPipe&lt;I, O&gt;, ILoggerFactory, string)](../src/Core/Pipes/PipeExtensions.cs#L62)
 ```cs
-public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, string message)
+public static IPipe&lt;I, O&gt; Logged&lt;I, O&gt;(this IPipe&lt;I, O&gt; self, ILoggerFactory factory, string message)
 ```
 
 Logs the execution of the given pipe using the specified logger factory.
 
-### [Logged<I, O>(IPipe<I, O>, ILoggerFactory, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L66)
+### [Logged&lt;I, O&gt;(IPipe&lt;I, O&gt;, ILoggerFactory, Func&lt;I, string&gt;)](../src/Core/Pipes/PipeExtensions.cs#L66)
 ```cs
-public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILoggerFactory factory, Func<I, string> message)
+public static IPipe&lt;I, O&gt; Logged&lt;I, O&gt;(this IPipe&lt;I, O&gt; self, ILoggerFactory factory, Func&lt;I, string&gt; message)
 ```
 
 Logs the execution of the given pipe using the specified logger factory.
 
-### [Logged<I, O>(IPipe<I, O>, ILogger, string)](../src/Core/Pipes/PipeExtensions.cs#L72)
+### [Logged&lt;I, O&gt;(IPipe&lt;I, O&gt;, ILogger, string)](../src/Core/Pipes/PipeExtensions.cs#L72)
 ```cs
-public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, string message)
+public static IPipe&lt;I, O&gt; Logged&lt;I, O&gt;(this IPipe&lt;I, O&gt; self, ILogger logger, string message)
 ```
 
 Logs the execution of the given pipe using the specified logger.
 
-### [Logged<I, O>(IPipe<I, O>, ILogger, Func<I, string>)](../src/Core/Pipes/PipeExtensions.cs#L76)
+### [Logged&lt;I, O&gt;(IPipe&lt;I, O&gt;, ILogger, Func&lt;I, string&gt;)](../src/Core/Pipes/PipeExtensions.cs#L76)
 ```cs
-public static IPipe<I, O> Logged<I, O>(this IPipe<I, O> self, ILogger logger, Func<I, string> message)
+public static IPipe&lt;I, O&gt; Logged&lt;I, O&gt;(this IPipe&lt;I, O&gt; self, ILogger logger, Func&lt;I, string&gt; message)
 ```
 
 Logs the execution of the given pipe using the specified logger.

@@ -3,7 +3,7 @@
 public record DocCommentLink(DocMember? Member, string Value) : DocCommentNode
 ```
 
-A [`DocCommentNode`](./Summary.DocCommentNode.md) that represents the link to other member (e.g. `<see cref="SomeMember"/>`).
+A [`DocCommentNode`](./Summary.DocCommentNode.md) that represents the link to other member (e.g. `&lt;see cref="SomeMember"/&gt;`).
 
 ## Properties
 ### [Member](../src/Core/DocCommentLink.cs#L9)

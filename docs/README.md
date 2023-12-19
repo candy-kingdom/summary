@@ -39,13 +39,13 @@
 - [**Summary.Pipelines.FilteringExtensions**](Summary.Pipelines.FilteringExtensions.md)
 
 # Summary.Pipes
-- [**Summary.Pipes.FoldPipe<O>**](Summary.Pipes.FoldPipe{O}.md)
-- [**Summary.Pipes.FuncPipe<I, O>**](Summary.Pipes.FuncPipe{I,O}.md)
-- [**Summary.Pipes.IPipe<I, O>**](Summary.Pipes.IPipe{I,O}.md)
+- [**Summary.Pipes.FoldPipe&lt;O&gt;**](Summary.Pipes.FoldPipe{O}.md)
+- [**Summary.Pipes.FuncPipe&lt;I, O&gt;**](Summary.Pipes.FuncPipe{I,O}.md)
+- [**Summary.Pipes.IPipe&lt;I, O&gt;**](Summary.Pipes.IPipe{I,O}.md)
 - [**Summary.Pipes.PipeExtensions**](Summary.Pipes.PipeExtensions.md)
-- [**Summary.Pipes.TeePipe<I, O>**](Summary.Pipes.TeePipe{I,O}.md)
-- [**Summary.Pipes.ThenForEach<I, O1, O2>**](Summary.Pipes.ThenForEach{I,O1,O2}.md)
-- [**Summary.Pipes.ThenPipe<I, O1, O2>**](Summary.Pipes.ThenPipe{I,O1,O2}.md)
+- [**Summary.Pipes.TeePipe&lt;I, O&gt;**](Summary.Pipes.TeePipe{I,O}.md)
+- [**Summary.Pipes.ThenForEach&lt;I, O1, O2&gt;**](Summary.Pipes.ThenForEach{I,O1,O2}.md)
+- [**Summary.Pipes.ThenPipe&lt;I, O1, O2&gt;**](Summary.Pipes.ThenPipe{I,O1,O2}.md)
 - [**Summary.Pipes.Unit**](Summary.Pipes.Unit.md)
 
 # Summary.Samples
@@ -60,8 +60,8 @@
 - [**Summary.Samples.InheritDoc_InterfaceChild**](Summary.Samples.InheritDoc_InterfaceChild.md)
 - [**Summary.Samples.InheritDocRecordBase**](Summary.Samples.InheritDocRecordBase.md)
 - [**Summary.Samples.InheritDocRecordBase_Child**](Summary.Samples.InheritDocRecordBase_Child.md)
-- [**Summary.Samples.Sample<T0, T1>**](Summary.Samples.Sample{T0,T1}.md)
-- [**Summary.Samples.Sample<T0, T1>.Child**](Summary.Samples.Sample{T0,T1}.Child.md)
+- [**Summary.Samples.Sample&lt;T0, T1&gt;**](Summary.Samples.Sample{T0,T1}.md)
+- [**Summary.Samples.Sample&lt;T0, T1&gt;.Child**](Summary.Samples.Sample{T0,T1}.Child.md)
 
 # Summary.Markdown
 - [**Summary.Markdown.MarkdownPipelineExtensions**](Summary.Markdown.MarkdownPipelineExtensions.md)
@@ -84,13 +84,13 @@
 - [**Summary.Pipes.Filters.FilterMemberPipe**](Summary.Pipes.Filters.FilterMemberPipe.md)
 
 # Summary.Pipes.IO
-- [**Summary.Pipes.IO.CleanupDirPipe<I>**](Summary.Pipes.IO.CleanupDirPipe{I}.md)
-- [**Summary.Pipes.IO.SavePipe<I>**](Summary.Pipes.IO.SavePipe{I}.md)
+- [**Summary.Pipes.IO.CleanupDirPipe&lt;I&gt;**](Summary.Pipes.IO.CleanupDirPipe{I}.md)
+- [**Summary.Pipes.IO.SavePipe&lt;I&gt;**](Summary.Pipes.IO.SavePipe{I}.md)
 - [**Summary.Pipes.IO.ScanPipe**](Summary.Pipes.IO.ScanPipe.md)
 - [**Summary.Pipes.IO.Source**](Summary.Pipes.IO.Source.md)
 
 # Summary.Pipes.Logging
-- [**Summary.Pipes.Logging.LoggedPipe<I, O>**](Summary.Pipes.Logging.LoggedPipe{I,O}.md)
+- [**Summary.Pipes.Logging.LoggedPipe&lt;I, O&gt;**](Summary.Pipes.Logging.LoggedPipe{I,O}.md)
 
 # Summary.Roslyn.CSharp
 - [**Summary.Roslyn.CSharp.InlineInheritDocPipe**](Summary.Roslyn.CSharp.InlineInheritDocPipe.md)
