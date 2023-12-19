@@ -19,12 +19,12 @@ public void Dispose()
 
 ### [Log&lt;TState&gt;(LogLevel, EventId, TState, Exception?&lt;Exception&gt;, Func&lt;TState, Exception?&lt;Exception&gt;, string&gt;)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L41)
 ```cs
-public void Log&lt;TState&gt;(
+public void Log<TState>(
             LogLevel logLevel,
             EventId eventId,
             TState state,
             Exception? exception,
-            Func&lt;TState, Exception?, string&gt; formatter)
+            Func<TState, Exception?, string> formatter)
 ```
 
 ### [IsEnabled(LogLevel)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L49)
@@ -34,7 +34,7 @@ public bool IsEnabled(LogLevel logLevel)
 
 ### [BeginScope&lt;TState&gt;(TState)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L51)
 ```cs
-public IDisposable? BeginScope&lt;TState&gt;(TState state)
+public IDisposable? BeginScope<TState>(TState state)
 ```
 
 ### [CreateLogger(string)](../src/Cli/Logging/ConsoleLoggerFactory.cs#L63)

@@ -1,6 +1,6 @@
 # [Summary.Samples.Sample&lt;T0, T1&gt;](../src/Core/Samples/Sample.cs#L35)
 ```cs
-public class Sample&lt;T0, T1&gt;
+public class Sample<T0, T1>
 ```
 
 A sample class that is documented.
@@ -15,7 +15,7 @@ Here is a ~~strikethrough~~ fragment.
 _Remarks section._
 _Second line._
 _Another paragraph._
-_Btw, this type has a child: [`Sample&lt;T0, T1&gt;.Child`](./Summary.Samples.Sample{T0,T1}.Child.md)._
+_Btw, this type has a child: [`Sample<T0, T1>.Child`](./Summary.Samples.Sample{T0,T1}.Child.md)._
 
 ## Type Parameters
 - `T0`: A first type parameter.
@@ -53,8 +53,8 @@ public int Field
 A field of the child class.
 
 ### [~~Field1~~](../src/Core/Samples/Sample.cs#L59)
-&gt; [!WARNING]
-&gt; The field is deprecated.
+> [!WARNING]
+> The field is deprecated.
 
 ```cs
 [Obsolete("The field is deprecated.")]
@@ -126,7 +126,7 @@ What indexer returns.
 ## Methods
 ### [Method&lt;M0, M1, M2&gt;(int, string)](../src/Core/Samples/Sample.cs#L130)
 ```cs
-public TimeSpan Method&lt;M0, M1, M2&gt;(int x, string y)
+public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
 
 A simple method.
@@ -156,10 +156,10 @@ The `TimeSpan` instance.
 
 ### [Method&lt;M0, M1, M2&gt;(short, string)](../src/Core/Samples/Sample.cs#L137)
 ```cs
-public TimeSpan Method&lt;M0, M1, M2&gt;(short x, string y)
+public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```
 
-The overloaded [`Method&lt;M0, M1, M2&gt;(int, string)`](./Summary.Samples.Sample{T0,T1}.md#methodm0-m1-m2int-string).
+The overloaded [`Method<M0, M1, M2>(int, string)`](./Summary.Samples.Sample{T0,T1}.md#methodm0-m1-m2int-string).
 
 #### Type Parameters
 - `M0`: The first type parameter of the method.

@@ -33,7 +33,7 @@ public string Signature { get; }
 ```
 
 The full signature of the method that includes both type parameters and regular parameters
-(e.g., `"Method&lt;T1, T2&gt;(int, short)"`).
+(e.g., `"Method<T1, T2>(int, short)"`).
 
 ### [FullyQualifiedSignature](../src/Core/DocMethod.cs#L39)
 ```cs
@@ -41,5 +41,5 @@ public string FullyQualifiedSignature { get; }
 ```
 
 The full signature of the method that includes both type parameters and regular parameters
-(e.g., `"Method&lt;T1, T2&gt;(int, short)"`).
+(e.g., `"Method<T1, T2>(int, short)"`).
 

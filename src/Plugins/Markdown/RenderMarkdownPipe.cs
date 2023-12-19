@@ -21,14 +21,14 @@ public class RenderMarkdownPipe(string output) : IPipe<Doc, Md[]>
 
     private Md Render(Doc doc, DocMember member)
     {
-        var text = new MdRenderer(doc, output).Member(member).Text().Escape();
+        var text = new MdRenderer(doc, output).Member(member).Text();
 
         return new($"{member.FileName()}.md", text);
     }
 
     private Md Index(Doc doc)
     {
-        return new("README.md", Content().Escape());
+        return new("README.md", Content());
 
         string Content()
         {
@@ -45,7 +45,7 @@ public class RenderMarkdownPipe(string output) : IPipe<Doc, Md[]>
                 text.AppendLine($"# {ns}");
 
                 foreach (var member in members)
-                    text.AppendLine($"- [**{member.FullyQualifiedName}**]({member.FileName()}.md)");
+                    text.AppendLine($"- [**{member.FullyQualifiedName.Escape()}**]({member.FileName()}.md)");
 
                 text.AppendLine();
             }

@@ -37,7 +37,7 @@ Whether this type declaration is a record declaration.
 
 ### [AllMembers](../src/Core/DocTypeDeclaration.cs#L35)
 ```cs
-public IEnumerable&lt;DocMember&gt; AllMembers { get; }
+public IEnumerable<DocMember> AllMembers { get; }
 ```
 
 All nested members (including children of children) of this type declaration.
@@ -45,7 +45,7 @@ All nested members (including children of children) of this type declaration.
 ## Methods
 ### [MembersOfType(DocMember)](../src/Core/DocTypeDeclaration.cs#L41)
 ```cs
-public IEnumerable&lt;DocMember&gt; MembersOfType(DocMember member)
+public IEnumerable<DocMember> MembersOfType(DocMember member)
 ```
 
 A sequence of members of this type declaration that has the same type as the specified one.

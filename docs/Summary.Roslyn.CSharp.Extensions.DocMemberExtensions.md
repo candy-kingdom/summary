@@ -8,7 +8,7 @@ A set of extension methods for [`DocMember`](./Summary.DocMember.md).
 ## Methods
 ### [WithComment&lt;T&gt;(T, MemberDeclarationSyntax)](../src/Plugins/Roslyn/CSharp/Extensions/DocMemberExtensions.cs#L13)
 ```cs
-public static T WithComment&lt;T&gt;(this T self, MemberDeclarationSyntax syntax)
+public static T WithComment<T>(this T self, MemberDeclarationSyntax syntax)
 ```
 
 Parses the comment from the specified member syntax and attaches it to this doc member.

@@ -14,14 +14,14 @@ public static string AsCref(this string self)
 Converts the given string into the format of `cref` attribute value.
 
 #### Example
-In the following example, the `"Some&lt;T1, T2&gt;"` string
+In the following example, the `"Some<T1, T2>"` string
 (which represents the name of some type)
 is converted into `"Some{T1,T2}"` as if it was a value of a link
-(e.g., &lt;see cref="Some{T1,T2}"&gt;):
+(e.g., <see cref="Some{T1,T2}">):
 ```cs
-var a = "Some&lt;T1, T2&gt;";
+var a = "Some<T1, T2>";
 var b = a.AsCref();
-&lt;br/&gt;
+<br/>
 b.Should().Be("Some{T1,T2}");
 ```
 
@@ -34,14 +34,14 @@ Converts the given string into the format of `cref` attribute value
 but also removes all generic parameter names.
 
 #### Example
-In the following example, the `"Some&lt;T1, T2&gt;"` string
+In the following example, the `"Some<T1, T2>"` string
 (which represents the name of some type)
 is converted into `"Some{,}"`, the raw form of `cref` that can be used for comparisons
 without involving generic type parameter names.
 ```cs
-var a = "Some&lt;T1, T2&gt;";
+var a = "Some<T1, T2>";
 var b = a.AsCref();
-&lt;br/&gt;
+<br/>
 b.Should().Be("Some{,}");
 ```
 
@@ -55,11 +55,11 @@ Converts the given string from the format of `cref` attribute value.
 #### Example
 In the following example, the `"Some{T1,T2}"` string
 (which represents the name of some type in the `cref` format)
-is converted into `"Some&lt;T1, T2&gt;` so that it can be displayed somewhere.
+is converted into `"Some<T1, T2>` so that it can be displayed somewhere.
 ```cs
 var a = "Some{T1,T2}";
 var b = a.AsCref();
-&lt;br/&gt;
-b.Should().Be("Some&lt;T1, T2&gt;");
+<br/>
+b.Should().Be("Some<T1, T2>");
 ```
 

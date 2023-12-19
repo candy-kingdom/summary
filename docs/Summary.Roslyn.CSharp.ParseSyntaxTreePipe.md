@@ -1,13 +1,13 @@
 # [Summary.Roslyn.CSharp.ParseSyntaxTreePipe](../src/Plugins/Roslyn/CSharp/ParseSyntaxTreePipe.cs#L11)
 ```cs
-public class ParseSyntaxTreePipe : IPipe&lt;Source, SyntaxTree&gt;
+public class ParseSyntaxTreePipe : IPipe<Source, SyntaxTree>
 ```
 
-A [`IPipe&lt;I, O&gt;`](./Summary.Pipes.IPipe{I,O}.md) that parses the specified string into a &lt;u&gt;`SyntaxTree`&lt;/u&gt;.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that parses the specified string into a <u>`SyntaxTree`</u>.
 
 ## Methods
 ### [Run(Source)](../src/Plugins/Roslyn/CSharp/ParseSyntaxTreePipe.cs#L13)
 ```cs
-public Task&lt;SyntaxTree&gt; Run(Source input)
+public Task<SyntaxTree> Run(Source input)
 ```
 

@@ -27,7 +27,7 @@ The sequence of nodes this comment consists of (e.g. `summary`, `remarks`, etc.)
 public DocCommentElement? Param(string name)
 ```
 
-A nested `&lt;param&gt;` documentation element that has the specified name.
+A nested `<param>` documentation element that has the specified name.
 
 #### Parameters
 - `name`: The name of the parameter to search inside the comment.
@@ -37,7 +37,7 @@ A nested `&lt;param&gt;` documentation element that has the specified name.
 public DocCommentElement? TypeParam(string name)
 ```
 
-A nested `&lt;typeparam&gt;` documentation element that has the specified name.
+A nested `<typeparam>` documentation element that has the specified name.
 
 #### Parameters
 - `name`: The name of the parameter to search inside the comment.
@@ -65,7 +65,7 @@ A nested documentation element that has the specified name (e.g. `summary`, `rem
 
 ### [Element(Func&lt;DocCommentElement, bool&gt;)](../src/Core/DocComment.cs#L47)
 ```cs
-public DocCommentElement? Element(Func&lt;DocCommentElement, bool&gt; p)
+public DocCommentElement? Element(Func<DocCommentElement, bool> p)
 ```
 
 A nested documentation element that matches the specified predicate `p`.
@@ -75,7 +75,7 @@ A nested documentation element that matches the specified predicate `p`.
 
 ### [Elements(string)](../src/Core/DocComment.cs#L54)
 ```cs
-public IEnumerable&lt;DocCommentElement&gt; Elements(string tag)
+public IEnumerable<DocCommentElement> Elements(string tag)
 ```
 
 A sequence of nested documentation elements that have the specified name (e.g. `summary`, `remarks`, etc.).
@@ -85,7 +85,7 @@ A sequence of nested documentation elements that have the specified name (e.g. `
 
 ### [Elements(Func&lt;DocCommentElement, bool&gt;)](../src/Core/DocComment.cs#L61)
 ```cs
-public IEnumerable&lt;DocCommentElement&gt; Elements(Func&lt;DocCommentElement, bool&gt; p)
+public IEnumerable<DocCommentElement> Elements(Func<DocCommentElement, bool> p)
 ```
 
 A sequence of nested documentation elements that match the specified predicate.

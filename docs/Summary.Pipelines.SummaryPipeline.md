@@ -6,7 +6,7 @@ public class SummaryPipeline
 A plain Summary pipeline that should be used in simple cases.
 
 _By default, this pipeline supports one parser pipe and one renderer pipe._
-_&lt;br /&gt;_
+_<br />_
 _Parser pipe should extract [`Doc`](./Summary.Doc.md) from some source (e.g., file system), while_
 _renderer pipe should render the parsed [`Doc`](./Summary.Doc.md) into some format (e.g., Markdown)_
 _and save it somewhere (e.g., file system)._
@@ -21,7 +21,7 @@ The factory that provides logger implementations.
 
 ### [Filters](../src/Core/Pipelines/SummaryPipeline.cs#L63)
 ```cs
-public List&lt;IPipe&lt;Doc, Doc&gt;&gt; Filters { get; }
+public List<IPipe<Doc, Doc>> Filters { get; }
 ```
 
 The list of all filters applied after the document is parsed.
@@ -38,35 +38,35 @@ Specifies the logger factory that will be used to create loggers for the pipelin
 
 ### [Customize(Func&lt;Options, Options&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L68)
 ```cs
-public SummaryPipeline Customize(Func&lt;Options, Options&gt; options)
+public SummaryPipeline Customize(Func<Options, Options> options)
 ```
 
 Customizes the default pipeline options using the specified delegate.
 
 ### [ParseWith(Func&lt;Options, IPipe&lt;Unit, Doc&gt;&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L74)
 ```cs
-public SummaryPipeline ParseWith(Func&lt;Options, IPipe&lt;Unit, Doc&gt;&gt; parser)
+public SummaryPipeline ParseWith(Func<Options, IPipe<Unit, Doc>> parser)
 ```
 
 Specifies the custom parser with logging support for this pipeline.
 
 ### [ParseWith(IPipe&lt;Unit, Doc&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L83)
 ```cs
-public SummaryPipeline ParseWith(IPipe&lt;Unit, Doc&gt; parser)
+public SummaryPipeline ParseWith(IPipe<Unit, Doc> parser)
 ```
 
 Specifies the custom parser for this pipeline.
 
 ### [RenderWith(Func&lt;Options, IPipe&lt;Doc, Unit&gt;&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L92)
 ```cs
-public SummaryPipeline RenderWith(Func&lt;Options, IPipe&lt;Doc, Unit&gt;&gt; render)
+public SummaryPipeline RenderWith(Func<Options, IPipe<Doc, Unit>> render)
 ```
 
 Specifies the custom renderer for this pipeline.
 
 ### [RenderWith(IPipe&lt;Doc, Unit&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L101)
 ```cs
-public SummaryPipeline RenderWith(IPipe&lt;Doc, Unit&gt; render)
+public SummaryPipeline RenderWith(IPipe<Doc, Unit> render)
 ```
 
 Specifies the custom renderer for this pipeline.

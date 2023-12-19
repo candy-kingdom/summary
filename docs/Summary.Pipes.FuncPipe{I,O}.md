@@ -1,14 +1,14 @@
 # [Summary.Pipes.FuncPipe&lt;I, O&gt;](../src/Core/Pipes/FuncPipe.cs#L6)
 ```cs
-public class FuncPipe&lt;I, O&gt; : IPipe&lt;I, O&gt;
+public class FuncPipe<I, O> : IPipe<I, O>
 ```
 
-A [`IPipe&lt;I, O&gt;`](./Summary.Pipes.IPipe{I,O}.md) that wraps &lt;u&gt;`Func&lt;I, O&gt;`&lt;/u&gt;.
+A [`IPipe<I, O>`](./Summary.Pipes.IPipe{I,O}.md) that wraps <u>`Func<I, O>`</u>.
 
 ## Methods
 ### [Run(I)](../src/Core/Pipes/FuncPipe.cs#L21)
 ```cs
-public Task&lt;O&gt; Run(I input)
+public Task<O> Run(I input)
 ```
 
 Asynchronously processes the specified input and returns the output.
