@@ -1,4 +1,4 @@
-# [~~Summary.Samples.Sample<T0, T1>.Child~~](../src/Core/Samples/Sample.cs#L42)
+# [~~Summary.Samples.Sample&lt;T0, T1&gt;.Child~~](../src/Core/Samples/Sample.cs#L42)
 > [!WARNING]
 > The type is deprecated.
 

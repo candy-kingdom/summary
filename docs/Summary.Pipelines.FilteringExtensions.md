@@ -45,14 +45,14 @@ var pipeline = ...;
 pipeline.IncludeOnly(AccessModifier.Internal);
 ```
 
-### [WithAccess(SummaryPipeline, Func<AccessModifier, bool>)](../src/Core/Pipelines/SummaryPipelineFilteringExtensions.cs#L50)
+### [WithAccess(SummaryPipeline, Func&lt;AccessModifier, bool&gt;)](../src/Core/Pipelines/SummaryPipelineFilteringExtensions.cs#L50)
 ```cs
 public static SummaryPipeline WithAccess(this SummaryPipeline self, Func<AccessModifier, bool> p)
 ```
 
 Includes only members that have the access modifier that satisfies the given predicate.
 
-### [UseFilter(SummaryPipeline, IPipe<Doc, Doc>)](../src/Core/Pipelines/SummaryPipelineFilteringExtensions.cs#L67)
+### [UseFilter(SummaryPipeline, IPipe&lt;Doc, Doc&gt;)](../src/Core/Pipelines/SummaryPipelineFilteringExtensions.cs#L67)
 ```cs
 public static SummaryPipeline UseFilter(this SummaryPipeline self, IPipe<Doc, Doc> filter)
 ```

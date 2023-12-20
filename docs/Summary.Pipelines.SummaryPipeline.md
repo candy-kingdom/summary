@@ -36,35 +36,35 @@ public Options UseLoggerFactory(ILoggerFactory loggers)
 
 Specifies the logger factory that will be used to create loggers for the pipeline.
 
-### [Customize(Func<Options, Options>)](../src/Core/Pipelines/SummaryPipeline.cs#L68)
+### [Customize(Func&lt;Options, Options&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L68)
 ```cs
 public SummaryPipeline Customize(Func<Options, Options> options)
 ```
 
 Customizes the default pipeline options using the specified delegate.
 
-### [ParseWith(Func<Options, IPipe<Unit, Doc>>)](../src/Core/Pipelines/SummaryPipeline.cs#L74)
+### [ParseWith(Func&lt;Options, IPipe&lt;Unit, Doc&gt;&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L74)
 ```cs
 public SummaryPipeline ParseWith(Func<Options, IPipe<Unit, Doc>> parser)
 ```
 
 Specifies the custom parser with logging support for this pipeline.
 
-### [ParseWith(IPipe<Unit, Doc>)](../src/Core/Pipelines/SummaryPipeline.cs#L83)
+### [ParseWith(IPipe&lt;Unit, Doc&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L83)
 ```cs
 public SummaryPipeline ParseWith(IPipe<Unit, Doc> parser)
 ```
 
 Specifies the custom parser for this pipeline.
 
-### [RenderWith(Func<Options, IPipe<Doc, Unit>>)](../src/Core/Pipelines/SummaryPipeline.cs#L92)
+### [RenderWith(Func&lt;Options, IPipe&lt;Doc, Unit&gt;&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L92)
 ```cs
 public SummaryPipeline RenderWith(Func<Options, IPipe<Doc, Unit>> render)
 ```
 
 Specifies the custom renderer for this pipeline.
 
-### [RenderWith(IPipe<Doc, Unit>)](../src/Core/Pipelines/SummaryPipeline.cs#L101)
+### [RenderWith(IPipe&lt;Doc, Unit&gt;)](../src/Core/Pipelines/SummaryPipeline.cs#L101)
 ```cs
 public SummaryPipeline RenderWith(IPipe<Doc, Unit> render)
 ```

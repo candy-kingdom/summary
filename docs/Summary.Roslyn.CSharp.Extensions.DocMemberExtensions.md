@@ -6,7 +6,7 @@ public static class DocMemberExtensions
 A set of extension methods for [`DocMember`](./Summary.DocMember.md).
 
 ## Methods
-### [WithComment<T>(T, MemberDeclarationSyntax)](../src/Plugins/Roslyn/CSharp/Extensions/DocMemberExtensions.cs#L13)
+### [WithComment&lt;T&gt;(T, MemberDeclarationSyntax)](../src/Plugins/Roslyn/CSharp/Extensions/DocMemberExtensions.cs#L13)
 ```cs
 public static T WithComment<T>(this T self, MemberDeclarationSyntax syntax)
 ```

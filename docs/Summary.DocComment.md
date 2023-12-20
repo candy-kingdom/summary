@@ -63,7 +63,7 @@ A nested documentation element that has the specified name (e.g. `summary`, `rem
 #### Parameters
 - `tag`: The name of the element tag to search inside the comment.
 
-### [Element(Func<DocCommentElement, bool>)](../src/Core/DocComment.cs#L47)
+### [Element(Func&lt;DocCommentElement, bool&gt;)](../src/Core/DocComment.cs#L47)
 ```cs
 public DocCommentElement? Element(Func<DocCommentElement, bool> p)
 ```
@@ -83,7 +83,7 @@ A sequence of nested documentation elements that have the specified name (e.g. `
 #### Parameters
 - `tag`: The name of the element tag to search inside the comment.
 
-### [Elements(Func<DocCommentElement, bool>)](../src/Core/DocComment.cs#L61)
+### [Elements(Func&lt;DocCommentElement, bool&gt;)](../src/Core/DocComment.cs#L61)
 ```cs
 public IEnumerable<DocCommentElement> Elements(Func<DocCommentElement, bool> p)
 ```

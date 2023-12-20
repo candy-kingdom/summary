@@ -1,4 +1,4 @@
-# [Summary.Samples.Sample<T0, T1>](../src/Core/Samples/Sample.cs#L35)
+# [Summary.Samples.Sample&lt;T0, T1&gt;](../src/Core/Samples/Sample.cs#L35)
 ```cs
 public class Sample<T0, T1>
 ```
@@ -124,7 +124,7 @@ A sample indexer.
 What indexer returns.
 
 ## Methods
-### [Method<M0, M1, M2>(int, string)](../src/Core/Samples/Sample.cs#L130)
+### [Method&lt;M0, M1, M2&gt;(int, string)](../src/Core/Samples/Sample.cs#L130)
 ```cs
 public TimeSpan Method<M0, M1, M2>(int x, string y)
 ```
@@ -154,7 +154,7 @@ The `TimeSpan` instance.
 - `ArgumentException`: The argument is incorrect.
 - `ApplicationException`: Something went wrong.
 
-### [Method<M0, M1, M2>(short, string)](../src/Core/Samples/Sample.cs#L137)
+### [Method&lt;M0, M1, M2&gt;(short, string)](../src/Core/Samples/Sample.cs#L137)
 ```cs
 public TimeSpan Method<M0, M1, M2>(short x, string y)
 ```

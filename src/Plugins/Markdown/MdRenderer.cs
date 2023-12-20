@@ -126,7 +126,7 @@ internal class MdRenderer(Doc doc, string output)
                 var from = new Uri(_output);
                 var to = new Uri(member.Location.Path);
 
-                return $"[{text}]({from.MakeRelativeUri(to)}#L{member.Location.Start.Line + 1})";
+                return $"[{text.Escape()}]({from.MakeRelativeUri(to)}#L{member.Location.Start.Line + 1})";
             }
 
             return text;

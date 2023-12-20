@@ -33,7 +33,7 @@ Merges two documents together returning the new merged document.
 - `a`: The first document to merge.
 - `b`: The second document to merge.
 
-### [Declaration(DocType?<DocType>)](../src/Core/Doc.cs#L29)
+### [Declaration(DocType?&lt;DocType&gt;)](../src/Core/Doc.cs#L29)
 ```cs
 public DocTypeDeclaration? Declaration(DocType? type)
 ```

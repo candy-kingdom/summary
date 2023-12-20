@@ -1,4 +1,4 @@
-# [Summary.Pipes.ThenPipe<I, O1, O2>](../src/Core/Pipes/ThenPipe.cs#L6)
+# [Summary.Pipes.ThenPipe&lt;I, O1, O2&gt;](../src/Core/Pipes/ThenPipe.cs#L6)
 ```cs
 public class ThenPipe<I, O1, O2> : IPipe<I, O2>
 ```

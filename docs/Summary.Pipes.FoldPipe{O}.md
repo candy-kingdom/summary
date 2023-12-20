@@ -1,4 +1,4 @@
-# [Summary.Pipes.FoldPipe<O>](../src/Core/Pipes/FoldPipe.cs#L6)
+# [Summary.Pipes.FoldPipe&lt;O&gt;](../src/Core/Pipes/FoldPipe.cs#L6)
 ```cs
 public class FoldPipe<O> : IPipe<O[], O>
 ```
